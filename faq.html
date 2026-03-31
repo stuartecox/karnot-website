@@ -841,8 +841,9 @@
 
   async function queryAI(q, retries){
     retries = retries || 3;
-    var apiKey = 'AIzaSyCorUUSGLjr1XNj9-N_GHK_23bjnWSeWJc';
-    var apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=' + apiKey;
+    /* API key removed for security - configure via environment or backend proxy */
+    var apiKey = '';
+    var apiUrl = '';
     var sysPrompt = 'You are a friendly technical support assistant for Karnot Heat Pumps. Your knowledge is strictly limited to the following context. If a question cannot be answered from context, politely say so. Keep answers clear and concise.\n\n' + faqContext;
     var payload = { contents:[{parts:[{text:q}]}], systemInstruction:{parts:[{text:sysPrompt}]} };
 
