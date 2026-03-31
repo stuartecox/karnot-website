@@ -300,49 +300,79 @@
 <!-- Calculator Logic (unchanged from source) -->
 <script>
 var quoteData={};
+/**
+ * CONFIG — synced with karnot-crm constants.js & heatPumpLogic.js
+ * Engineering constants: ASHRAE Fundamentals, CIBSE Guide A/B/C, EN 14511
+ * COP rating conditions: EN 14511 (ambient 20°C, lift 40°C)
+ * Emissions: DEFRA 2024 / Philippines DOE
+ * Last sync: 2026-03-31
+ */
 var CONFIG={
-  FX:{PHP:62,USD:1,GBP:0.79,EUR:0.92},
+  FX:{PHP:58.5,USD:1,GBP:0.79,EUR:0.92},
   symbols:{PHP:"\u20B1",USD:"$",GBP:"\u00A3",EUR:"\u20AC"},
   defaultRate:{
     PHP:{grid:12.25,lpgPrice:950,lpgSize:11,gas:7.0,diesel:119},
     USD:{grid:0.21,lpgPrice:25,lpgSize:9,gas:0.05,diesel:1.00},
-    GBP:{grid:0.25,lpgPrice:20,lpgSize:13,gas:0.07,diesel:1.30},
-    EUR:{grid:0.22,lpgPrice:22,lpgSize:11,gas:0.11,diesel:1.40}
+    GBP:{grid:0.17,lpgPrice:20,lpgSize:13,gas:0.07,diesel:1.30},
+    EUR:{grid:0.19,lpgPrice:22,lpgSize:11,gas:0.11,diesel:1.40}
   },
+  /* EN 14511 rating conditions */
   RATED_AMBIENT_C:20,RATED_LIFT_C:40,
+  /* DEFRA 2024 / Philippines DOE emission factors (kg CO₂/kWh) */
   EM_FACTOR:{electric_grid:0.7,electric_solar:0.12,propane:0.23,gas:0.20,diesel:0.25},
+  /* CIBSE Guide F fuel data */
   KWH_PER_KG_LPG:13.8,DIESEL_KWH_PER_LITER:10.7,COP_STANDARD:1,
+  /* Solar PV defaults */
   SOLAR_PANEL_KW_RATED:0.425,SOLAR_PANEL_COST_USD:200,INVERTER_COST_PER_WATT_USD:0.30,
+  /* EN 14511 standard cooling COP */
   COOLING_COP:2.6,
+  /* Water specific heat — ASHRAE Fundamentals Ch.33: 1.163 Wh/(L·K) */
+  WATER_SPEC_HEAT:1.163,
+  /* ASHRAE coincidence factors for DHW peak sizing */
+  COINCIDENCE:{home:{f:1.0,h:1.0},restaurant:{f:0.5,h:3.0},resort:{f:0.4,h:2.0},spa:{f:0.6,h:2.0},school:{f:0.3,h:1.5},office:{f:0.4,h:2.0}},
+  /*
+   * Heat pump product catalog — synced from CRM inventory
+   * kw: nominal DHW output (kW), used for recovery rate calculation
+   * cop: rated COP at EN 14511 conditions (ambient 20°C, ΔT 40K)
+   * All prices set to 0 — website shows ROI only, not pricing
+   */
   HEAT_PUMP_SYSTEMS:[
-    {base_lhr:35,base_daily_L:900,n:"Karnot R290 AquaHERO 200L",usd:1754,type:'r290',cop:3.6,isReversible:false,integral_storage_L:200,max_temp_c:70},
-    {base_lhr:50,base_daily_L:1500,n:"Karnot R290 AquaHERO 300L",usd:1916,type:'r290',cop:3.6,isReversible:false,integral_storage_L:300,max_temp_c:70},
-    {base_lhr:100,n:"Karnot iHEAT R32 - 6kW",usd:2546,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
-    {base_lhr:150,n:"Karnot iHEAT R32 - 9.5kW",usd:2678,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
-    {base_lhr:200,n:"Karnot iHEAT R32 - 12kW",usd:2884,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
-    {base_lhr:250,n:"Karnot iHEAT R32 - 16kW",usd:3154,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
-    {base_lhr:300,n:"Karnot iHEAT R32 - 22kW",usd:3728,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
-    {base_lhr:150,n:"Karnot iHEAT R290 - 9.5kW",usd:3944,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
-    {base_lhr:200,n:"Karnot iHEAT R290 - 11.5kW",usd:4126,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
-    {base_lhr:280,n:"Karnot iHEAT R290 - 15.5kW",usd:5582,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
-    {base_lhr:300,n:"Karnot iHEAT R290 - 18kW",usd:5876,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
-    {base_lhr:480,n:"Karnot iHEAT R290 - 30kW",usd:6856,type:'r290',cop:3.85,isReversible:true,max_temp_c:80},
-    {base_lhr:800,n:"Karnot iHEAT R290 - 50kW",usd:10300,type:'r290',cop:3.80,isReversible:true,max_temp_c:80},
-    {base_lhr:1600,n:"Karnot iHEAT R290 - 100kW",usd:15339,type:'r290',cop:3.71,isReversible:true,max_temp_c:80},
-    {base_lhr:1800,n:"Karnot iHEAT CO2 - 105kW",usd:0,type:'co2',cop:3.70,isReversible:true,max_temp_c:100},
-    {base_lhr:2800,n:"Karnot iHEAT CO2 - 160kW",usd:0,type:'co2',cop:3.65,isReversible:true,max_temp_c:100},
-    {base_lhr:5200,n:"Karnot iHEAT CO2 - 300kW",usd:0,type:'co2',cop:3.60,isReversible:true,max_temp_c:100},
-    {base_lhr:8700,n:"Karnot iHEAT CO2 - 500kW",usd:0,type:'co2',cop:3.55,isReversible:true,max_temp_c:100},
-    {base_lhr:600,n:"Karnot iHEAT CO2 - 35kW",usd:42942,type:'co2',cop:3.8,isReversible:false,max_temp_c:110},
-    {base_lhr:1200,n:"Karnot iHEAT CO2 - 75kW",usd:70000,type:'co2',cop:3.8,isReversible:false,max_temp_c:110}
+    {kw:3.5,n:"Karnot R290 AquaHERO 200L",usd:0,type:'r290',cop:3.6,isReversible:false,integral_storage_L:200,max_temp_c:70},
+    {kw:5.0,n:"Karnot R290 AquaHERO 300L",usd:0,type:'r290',cop:3.6,isReversible:false,integral_storage_L:300,max_temp_c:70},
+    {kw:6,n:"Karnot iHEAT R32 - 6kW",usd:0,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {kw:9.5,n:"Karnot iHEAT R32 - 9.5kW",usd:0,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {kw:12,n:"Karnot iHEAT R32 - 12kW",usd:0,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {kw:16,n:"Karnot iHEAT R32 - 16kW",usd:0,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {kw:22,n:"Karnot iHEAT R32 - 22kW",usd:0,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {kw:9.5,n:"Karnot iHEAT R290 - 9.5kW",usd:0,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
+    {kw:11.5,n:"Karnot iHEAT R290 - 11.5kW",usd:0,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
+    {kw:15.5,n:"Karnot iHEAT R290 - 15.5kW",usd:0,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
+    {kw:18,n:"Karnot iHEAT R290 - 18kW",usd:0,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
+    {kw:25,n:"Karnot iHEAT R290 - 25kW",usd:0,type:'r290',cop:3.85,isReversible:true,max_temp_c:80},
+    {kw:30,n:"Karnot iHEAT R290 - 30kW",usd:0,type:'r290',cop:3.85,isReversible:true,max_temp_c:80},
+    {kw:50,n:"Karnot iHEAT R290 - 50kW",usd:0,type:'r290',cop:3.80,isReversible:true,max_temp_c:80},
+    {kw:100,n:"Karnot iHEAT R290 - 100kW",usd:0,type:'r290',cop:3.71,isReversible:true,max_temp_c:80},
+    {kw:35,n:"Karnot iHEAT CO2 - 35kW",usd:0,type:'co2',cop:3.8,isReversible:false,max_temp_c:110},
+    {kw:75,n:"Karnot iHEAT CO2 - 75kW",usd:0,type:'co2',cop:3.8,isReversible:false,max_temp_c:110},
+    {kw:105,n:"Karnot iHEAT CO2 - 105kW",usd:0,type:'co2',cop:3.70,isReversible:true,max_temp_c:100},
+    {kw:160,n:"Karnot iHEAT CO2 - 160kW",usd:0,type:'co2',cop:3.65,isReversible:true,max_temp_c:100},
+    {kw:300,n:"Karnot iHEAT CO2 - 300kW",usd:0,type:'co2',cop:3.60,isReversible:true,max_temp_c:100},
+    {kw:500,n:"Karnot iHEAT CO2 - 500kW",usd:0,type:'co2',cop:3.55,isReversible:true,max_temp_c:100}
   ]
 };
 
 var $=function(id){return document.getElementById(id)};
 var fmt=function(n){return(+n).toLocaleString(undefined,{maximumFractionDigits:0})};
 
+/**
+ * calculate() — Main calculator engine
+ * Synced with CRM heatPumpLogic.js calculateHeatPump()
+ * Uses CRM recovery-rate sizing: recoveryRateLph = (adjustedKW × 1000) / (ΔT × 1.163)
+ * Product selection: recoveryRateLph >= avgDrawRate × 0.7 (per CRM 70% capacity threshold)
+ */
 function calculate(){
   var currency=$('currency').value,heatingType=$('heatingType').value,userType=$('userType').value,systemType=$('systemType').value,heatPumpType=$('heatPumpType').value,rateInputValue=+$('rate').value,includeCooling=$('includeCooling').value==='yes';
+  /* 1. DEMAND — matches CRM calculateDailyLiters() */
   var dailyLiters=0;
   if(userType==='home')dailyLiters=+$('homeOccupants').value*50;
   else if(userType==='restaurant')dailyLiters=+$('q2').value*7;
@@ -350,31 +380,46 @@ function calculate(){
   else dailyLiters=+$('q1').value;
   if(dailyLiters<=0)return showErr("Please enter a value for your user type.");
   var hoursPerDay=Math.max(1,+$('hoursPerDay').value||24),ambientTemp=+$('ambientTemp').value,inletTemp=+$('inletTemp').value,targetTemp=+$('targetTemp').value,sunHours=+$('sunHours').value;
+  /* 2. CURRENT COST — matches CRM calculateCurrentCost() */
   var currentRateKWH;
   if(heatingType==='propane'){var lP=+$('lpgPrice').value,lS=+$('lpgSize').value||1;currentRateKWH=(lP/lS)/CONFIG.KWH_PER_KG_LPG;}
   else if(heatingType==='diesel')currentRateKWH=+$('dieselPrice').value/CONFIG.DIESEL_KWH_PER_LITER;
   else if(heatingType==='gas')currentRateKWH=+$('gasRate').value;
   else currentRateKWH=rateInputValue;
-  var kwhPerLiter=((targetTemp-inletTemp)*1.163)/1000,dailyThermalEnergyKWH=dailyLiters*kwhPerLiter,annualCostOld=(dailyThermalEnergyKWH/CONFIG.COP_STANDARD)*365*currentRateKWH;
-  var actualLiftC=Math.max(1,targetTemp-inletTemp),performanceFactor=(CONFIG.RATED_LIFT_C/actualLiftC)*(1+((ambientTemp-CONFIG.RATED_AMBIENT_C)*0.015));
+  /* Thermal energy: Q = V × ΔT × Cp / 1000 — ASHRAE Fundamentals Ch.33 */
+  var deltaT=targetTemp-inletTemp,dailyThermalEnergyKWH=(dailyLiters*deltaT*CONFIG.WATER_SPEC_HEAT)/1000,annualCostOld=(dailyThermalEnergyKWH/CONFIG.COP_STANDARD)*365*currentRateKWH;
+  /* 3. COP ADJUSTMENT — EN 14511, matches CRM thermoLogic.js calculateCOPAdjustment() */
+  var actualLiftC=Math.max(1,deltaT),performanceFactor=(CONFIG.RATED_LIFT_C/actualLiftC)*Math.max(1+((ambientTemp-CONFIG.RATED_AMBIENT_C)*0.015),0.5);
+  /* 4. FILTER & SIZE — matches CRM calculateHeatPump() product selection */
   var availableModels=CONFIG.HEAT_PUMP_SYSTEMS;
   if(heatPumpType!=='all')availableModels=availableModels.filter(function(p){return p.type===heatPumpType});
   if(includeCooling)availableModels=availableModels.filter(function(p){return p.isReversible===true});
-  var adjustedModels=availableModels.map(function(m){return Object.assign({},m,{daily_capacity_L:m.base_daily_L?m.base_daily_L*performanceFactor:undefined,lhr_max:m.base_lhr*performanceFactor})});
-  var peakLitersPerHour=dailyLiters/hoursPerDay;
-  var suitableModels=adjustedModels.filter(function(s){return(targetTemp<=s.max_temp_c)&&(s.daily_capacity_L?dailyLiters<=s.daily_capacity_L:peakLitersPerHour<=s.lhr_max)});
-  if(suitableModels.length===0)return showErr("No suitable models found. Check temperature inputs or select a different heat pump type.");
-  suitableModels.sort(function(a,b){if(a.usd>0&&b.usd<=0)return-1;if(a.usd<=0&&b.usd>0)return 1;return a.usd-b.usd});
+  /* CRM approach: calculate recovery rate from kW, then match against average draw rate */
+  var avgDrawRateLph=dailyLiters/hoursPerDay;
+  var adjustedModels=availableModels.map(function(m){
+    var adjustedKW=m.kw*performanceFactor;
+    var recoveryRateLph=(adjustedKW*1000)/(deltaT*CONFIG.WATER_SPEC_HEAT);
+    return Object.assign({},m,{adjustedKW:adjustedKW,recoveryRateLph:recoveryRateLph});
+  });
+  /* CRM uses 70% capacity threshold: recoveryRateLph >= avgDrawRate × 0.7 */
+  var suitableModels=adjustedModels.filter(function(s){return(targetTemp<=s.max_temp_c)&&(s.recoveryRateLph>=avgDrawRateLph*0.7)});
+  if(suitableModels.length===0){var filterMsg=heatPumpType!=='all'?' with '+heatPumpType+' refrigerant':'';var coolMsg=includeCooling?' and cooling capability':'';return showErr('No system found for '+fmt(avgDrawRateLph)+' L/hr average demand at '+targetTemp+'\u00B0C'+filterMsg+coolMsg+'.');}
+  /* Sort: smallest suitable unit first (most cost-effective) */
+  suitableModels.sort(function(a,b){return a.kw-b.kw});
   var hp=suitableModels[0],fxRate=CONFIG.FX[currency],symbol=CONFIG.symbols[currency],hpCOP=hp.cop,karnotDailyElecKwh=dailyThermalEnergyKWH/hpCOP,karnotPowerDrawKw=karnotDailyElecKwh/hoursPerDay;
-  var heatPumpCost=hp.usd*fxRate,karnotAnnualCost=0,solarCost=0,inverterCost=0,karnotPanelCount=0;
+  /* 5. SOLAR OFFSET — matches CRM grid/solar split */
+  var karnotAnnualCost=0,solarCost=0,inverterCost=0,karnotPanelCount=0;
   if(systemType==='grid-only')karnotAnnualCost=karnotDailyElecKwh*365*rateInputValue;
   else{var solarH=Math.min(hoursPerDay,sunHours),gridH=Math.max(0,hoursPerDay-solarH);karnotAnnualCost=(karnotPowerDrawKw*gridH)*365*rateInputValue;karnotPanelCount=Math.ceil(karnotPowerDrawKw/CONFIG.SOLAR_PANEL_KW_RATED);solarCost=karnotPanelCount*CONFIG.SOLAR_PANEL_COST_USD*fxRate;inverterCost=(karnotPanelCount*CONFIG.SOLAR_PANEL_KW_RATED*1000*CONFIG.INVERTER_COST_PER_WATT_USD)*fxRate;}
+  /* 6. COOLING BONUS — matches CRM cooling calculation */
   var coolSavings=0,coolingHTML='';
   if(includeCooling&&hp.isReversible){var dailyCoolingKwh=dailyThermalEnergyKWH/hp.cop*CONFIG.COOLING_COP;coolSavings=dailyCoolingKwh*365*rateInputValue;coolingHTML='<div class="cooling-bonus"><h3>Free Cooling Bonus!</h3><p>Reversible heat pump provides ~<strong>'+(dailyCoolingKwh/hoursPerDay).toFixed(1)+' kW</strong> of free cooling, saving <strong>'+symbol+fmt(coolSavings)+'</strong> annually!</p></div>';}
-  var totalCapex=heatPumpCost+solarCost+inverterCost,totalAnnualSavings=(annualCostOld-karnotAnnualCost)+coolSavings,paybackYears=totalAnnualSavings>0&&totalCapex>0?(totalCapex/totalAnnualSavings).toFixed(1):"N/A";
+  /* 7. FINANCIALS — ROI only, no pricing (per project brief) */
+  var totalAnnualSavings=(annualCostOld-karnotAnnualCost)+coolSavings;
+  /* 8. EMISSIONS — matches CRM emissionsSaved calculation */
   var isSolar=systemType==='grid-solar',emFactorKey=heatingType==='electric'?'electric_grid':heatingType,emFactorOld=CONFIG.EM_FACTOR[emFactorKey],emFactorNew=CONFIG.EM_FACTOR[isSolar?'electric_solar':'electric_grid'],emissionsSaved=((dailyThermalEnergyKWH/CONFIG.COP_STANDARD)*365*emFactorOld)-((karnotDailyElecKwh)*365*emFactorNew);
-  quoteData={symbol:symbol,totalAnnualSavings:totalAnnualSavings,paybackYears:paybackYears,emissionsSaved:emissionsSaved,heatPumpSystem:hp,Lhr:peakLitersPerHour,dailyLiters:dailyLiters,annualCostOld:annualCostOld,karnotAnnualCost:karnotAnnualCost,heatPumpCost:heatPumpCost,isSolar:isSolar,karnotPanelCount:karnotPanelCount,solarCost:solarCost,inverterCost:inverterCost,totalCapex:totalCapex,coolSavings:coolSavings};
-  $('results').innerHTML='<h3>Your Custom Report</h3><p>Recommended system: <strong>'+hp.n+'</strong></p><div class="results-grid"><div class="metric-card"><div class="label">Total Annual Savings</div><div class="value">'+symbol+fmt(totalAnnualSavings)+'</div></div><div class="metric-card"><div class="label">Estimated Payback</div><div class="value">'+paybackYears+' Yrs</div></div><div class="metric-card"><div class="label">CO\u2082 Reduction</div><div class="value">'+fmt(emissionsSaved)+' kg</div></div><div class="metric-card"><div class="label">Adjusted Output</div><div class="value">'+fmt(hp.lhr_max)+' L/hr</div></div></div><div class="details" style="margin-top:22px"><p><strong>Daily Hot Water Demand:</strong>'+fmt(dailyLiters)+' Litres</p><p><strong>Annual Cost (Current):</strong>'+symbol+fmt(annualCostOld)+'</p><p><strong>Annual Cost (Heat Pump):</strong>'+symbol+fmt(karnotAnnualCost)+'</p><hr style="border:0;border-top:1px solid var(--border);margin:12px 0"><p><strong>Heat Pump System:</strong> Contact for Quotation</p>'+(isSolar?'<p><strong>Solar PV ('+karnotPanelCount+' panels):</strong> Contact for Quotation</p>':'')+'<p><strong>Total System Cost:</strong> <strong>Contact for Quotation</strong></p></div>'+coolingHTML+'<div class="email-section"><h3>Generate Your Custom Report</h3><p>Click below to open a printer-friendly report.</p><div style="text-align:right"><button onclick="generatePrintableReport()">Generate PDF Report</button></div></div>';
+  quoteData={symbol:symbol,totalAnnualSavings:totalAnnualSavings,emissionsSaved:emissionsSaved,heatPumpSystem:hp,avgDrawRate:avgDrawRateLph,dailyLiters:dailyLiters,annualCostOld:annualCostOld,karnotAnnualCost:karnotAnnualCost,isSolar:isSolar,karnotPanelCount:karnotPanelCount,coolSavings:coolSavings};
+  $('results').innerHTML='<h3>Your Custom Report</h3><p>Recommended system: <strong>'+hp.n+'</strong> ('+hp.adjustedKW.toFixed(1)+' kW adjusted)</p><div class="results-grid"><div class="metric-card"><div class="label">Total Annual Savings</div><div class="value">'+symbol+fmt(totalAnnualSavings)+'</div></div><div class="metric-card"><div class="label">CO\u2082 Reduction</div><div class="value">'+fmt(emissionsSaved)+' kg/yr</div></div><div class="metric-card"><div class="label">Recovery Rate</div><div class="value">'+fmt(hp.recoveryRateLph)+' L/hr</div></div><div class="metric-card"><div class="label">COP (Adjusted)</div><div class="value">'+(hp.cop*performanceFactor).toFixed(2)+'</div></div></div><div class="details" style="margin-top:22px"><p><strong>Daily Hot Water Demand:</strong> '+fmt(dailyLiters)+' Litres ('+fmt(avgDrawRateLph)+' L/hr avg)</p><p><strong>Annual Cost (Current System):</strong> '+symbol+fmt(annualCostOld)+'</p><p><strong>Annual Cost (Heat Pump):</strong> '+symbol+fmt(karnotAnnualCost)+'</p>'+(isSolar?'<p><strong>Solar PV Offset:</strong> '+karnotPanelCount+' panels (\u2248'+((karnotPanelCount*CONFIG.SOLAR_PANEL_KW_RATED).toFixed(1))+' kWp)</p>':'')+'<hr style="border:0;border-top:1px solid var(--border);margin:12px 0"><p><strong>Performance Factor:</strong> '+performanceFactor.toFixed(2)+' (ambient '+ambientTemp+'\u00B0C, lift '+actualLiftC+'\u00B0C)</p><p><strong>System Sizing:</strong> <a href="contact.html" style="color:var(--orange);font-weight:700">Contact for Quotation &rarr;</a></p></div>'+coolingHTML+'<div class="email-section"><h3>Generate Your Custom Report</h3><p>Click below to open a printer-friendly report with your ROI analysis.</p><div style="text-align:right"><button onclick="generatePrintableReport()">Generate PDF Report</button></div></div>';
   $('results').classList.remove('hidden');
 }
 
@@ -421,7 +466,8 @@ function calculateOfficeFixtures(){
 
 function generatePrintableReport(){
   var q=quoteData;if(!q||!q.heatPumpSystem){alert("Please run a calculation first.");return;}
-  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Karnot Savings Report</title><style>body{font-family:Inter,sans-serif;margin:0;padding:40px;color:#1d1d1f;max-width:800px;margin:auto}h1{color:#F56600;font-size:28px;text-align:center;border-bottom:2px solid #F56600;padding-bottom:16px}h2{font-size:20px;border-bottom:1px solid #d2d2d7;padding-bottom:8px;margin-top:32px}.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center;margin:24px 0}.metric .value{font-size:26px;font-weight:700;color:#F56600}.metric .label{font-size:13px;color:#6e6e73}table{width:100%;border-collapse:collapse}td{padding:10px 0;border-bottom:1px solid #d2d2d7}td:last-child{text-align:right;font-weight:600}footer{text-align:center;margin-top:40px;font-size:11px;color:#aaa}</style></head><body><h1>Karnot Savings Report</h1><h2>Recommended: '+q.heatPumpSystem.n+'</h2><div class="grid"><div class="metric"><div class="value">'+q.symbol+fmt(q.totalAnnualSavings)+'</div><div class="label">Annual Savings</div></div><div class="metric"><div class="value">'+q.paybackYears+' Yrs</div><div class="label">Payback</div></div><div class="metric"><div class="value">'+fmt(q.emissionsSaved)+' kg</div><div class="label">CO\u2082 Reduction</div></div></div><h2>Financial Breakdown</h2><table><tr><td>Annual Cost (Current)</td><td>'+q.symbol+fmt(q.annualCostOld)+'</td></tr><tr><td>Annual Cost (Heat Pump)</td><td>'+q.symbol+fmt(q.karnotAnnualCost)+'</td></tr>'+(q.coolSavings>0?'<tr><td>Free Cooling Savings</td><td>'+q.symbol+fmt(q.coolSavings)+'</td></tr>':'')+'<tr><td>Total Annual Savings</td><td>'+q.symbol+fmt(q.totalAnnualSavings)+'</td></tr></table><p style="margin-top:20px">Payback: '+q.paybackYears+' years. Contact us for a detailed quotation.</p><footer>&copy; '+new Date().getFullYear()+' Karnot Energy Solutions Inc.</footer></body></html>';
+  var pctSaving=q.annualCostOld>0?Math.round(((q.annualCostOld-q.karnotAnnualCost)/q.annualCostOld)*100):0;
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Karnot ROI Report</title><style>body{font-family:Inter,sans-serif;margin:0;padding:40px;color:#1d1d1f;max-width:800px;margin:auto}h1{color:#F56600;font-size:28px;text-align:center;border-bottom:2px solid #F56600;padding-bottom:16px}h2{font-size:20px;border-bottom:1px solid #d2d2d7;padding-bottom:8px;margin-top:32px}.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center;margin:24px 0}.metric .value{font-size:26px;font-weight:700;color:#F56600}.metric .label{font-size:13px;color:#6e6e73}table{width:100%;border-collapse:collapse}td{padding:10px 0;border-bottom:1px solid #d2d2d7}td:last-child{text-align:right;font-weight:600}.note{margin-top:24px;padding:16px;background:#fffaf2;border-left:4px solid #F56600;border-radius:4px;font-size:14px}footer{text-align:center;margin-top:40px;font-size:11px;color:#aaa}</style></head><body><h1>Karnot Energy — ROI Report</h1><h2>Recommended: '+q.heatPumpSystem.n+'</h2><div class="grid"><div class="metric"><div class="value">'+q.symbol+fmt(q.totalAnnualSavings)+'</div><div class="label">Annual Savings</div></div><div class="metric"><div class="value">'+pctSaving+'%</div><div class="label">Cost Reduction</div></div><div class="metric"><div class="value">'+fmt(q.emissionsSaved)+' kg</div><div class="label">CO\u2082 Reduction / Year</div></div></div><h2>Energy Cost Comparison</h2><table><tr><td>Daily Hot Water Demand</td><td>'+fmt(q.dailyLiters)+' Litres</td></tr><tr><td>Annual Cost (Current System)</td><td>'+q.symbol+fmt(q.annualCostOld)+'</td></tr><tr><td>Annual Cost (Karnot Heat Pump)</td><td>'+q.symbol+fmt(q.karnotAnnualCost)+'</td></tr>'+(q.coolSavings>0?'<tr><td>Free Cooling Savings</td><td>'+q.symbol+fmt(q.coolSavings)+'</td></tr>':'')+'<tr><td><strong>Total Annual Savings</strong></td><td><strong>'+q.symbol+fmt(q.totalAnnualSavings)+'</strong></td></tr>'+(q.isSolar?'<tr><td>Solar PV Offset</td><td>'+q.karnotPanelCount+' panels</td></tr>':'')+'</table><div class="note"><strong>Next Step:</strong> Contact our engineering team for a detailed site survey, custom system design, and firm quotation.<br>Email: info@karnot.com | Web: karnot.com/contact</div><footer>Calculator synced with Karnot CRM engineering data (ASHRAE / EN 14511 / CIBSE). \u00A9 '+new Date().getFullYear()+' Karnot Energy Solutions Inc.</footer></body></html>';
   var win=window.open("","_blank");win.document.write(html);
 }
 

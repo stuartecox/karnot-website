@@ -401,30 +401,30 @@
 <!-- Calculator Logic (preserved exactly from source) -->
 <script>
 var CONFIG={
-  FX:{PHP:62,USD:1,GBP:0.79,EUR:0.92},
+  FX:{PHP:58.5,USD:1,GBP:0.79,EUR:0.92},
   symbols:{PHP:"\u20B1",USD:"$",GBP:"\u00A3",EUR:"\u20AC"},
-  defaultRate:{PHP:12.25,USD:0.21,GBP:0.25,EUR:0.22},
+  defaultRate:{PHP:12.25,USD:0,GBP:0.17,EUR:0.19},
   RATED_AMBIENT_C:20,RATED_LIFT_C:40,COP_STANDARD:1,
   SOLAR_PANEL_WATTAGE:425,SOLAR_PANEL_AREA_SQM:2.3,
   SOLAR_PANEL_COST_USD:200,INVERTER_COST_PER_WATT_USD:0.30,
   HEAT_PUMP_SYSTEMS:[
-    {base_lhr:35,base_daily_L:900,n:"AquaHERO 200L",usd:1754,type:'r290',cop:3.6,max_temp_c:70},
-    {base_lhr:50,base_daily_L:1500,n:"AquaHERO 300L",usd:1916,type:'r290',cop:3.6,max_temp_c:70},
-    {base_lhr:100,n:"iHEAT R32 6kW",usd:2546,type:'r32',cop:3.8,max_temp_c:60},
-    {base_lhr:150,n:"iHEAT R32 9.5kW",usd:2678,type:'r32',cop:3.8,max_temp_c:60},
-    {base_lhr:200,n:"iHEAT R32 12kW",usd:2884,type:'r32',cop:3.8,max_temp_c:60},
-    {base_lhr:250,n:"iHEAT R32 16kW",usd:3154,type:'r32',cop:3.8,max_temp_c:60},
-    {base_lhr:300,n:"iHEAT R32 22kW",usd:3728,type:'r32',cop:3.8,max_temp_c:60},
-    {base_lhr:150,n:"iHEAT R290 9.5kW",usd:3944,type:'r290',cop:3.8,max_temp_c:80},
-    {base_lhr:200,n:"iHEAT R290 11.5kW",usd:4126,type:'r290',cop:3.8,max_temp_c:80},
-    {base_lhr:280,n:"iHEAT R290 15.5kW",usd:5582,type:'r290',cop:3.8,max_temp_c:80},
-    {base_lhr:300,n:"iHEAT R290 18.5kW",usd:5876,type:'r290',cop:3.8,max_temp_c:80},
-    {base_lhr:400,n:"iHEAT R290 25kW",usd:4119,type:'r290',cop:3.95,max_temp_c:80},
-    {base_lhr:480,n:"iHEAT R290 30kW",usd:6856,type:'r290',cop:3.85,max_temp_c:80},
-    {base_lhr:800,n:"iHEAT R290 50kW",usd:10300,type:'r290',cop:3.80,max_temp_c:80},
-    {base_lhr:1600,n:"iHEAT R290 100kW",usd:15339,type:'r290',cop:3.71,max_temp_c:80},
-    {base_lhr:600,n:"iHEAT CO\u2082 35kW",usd:42942,type:'co2',cop:3.8,max_temp_c:110},
-    {base_lhr:1200,n:"iHEAT CO\u2082 75kW",usd:70000,type:'co2',cop:3.8,max_temp_c:110}
+    {base_lhr:35,base_daily_L:900,n:"AquaHERO 200L",usd:0,type:'r290',cop:3.6,max_temp_c:70},
+    {base_lhr:50,base_daily_L:1500,n:"AquaHERO 300L",usd:0,type:'r290',cop:3.6,max_temp_c:70},
+    {base_lhr:100,n:"iHEAT R32 6kW",usd:0,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:150,n:"iHEAT R32 9.5kW",usd:0,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:200,n:"iHEAT R32 12kW",usd:0,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:250,n:"iHEAT R32 16kW",usd:0,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:300,n:"iHEAT R32 22kW",usd:0,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:150,n:"iHEAT R290 9.5kW",usd:0,type:'r290',cop:3.8,max_temp_c:80},
+    {base_lhr:200,n:"iHEAT R290 11.5kW",usd:0,type:'r290',cop:3.8,max_temp_c:80},
+    {base_lhr:280,n:"iHEAT R290 15.5kW",usd:0,type:'r290',cop:3.8,max_temp_c:80},
+    {base_lhr:300,n:"iHEAT R290 18.5kW",usd:0,type:'r290',cop:3.8,max_temp_c:80},
+    {base_lhr:400,n:"iHEAT R290 25kW",usd:0,type:'r290',cop:3.95,max_temp_c:80},
+    {base_lhr:480,n:"iHEAT R290 30kW",usd:0,type:'r290',cop:3.85,max_temp_c:80},
+    {base_lhr:800,n:"iHEAT R290 50kW",usd:0,type:'r290',cop:3.80,max_temp_c:80},
+    {base_lhr:1600,n:"iHEAT R290 100kW",usd:0,type:'r290',cop:3.71,max_temp_c:80},
+    {base_lhr:600,n:"iHEAT CO\u2082 35kW",usd:0,type:'co2',cop:3.8,max_temp_c:110},
+    {base_lhr:1200,n:"iHEAT CO\u2082 75kW",usd:0,type:'co2',cop:3.8,max_temp_c:110}
   ]
 };
 
@@ -445,7 +445,7 @@ function updateCalculator(){
   suitable.sort(function(a,b){return a.usd-b.usd});
   var hp=suitable[0];
   var stdElec=dailyKwh/CONFIG.COP_STANDARD,stdAnnual=stdElec*365*elecRate,stdPwr=stdElec/opHrs,stdPanels=Math.ceil(stdPwr*1000/CONFIG.SOLAR_PANEL_WATTAGE);
-  var karnotElec=dailyKwh/hp.cop,karnotPwr=karnotElec/opHrs,hpCost=hp.usd*fxRate;
+  var effectiveCOP=Math.max(hp.cop,0.5),karnotElec=dailyKwh/effectiveCOP,karnotPwr=karnotElec/opHrs,hpCost=hp.usd*fxRate;
   var karnotAnnual=0,totalCapex=0,kPanels=0;
   if(sysType==='grid-only'){karnotAnnual=karnotElec*365*elecRate;totalCapex=hpCost;kPanels=0;}
   else{var sH=Math.min(opHrs,sunHrs),gH=Math.max(0,opHrs-sH);kPanels=Math.ceil(karnotPwr*1000/CONFIG.SOLAR_PANEL_WATTAGE);var sCost=kPanels*CONFIG.SOLAR_PANEL_COST_USD*fxRate,iCost=(kPanels*CONFIG.SOLAR_PANEL_WATTAGE*CONFIG.INVERTER_COST_PER_WATT_USD)*fxRate;karnotAnnual=(karnotPwr*gH)*365*elecRate;totalCapex=hpCost+sCost+iCost;}

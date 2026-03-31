@@ -378,9 +378,10 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;background:#f57c00;bo
       <div class="currency-bar">
         <label for="currency-selector">Select Your Currency:</label>
         <select id="currency-selector">
-          <option value="PHP">Philippine Peso (P)</option>
+          <option value="PHP">Philippine Peso (PHP)</option>
           <option value="GBP">British Pound (GBP)</option>
-          <option value="MXN">Mexican Peso (MXN)</option>
+          <option value="EUR">Euro (EUR)</option>
+          <option value="USD">US Dollar (USD)</option>
           <option value="CAD">Canadian Dollar (CAD)</option>
         </select>
       </div>
@@ -392,7 +393,7 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;background:#f57c00;bo
         <p>With iHEAT (75% reduction):<br><strong id="new-cost">P6,250</strong></p>
         <p>Monthly Savings:<br><strong id="monthly-savings">P18,750</strong></p>
         <p>Annual Savings:<br><strong id="annual-savings">P225,000</strong></p>
-        <div class="energy-rates"><strong>Energy Price Assumptions:</strong><br><span id="energy-rates">Philippines: P11.50/kWh electricity</span></div>
+        <div class="energy-rates"><strong>Energy Price Assumptions:</strong><br><span id="energy-rates">Philippines: &#8369;11.50/kWh electricity | &#8369;119/L diesel</span></div>
         <p style="font-size:13px;margin-top:14px;color:#6e6e73">*Based on 75% energy reduction vs traditional electric resistance or LPG heating</p>
       </div>
       <div class="roi-box">
@@ -415,19 +416,65 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;background:#f57c00;bo
 <script src="js/karnot.js"></script>
 
 <script>
-/* Calculator Logic */
+/* Calculator Logic — synced with CRM authoritative values */
+/* FX rates to USD */
+var fxToUSD={PHP:58.5,GBP:0.79,EUR:0.92,USD:1,CAD:1.36};
+/* COP values: R290=3.8, CO2 range 3.5-3.8 */
+var baseCOP={r290:3.8,co2:3.5};
+/* ASHRAE WATER_CP_WH_LK constant */
+var WATER_CP_WH_LK=1.163;
+
 var currencyData={
-  PHP:{sym:'\u20B1',min:5000,max:100000,val:25000,step:1000,rates:'Philippines: \u20B111.50/kWh electricity'},
-  GBP:{sym:'\u00A3',min:200,max:4000,val:1000,step:50,rates:'UK: \u00A30.25/kWh electricity'},
-  MXN:{sym:'$',min:2000,max:40000,val:10000,step:500,rates:'Mexico: $5.50/kWh electricity'},
-  CAD:{sym:'$',min:200,max:4000,val:1000,step:50,rates:'Canada: $0.14/kWh electricity'}
+  PHP:{sym:'\u20B1',min:5000,max:100000,val:25000,step:1000,
+       gridRate:11.50,dieselRate:119,fuelLabel:'diesel',fuelUnit:'L',
+       rates:'Philippines: \u20B111.50/kWh electricity | \u20B1119/L diesel'},
+  GBP:{sym:'\u00A3',min:200,max:4000,val:1000,step:50,
+       gridRate:0.17,dieselRate:0,fuelLabel:'gas',fuelUnit:'kWh',
+       rates:'UK: \u00A30.17/kWh electricity | \u00A30.065/kWh gas'},
+  EUR:{sym:'\u20AC',min:200,max:4000,val:1000,step:50,
+       gridRate:0.19,dieselRate:0,fuelLabel:'gas',fuelUnit:'kWh',
+       rates:'EU: \u20AC0.19/kWh electricity | \u20AC0.07/kWh gas'},
+  USD:{sym:'$',min:200,max:4000,val:1000,step:50,
+       gridRate:0.13,dieselRate:0,fuelLabel:'gas',fuelUnit:'kWh',
+       rates:'USA: $0.13/kWh electricity | $0.05/kWh gas'},
+  CAD:{sym:'$',min:200,max:4000,val:1000,step:50,
+       gridRate:0.14,dieselRate:0,fuelLabel:'gas',fuelUnit:'kWh',
+       rates:'Canada: $0.14/kWh electricity | $0.06/kWh gas'}
 };
+
+/* All USD product prices set to 0 — show "Contact for Quotation" instead */
+var productPricesUSD={};
+
 var cur='PHP';
 var slider=document.getElementById('heating-cost-slider');
 var sel=document.getElementById('currency-selector');
+
 function fmt(v){return currencyData[cur].sym+v.toLocaleString('en-US',{maximumFractionDigits:0});}
+
+/* COP adjustment per CRM thermoLogic.js:
+   performanceFactor = (40 / actualLift) * max(1 + ((ambientTemp - 20) * 0.015), 0.5)
+   0.5 floor from CRM */
+function adjustedCOP(nominalCOP,ambientTemp,hotSide,coldSide){
+  ambientTemp=ambientTemp||30;hotSide=hotSide||55;coldSide=coldSide||15;
+  var actualLift=hotSide-coldSide;
+  if(actualLift<=0)actualLift=1;
+  var performanceFactor=(40/actualLift)*Math.max(1+((ambientTemp-20)*0.015),0.5);
+  return nominalCOP*performanceFactor;
+}
+
+/* Thermal energy formula — ASHRAE WATER_CP_WH_LK = 1.163
+   thermalEnergy_kWh = (dailyLiters * deltaT * 1.163) / 1000 */
+function thermalEnergyKWh(dailyLiters,deltaT){
+  return(dailyLiters*deltaT*WATER_CP_WH_LK)/1000;
+}
+
 function calc(){
-  var c=parseInt(slider.value),n=c*.25,s=c-n;
+  var c=parseInt(slider.value);
+  /* Use adjusted COP for R290 at typical conditions */
+  var cop=adjustedCOP(baseCOP.r290,30,55,15);
+  /* HP cost = current cost / COP (simplified: current assumes COP~1 resistance/combustion) */
+  var n=Math.round(c/cop);
+  var s=c-n;
   document.getElementById('spend-value').textContent=fmt(c);
   document.getElementById('new-cost').textContent=fmt(n);
   document.getElementById('monthly-savings').textContent=fmt(s);

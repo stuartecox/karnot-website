@@ -313,10 +313,10 @@
 <script>
 /* iMESH ROI Calculator */
 var REGIONS={
-  UK:{sym:'\u00A3',conv:0.85},
-  PH:{sym:'\u20B1',conv:62.0},
-  CA:{sym:'$',conv:1.50},
-  MX:{sym:'$',conv:19.0}
+  UK:{sym:'\u00A3',conv:0.85,rate:0.17,usd:false},
+  PH:{sym:'\u20B1',conv:58.5,rate:0.19,usd:false},
+  CA:{sym:'$',conv:1.50,rate:0,usd:true},
+  MX:{sym:'$',conv:19.0,rate:0,usd:true}
 };
 var curRegion='UK';
 var slider=document.getElementById('chillerSlider');
@@ -327,9 +327,10 @@ var btns=document.querySelectorAll('.imesh-region-btn');
 function calc(){
   var kw=parseInt(slider.value);
   var r=REGIONS[curRegion];
-  var savEuro=kw*0.25*8000*0.15;
-  var savLocal=savEuro*r.conv;
   sizeEl.textContent=kw+' kW';
+  if(r.usd){savEl.textContent='Contact for Quotation';return}
+  var cop=Math.max(kw*0.25*8000*r.rate,0.5);
+  var savLocal=cop*r.conv;
   savEl.textContent=r.sym+Math.round(savLocal).toLocaleString();
 }
 slider.addEventListener('input',calc);
