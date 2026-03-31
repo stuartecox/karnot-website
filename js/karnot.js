@@ -29,6 +29,8 @@ function kLink(page){ return KARNOT_BASE + page; }
       <a href="' + kLink('products.html') + '"' + active('products') + ' class="nav-hide-tablet">Products</a>\
       <a href="' + kLink('iheat.html') + '"' + active('iheat') + ' class="nav-hide-tablet">iHEAT</a>\
       <a href="' + kLink('icool.html') + '"' + active('icool') + ' class="nav-hide-tablet">iCOOL</a>\
+      <a href="' + kLink('ispa.html') + '"' + active('ispa') + ' class="nav-hide-tablet">iSPA</a>\
+      <a href="' + kLink('icryo.html') + '"' + active('icryo') + ' class="nav-hide-tablet">iCRYO</a>\
       <a href="' + kLink('about.html') + '"' + active('about') + ' class="nav-hide-tablet">About</a>\
       <a href="' + kLink('contact.html') + '"' + active('contact') + '>Contact</a>\
       <a href="' + kLink('savings.html') + '" class="nav-cta">Calculate Savings</a>\
@@ -41,6 +43,12 @@ function kLink(page){ return KARNOT_BASE + page; }
     <a href="' + kLink('products.html') + '">Products</a>\
     <a href="' + kLink('iheat.html') + '">iHEAT</a>\
     <a href="' + kLink('icool.html') + '">iCOOL</a>\
+    <a href="' + kLink('ispa.html') + '">iSPA Pools</a>\
+    <a href="' + kLink('icryo.html') + '">iCRYO</a>\
+    <a href="' + kLink('izone.html') + '">iZONE</a>\
+    <a href="' + kLink('isave.html') + '">iSAVE</a>\
+    <a href="' + kLink('imesh.html') + '">iMESH</a>\
+    <a href="' + kLink('nearfarm.html') + '">NearFarm</a>\
     <a href="' + kLink('about.html') + '">About</a>\
     <a href="' + kLink('contact.html') + '">Contact</a>\
     <a href="' + kLink('savings.html') + '" class="btn-orange" style="margin-top:12px">Calculate Savings</a>\
@@ -68,8 +76,12 @@ function kLink(page){ return KARNOT_BASE + page; }
         <h4>Products</h4>\
         <a href="' + kLink('iheat.html') + '">iHEAT R290</a>\
         <a href="' + kLink('icool.html') + '">iCOOL CO\u2082</a>\
-        <a href="' + kLink('products.html') + '">AquaHERO</a>\
+        <a href="' + kLink('ispa.html') + '">iSPA Pool</a>\
+        <a href="' + kLink('icryo.html') + '">iCRYO Cryo</a>\
+        <a href="' + kLink('izone.html') + '">iZONE VRF</a>\
+        <a href="' + kLink('isave.html') + '">iSAVE</a>\
         <a href="' + kLink('imesh.html') + '">iMESH Retrofit</a>\
+        <a href="' + kLink('nearfarm.html') + '">NearFarm Ag</a>\
       </div>\
       <div class="footer-col">\
         <h4>Resources</h4>\
