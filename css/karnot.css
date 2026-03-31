@@ -26,7 +26,7 @@ a:hover{opacity:.92}
 .sg .rv:nth-child(6){transition-delay:.4s}
 
 /* --- SITE NAV --- */
-.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;transition:all .4s ease;background:transparent}
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;transition:all .4s ease;background:rgba(13,27,62,.95);backdrop-filter:blur(20px) saturate(1.8)}
 .site-nav.scrolled{background:rgba(13,27,62,.95);backdrop-filter:blur(20px) saturate(1.8);box-shadow:0 4px 30px rgba(0,0,0,.25);padding:10px 28px}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-size:22px;font-weight:800;letter-spacing:-.3px}
 .nav-logo img{height:36px;width:auto}
