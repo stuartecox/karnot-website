@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solar & Heat Pump Savings Calculator — Compare Solar PV + Heat Pump | Karnot</title>
+<meta name="description" content="Interactive solar savings calculator. Compare standard electric heating vs Karnot heat pump with solar PV offset. See panel count, roof area, annual savings, and payback period instantly.">
+<meta name="keywords" content="solar savings calculator, heat pump solar, solar PV offset, panel calculator, roof area calculator, energy savings, solar heat pump, Philippines solar">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/solar-calc">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/solar-calc">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/solar-calc">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/solar-calc">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/solar-calc">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Solar & Heat Pump Savings Calculator — Compare Solar PV + Heat Pump">
+<meta property="og:description" content="Compare standard heating vs Karnot + solar. See panel count, roof area, savings, payback. Multi-currency.">
+<meta property="og:url" content="https://karnot.com/solar-calc">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Karnot Solar & Heat Pump Savings Calculator">
+<meta name="twitter:description" content="Compare standard electric heating vs Karnot heat pump with solar PV. Calculate panel count, roof area, annual savings, and payback.">
+
+<link rel="stylesheet" href="css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"Karnot Solar Savings Calculator",
+  "description":"Compare standard electric heating vs Karnot heat pump with solar PV. Calculate panel count, roof area, annual savings, and payback.",
+  "url":"https://karnot.com/solar-calc",
+  "applicationCategory":"BusinessApplication",
+  "operatingSystem":"Web",
+  "offers":{
+    "@type":"Offer",
+    "price":"0",
+    "priceCurrency":"USD"
+  },
+  "publisher":{
+    "@type":"Organization",
+    "name":"Karnot Energy Solutions Inc.",
+    "url":"https://karnot.com"
+  }
+}
+</script>
+
+<style>
+/* ── Hero Section ── */
+.solar-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 80px 20px 60px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.solar-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(245,102,0,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(245,102,0,0.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+.solar-hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.solar-hero h1 span {
+  color: #F56600;
+}
+.solar-hero p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.75);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Calculator Container ── */
+.calc-container {
+  max-width: 1100px;
+  margin: -30px auto 0;
+  padding: 0 20px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Glassmorphism Card ── */
+.calc-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 28px 36px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.6) inset;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* ── Calculator Styles ── */
+:root {
+  --orange: #F56600;
+  --text: #1d1d1f;
+  --text2: #6e6e73;
+  --bg: #f5f5f7;
+  --border: #dee2e6;
+  --radius: 16px;
+  --shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+.calc-container .input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px 36px;
+}
+.calc-container label {
+  font-weight: 600;
+  color: var(--text2);
+  display: block;
+  margin: 16px 0 8px;
+  font-size: 14px;
+}
+.calc-container input,
+.calc-container select {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+}
+.calc-container input:focus,
+.calc-container select:focus {
+  outline: 0;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(245,124,0,.15);
+}
+
+.slider-control {
+  margin-top: 18px;
+  text-align: center;
+}
+.slider-control label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+.slider-control input[type=range] {
+  -webkit-appearance: none;
+  width: 60%;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  outline: none;
+  vertical-align: middle;
+  margin: 0 12px;
+  cursor: pointer;
+}
+.slider-control input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  background: var(--orange);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.slider-control input[type=range]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  background: var(--orange);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+.slider-control span {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--orange);
+  background: #fff;
+  padding: 6px 14px;
+  border-radius: 10px;
+  min-width: 120px;
+  text-align: center;
+  border: 1px solid var(--border);
+  display: inline-block;
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 36px;
+}
+.scenario {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.scenario h2 {
+  margin: 0;
+  padding: 16px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  font-size: 20px;
+}
+.standard h2 { background: #6c757d; }
+.karnot h2 { background: var(--orange); }
+
+.visual {
+  background: var(--bg);
+  padding: 16px;
+  flex: 1;
+  border-bottom: 1px solid var(--border);
+}
+.roof {
+  background: #d8e2ef;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 160px;
+  align-content: flex-start;
+  border: 1px solid #c8d2df;
+}
+.solar-panel {
+  width: 22px;
+  height: 36px;
+  background: #2c3e50;
+  border: 2px solid #fff;
+  border-radius: 3px;
+}
+
+.readout {
+  padding: 10px 18px 18px;
+}
+.readout p {
+  margin: 0;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+.readout p:last-child { border-bottom: none; }
+.readout strong {
+  color: var(--text2);
+  font-weight: 500;
+}
+.readout .val { font-weight: 700; }
+.standard .val { color: #495057; }
+.karnot .val { color: var(--orange); }
+
+.summary {
+  margin-top: 36px;
+  padding: 28px 36px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: var(--radius);
+  text-align: center;
+  box-shadow: 0 8px 28px rgba(245,124,0,.25);
+}
+.summary h3 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  font-weight: 600;
+}
+.summary-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.summary-metric .val {
+  font-size: 36px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+.summary-metric .lbl {
+  font-size: 16px;
+  opacity: .9;
+}
+
+.hidden { display: none; }
+
+@media (max-width: 768px) {
+  .solar-hero { padding: 60px 20px 40px; }
+  .solar-hero h1 { font-size: 26px; }
+  .solar-hero p { font-size: 16px; }
+  .comparison { grid-template-columns: 1fr; }
+  .slider-control input[type=range] { width: 90%; margin: 8px 0; }
+  .summary-metric .val { font-size: 28px; }
+  .calc-card { padding: 20px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Shared Navigation -->
+<div id="karnot-nav" data-page="savings"></div>
+
+<!-- Hero Section -->
+<section class="solar-hero">
+  <h1>The Karnot <span>Solar Advantage</span></h1>
+  <p>Visualise the cost and space savings when powering a water heating system with solar.</p>
+</section>
+
+<!-- Calculator -->
+<div class="calc-container">
+  <main>
+  <div class="calc-card">
+    <div class="input-grid">
+      <div>
+        <label for="currency">Select Currency</label>
+        <select id="currency"><option value="USD">$ USD</option><option value="PHP" selected>&#8369; PHP</option><option value="GBP">&pound; GBP</option><option value="EUR">&euro; EUR</option></select>
+        <label for="rate">Grid Electricity Rate (<span id="rateSymbol">&#8369;</span>/kWh)</label>
+        <input type="number" id="rate" value="12.25" step="0.01">
+        <label for="systemType">System Type</label>
+        <select id="systemType"><option value="grid-only">Grid Only</option><option value="grid-solar" selected>Grid + Solar (Offset)</option></select>
+      </div>
+      <div>
+        <label for="ambientTemp">Average Ambient Air Temp (&deg;C)</label><input type="number" id="ambientTemp" value="30">
+        <label for="inletTemp">Cold Water Inlet Temp (&deg;C)</label><input type="number" id="inletTemp" value="15">
+        <label for="targetTemp">Target Hot Water Temp (&deg;C)</label><input type="number" id="targetTemp" value="55">
+      </div>
+      <div>
+        <div id="solarInputs">
+          <label for="hoursPerDay">Daily Operating Hours</label><input type="number" id="hoursPerDay" value="12">
+          <label for="sunHours">Average Daily Sun Hours</label><input type="number" id="sunHours" value="5.5">
+        </div>
+        <label for="heatPumpType">Heat Pump Type</label>
+        <select id="heatPumpType"><option value="all">Best Price (All Models)</option><option value="r32">R32 Models Only</option><option value="r290">R290 Models Only</option><option value="co2">CO&#8322; Models Only</option></select>
+      </div>
+    </div>
+    <div class="slider-control">
+      <label for="demandSlider">Daily Hot Water Demand:</label>
+      <input type="range" id="demandSlider" min="50" max="20000" value="500" step="50" aria-label="Daily hot water demand in litres">
+      <span id="demandValue">500 Litres</span>
+    </div>
+  </div>
+
+  <div class="comparison">
+    <div class="scenario standard">
+      <h2>Standard Electric Heating</h2>
+      <div class="visual"><div class="roof" id="standardRoof"></div></div>
+      <div class="readout">
+        <p><strong>Annual Energy Cost:</strong><span class="val" id="standardCost">--</span></p>
+        <p><strong>Solar Panels Required:</strong><span class="val" id="standardPanels">--</span></p>
+        <p><strong>Required Roof Area:</strong><span class="val" id="standardArea">--</span></p>
+      </div>
+    </div>
+    <div class="scenario karnot">
+      <h2>Karnot Heat Pump</h2>
+      <div class="visual"><div class="roof" id="karnotRoof"></div></div>
+      <div class="readout">
+        <p><strong>Annual Energy Cost:</strong><span class="val" id="karnotCost">--</span></p>
+        <p><strong>Solar Panels Required:</strong><span class="val" id="karnotPanels">--</span></p>
+        <p><strong>Required Roof Area:</strong><span class="val" id="karnotArea">--</span></p>
+        <p><strong>Recommended Model:</strong><span class="val" id="karnotModel" style="font-size:14px">--</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <h3 id="summaryTitle">Choosing Karnot for 500 L/day provides:</h3>
+    <div class="summary-grid">
+      <div class="summary-metric"><span class="val" id="annualSavings">--</span><span class="lbl">Annual Savings</span></div>
+      <div class="summary-metric"><span class="val" id="paybackPeriod">--</span><span class="lbl">Payback Period</span></div>
+      <div class="summary-metric"><span class="val" id="panelsSaved">--%</span><span class="lbl">Fewer Solar Panels</span></div>
+    </div>
+  </div>
+  </main>
+</div>
+
+<!-- Shared Footer -->
+<div id="karnot-footer"></div>
+
+<!-- Load shared JS first (nav + footer injection) -->
+<script src="js/karnot.js"></script>
+
+<!-- Calculator Logic (preserved exactly from source) -->
+<script>
+var CONFIG={
+  FX:{PHP:62,USD:1,GBP:0.79,EUR:0.92},
+  symbols:{PHP:"\u20B1",USD:"$",GBP:"\u00A3",EUR:"\u20AC"},
+  defaultRate:{PHP:12.25,USD:0.21,GBP:0.25,EUR:0.22},
+  RATED_AMBIENT_C:20,RATED_LIFT_C:40,COP_STANDARD:1,
+  SOLAR_PANEL_WATTAGE:425,SOLAR_PANEL_AREA_SQM:2.3,
+  SOLAR_PANEL_COST_USD:200,INVERTER_COST_PER_WATT_USD:0.30,
+  HEAT_PUMP_SYSTEMS:[
+    {base_lhr:35,base_daily_L:900,n:"AquaHERO 200L",usd:1754,type:'r290',cop:3.6,max_temp_c:70},
+    {base_lhr:50,base_daily_L:1500,n:"AquaHERO 300L",usd:1916,type:'r290',cop:3.6,max_temp_c:70},
+    {base_lhr:100,n:"iHEAT R32 6kW",usd:2546,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:150,n:"iHEAT R32 9.5kW",usd:2678,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:200,n:"iHEAT R32 12kW",usd:2884,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:250,n:"iHEAT R32 16kW",usd:3154,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:300,n:"iHEAT R32 22kW",usd:3728,type:'r32',cop:3.8,max_temp_c:60},
+    {base_lhr:150,n:"iHEAT R290 9.5kW",usd:3944,type:'r290',cop:3.8,max_temp_c:80},
+    {base_lhr:200,n:"iHEAT R290 11.5kW",usd:4126,type:'r290',cop:3.8,max_temp_c:80},
+    {base_lhr:280,n:"iHEAT R290 15.5kW",usd:5582,type:'r290',cop:3.8,max_temp_c:80},
+    {base_lhr:300,n:"iHEAT R290 18.5kW",usd:5876,type:'r290',cop:3.8,max_temp_c:80},
+    {base_lhr:400,n:"iHEAT R290 25kW",usd:4119,type:'r290',cop:3.95,max_temp_c:80},
+    {base_lhr:480,n:"iHEAT R290 30kW",usd:6856,type:'r290',cop:3.85,max_temp_c:80},
+    {base_lhr:800,n:"iHEAT R290 50kW",usd:10300,type:'r290',cop:3.80,max_temp_c:80},
+    {base_lhr:1600,n:"iHEAT R290 100kW",usd:15339,type:'r290',cop:3.71,max_temp_c:80},
+    {base_lhr:600,n:"iHEAT CO\u2082 35kW",usd:42942,type:'co2',cop:3.8,max_temp_c:110},
+    {base_lhr:1200,n:"iHEAT CO\u2082 75kW",usd:70000,type:'co2',cop:3.8,max_temp_c:110}
+  ]
+};
+
+var $=function(id){return document.getElementById(id)};
+var fmt=function(n,f){return(+n).toLocaleString(undefined,{maximumFractionDigits:f||0,minimumFractionDigits:f||0})};
+
+function drawPanels(el,count){el.innerHTML="";var c=Math.min(count,250);for(var i=0;i<c;i++){var p=document.createElement("div");p.className="solar-panel";el.appendChild(p);}}
+
+function updateCalculator(){
+  var dailyL=parseInt($('demandSlider').value),currency=$('currency').value,elecRate=parseFloat($('rate').value),fxRate=CONFIG.FX[currency],sym=CONFIG.symbols[currency],hpType=$('heatPumpType').value,sysType=$('systemType').value,opHrs=parseFloat($('hoursPerDay').value)||12,sunHrs=parseFloat($('sunHours').value)||5.5,ambT=parseFloat($('ambientTemp').value),inT=parseFloat($('inletTemp').value),tgtT=parseFloat($('targetTemp').value);
+  var kwhPerL=((tgtT-inT)*1.163)/1000,dailyKwh=dailyL*kwhPerL;
+  var lift=Math.max(1,tgtT-inT),pf=Math.max(0.2,(CONFIG.RATED_LIFT_C/lift)*(1+((ambT-CONFIG.RATED_AMBIENT_C)*0.015)));
+  var models=CONFIG.HEAT_PUMP_SYSTEMS.map(function(m){var a=Object.assign({},m);if(m.base_daily_L)a.daily_capacity_L=m.base_daily_L*pf;a.lhr_max=m.base_lhr*pf;return a;});
+  if(hpType!=='all')models=models.filter(function(p){return p.type===hpType});
+  var peakLhr=dailyL/opHrs;
+  var suitable=models.filter(function(s){if(tgtT>s.max_temp_c)return false;if(s.daily_capacity_L)return dailyL<=s.daily_capacity_L;return peakLhr<=s.lhr_max;});
+  if(!suitable.length){$('karnotModel').textContent='No suitable model';return;}
+  suitable.sort(function(a,b){return a.usd-b.usd});
+  var hp=suitable[0];
+  var stdElec=dailyKwh/CONFIG.COP_STANDARD,stdAnnual=stdElec*365*elecRate,stdPwr=stdElec/opHrs,stdPanels=Math.ceil(stdPwr*1000/CONFIG.SOLAR_PANEL_WATTAGE);
+  var karnotElec=dailyKwh/hp.cop,karnotPwr=karnotElec/opHrs,hpCost=hp.usd*fxRate;
+  var karnotAnnual=0,totalCapex=0,kPanels=0;
+  if(sysType==='grid-only'){karnotAnnual=karnotElec*365*elecRate;totalCapex=hpCost;kPanels=0;}
+  else{var sH=Math.min(opHrs,sunHrs),gH=Math.max(0,opHrs-sH);kPanels=Math.ceil(karnotPwr*1000/CONFIG.SOLAR_PANEL_WATTAGE);var sCost=kPanels*CONFIG.SOLAR_PANEL_COST_USD*fxRate,iCost=(kPanels*CONFIG.SOLAR_PANEL_WATTAGE*CONFIG.INVERTER_COST_PER_WATT_USD)*fxRate;karnotAnnual=(karnotPwr*gH)*365*elecRate;totalCapex=hpCost+sCost+iCost;}
+  var savings=stdAnnual-karnotAnnual,payback=(savings>0&&totalCapex>0)?(totalCapex/savings).toFixed(1):"N/A";
+  var kArea=kPanels*CONFIG.SOLAR_PANEL_AREA_SQM,sArea=sysType==='grid-only'?0:stdPanels*CONFIG.SOLAR_PANEL_AREA_SQM;
+  var pctSaved=stdPanels>0?Math.max(0,(1-kPanels/stdPanels)*100):0;
+  $('demandValue').textContent=fmt(dailyL)+' Litres';
+  $('standardCost').textContent=sym+fmt(stdAnnual);
+  $('standardPanels').textContent=sysType==='grid-only'?'N/A':stdPanels;
+  $('standardArea').textContent=sysType==='grid-only'?'N/A':fmt(sArea)+' m\u00B2';
+  $('karnotModel').textContent=hp.n;
+  $('karnotCost').textContent=sym+fmt(karnotAnnual);
+  $('karnotPanels').textContent=kPanels>0?kPanels:'N/A';
+  $('karnotArea').textContent=kPanels>0?fmt(kArea)+' m\u00B2':'N/A';
+  $('summaryTitle').textContent='Choosing Karnot for '+fmt(dailyL)+' L/day provides:';
+  $('annualSavings').textContent=sym+fmt(savings);
+  $('paybackPeriod').textContent=payback+' Yrs';
+  $('panelsSaved').textContent=fmt(pctSaved)+'%';
+  drawPanels($('standardRoof'),sysType==='grid-only'?0:stdPanels);
+  drawPanels($('karnotRoof'),kPanels);
+}
+
+function handleSystemType(){$('solarInputs').classList.toggle('hidden',$('systemType').value==='grid-only');updateCalculator();}
+function updateCurrency(){var c=$('currency').value;$('rate').value=CONFIG.defaultRate[c];$('rateSymbol').textContent=CONFIG.symbols[c];updateCalculator();}
+
+document.addEventListener("DOMContentLoaded",function(){
+  ['demandSlider','rate','heatPumpType','hoursPerDay','sunHours','ambientTemp','inletTemp','targetTemp'].forEach(function(id){$(id).addEventListener('input',updateCalculator)});
+  $('currency').addEventListener('change',updateCurrency);
+  $('systemType').addEventListener('change',handleSystemType);
+  updateCurrency();handleSystemType();
+});
+</script>
+</body>
+</html>
