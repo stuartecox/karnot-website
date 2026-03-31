@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heat Pump Savings Calculator — Custom ROI &amp; System Sizing | Karnot</title>
+<meta name="description" content="Interactive heat pump savings calculator. Enter your hot water demand, current heating costs, and conditions to get a custom system recommendation with annual savings, payback period, and CO₂ reduction.">
+<meta name="keywords" content="heat pump calculator, savings calculator, ROI calculator, system sizing, hot water calculator, iHEAT sizing, R290 calculator, CO2 heat pump calculator, payback period, energy savings">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/savings">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/savings">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/savings">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/savings">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/savings">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Heat Pump Savings Calculator — Custom System Recommendation">
+<meta property="og:description" content="Enter your demand, costs, and conditions. Get instant system recommendation with annual savings and payback period.">
+<meta property="og:url" content="https://karnot.com/savings">
+<meta property="og:image" content="https://img1.wsimg.com/isteam/ip/cb1de239-c2b8-4674-b57d-5ae86a72feb1/iHEAT-18.5-R290small.png">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Karnot Heat Pump Calculator — Instant ROI">
+<meta name="twitter:description" content="Custom system sizing, annual savings, payback period, CO₂ reduction. Multi-currency.">
+
+<link rel="stylesheet" href="css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Karnot Heat Pump Savings Calculator","description":"Interactive calculator for sizing heat pump systems and estimating annual energy savings, payback period, and CO₂ reduction.","url":"https://karnot.com/savings","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com"}}
+</script>
+
+<style>
+/* ── Hero Section ── */
+.savings-hero {
+  position: relative;
+  padding: 100px 20px 60px;
+  text-align: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #F56600 100%);
+  background-size: 200% 200%;
+  animation: heroGradient 12s ease infinite;
+  overflow: hidden;
+}
+.savings-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(245,102,0,.15) 0%, transparent 60%),
+              radial-gradient(circle at 70% 80%, rgba(0,122,255,.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+@keyframes heroGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.savings-hero h1 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 16px;
+  position: relative;
+  letter-spacing: -0.5px;
+}
+.savings-hero h1 span {
+  color: #F56600;
+}
+.savings-hero p {
+  font-size: 18px;
+  color: rgba(255,255,255,.8);
+  max-width: 620px;
+  margin: 0 auto;
+  position: relative;
+  line-height: 1.6;
+}
+
+/* ── Calculator Section ── */
+.calculator-section {
+  max-width: 1100px;
+  margin: -30px auto 0;
+  padding: 0 20px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Calculator Card Overrides (glassmorphism) ── */
+:root {
+  --orange: #F56600;
+  --blue: #007aff;
+  --text: #1d1d1f;
+  --text2: #6e6e73;
+  --bg: #f5f5f7;
+  --border: #d2d2d7;
+  --green: #28a754;
+  --radius: 16px;
+  --shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+.calc-card {
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.4);
+  padding: 36px;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.04);
+  margin-bottom: 18px;
+}
+
+/* ── Original Calculator CSS ── */
+.calc-card h2 { font-size: 28px; font-weight: 700; color: var(--orange); text-align: center; margin: 0 0 36px; }
+.calc-card h3 { font-size: 20px; font-weight: 600; border-bottom: 2px solid var(--orange); padding-bottom: 10px; margin: 8px 0 22px; }
+.calc-card label { font-weight: 600; color: var(--text2); display: block; margin: 18px 0 8px; font-size: 14px; transition: opacity .3s; }
+.calc-card input, .calc-card select { width: 100%; padding: 11px 14px; font-size: 15px; border: 1px solid var(--border); border-radius: 8px; font-family: Inter, sans-serif; background: var(--bg); }
+.calc-card input:focus, .calc-card select:focus { outline: 0; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(245,124,0,.15); }
+.calc-card button { display: inline-block; padding: 11px 22px; font-size: 15px; font-weight: 600; background: var(--orange); color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background .25s; font-family: Inter, sans-serif; margin-top: 8px; }
+.calc-card button:hover { background: #d97000; }
+.input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px 36px; }
+.lpg-inputs { display: flex; align-items: center; gap: 8px; }
+.lpg-inputs span { color: var(--text2); font-size: 14px; }
+.lpg-inputs input { flex: 1; }
+#calcBtn { width: 100%; margin-top: 28px; padding: 14px; font-size: 17px; }
+.hidden { display: none; }
+#results { margin-top: 28px; border: 1px solid var(--orange); }
+.results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 22px; }
+.metric-card {
+  background: var(--bg);
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(245,102,0,.12);
+}
+.metric-card .label { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+.metric-card .value { font-size: 26px; font-weight: 700; color: var(--orange); }
+.details p { margin: 8px 0; font-size: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; display: flex; justify-content: space-between; }
+.details p:last-child { border-bottom: none; }
+.details strong { color: var(--text); font-weight: 600; }
+.email-section { margin-top: 28px; padding: 22px; background: #fffaf2; border-left: 5px solid #ffc107; border-radius: 12px; }
+.email-section h3 { border: none; margin: 0 0 10px; font-size: 18px; }
+.cooling-bonus { margin-top: 18px; padding: 22px; background: #e6f2ff; border-left: 5px solid var(--blue); border-radius: 8px; }
+.cooling-bonus h3 { color: var(--blue); border: none; margin: 0 0 8px; font-weight: 700; }
+.cooling-bonus p { font-size: 15px; margin: 0; }
+#fixtureBtn { margin-top: 6px; width: auto; padding: 7px 14px; background: var(--text2); font-size: 13px; }
+#fixtureModal { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: #fff; padding: 28px; box-shadow: 0 4px 16px rgba(0,0,0,.2); border-radius: var(--radius); z-index: 9999; max-width: 480px; width: 90%; display: none; }
+#fixtureModal h3 { margin-top: 0; border: none; }
+#fixtureModal label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+#fixtureModal input { width: 80px; }
+#fixtureModal .modal-buttons { display: flex; gap: 10px; margin-top: 18px; }
+#fixtureModal button { width: calc(50% - 5px); margin: 0; }
+#fixtureModal .cancel-btn { background: #6c757d; }
+
+/* ── CTA Section ── */
+.savings-cta {
+  max-width: 800px;
+  margin: 0 auto 60px;
+  padding: 48px 36px;
+  text-align: center;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0,0,0,.08);
+}
+.savings-cta h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.savings-cta p {
+  font-size: 16px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin: 0 0 24px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.savings-cta .cta-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  font-size: 17px;
+  font-weight: 600;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .25s, transform .25s;
+}
+.savings-cta .cta-btn:hover {
+  background: #d97000;
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .savings-hero { padding: 80px 16px 40px; }
+  .savings-hero h1 { font-size: 28px; }
+  .savings-hero p { font-size: 15px; }
+  .calc-card h2 { font-size: 22px; }
+  .calc-card h3 { font-size: 18px; }
+  .calc-card { padding: 24px 18px; }
+  .metric-card .value { font-size: 22px; }
+  .savings-cta { padding: 32px 20px; margin: 0 16px 40px; }
+  .savings-cta h2 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Skip link -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Shared Nav -->
+<div id="karnot-nav" data-page="savings"></div>
+
+<!-- Hero Section -->
+<section class="savings-hero">
+  <h1>Calculate Your <span>Savings</span></h1>
+  <p>Enter your demand, current costs, and conditions below. Our calculator will recommend the best heat pump system and show your annual savings, payback period, and CO&#8322; reduction.</p>
+</section>
+
+<!-- Calculator Section -->
+<section class="calculator-section" id="main-content">
+<div class="calc-card">
+  <h2>Karnot Heat Pump Calculator</h2>
+  <div class="input-grid">
+    <div>
+      <h3>1. Your Demand</h3>
+      <label for="userType">User Type</label>
+      <select id="userType"><option value="home">Home</option><option value="restaurant">Restaurant</option><option value="spa">Spa / Clinic</option><option value="resort">Hotels &amp; Resorts</option><option value="school">Schools &amp; Colleges</option><option value="office">Office</option></select>
+      <div id="occupantField"><label for="homeOccupants">Number of Occupants</label><input type="number" id="homeOccupants" value="4"></div>
+      <div id="showerField" class="hidden"><label for="q1" id="showerLabel">Litres of hot water per day</label><input type="number" id="q1" value="500"><button id="fixtureBtn">Estimate via Fixtures</button></div>
+      <div id="mealField" class="hidden"><label for="q2">Meals served per day</label><input type="number" id="q2" value="0"></div>
+      <div id="roomField" class="hidden"><label for="q3">Rooms occupied daily</label><input type="number" id="q3" value="0"></div>
+      <label for="hoursPerDay">Daily Operating Hours</label><input type="number" id="hoursPerDay" value="12">
+    </div>
+    <div>
+      <h3>2. Your Costs</h3>
+      <label for="currency">Select Currency</label>
+      <select id="currency"><option value="USD">$ USD</option><option value="PHP" selected>&#8369; PHP</option><option value="GBP">&pound; GBP</option><option value="EUR">&euro; EUR</option></select>
+      <label for="heatingType">Current Heating Type</label>
+      <select id="heatingType"><option value="electric">Electric</option><option value="gas">Natural Gas</option><option value="propane">Propane (LPG)</option><option value="diesel">Diesel</option></select>
+      <div id="gasField" class="hidden"><label for="gasRate">Natural Gas Rate (<span id="gasSymbol">&#8369;</span>/kWh)</label><input type="number" id="gasRate" value="7.0" step="0.001"></div>
+      <div id="propaneField" class="hidden"><label for="lpgPrice">Propane/LPG Price (<span id="propaneSymbol">&#8369;</span>)</label><div class="lpg-inputs"><input type="number" id="lpgPrice" value="950"><span>for a</span><input type="number" id="lpgSize" value="11"><span>kg tank</span></div></div>
+      <div id="dieselField" class="hidden"><label for="dieselPrice">Diesel Price per Litre (<span id="dieselSymbol">&#8369;</span>)</label><input type="number" id="dieselPrice" value="119" step="0.01"></div>
+    </div>
+    <div>
+      <h3>3. Conditions &amp; Options</h3>
+      <label for="ambientTemp">Average Ambient Air Temp (&deg;C)</label><input type="number" id="ambientTemp" value="30">
+      <label for="inletTemp">Cold Water Inlet Temp (&deg;C)</label><input type="number" id="inletTemp" value="15">
+      <label for="targetTemp">Target Hot Water Temp (&deg;C)</label><input type="number" id="targetTemp" value="55">
+      <label for="systemType">System Type</label>
+      <select id="systemType"><option value="grid-only">Grid Only</option><option value="grid-solar" selected>Grid + Solar (Offset)</option></select>
+      <div id="rateField"><label for="rate">Electricity Rate (<span id="elecSymbol">&#8369;</span>/kWh)</label><input type="number" id="rate" value="12.25" step="0.001"></div>
+      <div id="sunHoursField"><label for="sunHours">Average Daily Sun Hours</label><input type="number" id="sunHours" value="5.5"></div>
+      <label for="heatPumpType">Heat Pump Type</label>
+      <select id="heatPumpType"><option value="all">Best Price (All Models)</option><option value="r32">R32 Models Only</option><option value="r290">R290 Models Only</option><option value="co2">CO&#8322; Models Only</option></select>
+      <label for="includeCooling">Require Cooling?</label>
+      <select id="includeCooling"><option value="no">No</option><option value="yes">Yes</option></select>
+    </div>
+  </div>
+  <button id="calcBtn">Calculate Savings</button>
+</div>
+
+<div id="fixtureModal">
+  <h3>Estimate Hot Water Use</h3>
+  <label>Number of Showers <input type="number" id="fixShowers" value="0"></label>
+  <label>Lavatory Basins <input type="number" id="fixBasins" value="0"></label>
+  <label>Kitchen Sinks <input type="number" id="fixSinks" value="0"></label>
+  <label>Occupants <input type="number" id="fixPeople" value="0"></label>
+  <label>Hours per Day <input type="number" id="fixHours" value="8"></label>
+  <div class="modal-buttons"><button onclick="calculateOfficeFixtures()">Use These Values</button><button class="cancel-btn" onclick="document.getElementById('fixtureModal').style.display='none'">Cancel</button></div>
+</div>
+
+<div id="results" class="calc-card hidden"></div>
+</section>
+
+<!-- CTA Section -->
+<section class="savings-cta">
+  <h2>Ready for a Full Quotation?</h2>
+  <p>Our calculator provides estimates based on typical conditions. Contact our engineering team for a detailed site survey, custom system design, and firm pricing.</p>
+  <a href="contact.html" class="cta-btn"><i class="fas fa-envelope"></i>&nbsp; Get a Custom Quote</a>
+</section>
+
+<!-- Shared Footer -->
+<div id="karnot-footer"></div>
+
+<!-- Shared site JS (nav, footer, etc.) -->
+<script src="js/karnot.js"></script>
+
+<!-- Calculator Logic (unchanged from source) -->
+<script>
+var quoteData={};
+var CONFIG={
+  FX:{PHP:62,USD:1,GBP:0.79,EUR:0.92},
+  symbols:{PHP:"\u20B1",USD:"$",GBP:"\u00A3",EUR:"\u20AC"},
+  defaultRate:{
+    PHP:{grid:12.25,lpgPrice:950,lpgSize:11,gas:7.0,diesel:119},
+    USD:{grid:0.21,lpgPrice:25,lpgSize:9,gas:0.05,diesel:1.00},
+    GBP:{grid:0.25,lpgPrice:20,lpgSize:13,gas:0.07,diesel:1.30},
+    EUR:{grid:0.22,lpgPrice:22,lpgSize:11,gas:0.11,diesel:1.40}
+  },
+  RATED_AMBIENT_C:20,RATED_LIFT_C:40,
+  EM_FACTOR:{electric_grid:0.7,electric_solar:0.12,propane:0.23,gas:0.20,diesel:0.25},
+  KWH_PER_KG_LPG:13.8,DIESEL_KWH_PER_LITER:10.7,COP_STANDARD:1,
+  SOLAR_PANEL_KW_RATED:0.425,SOLAR_PANEL_COST_USD:200,INVERTER_COST_PER_WATT_USD:0.30,
+  COOLING_COP:2.6,
+  HEAT_PUMP_SYSTEMS:[
+    {base_lhr:35,base_daily_L:900,n:"Karnot R290 AquaHERO 200L",usd:1754,type:'r290',cop:3.6,isReversible:false,integral_storage_L:200,max_temp_c:70},
+    {base_lhr:50,base_daily_L:1500,n:"Karnot R290 AquaHERO 300L",usd:1916,type:'r290',cop:3.6,isReversible:false,integral_storage_L:300,max_temp_c:70},
+    {base_lhr:100,n:"Karnot iHEAT R32 - 6kW",usd:2546,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {base_lhr:150,n:"Karnot iHEAT R32 - 9.5kW",usd:2678,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {base_lhr:200,n:"Karnot iHEAT R32 - 12kW",usd:2884,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {base_lhr:250,n:"Karnot iHEAT R32 - 16kW",usd:3154,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {base_lhr:300,n:"Karnot iHEAT R32 - 22kW",usd:3728,type:'r32',cop:3.8,isReversible:true,max_temp_c:60},
+    {base_lhr:150,n:"Karnot iHEAT R290 - 9.5kW",usd:3944,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
+    {base_lhr:200,n:"Karnot iHEAT R290 - 11.5kW",usd:4126,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
+    {base_lhr:280,n:"Karnot iHEAT R290 - 15.5kW",usd:5582,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
+    {base_lhr:300,n:"Karnot iHEAT R290 - 18kW",usd:5876,type:'r290',cop:3.8,isReversible:true,max_temp_c:80},
+    {base_lhr:480,n:"Karnot iHEAT R290 - 30kW",usd:6856,type:'r290',cop:3.85,isReversible:true,max_temp_c:80},
+    {base_lhr:800,n:"Karnot iHEAT R290 - 50kW",usd:10300,type:'r290',cop:3.80,isReversible:true,max_temp_c:80},
+    {base_lhr:1600,n:"Karnot iHEAT R290 - 100kW",usd:15339,type:'r290',cop:3.71,isReversible:true,max_temp_c:80},
+    {base_lhr:1800,n:"Karnot iHEAT CO2 - 105kW",usd:0,type:'co2',cop:3.70,isReversible:true,max_temp_c:100},
+    {base_lhr:2800,n:"Karnot iHEAT CO2 - 160kW",usd:0,type:'co2',cop:3.65,isReversible:true,max_temp_c:100},
+    {base_lhr:5200,n:"Karnot iHEAT CO2 - 300kW",usd:0,type:'co2',cop:3.60,isReversible:true,max_temp_c:100},
+    {base_lhr:8700,n:"Karnot iHEAT CO2 - 500kW",usd:0,type:'co2',cop:3.55,isReversible:true,max_temp_c:100},
+    {base_lhr:600,n:"Karnot iHEAT CO2 - 35kW",usd:42942,type:'co2',cop:3.8,isReversible:false,max_temp_c:110},
+    {base_lhr:1200,n:"Karnot iHEAT CO2 - 75kW",usd:70000,type:'co2',cop:3.8,isReversible:false,max_temp_c:110}
+  ]
+};
+
+var $=function(id){return document.getElementById(id)};
+var fmt=function(n){return(+n).toLocaleString(undefined,{maximumFractionDigits:0})};
+
+function calculate(){
+  var currency=$('currency').value,heatingType=$('heatingType').value,userType=$('userType').value,systemType=$('systemType').value,heatPumpType=$('heatPumpType').value,rateInputValue=+$('rate').value,includeCooling=$('includeCooling').value==='yes';
+  var dailyLiters=0;
+  if(userType==='home')dailyLiters=+$('homeOccupants').value*50;
+  else if(userType==='restaurant')dailyLiters=+$('q2').value*7;
+  else if(userType==='resort')dailyLiters=(+$('q3').value*50)+(+$('q2').value*7);
+  else dailyLiters=+$('q1').value;
+  if(dailyLiters<=0)return showErr("Please enter a value for your user type.");
+  var hoursPerDay=Math.max(1,+$('hoursPerDay').value||24),ambientTemp=+$('ambientTemp').value,inletTemp=+$('inletTemp').value,targetTemp=+$('targetTemp').value,sunHours=+$('sunHours').value;
+  var currentRateKWH;
+  if(heatingType==='propane'){var lP=+$('lpgPrice').value,lS=+$('lpgSize').value||1;currentRateKWH=(lP/lS)/CONFIG.KWH_PER_KG_LPG;}
+  else if(heatingType==='diesel')currentRateKWH=+$('dieselPrice').value/CONFIG.DIESEL_KWH_PER_LITER;
+  else if(heatingType==='gas')currentRateKWH=+$('gasRate').value;
+  else currentRateKWH=rateInputValue;
+  var kwhPerLiter=((targetTemp-inletTemp)*1.163)/1000,dailyThermalEnergyKWH=dailyLiters*kwhPerLiter,annualCostOld=(dailyThermalEnergyKWH/CONFIG.COP_STANDARD)*365*currentRateKWH;
+  var actualLiftC=Math.max(1,targetTemp-inletTemp),performanceFactor=(CONFIG.RATED_LIFT_C/actualLiftC)*(1+((ambientTemp-CONFIG.RATED_AMBIENT_C)*0.015));
+  var availableModels=CONFIG.HEAT_PUMP_SYSTEMS;
+  if(heatPumpType!=='all')availableModels=availableModels.filter(function(p){return p.type===heatPumpType});
+  if(includeCooling)availableModels=availableModels.filter(function(p){return p.isReversible===true});
+  var adjustedModels=availableModels.map(function(m){return Object.assign({},m,{daily_capacity_L:m.base_daily_L?m.base_daily_L*performanceFactor:undefined,lhr_max:m.base_lhr*performanceFactor})});
+  var peakLitersPerHour=dailyLiters/hoursPerDay;
+  var suitableModels=adjustedModels.filter(function(s){return(targetTemp<=s.max_temp_c)&&(s.daily_capacity_L?dailyLiters<=s.daily_capacity_L:peakLitersPerHour<=s.lhr_max)});
+  if(suitableModels.length===0)return showErr("No suitable models found. Check temperature inputs or select a different heat pump type.");
+  suitableModels.sort(function(a,b){if(a.usd>0&&b.usd<=0)return-1;if(a.usd<=0&&b.usd>0)return 1;return a.usd-b.usd});
+  var hp=suitableModels[0],fxRate=CONFIG.FX[currency],symbol=CONFIG.symbols[currency],hpCOP=hp.cop,karnotDailyElecKwh=dailyThermalEnergyKWH/hpCOP,karnotPowerDrawKw=karnotDailyElecKwh/hoursPerDay;
+  var heatPumpCost=hp.usd*fxRate,karnotAnnualCost=0,solarCost=0,inverterCost=0,karnotPanelCount=0;
+  if(systemType==='grid-only')karnotAnnualCost=karnotDailyElecKwh*365*rateInputValue;
+  else{var solarH=Math.min(hoursPerDay,sunHours),gridH=Math.max(0,hoursPerDay-solarH);karnotAnnualCost=(karnotPowerDrawKw*gridH)*365*rateInputValue;karnotPanelCount=Math.ceil(karnotPowerDrawKw/CONFIG.SOLAR_PANEL_KW_RATED);solarCost=karnotPanelCount*CONFIG.SOLAR_PANEL_COST_USD*fxRate;inverterCost=(karnotPanelCount*CONFIG.SOLAR_PANEL_KW_RATED*1000*CONFIG.INVERTER_COST_PER_WATT_USD)*fxRate;}
+  var coolSavings=0,coolingHTML='';
+  if(includeCooling&&hp.isReversible){var dailyCoolingKwh=dailyThermalEnergyKWH/hp.cop*CONFIG.COOLING_COP;coolSavings=dailyCoolingKwh*365*rateInputValue;coolingHTML='<div class="cooling-bonus"><h3>Free Cooling Bonus!</h3><p>Reversible heat pump provides ~<strong>'+(dailyCoolingKwh/hoursPerDay).toFixed(1)+' kW</strong> of free cooling, saving <strong>'+symbol+fmt(coolSavings)+'</strong> annually!</p></div>';}
+  var totalCapex=heatPumpCost+solarCost+inverterCost,totalAnnualSavings=(annualCostOld-karnotAnnualCost)+coolSavings,paybackYears=totalAnnualSavings>0&&totalCapex>0?(totalCapex/totalAnnualSavings).toFixed(1):"N/A";
+  var isSolar=systemType==='grid-solar',emFactorKey=heatingType==='electric'?'electric_grid':heatingType,emFactorOld=CONFIG.EM_FACTOR[emFactorKey],emFactorNew=CONFIG.EM_FACTOR[isSolar?'electric_solar':'electric_grid'],emissionsSaved=((dailyThermalEnergyKWH/CONFIG.COP_STANDARD)*365*emFactorOld)-((karnotDailyElecKwh)*365*emFactorNew);
+  quoteData={symbol:symbol,totalAnnualSavings:totalAnnualSavings,paybackYears:paybackYears,emissionsSaved:emissionsSaved,heatPumpSystem:hp,Lhr:peakLitersPerHour,dailyLiters:dailyLiters,annualCostOld:annualCostOld,karnotAnnualCost:karnotAnnualCost,heatPumpCost:heatPumpCost,isSolar:isSolar,karnotPanelCount:karnotPanelCount,solarCost:solarCost,inverterCost:inverterCost,totalCapex:totalCapex,coolSavings:coolSavings};
+  $('results').innerHTML='<h3>Your Custom Report</h3><p>Recommended system: <strong>'+hp.n+'</strong></p><div class="results-grid"><div class="metric-card"><div class="label">Total Annual Savings</div><div class="value">'+symbol+fmt(totalAnnualSavings)+'</div></div><div class="metric-card"><div class="label">Estimated Payback</div><div class="value">'+paybackYears+' Yrs</div></div><div class="metric-card"><div class="label">CO\u2082 Reduction</div><div class="value">'+fmt(emissionsSaved)+' kg</div></div><div class="metric-card"><div class="label">Adjusted Output</div><div class="value">'+fmt(hp.lhr_max)+' L/hr</div></div></div><div class="details" style="margin-top:22px"><p><strong>Daily Hot Water Demand:</strong>'+fmt(dailyLiters)+' Litres</p><p><strong>Annual Cost (Current):</strong>'+symbol+fmt(annualCostOld)+'</p><p><strong>Annual Cost (Heat Pump):</strong>'+symbol+fmt(karnotAnnualCost)+'</p><hr style="border:0;border-top:1px solid var(--border);margin:12px 0"><p><strong>Heat Pump System:</strong> Contact for Quotation</p>'+(isSolar?'<p><strong>Solar PV ('+karnotPanelCount+' panels):</strong> Contact for Quotation</p>':'')+'<p><strong>Total System Cost:</strong> <strong>Contact for Quotation</strong></p></div>'+coolingHTML+'<div class="email-section"><h3>Generate Your Custom Report</h3><p>Click below to open a printer-friendly report.</p><div style="text-align:right"><button onclick="generatePrintableReport()">Generate PDF Report</button></div></div>';
+  $('results').classList.remove('hidden');
+}
+
+function showErr(msg){$('results').innerHTML='<h3 style="color:#c00">Error: '+msg+'</h3><p>Please adjust your inputs and try again.</p>';$('results').classList.remove('hidden');}
+
+function updateRate(){
+  var c=$('currency').value,s=CONFIG.symbols[c],d=CONFIG.defaultRate[c];
+  $('lpgPrice').value=d.lpgPrice;$('lpgSize').value=d.lpgSize;$('propaneSymbol').textContent=s;
+  $('dieselPrice').value=d.diesel;$('dieselSymbol').textContent=s;
+  $('gasRate').value=d.gas;$('gasSymbol').textContent=s;
+  $('rate').value=d.grid;$('elecSymbol').textContent=s;
+  toggleRateFields();
+}
+
+function toggleFields(){
+  var u=$('userType').value;
+  $('occupantField').classList.toggle('hidden',u!=='home');
+  var s=['office','school','spa'].indexOf(u)!==-1;
+  $('showerField').classList.toggle('hidden',!s);
+  var m=['restaurant','resort'].indexOf(u)!==-1;
+  $('mealField').classList.toggle('hidden',!m);
+  $('roomField').classList.toggle('hidden',u!=='resort');
+}
+
+function toggleRateFields(){
+  var h=$('heatingType').value;
+  $('gasField').classList.toggle('hidden',h!=='gas');
+  $('propaneField').classList.toggle('hidden',h!=='propane');
+  $('dieselField').classList.toggle('hidden',h!=='diesel');
+  calculate();
+}
+
+function toggleSunHours(){
+  var st=$('systemType').value;
+  $('sunHoursField').classList.toggle('hidden',st!=='grid-solar');
+}
+
+function calculateOfficeFixtures(){
+  var s=+$('fixShowers').value,b=+$('fixBasins').value,k=+$('fixSinks').value,p=+$('fixPeople').value,h=+$('fixHours').value;
+  $('q1').value=Math.round((50*s*0.4)+(284*p*0.15*0.25*0.4)+(20*b*0.4)+(114*k*0.3*h*0.4));
+  $('fixtureModal').style.display='none';
+  calculate();
+}
+
+function generatePrintableReport(){
+  var q=quoteData;if(!q||!q.heatPumpSystem){alert("Please run a calculation first.");return;}
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Karnot Savings Report</title><style>body{font-family:Inter,sans-serif;margin:0;padding:40px;color:#1d1d1f;max-width:800px;margin:auto}h1{color:#F56600;font-size:28px;text-align:center;border-bottom:2px solid #F56600;padding-bottom:16px}h2{font-size:20px;border-bottom:1px solid #d2d2d7;padding-bottom:8px;margin-top:32px}.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center;margin:24px 0}.metric .value{font-size:26px;font-weight:700;color:#F56600}.metric .label{font-size:13px;color:#6e6e73}table{width:100%;border-collapse:collapse}td{padding:10px 0;border-bottom:1px solid #d2d2d7}td:last-child{text-align:right;font-weight:600}footer{text-align:center;margin-top:40px;font-size:11px;color:#aaa}</style></head><body><h1>Karnot Savings Report</h1><h2>Recommended: '+q.heatPumpSystem.n+'</h2><div class="grid"><div class="metric"><div class="value">'+q.symbol+fmt(q.totalAnnualSavings)+'</div><div class="label">Annual Savings</div></div><div class="metric"><div class="value">'+q.paybackYears+' Yrs</div><div class="label">Payback</div></div><div class="metric"><div class="value">'+fmt(q.emissionsSaved)+' kg</div><div class="label">CO\u2082 Reduction</div></div></div><h2>Financial Breakdown</h2><table><tr><td>Annual Cost (Current)</td><td>'+q.symbol+fmt(q.annualCostOld)+'</td></tr><tr><td>Annual Cost (Heat Pump)</td><td>'+q.symbol+fmt(q.karnotAnnualCost)+'</td></tr>'+(q.coolSavings>0?'<tr><td>Free Cooling Savings</td><td>'+q.symbol+fmt(q.coolSavings)+'</td></tr>':'')+'<tr><td>Total Annual Savings</td><td>'+q.symbol+fmt(q.totalAnnualSavings)+'</td></tr></table><p style="margin-top:20px">Payback: '+q.paybackYears+' years. Contact us for a detailed quotation.</p><footer>&copy; '+new Date().getFullYear()+' Karnot Energy Solutions Inc.</footer></body></html>';
+  var win=window.open("","_blank");win.document.write(html);
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  ['rate','gasRate','lpgPrice','lpgSize','dieselPrice','homeOccupants','q1','q2','q3','hoursPerDay','ambientTemp','inletTemp','targetTemp','sunHours'].forEach(function(id){$(id)&&$(id).addEventListener('input',calculate)});
+  ['currency','userType','heatingType','systemType','heatPumpType','includeCooling'].forEach(function(id){$(id).addEventListener('change',calculate)});
+  $('currency').addEventListener('change',updateRate);
+  $('userType').addEventListener('change',toggleFields);
+  $('heatingType').addEventListener('change',toggleRateFields);
+  $('systemType').addEventListener('change',toggleSunHours);
+  $('calcBtn').addEventListener('click',calculate);
+  $('fixtureBtn').addEventListener('click',function(){$('fixtureModal').style.display='block'});
+  updateRate();toggleFields();toggleSunHours();calculate();
+});
+</script>
+
+</body>
+</html>

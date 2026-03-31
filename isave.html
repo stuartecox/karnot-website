@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>iSAVE Smart Energy Platform — Matter Smart Home, AI Optimisation, Carbon Credits | Karnot</title>
+<meta name="description" content="iSAVE: Matter-certified smart controller for Karnot hydronic systems. AI energy optimisation (15-25% savings), blockchain Gold Standard carbon credits (8-15% returns), VPP-ready. Apple Home, Google, Alexa. Q4 2026.">
+<meta name="keywords" content="iSAVE, smart home HVAC, Matter protocol, Thread, AI energy management, carbon credits, Gold Standard, VPP, virtual power plant, smart heat pump, blockchain carbon, predictive maintenance">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/isave">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/uk.html">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/usa-canada.html">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/">
+
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="iSAVE — Smart Energy Platform | Matter + AI + Carbon Credits">
+<meta property="og:description" content="Matter-certified smart HVAC controller. 15-25% energy savings. Gold Standard carbon credits. VPP-ready. Q4 2026.">
+<meta property="og:url" content="https://karnot.com/isave">
+<meta property="og:image" content="https://img1.wsimg.com/isteam/ip/cb1de239-c2b8-4674-b57d-5ae86a72feb1/Karnot%20iSAVE%20Mobile%20App.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="iSAVE — The Smart Brain for Your Karnot System">
+<meta name="twitter:description" content="Matter + Thread. AI optimisation. Gold Standard carbon credits. VPP revenue. Coming Q4 2026.">
+
+<link rel="stylesheet" href="css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com"},
+    {"@type":"SoftwareApplication","name":"iSAVE Smart Energy Platform","applicationCategory":"UtilitiesApplication","operatingSystem":"iOS, Android, Web","description":"Matter-certified smart controller for Karnot hydronic HVAC systems. AI energy optimisation (15-25% savings), blockchain-verified Gold Standard carbon credits, VPP integration, predictive maintenance. Apple Home, Google Home, Alexa compatible.","brand":{"@type":"Brand","name":"Karnot"},"author":{"@id":"https://karnot.com/#organization"},"url":"https://karnot.com/isave","screenshot":"https://img1.wsimg.com/isteam/ip/cb1de239-c2b8-4674-b57d-5ae86a72feb1/Karnot%20iSAVE%20Mobile%20App.png","featureList":"Matter Protocol, Thread Mesh, AI Energy Optimisation, Gold Standard Carbon Credits, Virtual Power Plant, Predictive Maintenance, Solar Integration","softwareVersion":"1.0","releaseNotes":"Initial launch Q4 2026","offers":{"@type":"Offer","availability":"https://schema.org/PreOrder","url":"https://karnot.com/contact"},"additionalProperty":[{"@type":"PropertyValue","name":"Protocol","value":"Matter + Thread"},{"@type":"PropertyValue","name":"Energy Savings","value":"15-25%"},{"@type":"PropertyValue","name":"Carbon Credits","value":"Gold Standard certified"},{"@type":"PropertyValue","name":"Launch Date","value":"Q4 2026"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What smart home platforms does iSAVE support?","acceptedAnswer":{"@type":"Answer","text":"iSAVE is Matter-certified and works with Apple Home, Google Home, Amazon Alexa, and Samsung SmartThings. Thread mesh networking provides reliable, low-power wireless control with offline capability."}},
+      {"@type":"Question","name":"How do iSAVE carbon credits work?","acceptedAnswer":{"@type":"Answer","text":"iSAVE continuously monitors energy savings vs a Gold Standard-approved baseline. Avoided CO2 emissions are calculated, verified via blockchain, and issued as tradeable Gold Standard carbon credits. Typical returns: 8-15% of energy savings annually."}},
+      {"@type":"Question","name":"What is Virtual Power Plant (VPP) integration?","acceptedAnswer":{"@type":"Answer","text":"VPP allows your heat pump to participate in grid demand response programs, earning payments for shifting or curtailing energy use during grid stress events. iSAVE connects to platforms like Octopus Energy Kraken and Enel X."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ── iSAVE page-specific styles ── */
+:root{--isave-blue:#007aff;--isave-green:#34c759;--isave-gold:#FFB800;--isave-orange:#F56600;--isave-text:#1d1d1f;--isave-text2:#6e6e73;--isave-bg:#f5f5f7;--isave-border:#d2d2d7}
+
+/* SKIP LINK */
+.skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);background:var(--isave-blue);color:#fff;padding:12px 24px;border-radius:0 0 8px 8px;font-weight:600;z-index:9999;text-decoration:none}
+.skip-link:focus{top:0}
+
+/* HERO */
+.isave-hero{background:linear-gradient(135deg,#0051a5,#007aff);color:#fff;padding:100px 20px 70px;text-align:center;position:relative;overflow:hidden}
+.isave-hero::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><path d="M60 0L0 0 0 60" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="1"/></svg>');opacity:.4}
+.isave-hero::after{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.isave-hero-inner{position:relative;z-index:1;max-width:900px;margin:0 auto}
+.isave-hero-badge{display:inline-block;padding:7px 18px;background:rgba(255,255,255,.15);border-radius:30px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px;backdrop-filter:blur(8px)}
+.isave-hero h1{font-size:56px;font-weight:800;margin-bottom:16px;line-height:1.1;letter-spacing:-1px}
+.isave-hero .isave-tagline{font-size:24px;font-weight:500;margin-bottom:10px;opacity:.95}
+.isave-hero .isave-sub-tagline{font-size:17px;opacity:.85;margin-bottom:36px}
+.isave-cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.isave-btn-white{display:inline-block;padding:16px 40px;font-size:17px;font-weight:600;border-radius:50px;text-decoration:none;background:#fff;color:var(--isave-blue);transition:all .25s}
+.isave-btn-white:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,255,255,.3);opacity:1}
+.isave-btn-outline{display:inline-block;padding:16px 40px;font-size:17px;font-weight:600;border-radius:50px;text-decoration:none;background:rgba(255,255,255,.12);color:#fff;border:2px solid rgba(255,255,255,.4);transition:all .25s}
+.isave-btn-outline:hover{background:rgba(255,255,255,.25);opacity:1}
+
+/* STATS BAR */
+.isave-stats-bar{background:#fff;box-shadow:0 6px 24px rgba(0,0,0,.08);border-radius:20px;padding:36px;margin:-50px auto 60px;max-width:1200px;position:relative;z-index:10}
+.isave-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.isave-stat-card{padding:18px;background:var(--isave-bg);border:1px solid var(--isave-border);border-radius:12px;transition:transform .3s,box-shadow .3s}
+.isave-stat-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,122,255,.1)}
+.isave-stat-val{font-size:36px;font-weight:800;color:var(--isave-blue);display:block;margin-bottom:4px}
+.isave-stat-lbl{font-size:14px;color:var(--isave-text2);font-weight:500}
+
+/* SECTIONS */
+.isave-content-section{max-width:1200px;margin:60px auto;padding:0 20px}
+.isave-section-head{text-align:center;margin-bottom:50px}
+.isave-section-head h2{font-size:36px;font-weight:700;margin-bottom:12px}
+.isave-section-head p{font-size:18px;color:var(--isave-text2);max-width:700px;margin:0 auto}
+.isave-intro-text{font-size:17px;line-height:1.8;text-align:center;max-width:900px;margin:32px auto;color:var(--isave-text)}
+
+/* SMART HOME SECTION */
+.isave-smart-section{background:linear-gradient(135deg,#1d1d1f,#3a3a3c);padding:70px 20px;color:#fff}
+.isave-smart-inner{max-width:1200px;margin:0 auto}
+.isave-platform-logos{display:flex;justify-content:center;gap:20px;margin:32px 0;flex-wrap:wrap}
+.isave-platform-logo{background:rgba(255,255,255,.1);padding:16px 28px;border-radius:14px;font-size:18px;font-weight:700;backdrop-filter:blur(10px);transition:background .3s,transform .3s}
+.isave-platform-logo:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+.isave-matter-badge{display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,.12);padding:18px 26px;border-radius:14px;margin:28px auto;backdrop-filter:blur(10px)}
+.isave-matter-badge i{font-size:40px;color:var(--isave-orange)}
+.isave-matter-badge h4{font-size:18px;font-weight:700;margin-bottom:3px}
+.isave-matter-badge p{font-size:13px;opacity:.85}
+
+/* FEATURE GRID */
+.isave-features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.isave-feature-card{background:#fff;padding:34px;border-radius:18px;box-shadow:0 4px 12px rgba(0,0,0,.05);transition:all .3s}
+.isave-feature-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,122,255,.12)}
+.isave-f-icon{font-size:40px;color:var(--isave-blue);margin-bottom:16px}
+.isave-feature-card h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.isave-feature-card p{font-size:15px;color:var(--isave-text2);line-height:1.6}
+
+/* CARBON CREDITS */
+.isave-carbon-section{background:linear-gradient(135deg,#1a5f2f,#2d8b47);padding:70px 20px;color:#fff}
+.isave-carbon-inner{max-width:1200px;margin:0 auto}
+.isave-carbon-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.isave-carbon-text h2{font-size:34px;font-weight:700;margin-bottom:16px}
+.isave-carbon-text p{font-size:17px;line-height:1.8;margin-bottom:16px;opacity:.95}
+.isave-gold-badge{display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,.12);padding:18px 26px;border-radius:14px;margin-top:24px;backdrop-filter:blur(10px)}
+.isave-gold-badge i{font-size:40px;color:var(--isave-gold)}
+.isave-gold-badge h4{font-size:18px;font-weight:700;margin-bottom:3px}
+.isave-gold-badge p{font-size:13px;opacity:.85}
+.isave-carbon-steps{background:rgba(255,255,255,.1);border-radius:20px;padding:34px;backdrop-filter:blur(10px)}
+.isave-carbon-steps h3{font-size:24px;font-weight:700;margin-bottom:20px}
+.isave-c-step{display:flex;align-items:start;gap:14px;margin-bottom:18px}
+.isave-c-step i{font-size:22px;color:var(--isave-gold);margin-top:2px;flex-shrink:0}
+.isave-c-step h4{font-size:16px;font-weight:600;margin-bottom:3px}
+.isave-c-step p{font-size:14px;opacity:.9}
+
+/* TECH STACK */
+.isave-tech-section{background:#fff;padding:70px 20px}
+.isave-tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;max-width:1200px;margin:0 auto}
+.isave-tech-card{background:var(--isave-bg);padding:34px;border-radius:18px;border-left:6px solid var(--isave-blue);transition:transform .3s,box-shadow .3s}
+.isave-tech-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.isave-tech-card h3{font-size:24px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.isave-tech-card h3 i{font-size:30px;color:var(--isave-blue)}
+.isave-tech-card ul{list-style:none;padding:0;margin:0}
+.isave-tech-card li{padding:10px 0 10px 26px;position:relative;font-size:15px;line-height:1.6}
+.isave-tech-card li::before{content:"\2713";position:absolute;left:0;color:var(--isave-green);font-weight:700;font-size:18px}
+
+/* VPP */
+.isave-vpp-section{background:linear-gradient(135deg,var(--isave-bg),#fff);padding:70px 20px}
+.isave-vpp-inner{max-width:1000px;margin:0 auto;text-align:center}
+.isave-vpp-inner h2{font-size:36px;font-weight:700;margin-bottom:14px}
+.isave-vpp-inner>p{font-size:18px;color:var(--isave-text2);margin-bottom:36px}
+.isave-vpp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.isave-vpp-card{background:#fff;padding:30px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.05);transition:transform .3s,box-shadow .3s}
+.isave-vpp-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
+.isave-vpp-icon{font-size:36px;color:var(--isave-blue);margin-bottom:16px}
+.isave-vpp-card h4{font-size:18px;font-weight:700;margin-bottom:8px}
+.isave-vpp-card p{font-size:14px;color:var(--isave-text2)}
+.isave-vpp-partners{margin-top:32px;font-size:16px;color:var(--isave-text2)}
+
+/* VALUE PROPOSITION */
+.isave-value-section{max-width:900px;margin:60px auto;padding:0 20px}
+.isave-value-box{background:linear-gradient(135deg,var(--isave-bg),#fff);border-radius:20px;padding:50px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.isave-value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.isave-value-item{text-align:center}
+.isave-value-num{font-size:42px;font-weight:800;margin-bottom:6px}
+.isave-value-num.green{color:var(--isave-green)}
+.isave-value-num.gold{color:var(--isave-gold)}
+.isave-value-num.blue{color:var(--isave-blue)}
+.isave-value-num.dark{color:var(--isave-text)}
+.isave-value-label{font-size:16px;color:var(--isave-text2);font-weight:600}
+.isave-value-sub{font-size:13px;color:var(--isave-text2);margin-top:6px}
+.isave-total-box{margin-top:36px;padding:28px;background:#fff;border-radius:12px;text-align:center;border:2px solid rgba(0,122,255,.15)}
+.isave-total-label{font-size:20px;font-weight:700;margin-bottom:8px}
+.isave-total-num{font-size:50px;font-weight:800;color:var(--isave-blue)}
+.isave-total-sub{font-size:15px;color:var(--isave-text2);margin-top:6px}
+
+/* CTA SECTION */
+.isave-cta-section{background:linear-gradient(135deg,#0051a5,#007aff);color:#fff;padding:70px 20px;text-align:center;position:relative;overflow:hidden}
+.isave-cta-section::before{content:'';position:absolute;bottom:-30%;left:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.isave-cta-section h2{font-size:34px;font-weight:700;margin-bottom:16px}
+.isave-cta-section p{font-size:18px;margin-bottom:32px;opacity:.95}
+.isave-cta-note{margin-top:24px;font-size:14px;opacity:.8}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .isave-features-grid,.isave-tech-grid,.isave-carbon-grid,.isave-vpp-grid{grid-template-columns:1fr}
+  .isave-stats-grid{grid-template-columns:repeat(2,1fr)}
+  .isave-value-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .isave-hero{padding:70px 16px 50px}
+  .isave-hero h1{font-size:36px}
+  .isave-hero .isave-tagline{font-size:18px}
+  .isave-hero .isave-sub-tagline{font-size:14px}
+  .isave-stats-bar{padding:24px 16px;margin:-36px 16px 40px}
+  .isave-stats-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .isave-stat-val{font-size:26px}
+  .isave-section-head h2{font-size:26px}
+  .isave-smart-section,.isave-carbon-section,.isave-tech-section,.isave-vpp-section{padding:50px 16px}
+  .isave-platform-logos{gap:10px}
+  .isave-platform-logo{padding:12px 18px;font-size:14px}
+  .isave-cta-section h2{font-size:24px}
+  .isave-cta-row{flex-direction:column;align-items:center}
+  .isave-btn-white,.isave-btn-outline{width:100%;text-align:center}
+  .isave-value-box{padding:32px 20px}
+  .isave-value-num{font-size:30px}
+  .isave-total-num{font-size:36px}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Shared navigation -->
+<div id="karnot-nav" data-page="isave"></div>
+
+<header class="isave-hero" aria-label="iSAVE introduction">
+  <div class="isave-hero-inner">
+    <div class="isave-hero-badge">Smart Home &bull; Energy Management &bull; Carbon Credits</div>
+    <h1>iSAVE</h1>
+    <p class="isave-tagline">The Smart Controller for Your Karnot Hydronic System</p>
+    <p class="isave-sub-tagline">Matter-certified smart home &bull; AI energy optimisation &bull; Blockchain carbon credits &bull; VPP-ready</p>
+    <div class="isave-cta-row">
+      <a href="contact.html" class="isave-btn-white">Coming Q4 2026</a>
+      <a href="mailto:stuart@karnot.com" class="isave-btn-outline">Get Early Access</a>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+<!-- STATS BAR -->
+<div class="isave-stats-bar reveal" aria-label="Key iSAVE statistics">
+  <div class="isave-stats-grid">
+    <div class="isave-stat-card"><span class="isave-stat-val">Matter</span><span class="isave-stat-lbl">Certified Protocol</span></div>
+    <div class="isave-stat-card"><span class="isave-stat-val">15-25%</span><span class="isave-stat-lbl">Energy Savings</span></div>
+    <div class="isave-stat-card"><span class="isave-stat-val">Gold</span><span class="isave-stat-lbl">Standard Certified</span></div>
+    <div class="isave-stat-card"><span class="isave-stat-val">24/7</span><span class="isave-stat-lbl">Smart Monitoring</span></div>
+  </div>
+</div>
+
+<!-- SMART HOME INTEGRATION -->
+<section class="isave-smart-section" aria-label="Smart home integration">
+  <div class="isave-smart-inner">
+    <div class="isave-section-head reveal">
+      <h2 style="color:#fff">Universal Smart Home Integration</h2>
+      <p style="color:rgba(255,255,255,.9)">Control your entire Karnot system from smartphone, smartwatch, or voice assistant</p>
+    </div>
+    <div class="isave-platform-logos reveal">
+      <div class="isave-platform-logo" role="img" aria-label="Apple Home"><i class="fa-brands fa-apple" aria-hidden="true"></i> Apple Home</div>
+      <div class="isave-platform-logo" role="img" aria-label="Google Home"><i class="fa-brands fa-google" aria-hidden="true"></i> Google Home</div>
+      <div class="isave-platform-logo" role="img" aria-label="Amazon Alexa"><i class="fa-brands fa-amazon" aria-hidden="true"></i> Alexa</div>
+      <div class="isave-platform-logo" role="img" aria-label="SmartThings"><i class="fa-solid fa-house-signal" aria-hidden="true"></i> SmartThings</div>
+    </div>
+    <div style="text-align:center" class="reveal">
+      <div class="isave-matter-badge">
+        <i class="fa-solid fa-network-wired" aria-hidden="true"></i>
+        <div><h4>Matter Protocol Certified</h4><p>Future-proof interoperability with Thread mesh networking</p></div>
+      </div>
+    </div>
+    <div class="isave-features-grid" style="margin-top:50px">
+      <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-microphone" aria-hidden="true"></i></div><h3>Voice Control</h3><p>Natural language control of all zones via Siri, Google Assistant, or Alexa.</p></div>
+      <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i></div><h3>Smartphone App</h3><p>iOS and Android apps for complete system control from anywhere in the world.</p></div>
+      <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i></div><h3>Smart Automation</h3><p>Scenes and automations: "Good Morning" pre-heats, "Away" saves energy, "Sleep" optimises comfort.</p></div>
+      <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-house-signal" aria-hidden="true"></i></div><h3>Thread Mesh Network</h3><p>Low-power, self-healing wireless mesh. More reliable than Wi-Fi with instant response.</p></div>
+      <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i></div><h3>Real-Time Monitoring</h3><p>Energy consumption, temperatures, and system status for every zone. Track savings live.</p></div>
+      <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></div><h3>Open API</h3><p>RESTful API for custom integrations with BMS, home automation, or enterprise software.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI ENERGY INTELLIGENCE -->
+<section class="isave-content-section" aria-label="AI energy intelligence">
+  <div class="isave-section-head reveal"><h2>AI-Powered Energy Intelligence</h2><p>Transform your heat pump into a revenue-generating, carbon-credit-earning asset</p></div>
+  <p class="isave-intro-text reveal">iSAVE is the brain of your Karnot hydronic system — connecting iHEAT heat pumps and iZONE fan coils to smart home platforms, optimising for lowest energy costs, coordinating solar integration, and generating blockchain-verified carbon credits.</p>
+  <div class="isave-features-grid">
+    <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div><h3>Smart Scheduling</h3><p>AI learns your patterns and load-shifts to off-peak hours. Pre-heat or pre-cool using thermal storage to avoid peak charges.</p></div>
+    <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-solar-panel" aria-hidden="true"></i></div><h3>Solar Integration</h3><p>Automatically prioritise solar power, charge thermal storage during peak solar, and maximise self-consumption.</p></div>
+    <div class="isave-feature-card reveal"><div class="isave-f-icon"><i class="fa-solid fa-brain" aria-hidden="true"></i></div><h3>Predictive Maintenance</h3><p>AI detects anomalies and predicts failures before they happen, reducing downtime by 60%.</p></div>
+  </div>
+</section>
+
+<!-- CARBON CREDITS -->
+<section class="isave-carbon-section" aria-label="Carbon credit system">
+  <div class="isave-carbon-inner">
+    <div class="isave-section-head reveal"><h2 style="color:#fff">Blockchain-Verified Carbon Credits</h2><p style="color:rgba(255,255,255,.9)">Turn energy savings into revenue — Gold Standard certified</p></div>
+    <div class="isave-carbon-grid">
+      <div class="isave-carbon-text reveal">
+        <h2>Monetise Your Impact</h2>
+        <p>Every kWh saved generates blockchain-verified carbon credits certified by <strong>Gold Standard</strong> — the most trusted name in carbon markets. These credits represent real, measurable CO&#8322; reductions.</p>
+        <p>iSAVE's edge device continuously monitors baseline vs actual energy consumption, calculates avoided emissions, and reports to Gold Standard's registry via secure blockchain.</p>
+        <div class="isave-gold-badge"><i class="fa-solid fa-award" aria-hidden="true"></i><div><h4>Gold Standard Certified</h4><p>Highest integrity carbon credits with verified SDG impact</p></div></div>
+      </div>
+      <div class="isave-carbon-steps reveal">
+        <h3>How It Works</h3>
+        <div class="isave-c-step"><i class="fa-solid fa-1" aria-hidden="true"></i><div><h4>Continuous Monitoring</h4><p>Edge device measures energy use every second against Gold Standard-approved baseline.</p></div></div>
+        <div class="isave-c-step"><i class="fa-solid fa-2" aria-hidden="true"></i><div><h4>Emissions Calculation</h4><p>AI calculates CO&#8322; avoided based on regional grid carbon intensity and efficiency improvements.</p></div></div>
+        <div class="isave-c-step"><i class="fa-solid fa-3" aria-hidden="true"></i><div><h4>Blockchain Verification</h4><p>Data cryptographically secured and submitted to Gold Standard's registry — tamper-proof.</p></div></div>
+        <div class="isave-c-step"><i class="fa-solid fa-4" aria-hidden="true"></i><div><h4>Credit Issuance</h4><p>Verified credits issued for sale or retirement. Typical annual returns: 8-15% of savings.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNICAL ARCHITECTURE -->
+<section class="isave-tech-section" aria-label="Technical architecture">
+  <div class="isave-section-head reveal"><h2>Technical Architecture</h2><p>Industrial-grade hardware meets enterprise software</p></div>
+  <div class="isave-tech-grid">
+    <div class="isave-tech-card reveal"><h3><i class="fa-solid fa-microchip" aria-hidden="true"></i> Edge Device</h3><ul><li>Matter-certified controller with Thread radio</li><li>RS485 ModBus for iZONE fan coils</li><li>Real-time heat pump sensor data</li><li>Local AI inference for anomaly detection</li><li>Cellular + WiFi connectivity</li><li>IP65-rated, 5-year warranty</li></ul></div>
+    <div class="isave-tech-card reveal"><h3><i class="fa-solid fa-cloud" aria-hidden="true"></i> Cloud Platform</h3><ul><li>Web + mobile dashboards (iOS/Android)</li><li>AI/ML predictive maintenance models</li><li>Blockchain carbon credit integration</li><li>API access for third-party integrations</li><li>Multi-tenant enterprise architecture</li><li>99.9% uptime SLA, 24/7 monitoring</li></ul></div>
+    <div class="isave-tech-card reveal"><h3><i class="fa-solid fa-house" aria-hidden="true"></i> Smart Home Layer</h3><ul><li>Matter protocol — universal compatibility</li><li>Thread mesh — low-power, reliable</li><li>Apple Home, Google, Alexa, SmartThings</li><li>Voice control and automation</li><li>Offline operation via Thread mesh</li><li>OTA firmware updates</li></ul></div>
+    <div class="isave-tech-card reveal"><h3><i class="fa-solid fa-wrench" aria-hidden="true"></i> Predictive Maintenance</h3><ul><li>ML trained on 10,000+ units</li><li>Early compressor issue warnings</li><li>Refrigerant leak detection via pressure</li><li>Condenser fouling alerts</li><li>Automated service ticket generation</li><li>60% reduction in unplanned downtime</li></ul></div>
+  </div>
+</section>
+
+<!-- VIRTUAL POWER PLANT -->
+<section class="isave-vpp-section" aria-label="Virtual Power Plant">
+  <div class="isave-vpp-inner">
+    <h2 class="reveal">Virtual Power Plant (VPP) Ready</h2>
+    <p class="reveal">Turn your heat pump fleet into a grid-balancing asset and earn demand response payments</p>
+    <div class="isave-vpp-grid">
+      <div class="isave-vpp-card reveal"><div class="isave-vpp-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div><h4>Grid Services</h4><p>Participate in demand response by curtailing or shifting load during grid stress events.</p></div>
+      <div class="isave-vpp-card reveal"><div class="isave-vpp-icon"><i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i></div><h4>Revenue Streams</h4><p>Earn payments from grid operators for flexibility services.</p></div>
+      <div class="isave-vpp-card reveal"><div class="isave-vpp-icon"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i></div><h4>Platform Integration</h4><p>API connections to Octopus Energy Kraken, Enel X, and other VPP platforms.</p></div>
+    </div>
+    <p class="isave-vpp-partners reveal"><strong>Compatible with:</strong> Octopus Energy &bull; Enel X &bull; Voltus &bull; AutoGrid &bull; Stem &bull; Leap</p>
+  </div>
+</section>
+
+<!-- TOTAL VALUE PROPOSITION -->
+<section class="isave-value-section" aria-label="Total value proposition">
+  <div class="isave-section-head reveal"><h2>Total Value Proposition</h2><p>Multiple revenue streams from a single platform</p></div>
+  <div class="isave-value-box">
+    <div class="isave-value-grid">
+      <div class="isave-value-item reveal"><div class="isave-value-num green">15-25%</div><div class="isave-value-label">Energy Cost Reduction</div><div class="isave-value-sub">Smart scheduling + solar</div></div>
+      <div class="isave-value-item reveal"><div class="isave-value-num gold">8-15%</div><div class="isave-value-label">Carbon Credit Revenue</div><div class="isave-value-sub">Annual % of energy savings</div></div>
+      <div class="isave-value-item reveal"><div class="isave-value-num blue">VPP</div><div class="isave-value-label">Grid Service Payments</div><div class="isave-value-sub">Demand response income</div></div>
+      <div class="isave-value-item reveal"><div class="isave-value-num dark">60%</div><div class="isave-value-label">Downtime Reduction</div><div class="isave-value-sub">Predictive maintenance</div></div>
+    </div>
+    <div class="isave-total-box reveal"><div class="isave-total-label">Total Annual Value</div><div class="isave-total-num">30-45%</div><div class="isave-total-sub">Additional value beyond baseline heat pump operation</div></div>
+  </div>
+</section>
+
+</main>
+
+<!-- CTA -->
+<section class="isave-cta-section" aria-label="Get early access">
+  <h2 class="reveal">The Future of Smart Hydronic Control</h2>
+  <p class="reveal">iHEAT + iZONE + iSAVE = The complete connected ecosystem</p>
+  <div class="isave-cta-row reveal">
+    <a href="mailto:stuart@karnot.com" class="isave-btn-white">Get Early Access</a>
+    <a href="icool.html" class="isave-btn-outline">Explore iCOOL Products</a>
+  </div>
+  <p class="isave-cta-note reveal">Coming Q4 2026 &bull; Matter Certified &bull; Gold Standard Verified</p>
+</section>
+
+<!-- Shared footer -->
+<div id="karnot-footer"></div>
+
+<!-- Shared site JS (loads nav + footer) -->
+<script src="js/karnot.js"></script>
+
+<!-- Scroll reveal -->
+<script>
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!els.length)return;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})
+  },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){io.observe(el)});
+})();
+</script>
+</body>
+</html>
