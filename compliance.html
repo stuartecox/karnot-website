@@ -61,6 +61,40 @@
 .breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
 .breadcrumb a:hover{text-decoration:underline}
 
+/* WHY THIS MATTERS — explainer */
+.cp-explainer{background:#f8fafc;border-bottom:1px solid #e5e7eb;padding:60px 20px}
+.cp-explainer-inner{max-width:960px;margin:0 auto}
+.cp-explainer h2{font-size:clamp(24px,4vw,32px);font-weight:800;margin-bottom:8px;color:#1d1d1f;text-align:center}
+.cp-explainer .cp-explainer-sub{font-size:16px;color:#6b7280;text-align:center;max-width:700px;margin:0 auto 36px;line-height:1.7}
+.cp-two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:36px}
+@media(max-width:700px){.cp-two-col{grid-template-columns:1fr}}
+.cp-info-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.04);border:1px solid #e5e7eb}
+.cp-info-card h3{font-size:18px;font-weight:700;margin-bottom:10px;color:#1d1d1f;display:flex;align-items:center;gap:8px}
+.cp-info-card h3 i{color:#F56600;font-size:20px}
+.cp-info-card p{font-size:14px;color:#4b5563;line-height:1.7;margin-bottom:0}
+.cp-info-card ul{list-style:none;padding:0;margin:0}
+.cp-info-card li{padding:8px 0;font-size:14px;color:#4b5563;border-bottom:1px solid #f3f4f6;display:flex;align-items:baseline;gap:8px;line-height:1.5}
+.cp-info-card li:last-child{border-bottom:none}
+.cp-info-card li i{color:#F56600;font-size:11px;flex-shrink:0;margin-top:3px}
+
+/* TIMELINE */
+.cp-timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+@media(max-width:700px){.cp-timeline{grid-template-columns:1fr}}
+.cp-tier-card{background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,.03);transition:all .3s ease}
+.cp-tier-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.cp-tier-card .tier-label{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.cp-tier-card.t1 .tier-label{background:#fef2f2;color:#dc2626}
+.cp-tier-card.t2 .tier-label{background:#fff7ed;color:#ea580c}
+.cp-tier-card.t3 .tier-label{background:#f0fdf4;color:#16a34a}
+.cp-tier-card .tier-who{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:4px}
+.cp-tier-card .tier-cap{font-size:12px;color:#6b7280;margin-bottom:12px}
+.cp-tier-card .tier-date{font-size:22px;font-weight:800;color:#F56600;margin-bottom:2px}
+.cp-tier-card .tier-sub{font-size:11px;color:#9ca3af}
+
+.cp-source{text-align:center;font-size:12px;color:#9ca3af;margin-top:8px}
+.cp-source a{color:#F56600;text-decoration:none}
+.cp-source a:hover{text-decoration:underline}
+
 /* SECTION */
 .cp-section{max-width:960px;margin:0 auto;padding:60px 20px 20px}
 .cp-section h2{font-size:clamp(24px,4vw,32px);font-weight:800;margin-bottom:12px;color:#1d1d1f}
@@ -213,6 +247,69 @@
 </section>
 
 <main id="main">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- WHY THIS MATTERS — EDUCATIONAL CONTEXT     -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="cp-explainer rv">
+<div class="cp-explainer-inner">
+  <h2>Why This Matters for Your Business</h2>
+  <p class="cp-explainer-sub">The Philippines has introduced mandatory sustainability and energy reporting. Two overlapping regulations now affect thousands of enterprises — and deadlines are approaching fast.</p>
+
+  <div class="cp-two-col">
+    <div class="cp-info-card">
+      <h3><i class="fa-solid fa-file-contract"></i> SEC Mandatory Sustainability Reporting</h3>
+      <p>SEC Memorandum Circular No. 16 (Series of 2025) requires Philippine companies to report their greenhouse gas emissions under PFRS S1 and PFRS S2 — aligned with international ISSB standards. This replaces the old voluntary framework and now carries legal weight.</p>
+      <ul style="margin-top:12px">
+        <li><i class="fa-solid fa-check"></i> <strong>Who:</strong> All publicly listed companies, plus large non-listed entities with revenues above PHP 15 billion</li>
+        <li><i class="fa-solid fa-check"></i> <strong>What:</strong> Scope 1 (direct emissions including F-gas leaks), Scope 2 (grid electricity), and eventually Scope 3</li>
+        <li><i class="fa-solid fa-check"></i> <strong>How:</strong> Attached to annual reports filed with the SEC, with board sign-off required</li>
+      </ul>
+    </div>
+    <div class="cp-info-card">
+      <h3><i class="fa-solid fa-scale-balanced"></i> RA 11285 Energy Efficiency Act</h3>
+      <p>The Energy Efficiency and Conservation Act classifies every commercial and industrial facility into regulatory tiers based on annual energy consumption. Higher tiers require certified energy managers, mandatory audits, and DEOS portal reporting to the Department of Energy.</p>
+      <ul style="margin-top:12px">
+        <li><i class="fa-solid fa-check"></i> <strong>Who:</strong> All businesses consuming over 100,000 kWh-equivalent per year (including diesel and LPG)</li>
+        <li><i class="fa-solid fa-check"></i> <strong>What:</strong> Facility classification (Exempt, ODE, Type 1, Type 2) with escalating compliance obligations</li>
+        <li><i class="fa-solid fa-check"></i> <strong>How:</strong> Energy audits, CECO/CEM appointment, energy management plans, DEOS portal submissions</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="text-align:center;font-size:20px;font-weight:700;color:#1d1d1f;margin-bottom:20px">SEC Reporting Timeline — Three-Tier Rollout</h3>
+  <div class="cp-timeline">
+    <div class="cp-tier-card t1">
+      <div class="tier-label">Tier 1 — Large Cap</div>
+      <div class="tier-who">Market Cap &gt; PHP 50B</div>
+      <div class="tier-cap">Publicly listed companies</div>
+      <div class="tier-date">FY 2026</div>
+      <div class="tier-sub">First report due 2027 &middot; Assurance from FY 2028</div>
+    </div>
+    <div class="cp-tier-card t2">
+      <div class="tier-label">Tier 2 — Mid Cap</div>
+      <div class="tier-who">Market Cap PHP 3B–50B</div>
+      <div class="tier-cap">Publicly listed companies</div>
+      <div class="tier-date">FY 2027</div>
+      <div class="tier-sub">First report due 2028 &middot; Assurance from FY 2029</div>
+    </div>
+    <div class="cp-tier-card t3">
+      <div class="tier-label">Tier 3 — Small Cap &amp; Non-Listed</div>
+      <div class="tier-who">Small cap + revenue &gt; PHP 15B</div>
+      <div class="tier-cap">Listed &amp; large non-listed entities</div>
+      <div class="tier-date">FY 2028</div>
+      <div class="tier-sub">First report due 2029 &middot; Assurance from FY 2030</div>
+    </div>
+  </div>
+
+  <div class="cp-info-card" style="text-align:center;background:linear-gradient(135deg,#fff7ed,#fff);border-color:#fdba74">
+    <h3 style="justify-content:center"><i class="fa-solid fa-lightbulb"></i> The Hidden Trap Most Companies Miss</h3>
+    <p style="max-width:680px;margin:0 auto">When companies think "carbon reporting," they think electricity bills. But for any facility running HFC chillers, <strong>fugitive F-gas leaks are often the single largest Scope 1 emission source</strong> — and most companies don't even know they need to report it. A single 100 TR chiller leaking R410A can generate more CO&#x2082;e than a fleet of delivery trucks. Use our calculators below to find out where you stand.</p>
+  </div>
+
+  <p class="cp-source" style="margin-top:16px">Source: SEC Memorandum Circular No. 16, Series of 2025 &middot; <a href="https://greenfi.ai/philippines-introduces-mandatory-sustainability-reporting-what-companies-need-to-know/" target="_blank" rel="noopener">GreenFi Analysis</a></p>
+</div>
+</section>
 
 <!-- ═══════════════════════════════════════════ -->
 <!-- TOOL 1: RA 11285 DOE CLASSIFICATION        -->
@@ -407,6 +504,18 @@
   <details class="faq-item">
     <summary>How does switching to natural refrigerants reduce my SEC reporting burden?</summary>
     <div class="faq-answer"><p>Natural refrigerants like R290 (propane, GWP 3) and CO&#x2082;/R744 (GWP 1) have near-zero global warming potential. Switching to a Karnot iCOOL or iHEAT system eliminates your Scope 1 F-gas reporting liability entirely, while the higher COP (4.5 vs 3.0) simultaneously reduces Scope 2 grid emissions by 30-40%.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>When does mandatory SEC sustainability reporting start in the Philippines?</summary>
+    <div class="faq-answer"><p>SEC Memorandum Circular No. 16 (Series of 2025) introduced a three-tier rollout. Large-cap companies (market cap above PHP 50 billion) must report for FY 2026, with their first filing due in 2027. Mid-cap companies follow for FY 2027, and small-cap plus large non-listed entities for FY 2028. Limited assurance on Scope 1 and Scope 2 emissions is required two years after each tier's first report.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Does my company need to report if we are not publicly listed?</summary>
+    <div class="faq-answer"><p>Possibly. Under SEC MC No. 16, large non-listed entities with annual revenues exceeding PHP 15 billion are included in Tier 3 and must begin PFRS S1 and S2 reporting for FY 2028. Additionally, regardless of listing status, RA 11285 applies to any commercial or industrial facility consuming more than 100,000 kWh-equivalent of energy annually.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What industries are most affected by these new regulations?</summary>
+    <div class="faq-answer"><p>Energy utilities, manufacturing, financial services, real estate, and hospitality face the most significant transition demands. Any business operating large HVAC or refrigeration systems with HFC refrigerants should pay particular attention to their F-gas Scope 1 liability, as this is often the most overlooked — and largest — emissions line item.</p></div>
   </details>
 </section>
 
