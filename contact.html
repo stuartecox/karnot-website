@@ -171,6 +171,7 @@
             <option value="">Select an option</option>
             <option value="products">Product Information</option>
             <option value="quote">Request a Quote</option>
+            <option value="ispa_sizing">Pool Temperature Control — iSPA Quote</option>
             <option value="distribution">Become a Distributor</option>
             <option value="partnership">Partnership Opportunities</option>
             <option value="support">Technical Support</option>
@@ -178,6 +179,7 @@
             <option value="other">Other</option>
           </select>
         </div>
+        <input type="hidden" id="system-requirements" name="system_requirements" value="">
         <div class="form-group"><label for="message">Message *</label><textarea id="message" name="message" required placeholder="Tell us about your project or enquiry..."></textarea></div>
         <button type="submit" class="submit-btn">Send Message</button>
       </form>
@@ -240,5 +242,116 @@
 <div id="karnot-footer"></div>
 
 <script src="js/karnot.js"></script>
+<script>
+/* Universal URL parameter handler — works for ALL product funnels
+   Supports: iSPA calculator, savings calculator, iHEAT, iCOOL, iCRYO,
+   AquaHERO, UK MCS, USA/Canada, and any future product funnel.
+
+   Standard params: ?intent=X&product=X&model=X&details=X
+   Plus any product-specific params which get captured in system_requirements */
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var intent = params.get('intent');
+  if(!intent) return;
+
+  /* Map intent to interest dropdown value */
+  var intentMap = {
+    'ispa_sizing': 'ispa_sizing',
+    'iheat_quote': 'quote',
+    'icool_quote': 'quote',
+    'icryo_quote': 'quote',
+    'aquahero_quote': 'quote',
+    'istor_quote': 'quote',
+    'savings_calc': 'quote',
+    'mcs_download': 'quote',
+    'us_consultation': 'quote',
+    'nearfarm_quote': 'quote',
+    'general_quote': 'quote'
+  };
+
+  var interestVal = intentMap[intent] || 'quote';
+  var interestSel = document.getElementById('interest');
+  if(interestSel){
+    /* Try exact match first, then fallback */
+    var matched = false;
+    for(var i = 0; i < interestSel.options.length; i++){
+      if(interestSel.options[i].value === interestVal){
+        interestSel.selectedIndex = i;
+        matched = true;
+        break;
+      }
+    }
+    if(!matched){
+      for(var j = 0; j < interestSel.options.length; j++){
+        if(interestSel.options[j].value === 'quote'){
+          interestSel.selectedIndex = j;
+          break;
+        }
+      }
+    }
+  }
+
+  /* Build system requirements from ALL URL params (sales team telemetry) */
+  var reqs = [];
+  params.forEach(function(val, key){
+    if(key === 'intent') return;
+    var label = key.replace(/_/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+    reqs.push(label + ': ' + val.replace(/_/g, ' '));
+  });
+  var reqStr = reqs.join(' | ');
+
+  var hiddenField = document.getElementById('system-requirements');
+  if(hiddenField) hiddenField.value = reqStr;
+
+  /* Build human-readable message based on intent type */
+  var msg = document.getElementById('message');
+  var modelName = (params.get('model') || params.get('product') || '').replace(/_/g, ' ');
+
+  if(msg && modelName){
+    var lines = ['Hi, I\'m interested in the ' + modelName + '.', ''];
+
+    /* Product-specific details */
+    if(intent === 'ispa_sizing'){
+      lines.push('Pool Details:');
+      if(params.get('volume'))      lines.push('- Pool Volume: ' + params.get('volume') + ' m\u00B3');
+      if(params.get('required_kw')) lines.push('- Required Capacity: ' + params.get('required_kw') + ' kW');
+      if(params.get('climate'))     lines.push('- Climate Zone: ' + params.get('climate'));
+      if(params.get('target_temp')) lines.push('- Target Temperature: ' + params.get('target_temp') + '\u00B0C');
+      if(params.get('cover'))       lines.push('- Pool Cover: ' + params.get('cover'));
+      if(params.get('monthly_cost'))lines.push('- Est. Monthly Cost: ' + params.get('monthly_cost'));
+    } else if(intent === 'savings_calc'){
+      lines.push('Calculator Results:');
+      if(params.get('annual_saving'))  lines.push('- Estimated Annual Saving: ' + params.get('annual_saving'));
+      if(params.get('current_system')) lines.push('- Current System: ' + params.get('current_system'));
+      if(params.get('building_type'))  lines.push('- Building Type: ' + params.get('building_type'));
+    } else {
+      /* Generic — list all params */
+      params.forEach(function(val, key){
+        if(key !== 'intent' && key !== 'model' && key !== 'product'){
+          lines.push('- ' + key.replace(/_/g, ' ') + ': ' + val.replace(/_/g, ' '));
+        }
+      });
+    }
+
+    lines.push('');
+    lines.push('Please provide pricing and availability. Thank you!');
+    msg.value = lines.join('\n');
+  }
+
+  /* Update heading */
+  var formHeading = document.querySelector('.form-section h2');
+  if(formHeading && modelName){
+    formHeading.textContent = 'Request Quote: ' + modelName;
+  }
+  var formSubtext = document.querySelector('.form-section > p');
+  if(formSubtext && modelName){
+    formSubtext.textContent = 'Your calculator results have been pre-filled below. Add any extra details and submit.';
+  }
+
+  /* Smooth scroll to form */
+  var formSection = document.querySelector('.form-section');
+  if(formSection) setTimeout(function(){ formSection.scrollIntoView({behavior:'smooth', block:'start'}); }, 400);
+})();
+</script>
 </body>
 </html>

@@ -485,7 +485,10 @@
           <h5 id="r-model-name">--</h5>
           <p id="r-model-spec">--</p>
           <p id="r-heatup-time">--</p>
-          <p style="margin-top:12px"><strong>Price: Contact for Quotation</strong></p>
+          <div id="r-cta-container" style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+            <a id="r-quote-btn" href="contact.html" class="cta-btn" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-size:16px;font-weight:600;border-radius:50px;background:#F56600;color:#fff;text-decoration:none;transition:all .25s"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Request Quote for <span id="r-cta-model">iSPA</span></a>
+            <a id="r-datasheet-btn" href="#" class="cta-btn" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-size:16px;font-weight:600;border-radius:50px;background:transparent;color:#007aff;border:2px solid #007aff;text-decoration:none;transition:all .25s"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> View Datasheet</a>
+          </div>
         </div>
       </div>
 
@@ -659,6 +662,37 @@ document.getElementById('calc-pool-btn').addEventListener('click', function(){
   } else {
     var days = Math.round(heatupHours / 24 * 10) / 10;
     document.getElementById('r-heatup-time').textContent = 'Estimated initial heat-up time: ' + days + ' days (' + Math.round(heatupHours) + ' hours)';
+  }
+
+  /* Dynamic CTA — pass calculator telemetry to contact page via URL params */
+  var modelSlug = recommended.name.replace(/\s+/g, '_');
+  var quoteParams = new URLSearchParams({
+    intent: 'ispa_sizing',
+    model: modelSlug,
+    volume: Math.round(volume),
+    required_kw: requiredKW.toFixed(1),
+    climate: climate,
+    location: location,
+    target_temp: target,
+    cover: cover,
+    monthly_cost: sym + monthlyCost.toFixed(0),
+    currency: ispaCur
+  });
+  document.getElementById('r-quote-btn').href = 'contact.html?' + quoteParams.toString();
+  document.getElementById('r-cta-model').textContent = recommended.name;
+
+  /* Datasheet link — map model to file */
+  var datasheetMap = {
+    'iSPA 6R':'ispa-6-5kw.html','iSPA 9R':'ispa-9kw.html','iSPA 10R':'ispa-10-5kw.html',
+    'iSPA 14R':'ispa-14kw.html','iSPA 17R':'ispa-17kw.html','iSPA 23N':'ispa-23kw.html',
+    'iSPA 28N':'ispa-28kw.html'
+  };
+  var dsBtn = document.getElementById('r-datasheet-btn');
+  if(datasheetMap[recommended.name]){
+    dsBtn.href = datasheetMap[recommended.name];
+    dsBtn.style.display = 'inline-flex';
+  } else {
+    dsBtn.style.display = 'none';
   }
 
   /* Show results */

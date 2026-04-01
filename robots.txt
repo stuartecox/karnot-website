@@ -1,0 +1,35 @@
+# Karnot Energy Solutions — robots.txt
+# Last updated: 2026-04-01
+
+User-agent: *
+Allow: /
+Disallow: /video/
+Disallow: /.claude/
+
+# AI Answer Engine Crawlers — explicitly allowed
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://karnot.com/sitemap.xml
