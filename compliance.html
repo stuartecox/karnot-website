@@ -36,7 +36,11 @@
       {"@type":"Question","name":"What is RA 11285 and who does it apply to?","acceptedAnswer":{"@type":"Answer","text":"Republic Act 11285 is the Philippine Energy Efficiency and Conservation Act. It applies to all commercial and industrial establishments consuming more than 100,000 kWh-equivalent of energy annually. Facilities are classified into tiers (ODE, Type 1, Type 2) with increasing compliance requirements including mandatory energy audits, certified energy managers, and DEOS portal reporting."}},
       {"@type":"Question","name":"What are Scope 1 and Scope 2 emissions under SEC PFRS S2?","acceptedAnswer":{"@type":"Answer","text":"Scope 1 covers direct emissions from on-site fuel combustion and refrigerant leaks (F-gas). Scope 2 covers indirect emissions from purchased grid electricity. Under the Philippine SEC's adoption of PFRS S2 (aligned with IFRS S2), listed companies must disclose both scopes. F-gas leaks from HFC chillers often represent a hidden Scope 1 liability that many companies overlook."}},
       {"@type":"Question","name":"How do F-gas leaks from chillers affect my SEC carbon reporting?","acceptedAnswer":{"@type":"Answer","text":"Synthetic refrigerants like R410A (GWP 2,088), R134a (GWP 1,430), and R22 (GWP 1,810) have extremely high global warming potentials. A typical 100 TR chiller leaking 10-15% of its charge annually can generate 15-25 metric tons of CO₂e in Scope 1 emissions — often more than the electricity the chiller consumes. This must be disclosed under PFRS S2."}},
-      {"@type":"Question","name":"How does switching to natural refrigerants reduce my SEC reporting burden?","acceptedAnswer":{"@type":"Answer","text":"Natural refrigerants like R290 (propane, GWP 3) and CO₂/R744 (GWP 1) have near-zero global warming potential. Switching to a Karnot iCOOL or iHEAT system using these refrigerants eliminates your Scope 1 F-gas reporting liability entirely, while the higher COP (4.5 vs 3.0) simultaneously reduces Scope 2 grid emissions by 30-40%."}}
+      {"@type":"Question","name":"How does switching to natural refrigerants reduce my SEC reporting burden?","acceptedAnswer":{"@type":"Answer","text":"Natural refrigerants like R290 (propane, GWP 3) and CO₂/R744 (GWP 1) have near-zero global warming potential. Switching to a Karnot iCOOL or iHEAT system using these refrigerants eliminates your Scope 1 F-gas reporting liability entirely, while the higher COP (4.5 vs 3.0) simultaneously reduces Scope 2 grid emissions by 30-40%."}},
+      {"@type":"Question","name":"When does mandatory SEC sustainability reporting start in the Philippines?","acceptedAnswer":{"@type":"Answer","text":"SEC Memorandum Circular No. 16 (Series of 2025) introduced a three-tier rollout. Large-cap companies (market cap above PHP 50 billion) report for FY 2026, mid-cap for FY 2027, and small-cap plus large non-listed entities for FY 2028. Limited assurance on Scope 1 and 2 is required two years after each tier's first report."}},
+      {"@type":"Question","name":"How much CO2 does a diesel boiler produce?","acceptedAnswer":{"@type":"Answer","text":"A diesel boiler at 85% efficiency produces approximately 0.312 kg CO2 per kWh of useful heat. A facility burning 3,000 litres per month generates roughly 9.7 tonnes of CO2 per year in direct Scope 1 emissions, all of which must be disclosed under PFRS S2."}},
+      {"@type":"Question","name":"What is CBAM and could it affect Philippine exporters?","acceptedAnswer":{"@type":"Answer","text":"The EU Carbon Border Adjustment Mechanism requires importers to pay for carbon embedded in goods entering the EU from 2026. Philippine manufacturers exporting cement, steel, aluminium, or fertilisers to Europe face direct exposure. Reducing Scope 1 and 2 emissions now protects EU market access."}},
+      {"@type":"Question","name":"Will ESG performance affect my ability to get bank financing?","acceptedAnswer":{"@type":"Answer","text":"Increasingly yes. ESG stress testing becomes mandatory for EU financial institutions by January 2027. Banks must assess borrower viability under climate transition scenarios. Companies with high Scope 1 from boilers and F-gas may face higher borrowing costs or restricted capital access."}}
     ]}
   ]
 }
@@ -94,6 +98,47 @@
 .cp-source{text-align:center;font-size:12px;color:#9ca3af;margin-top:8px}
 .cp-source a{color:#F56600;text-decoration:none}
 .cp-source a:hover{text-decoration:underline}
+
+/* SCOPE 1-2-3 EXPLAINER */
+.cp-scopes{background:#fff;padding:60px 20px;border-bottom:1px solid #e5e7eb}
+.cp-scopes-inner{max-width:960px;margin:0 auto}
+.cp-scopes h2{font-size:clamp(24px,4vw,32px);font-weight:800;margin-bottom:8px;color:#1d1d1f;text-align:center}
+.cp-scopes .cp-explainer-sub{font-size:16px;color:#6b7280;text-align:center;max-width:700px;margin:0 auto 36px;line-height:1.7}
+.scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:32px}
+@media(max-width:700px){.scope-grid{grid-template-columns:1fr}}
+.scope-card{border-radius:16px;padding:28px;position:relative;overflow:hidden}
+.scope-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.scope-card.s1{background:#fef2f2;border:1px solid #fecaca}.scope-card.s1::before{background:#ef4444}
+.scope-card.s2{background:#fff7ed;border:1px solid #fed7aa}.scope-card.s2::before{background:#f97316}
+.scope-card.s3{background:#f0fdf4;border:1px solid #bbf7d0}.scope-card.s3::before{background:#22c55e}
+.scope-card .scope-num{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.scope-card.s1 .scope-num{color:#dc2626}.scope-card.s2 .scope-num{color:#ea580c}.scope-card.s3 .scope-num{color:#16a34a}
+.scope-card h3{font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:8px}
+.scope-card p{font-size:13px;color:#4b5563;line-height:1.6;margin-bottom:10px}
+.scope-card ul{list-style:none;padding:0;margin:0}
+.scope-card li{padding:5px 0;font-size:13px;color:#4b5563;display:flex;align-items:baseline;gap:6px;line-height:1.4}
+.scope-card li i{font-size:10px;flex-shrink:0;margin-top:3px}
+.scope-card.s1 li i{color:#dc2626}.scope-card.s2 li i{color:#ea580c}.scope-card.s3 li i{color:#16a34a}
+
+/* BOILER COMPARISON TABLE */
+.cp-boiler{background:#f8fafc;padding:60px 20px;border-bottom:1px solid #e5e7eb}
+.cp-boiler-inner{max-width:960px;margin:0 auto}
+.cp-boiler h2{font-size:clamp(24px,4vw,32px);font-weight:800;margin-bottom:8px;color:#1d1d1f;text-align:center}
+.cp-boiler .cp-explainer-sub{font-size:16px;color:#6b7280;text-align:center;max-width:700px;margin:0 auto 36px;line-height:1.7}
+.fuel-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:24px;font-size:14px}
+.fuel-table thead{background:linear-gradient(135deg,#0f172a,#1e3a5f)}
+.fuel-table th{padding:14px 16px;color:#fff;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.8px;text-align:left}
+.fuel-table th:first-child{border-radius:14px 0 0 0}.fuel-table th:last-child{border-radius:0 14px 0 0}
+.fuel-table td{padding:12px 16px;border-bottom:1px solid #f3f4f6;color:#374151;background:#fff}
+.fuel-table tr:last-child td{border-bottom:none}
+.fuel-table tr:last-child td:first-child{border-radius:0 0 0 14px}.fuel-table tr:last-child td:last-child{border-radius:0 0 14px 0}
+.fuel-table tr:hover td{background:#f8fafc}
+.fuel-table .val-bad{color:#dc2626;font-weight:700}
+.fuel-table .val-ok{color:#ea580c;font-weight:700}
+.fuel-table .val-good{color:#16a34a;font-weight:700}
+.fuel-table .row-hp{background:#f0fdf4 !important}
+.fuel-table .row-hp td{background:#f0fdf4;font-weight:700;color:#15803d}
+@media(max-width:600px){.fuel-table{font-size:12px}.fuel-table th,.fuel-table td{padding:10px 10px}}
 
 /* SECTION */
 .cp-section{max-width:960px;margin:0 auto;padding:60px 20px 20px}
@@ -312,6 +357,164 @@
 </section>
 
 <!-- ═══════════════════════════════════════════ -->
+<!-- SCOPE 1 / 2 / 3 EXPLAINER                  -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="cp-scopes rv">
+<div class="cp-scopes-inner">
+  <h2>Understanding Scope 1, 2 &amp; 3 Emissions</h2>
+  <p class="cp-explainer-sub">Under PFRS S2, Philippine companies must report greenhouse gas emissions across three "scopes." Here is what each one means for your facility — and where boilers and chillers create hidden liabilities.</p>
+
+  <div class="scope-grid">
+    <div class="scope-card s1">
+      <div class="scope-num">Scope 1 — Direct Emissions</div>
+      <h3>Your facility produces these directly</h3>
+      <p>Any greenhouse gas released on your premises from fuel you burn or refrigerant that leaks. This is where boilers, diesel generators, and HFC chillers hit your carbon report hardest.</p>
+      <ul>
+        <li><i class="fa-solid fa-circle"></i> <strong>Diesel boilers</strong> — 0.253 kg CO&#x2082; per kWh of heat produced</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>LPG boilers</strong> — 0.215 kg CO&#x2082; per kWh of heat produced</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Natural gas boilers</strong> — 0.184 kg CO&#x2082; per kWh of heat produced</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Diesel gensets</strong> — backup generators running on fuel</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>F-gas refrigerant leaks</strong> — R410A (GWP 2,088), R22 (GWP 1,810), R134a (GWP 1,430)</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Company vehicles</strong> — fleet fuel combustion</li>
+      </ul>
+    </div>
+    <div class="scope-card s2">
+      <div class="scope-num">Scope 2 — Indirect Energy Emissions</div>
+      <h3>From the electricity you purchase</h3>
+      <p>Even if your facility burns nothing on-site, the power grid has a carbon footprint. In the Philippines, every kWh from the grid produces emissions because the generation mix includes coal and gas.</p>
+      <ul>
+        <li><i class="fa-solid fa-circle"></i> <strong>Philippine grid factor</strong> — 0.712 kg CO&#x2082; per kWh (DOE 2023)</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Electric resistance heaters</strong> — 100% grid-powered, COP 1.0</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Electric chillers</strong> — grid electricity for compressor operation</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Lighting, HVAC, office loads</strong> — all purchased electricity</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Reducing Scope 2</strong> — higher COP equipment does the same work with less grid kWh</li>
+      </ul>
+    </div>
+    <div class="scope-card s3">
+      <div class="scope-num">Scope 3 — Value Chain Emissions</div>
+      <h3>Everything upstream &amp; downstream</h3>
+      <p>The hardest to measure but often the largest — covering your supply chain, product use, employee commuting, and waste. SEC reporting will eventually require Scope 3 for Philippine companies.</p>
+      <ul>
+        <li><i class="fa-solid fa-circle"></i> <strong>Purchased goods</strong> — raw materials, packaging, supplies</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Transportation</strong> — freight, logistics, product distribution</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Employee commuting</strong> — staff travel to/from work</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Business travel</strong> — flights, hotels, conferences</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Waste disposal</strong> — landfill, water treatment</li>
+        <li><i class="fa-solid fa-circle"></i> <strong>Product end-of-life</strong> — downstream use and disposal</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cp-info-card" style="text-align:center;background:linear-gradient(135deg,#fef2f2,#fff);border-color:#fca5a5">
+    <h3 style="justify-content:center"><i class="fa-solid fa-triangle-exclamation"></i> Why Boilers Are Your Biggest Scope 1 Problem</h3>
+    <p style="max-width:720px;margin:0 auto">A diesel boiler running at 85% efficiency produces <strong>0.253 kg CO&#x2082; for every kWh of heat delivered</strong>. For a hotel using 5,000 litres of diesel per month, that is <strong>16.2 tonnes of CO&#x2082; per year in Scope 1 alone</strong> — all of which must now be reported to the SEC. An R290 heat pump producing the same heat has <strong>zero Scope 1 emissions</strong> because it burns nothing on-site.</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- FUEL EMISSIONS COMPARISON TABLE             -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="cp-boiler rv">
+<div class="cp-boiler-inner">
+  <h2>How Bad Are Boilers? The Numbers Speak</h2>
+  <p class="cp-explainer-sub">Every fuel has a carbon cost. This table shows the CO&#x2082; emissions per kWh of useful heat delivered to your facility — including boiler efficiency losses. The heat pump alternative eliminates Scope 1 entirely.</p>
+
+  <table class="fuel-table">
+    <thead>
+      <tr>
+        <th>Heating System</th>
+        <th>Fuel</th>
+        <th>Efficiency</th>
+        <th>Scope 1<br>kg CO&#x2082;/kWh heat</th>
+        <th>Scope 2<br>kg CO&#x2082;/kWh heat</th>
+        <th>Total<br>kg CO&#x2082;/kWh heat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Diesel Boiler</td>
+        <td>Diesel / Gas Oil</td>
+        <td>85%</td>
+        <td class="val-bad">0.312</td>
+        <td>0</td>
+        <td class="val-bad">0.312</td>
+      </tr>
+      <tr>
+        <td>LPG Boiler</td>
+        <td>LPG (Propane/Butane)</td>
+        <td>85%</td>
+        <td class="val-bad">0.264</td>
+        <td>0</td>
+        <td class="val-bad">0.264</td>
+      </tr>
+      <tr>
+        <td>Natural Gas Boiler</td>
+        <td>Natural Gas / LNG</td>
+        <td>90%</td>
+        <td class="val-ok">0.227</td>
+        <td>0</td>
+        <td class="val-ok">0.227</td>
+      </tr>
+      <tr>
+        <td>Electric Resistance</td>
+        <td>Grid Electricity</td>
+        <td>COP 1.0</td>
+        <td>0</td>
+        <td class="val-bad">0.712</td>
+        <td class="val-bad">0.712</td>
+      </tr>
+      <tr>
+        <td>Legacy Heat Pump</td>
+        <td>Grid + R410A</td>
+        <td>COP 3.0</td>
+        <td class="val-ok">F-gas leaks*</td>
+        <td class="val-ok">0.237</td>
+        <td class="val-ok">0.237 + F-gas</td>
+      </tr>
+      <tr class="row-hp">
+        <td>Karnot iHEAT R290</td>
+        <td>Grid + R290 (GWP 3)</td>
+        <td>COP 4.5</td>
+        <td class="val-good">&#x2248; 0</td>
+        <td class="val-good">0.158</td>
+        <td class="val-good">0.158</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cp-two-col">
+    <div class="cp-info-card">
+      <h3><i class="fa-solid fa-gas-pump"></i> The Diesel Boiler Problem</h3>
+      <p>A typical Philippine hotel burning 3,000 litres of diesel per month for hot water generates <strong>9.7 tonnes of CO&#x2082; per year</strong> in direct Scope 1 emissions. Add the cost of fuel at &#x20b1;72/litre and you are paying &#x20b1;2.6 million/year to pollute. Under SEC PFRS S2, every kilogram of this must now be reported, audited, and disclosed to investors.</p>
+    </div>
+    <div class="cp-info-card">
+      <h3><i class="fa-solid fa-temperature-arrow-up"></i> The Electric Heater Problem</h3>
+      <p>Electric resistance heaters seem "clean" because nothing burns on-site — but with the Philippine grid at 0.712 kg CO&#x2082;/kWh, they produce the <strong>highest total emissions of any heating method</strong>. COP 1.0 means every kWh of heat needs a full kWh of grid electricity. A heat pump at COP 4.5 does the same job using 78% less electricity — slashing your Scope 2 by the same amount.</p>
+    </div>
+  </div>
+
+  <div class="cp-two-col">
+    <div class="cp-info-card">
+      <h3><i class="fa-solid fa-snowflake"></i> The Hidden F-Gas Bomb</h3>
+      <p>Legacy chillers using R410A (GWP 2,088) or R22 (GWP 1,810) leak 8-15% of their refrigerant charge annually. An 80kg charge leaking 12% releases 9.6kg of refrigerant — equivalent to <strong>20 tonnes of CO&#x2082;e</strong> for R410A. That single chiller can have a larger Scope 1 footprint than all your diesel generators combined, and most companies don't even track it.</p>
+    </div>
+    <div class="cp-info-card" style="background:linear-gradient(135deg,#f0fdf4,#fff);border-color:#86efac">
+      <h3><i class="fa-solid fa-leaf"></i> The Karnot Natural Refrigerant Solution</h3>
+      <p>Switching to R290 (GWP 3) or CO&#x2082;/R744 (GWP 1) <strong>eliminates your Scope 1 F-gas and combustion liability entirely</strong>. The higher COP of 4.5 means 50% less grid electricity than a legacy chiller (COP 3.0), cutting your Scope 2 as well. For SEC reporting, that means fewer numbers to track, lower carbon intensity, and a credible ESG story for investors.</p>
+    </div>
+  </div>
+
+  <div class="cp-info-card" style="text-align:center;background:linear-gradient(135deg,#0f172a,#1e3a5f);border:none;color:#fff;margin-top:8px">
+    <h3 style="justify-content:center;color:#fff"><i class="fa-solid fa-chart-line" style="color:#F56600"></i> The Bigger Picture</h3>
+    <p style="max-width:720px;margin:0 auto;color:rgba(255,255,255,.85)">By 2027, ESG stress testing becomes a formal supervisory requirement in the EU — and Philippine banks lending to carbon-intensive borrowers face pressure to assess transition risk. Companies with high Scope 1 from boilers and F-gas may find it harder to secure financing. The EU's Carbon Border Adjustment Mechanism (CBAM), active from 2026, also prices embedded carbon in exports — affecting Philippine manufacturers selling to Europe. Decarbonizing your heating and cooling now is not just a compliance exercise. It is a competitive advantage.</p>
+  </div>
+
+  <p class="cp-source" style="margin-top:16px">Emission factors: DEFRA 2024, Philippine DOE Grid Factor 2023, IPCC AR6 GWP values, ASHRAE 90.1 &middot; <a href="https://greenfi.ai/esg-stress-testing-becomes-mandatory/" target="_blank" rel="noopener">ESG Stress Testing</a> &middot; <a href="https://greenfi.ai/cbam-unpacked-from-law-to-action/" target="_blank" rel="noopener">CBAM Guide</a></p>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
 <!-- TOOL 1: RA 11285 DOE CLASSIFICATION        -->
 <!-- ═══════════════════════════════════════════ -->
 <section class="cp-section" id="doe">
@@ -516,6 +719,22 @@
   <details class="faq-item">
     <summary>What industries are most affected by these new regulations?</summary>
     <div class="faq-answer"><p>Energy utilities, manufacturing, financial services, real estate, and hospitality face the most significant transition demands. Any business operating large HVAC or refrigeration systems with HFC refrigerants should pay particular attention to their F-gas Scope 1 liability, as this is often the most overlooked — and largest — emissions line item.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How much CO&#x2082; does a diesel boiler produce?</summary>
+    <div class="faq-answer"><p>A diesel boiler operating at 85% efficiency produces approximately 0.312 kg of CO&#x2082; for every kWh of useful heat delivered. For a facility burning 3,000 litres of diesel per month for hot water, that equates to roughly 9.7 tonnes of CO&#x2082; per year in direct Scope 1 emissions. Under PFRS S2, every kilogram must be disclosed in your SEC annual report.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Are electric heaters better than boilers for emissions?</summary>
+    <div class="faq-answer"><p>Not necessarily. Electric resistance heaters (COP 1.0) produce zero Scope 1 emissions but generate the highest total emissions of any heating method in the Philippines. With the grid emission factor at 0.712 kg CO&#x2082;/kWh, every kWh of heat costs a full kWh of grid electricity. An R290 heat pump at COP 4.5 delivers the same heat using 78% less electricity, dramatically cutting Scope 2.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is CBAM and could it affect Philippine exporters?</summary>
+    <div class="faq-answer"><p>The EU Carbon Border Adjustment Mechanism (CBAM) requires importers to pay for carbon emissions embedded in goods entering the EU. From 2026, exporters must disclose production emissions and importers purchase certificates to offset the carbon content. Philippine manufacturers exporting cement, steel, aluminium, fertilisers, or electricity to Europe face direct exposure. Reducing your Scope 1 and 2 now protects your EU market access.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Will ESG performance affect my ability to get bank financing?</summary>
+    <div class="faq-answer"><p>Increasingly, yes. ESG stress testing becomes a formal supervisory requirement for EU financial institutions by January 2027. Banks must assess whether borrowers can remain financially viable under a disorderly climate transition. Companies with high Scope 1 emissions from boilers, gensets, and F-gas leaks may face higher borrowing costs or restricted access to capital as lenders price in transition risk.</p></div>
   </details>
 </section>
 
