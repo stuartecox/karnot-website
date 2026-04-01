@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Engineering Hub — Free HVAC & Refrigeration Calculators | Karnot Energy Solutions</title>
+<meta name="description" content="Free engineering calculators for HVAC and refrigeration professionals: cable sizing, unit converter, mass flow rate, cooling tower evaluation, oil charge calculator, thread reference, and more. Built by Karnot Energy Solutions.">
+<meta name="keywords" content="HVAC calculator, cable sizing calculator, unit converter, mass flow rate calculator, cooling tower evaluation, refrigerant oil charge, thread dimensions, engineering tools, heat pump sizing">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Engineering Hub — Free HVAC & Refrigeration Calculators">
+<meta property="og:description" content="Free engineering calculators for HVAC and refrigeration professionals. Cable sizing, unit conversion, mass flow rate, cooling tower evaluation, and more.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Engineering Hub — Free HVAC & Refrigeration Calculators | Karnot">
+<meta name="twitter:description" content="Cable sizing, unit conversion, flow rate, cooling tower, oil charge calculators — built for HVAC and refrigeration engineers.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},
+  {"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"}
+]},
+{"@type":"WebPage","name":"Engineering Hub","description":"Free engineering calculators for HVAC, refrigeration, and heat pump professionals.","url":"https://karnot.com/engineering-hub/","publisher":{"@type":"Organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com"}},
+{"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What engineering tools are available in the Karnot Engineering Hub?","acceptedAnswer":{"@type":"Answer","text":"The Karnot Engineering Hub provides free calculators including electrical cable sizing (BS 7671/IEC 60364), imperial-to-metric unit conversion, mass flow rate and pump sizing, cooling tower evaluation, refrigerant oil charge calculation, thread dimension reference, and cold room load estimation."}},
+  {"@type":"Question","name":"Are these engineering calculators free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes, all calculators in the Karnot Engineering Hub are completely free with no login required. They are built by our engineering team to help HVAC, refrigeration, and mechanical professionals with daily calculations."}},
+  {"@type":"Question","name":"What standards do the calculators follow?","acceptedAnswer":{"@type":"Answer","text":"Our calculators follow international standards including BS 7671 (IET Wiring Regulations), IEC 60364, and use industry-standard lookup tables for cable ratings, derating factors, and thread dimensions from DIN, ISO, BSP, NPT, JIS, and ANSI specifications."}},
+  {"@type":"Question","name":"Can I use these calculators for heat pump installations?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. The cable sizing calculator includes quick-select buttons for common Karnot heat pump power ratings (9.5kW to 100kW), and the unit converter covers all flow, pressure, energy, and temperature conversions needed for heat pump system design."}}
+]}
+]}
+</script>
+<style>
+.eh-hero{background:linear-gradient(135deg,#0d1b3e 0%,#1a2d5a 50%,#0d1b3e 100%);padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden}
+.eh-hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(245,102,0,.12) 0%,transparent 70%);border-radius:50%}
+.eh-hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(0,122,255,.08) 0%,transparent 70%);border-radius:50%}
+.eh-hero h1{font-size:48px;font-weight:800;color:#fff;margin-bottom:16px;position:relative;z-index:1}
+.eh-hero h1 span{background:linear-gradient(135deg,#F56600,#ff8c42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.eh-hero .eh-lead{font-size:18px;color:rgba(255,255,255,.7);max-width:700px;margin:0 auto 32px;line-height:1.7;position:relative;z-index:1}
+.eh-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,102,0,.15);color:#ff8c42;padding:8px 20px;border-radius:50px;font-size:13px;font-weight:600;margin-bottom:24px;position:relative;z-index:1}
+.eh-grid{max-width:1100px;margin:-40px auto 60px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:2}
+.eh-card{background:#fff;border-radius:20px;padding:32px 28px;box-shadow:0 4px 24px rgba(0,0,0,.06);transition:all .35s ease;text-decoration:none;color:#1d1d1f;display:flex;flex-direction:column;border:2px solid transparent;position:relative;overflow:hidden}
+.eh-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.12);border-color:rgba(245,102,0,.2);opacity:1}
+.eh-card-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;color:#fff}
+.eh-card-icon.blue{background:linear-gradient(135deg,#007aff,#5856d6)}
+.eh-card-icon.orange{background:linear-gradient(135deg,#F56600,#ff8c42)}
+.eh-card-icon.green{background:linear-gradient(135deg,#34c759,#30d158)}
+.eh-card-icon.purple{background:linear-gradient(135deg,#af52de,#bf5af2)}
+.eh-card-icon.red{background:linear-gradient(135deg,#ff3b30,#ff6961)}
+.eh-card-icon.teal{background:linear-gradient(135deg,#0097a7,#00bcd4)}
+.eh-card h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.eh-card p{font-size:14px;color:#6e6e73;line-height:1.6;flex:1;margin-bottom:16px}
+.eh-card-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#F56600;text-transform:uppercase;letter-spacing:.5px}
+.eh-card-soon{position:absolute;top:16px;right:16px;background:rgba(245,102,0,.1);color:#F56600;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.eh-cta{background:linear-gradient(135deg,#0d1b3e,#1a2d5a);padding:60px 20px;text-align:center}
+.eh-cta h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px}
+.eh-cta p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:600px;margin-left:auto;margin-right:auto}
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+@media(max-width:1024px){.eh-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.eh-hero{padding:100px 16px 60px}.eh-hero h1{font-size:32px}.eh-grid{grid-template-columns:1fr;margin-top:-20px}.eh-cta h2{font-size:26px}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+<section class="eh-hero">
+  <div class="eh-badge rv"><i class="fa-solid fa-wrench"></i> Free Engineering Tools</div>
+  <h1 class="rv"><span>Engineering Hub</span></h1>
+  <p class="eh-lead rv">Free calculators and reference tools for HVAC, refrigeration, and mechanical engineers. Cable sizing to BS 7671, unit conversion, mass flow rates, cooling tower evaluation, thread dimensions, and more — no login required, built by engineers for engineers.</p>
+</section>
+
+<div class="eh-grid sg">
+
+  <a href="cable-sizing.html" class="eh-card rv">
+    <div class="eh-card-icon blue"><i class="fa-solid fa-bolt"></i></div>
+    <h3>Cable Sizing Calculator</h3>
+    <p>Calculate cable cross-section, voltage drop, and breaker sizing for heat pump installations. BS 7671 / IEC 60364 compliant with derating factors for ambient temperature and installation method.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Calculator</span>
+  </a>
+
+  <a href="unit-converter.html" class="eh-card rv">
+    <div class="eh-card-icon orange"><i class="fa-solid fa-arrows-rotate"></i></div>
+    <h3>Unit Converter</h3>
+    <p>Instant conversion between imperial and metric units: GPM to L/s, PSI to Bar, BTU to kW, pipe DN to NPS, and temperature scales. Real-time bidirectional conversion as you type.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Converter</span>
+  </a>
+
+  <a href="mass-flow-rate.html" class="eh-card rv">
+    <div class="eh-card-icon green"><i class="fa-solid fa-gauge-high"></i></div>
+    <h3>Mass Flow Rate & Pump Sizing</h3>
+    <p>Calculate required pump flow rates (L/s, m&sup3;/h) and pressure drops for hydronic heating and cooling systems. Input your thermal load to get precise pipe and pump specifications.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Calculator</span>
+    <span class="eh-card-soon">Coming Soon</span>
+  </a>
+
+  <a href="cooling-tower.html" class="eh-card rv">
+    <div class="eh-card-icon teal"><i class="fa-solid fa-water"></i></div>
+    <h3>Cooling Tower Evaluator</h3>
+    <p>Evaluate cooling tower performance and feed water requirements. Input wet bulb temperature, approach, and range to size your cooling tower for optimal efficiency.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Evaluator</span>
+    <span class="eh-card-soon">Coming Soon</span>
+  </a>
+
+  <a href="steam-boiler-roi.html" class="eh-card rv">
+    <div class="eh-card-icon red"><i class="fa-solid fa-fire-flame-curved"></i></div>
+    <h3>Steam Boiler Replacement ROI</h3>
+    <p>Calculate the exact thermal and financial impact of replacing your steam boiler with an R290 or CO&sup2; heat pump. See payback period, annual savings, and carbon reduction.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Calculator</span>
+    <span class="eh-card-soon">Coming Soon</span>
+  </a>
+
+  <a href="oil-charge.html" class="eh-card rv">
+    <div class="eh-card-icon purple"><i class="fa-solid fa-oil-can"></i></div>
+    <h3>Refrigerant & Oil Charge</h3>
+    <p>Calculate precise oil and refrigerant charges based on system pipe length, diameter, and component volume. Essential for commissioning and servicing heat pump systems.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Calculator</span>
+    <span class="eh-card-soon">Coming Soon</span>
+  </a>
+
+  <a href="cold-room-load.html" class="eh-card rv">
+    <div class="eh-card-icon teal"><i class="fa-solid fa-snowflake"></i></div>
+    <h3>Cold Room Load Estimator</h3>
+    <p>Input room dimensions, insulation values, product load, and target temperature to calculate the required kW cooling capacity for cold rooms and freezer stores.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Calculator</span>
+    <span class="eh-card-soon">Coming Soon</span>
+  </a>
+
+  <a href="thread-reference.html" class="eh-card rv">
+    <div class="eh-card-icon blue"><i class="fa-solid fa-ruler-combined"></i></div>
+    <h3>Thread Dimension Reference</h3>
+    <p>Searchable database covering DIN, GOST, BSP, NPT, Metric, JIS, ISO, ANSI, and AFBMA thread standards. Instantly look up pitch, major/minor diameters, and tapping drill sizes.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Reference</span>
+    <span class="eh-card-soon">Coming Soon</span>
+  </a>
+
+  <a href="pinch-analysis.html" class="eh-card rv">
+    <div class="eh-card-icon green"><i class="fa-solid fa-chart-line"></i></div>
+    <h3>Pinch Analysis Tool</h3>
+    <p>Identify optimal heat recovery targets in industrial processes. Input your hot and cold stream data to find the pinch point and maximum energy recovery potential.</p>
+    <span class="eh-card-tag"><i class="fa-solid fa-arrow-right"></i> Launch Tool</span>
+    <span class="eh-card-soon">Coming Soon</span>
+  </a>
+
+</div>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What engineering tools are available in the Karnot Engineering Hub?</summary>
+    <div class="faq-answer"><p>The Karnot Engineering Hub provides free calculators including electrical cable sizing (BS 7671/IEC 60364), imperial-to-metric unit conversion, mass flow rate and pump sizing, cooling tower evaluation, refrigerant oil charge calculation, thread dimension reference, and cold room load estimation.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Are these engineering calculators free to use?</summary>
+    <div class="faq-answer"><p>Yes, all calculators in the Karnot Engineering Hub are completely free with no login required. They are built by our engineering team to help HVAC, refrigeration, and mechanical professionals with daily calculations.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What standards do the calculators follow?</summary>
+    <div class="faq-answer"><p>Our calculators follow international standards including BS 7671 (IET Wiring Regulations), IEC 60364, and use industry-standard lookup tables for cable ratings, derating factors, and thread dimensions from DIN, ISO, BSP, NPT, JIS, and ANSI specifications.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Can I use these calculators for heat pump installations?</summary>
+    <div class="faq-answer"><p>Absolutely. The cable sizing calculator includes quick-select buttons for common Karnot heat pump power ratings (9.5kW to 100kW), and the unit converter covers all flow, pressure, energy, and temperature conversions needed for heat pump system design.</p></div>
+  </details>
+</section>
+
+<section class="eh-cta rv">
+  <h2>Need Custom Engineering Support?</h2>
+  <p>Our engineering team can provide bespoke sizing, system design, and commissioning support for your heat pump project.</p>
+  <div class="cta-row">
+    <a href="../contact.html?intent=general_quote&product=Engineering_Hub" class="btn-orange">Talk to an Engineer</a>
+    <a href="../savings.html" class="btn-outline">Calculate Savings</a>
+  </div>
+</section>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+</body>
+</html>
