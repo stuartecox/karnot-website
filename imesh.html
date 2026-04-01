@@ -169,6 +169,15 @@
   .imesh-cta-row{flex-direction:column;align-items:center}
   .imesh-btn-white,.imesh-btn-outline{width:100%;text-align:center}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -292,6 +301,22 @@
       <div class="imesh-spec-item"><span class="imesh-spec-label">Compatible Refrigerants</span><span class="imesh-spec-value">All standard types</span></div>
     </div>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>How quickly does iMESH pay for itself?</summary>
+    <div class="faq-answer"><p>Most iMESH installations achieve full payback in approximately 21 weeks (about 5 months), making it the fastest ROI in the HVAC industry. This is based on 25% average efficiency improvement at 8,000 operating hours per year.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Does iMESH work with any chiller brand?</summary>
+    <div class="faq-answer"><p>Yes. iMESH is brand-agnostic and can be retrofitted to any air-cooled chiller from 20 kW to 2,000 kW. The panels are custom-engineered for each specific installation.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Is there any downtime during iMESH installation?</summary>
+    <div class="faq-answer"><p>No. iMESH is a bolt-on retrofit that is installed in 2-5 days with zero chiller downtime. Your cooling continues to operate normally throughout the installation process.</p></div>
+  </details>
 </section>
 
 </main>

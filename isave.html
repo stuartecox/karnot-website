@@ -193,6 +193,15 @@
   .isave-value-num{font-size:30px}
   .isave-total-num{font-size:36px}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -326,6 +335,22 @@
     </div>
     <div class="isave-total-box reveal"><div class="isave-total-label">Total Annual Value</div><div class="isave-total-num">30-45%</div><div class="isave-total-sub">Additional value beyond baseline heat pump operation</div></div>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What smart home platforms does iSAVE support?</summary>
+    <div class="faq-answer"><p>iSAVE is Matter-certified and works with Apple Home, Google Home, Amazon Alexa, and Samsung SmartThings. Thread mesh networking provides reliable, low-power wireless control with offline capability.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How do iSAVE carbon credits work?</summary>
+    <div class="faq-answer"><p>iSAVE continuously monitors energy savings vs a Gold Standard-approved baseline. Avoided CO2 emissions are calculated, verified via blockchain, and issued as tradeable Gold Standard carbon credits. Typical returns: 8-15% of energy savings annually.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is Virtual Power Plant (VPP) integration?</summary>
+    <div class="faq-answer"><p>VPP allows your heat pump to participate in grid demand response programs, earning payments for shifting or curtailing energy use during grid stress events. iSAVE connects to platforms like Octopus Energy Kraken and Enel X.</p></div>
+  </details>
 </section>
 
 </main>

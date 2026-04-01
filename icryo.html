@@ -120,6 +120,15 @@ a{transition:opacity .2s,transform .2s}a:hover{opacity:.92}
   .app-grid,.prod-grid{grid-template-columns:1fr}
   .cta-section h2{font-size:24px}.cta-btn{width:100%;text-align:center}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -213,6 +222,22 @@ a{transition:opacity .2s,transform .2s}a:hover{opacity:.92}
 </section>
 
 </div>
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What refrigerant does iCRYO use?</summary>
+    <div class="faq-answer"><p>iCRYO uses air as its refrigerant — a reverse Brayton cycle. There are zero refrigerant costs, zero leakage tests, and zero environmental impact. Air is supplied free of charge.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is the Snow Catcher?</summary>
+    <div class="faq-answer"><p>The Snow Catcher is a patented Humidity Extraction Device (HED) that prevents frost buildup on products at ultra-low temperatures. It eliminates energy-consuming defrost cycles, allowing continuous operation.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What industries use iCRYO?</summary>
+    <div class="faq-answer"><p>iCRYO serves semiconductor manufacturing, pharmaceutical freeze-drying (lyophilisation), chemical processes, PVD coating, space equipment testing, freeze chambers, cryotherapy, and LNG gas liquefaction.</p></div>
+  </details>
+</section>
+
 </main>
 
 <div id="karnot-footer"></div>

@@ -143,6 +143,15 @@
 @media(max-width:900px){.ic22-section-padding{padding:40px 24px}.ic22-nav-back{padding:14px 24px}.ic22-product-hero{grid-template-columns:1fr;text-align:center}.ic22-certifications{justify-content:center}.ic22-page-cta{padding:44px 24px}.ic22-page-cta h2{font-size:24px}}
 @media(max-width:600px){.ic22-section-padding{padding:32px 16px}.ic22-hero-text h1{font-size:32px}.ic22-cta-row{flex-direction:column;align-items:center}}
 @media print{.ic22-print-button,.ic22-unit-toggle,.ic22-nav-back,.ic22-page-cta{display:none!important}.ic22-main-container{box-shadow:none;margin:0}.ic22-section-padding{page-break-inside:avoid}}
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -292,6 +301,22 @@
     <a href="contact.html" class="ic22-btn-orange">Get in Touch</a>
     <a href="icool.html" class="ic22-btn-outline-w">View Full iCRYO Range</a>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>How does the iCRYO 20 differ from the iCRYO 15?</summary>
+    <div class="faq-answer"><p>The iCRYO 20 has a 22kW motor delivering 13.7 kW cooling at -40°C, compared to the iCRYO 15&#x27;s 15kW motor and 9.58 kW capacity. It returns to water-cooled operation for superior heat rejection in demanding industrial environments, and is suited for larger-scale applications including industrial food storage, pharmaceutical manufacturing, and advanced materials testing.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Why does the iCRYO 20 use water cooling?</summary>
+    <div class="faq-answer"><p>Water cooling provides more efficient heat rejection than air cooling — particularly important at higher capacities and in continuous industrial operation. It enables the iCRYO 20 to sustain peak performance in demanding environments where ambient temperatures may be elevated.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Is the iCRYO 20 suitable for food storage applications?</summary>
+    <div class="faq-answer"><p>Yes. The iCRYO 20 uses natural air (R729) with zero GWP and is 100% oil-free, making it ideal for food applications where refrigerant leaks or oil contamination are unacceptable. Its continuous operation without defrost cycles maintains stable temperatures critical for food quality.</p></div>
+  </details>
 </section>
 
 </main>

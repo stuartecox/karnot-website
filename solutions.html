@@ -316,6 +316,15 @@
   .solution-icon{font-size:34px}
   .value-box{padding:20px}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -548,6 +557,22 @@
   </article>
 
 </section>
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What industries does Karnot serve?</summary>
+    <div class="faq-answer"><p>Karnot serves manufacturing, commercial buildings, hotels, agriculture and dairy, cold chain logistics, and industrial process heating and cooling with CO2 and R290 natural refrigerant heat pumps.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is iMESH and how fast is the payback?</summary>
+    <div class="faq-answer"><p>iMESH is Karnot&#x27;s bolt-on retrofit for existing chillers that delivers 20-30% efficiency improvement without replacing equipment. Most sites achieve payback in approximately 21 weeks.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is Hydrogreen vertical fodder?</summary>
+    <div class="faq-answer"><p>Hydrogreen is a climate-controlled vertical fodder production system that converts 1 kg of seed into 6-8 kg of fresh fodder in 6-7 days, using 95% less water than field-grown feed. When paired with Karnot heat recovery, it becomes energy-neutral.</p></div>
+  </details>
+</section>
+
 </main>
 
 <!-- FOOTER CTA -->

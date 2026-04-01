@@ -164,6 +164,15 @@
 @media(max-width:900px){.ic10-section-padding{padding:40px 24px}.ic10-nav-back{padding:14px 24px}.ic10-product-hero{grid-template-columns:1fr;text-align:center}.ic10-certifications{justify-content:center}.ic10-page-cta{padding:44px 24px}.ic10-page-cta h2{font-size:24px}}
 @media(max-width:600px){.ic10-section-padding{padding:32px 16px}.ic10-hero-text h1{font-size:32px}.ic10-hero-text .subtitle{font-size:18px}.ic10-cta-row{flex-direction:column;align-items:center}}
 @media print{.ic10-print-button,.ic10-unit-toggle,.ic10-nav-back,.ic10-page-cta{display:none!important}.ic10-main-container{box-shadow:none;margin:0}.ic10-section-padding{page-break-inside:avoid}}
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -322,6 +331,22 @@
     <a href="contact.html" class="ic10-btn-orange">Get in Touch</a>
     <a href="icool.html" class="ic10-btn-outline-w">View Full iCRYO Range</a>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What refrigerant does the iCRYO 10 use?</summary>
+    <div class="faq-answer"><p>The iCRYO 10 uses R729 — natural air — as its refrigerant. This gives it zero GWP, zero ODP, and produces no TFA. Air is free, abundant, and requires no specialist handling or disposal.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What temperature range does the iCRYO 10 achieve?</summary>
+    <div class="faq-answer"><p>The iCRYO 10 operates from -40°C to -110°C with stable, reliable performance. Cooling capacity is 5.65 kW at -40°C, 4.37 kW at -70°C, and 2.49 kW at -110°C.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Does the iCRYO 10 need defrost cycles?</summary>
+    <div class="faq-answer"><p>No. The integrated Snow Catcher (Humidity Extraction Device) continuously removes moisture before it can cause frost buildup, enabling uninterrupted operation without defrost cycles.</p></div>
+  </details>
 </section>
 
 </main>

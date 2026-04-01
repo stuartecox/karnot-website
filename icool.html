@@ -177,6 +177,15 @@
   .icool-stat-bar{grid-template-columns:repeat(2,1fr)}.icool-stat .num{font-size:28px}
   .icool-hero-actions a{width:100%;text-align:center}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -388,6 +397,22 @@
       <a href="contact.html" class="icool-cta-btn">Request Free Load Analysis</a>
     </div>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>Why is CO2 better than HFC refrigerants?</summary>
+    <div class="faq-answer"><p>CO2 (R744) has a GWP of just 1 compared to 1,430-2,346 for common HFCs. It is non-toxic, non-flammable, PFAS-free, abundant and inexpensive. CO2 systems deliver up to 50% energy savings and are completely exempt from Kigali Amendment phase-downs.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What temperatures can iCOOL achieve?</summary>
+    <div class="faq-answer"><p>iCOOL systems cover medium temperature (0 C to -10 C) for chilled storage and low temperature (down to -40 C) for frozen storage. Multi-temperature configurations available in a single system.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Is iCOOL suitable for the Philippines?</summary>
+    <div class="faq-answer"><p>Yes. Transcritical CO2 systems are specifically engineered for high ambient temperatures. The Panasonic 2-stage compressor maintains efficiency even at 45 C ambient, making it ideal for tropical climates.</p></div>
+  </details>
 </section>
 
 </main>

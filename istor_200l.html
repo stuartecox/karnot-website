@@ -158,6 +158,15 @@
 @media(max-width:992px){.istor-overview{grid-template-columns:1fr}.istor-overview img{max-width:350px;margin:0 auto;display:block}}
 @media(max-width:768px){.istor-hero{padding:90px 16px 60px}.istor-hero h1{font-size:32px}.istor-overview h2{font-size:28px}.istor-section{padding:50px 16px}.istor-nav{position:relative;top:0}.istor-nav-inner{flex-direction:column;gap:8px}}
 @media print{.istor-nav,.istor-print,.istor-cta,.site-nav,#karnot-footer{display:none!important}.istor-section{padding:30px 0}.istor-fcard:hover{transform:none;box-shadow:none}}
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -296,6 +305,22 @@
       <a href="contact.html" class="istor-cta-btn"><i class="fa-solid fa-envelope"></i> Contact Sales</a>
     </div>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What outdoor units is the iHEAT Hydronic Tank compatible with?</summary>
+    <div class="faq-answer"><p>The CGH06HR150 integrated hydronic tank is designed to work with CGK-030V4P (9.5kW), CGK-040V4P (11.5kW), CGK-050V4P (15.5kW), and CGK-060V4P (18.5kW) iHEAT outdoor units.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Does the iHEAT Hydronic Tank support solar panels?</summary>
+    <div class="faq-answer"><p>Yes. The tank includes a DN32×15m SUS304 stainless steel heat exchange coil for solar thermal integration, plus advanced logic for solar heating and return water control.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How does the iHEAT Hydronic Tank save installation time?</summary>
+    <div class="faq-answer"><p>By combining the DHW tank, buffer tank, expansion tank, 3-way valve, CAREL controller, and electric backup heater into a single pre-assembled unit, the CGH06HR150 reduces installation time by over 50% compared to installing these components separately.</p></div>
+  </details>
 </section>
 
 </main>

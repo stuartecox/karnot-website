@@ -164,6 +164,15 @@
   .reveal{opacity:1!important;transform:none!important}
   .notes-card,.condition-card{break-inside:avoid}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -876,6 +885,26 @@
 </section>
 
 </div><!-- .ds-page -->
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What is the difference between concealed and exposed horizontal fan coil units?</summary>
+    <div class="faq-answer"><p>Concealed (HC) units are fully hidden above the ceiling with ducted air distribution and support static pressures up to 50 Pa. Exposed (HE) units are visible or semi-concealed below the ceiling and discharge air directly without ductwork.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What cooling capacity range do the HLC split wall-mount units cover?</summary>
+    <div class="faq-answer"><p>The HLC 51G to 102G split wall-mount fan coil units cover cooling capacities from 2,800 W (9,556 BTU/h) to 5,600 W (19,113 BTU/h), with heating capacities from 4,190 W to 8,220 W.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Can the horizontal concealed units handle high static pressure duct runs?</summary>
+    <div class="faq-answer"><p>Yes. The HLC HC series supports static pressure configurations of 0, 12, 30, and 50 Pa. At 30 Pa and 50 Pa, airflow values are derated. Consult the operating conditions section for specific derating factors.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What pipe connections do the split wall-mount units use?</summary>
+    <div class="faq-answer"><p>The HLC 51G and 68G use DN15 (1/2 inch) supply and return connections. The HLC 85G and 102G use DN20 (3/4 inch) connections. Condensate drain is DN20 across all models.</p></div>
+  </details>
+</section>
 
 <div id="karnot-footer"></div>
 

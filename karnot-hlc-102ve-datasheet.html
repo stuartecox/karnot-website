@@ -185,6 +185,15 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helv
   .fs-table .section-hdr td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .reveal{opacity:1!important;transform:none!important}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -483,6 +492,30 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helv
   </div>
 
 </div>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What is the difference between the HLC VE and HLC-LZ series?</summary>
+    <div class="faq-answer"><p>The HLC VE series (34VE-238VE) are slim 270 mm wide vertical exposed tower units designed for standard rooms and retrofit installations. The HLC-LZ series are larger floor standing high-capacity units (3HP and 5HP) for commercial spaces requiring 7.4-15 kW of cooling capacity.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Can the tower fan coil units provide both heating and cooling?</summary>
+    <div class="faq-answer"><p>Yes. All models operate as 2-pipe changeover units, providing chilled water cooling in summer and hot water heating in winter when connected to an iHEAT heat pump or chiller. The HLC 102VE, for example, delivers 5.4 kW cooling and 8.1 kW heating.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What are the standard test conditions for the rated capacities?</summary>
+    <div class="faq-answer"><p>Cooling: inlet water 7/12 C, room DB/WB 27/19.5 C. Heating: inlet water 60/50 C, room DB 20 C. Actual performance may vary with different water temperatures and ambient conditions.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How quiet are the vertical exposed fan coil units?</summary>
+    <div class="faq-answer"><p>Noise levels range from 37 dB(A) on the smallest HLC 34VE to 52 dB(A) on the largest HLC 238VE at high fan speed. Lower fan speeds reduce noise significantly. The 37 dB(A) level is comparable to a whisper.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What pipe connections do these fan coil units use?</summary>
+    <div class="faq-answer"><p>The HLC VE series uses standard 2-pipe water connections for supply and return. The units are designed for hydronic systems and connect to central heat pumps or chillers via insulated copper or plastic pipework.</p></div>
+  </details>
+</section>
 
 <div id="karnot-footer"></div>
 

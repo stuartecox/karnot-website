@@ -237,6 +237,15 @@
   body{background:#fff}
   .rv{opacity:1!important;transform:none!important}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -629,6 +638,18 @@
       <span class="eco-tag"><i class="fas fa-wind" style="margin-right:6px"></i> iZONE Fan Coil Units</span>
     </div>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What is the difference between 2-pipe and 4-pipe cassette fan coil units?</summary>
+    <div class="faq-answer"><p>A 2-pipe cassette fan coil unit uses a single heat exchanger coil connected to one supply and one return pipe, switching between heating and cooling modes centrally. A 4-pipe unit has two independent coils (one for chilled water, one for hot water) with four pipe connections, allowing simultaneous heating and cooling in different zones from the same system.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Why choose a hydronic cassette FCU over a VRF cassette?</summary>
+    <div class="faq-answer"><p>Hydronic cassette FCUs use water instead of refrigerant for heat distribution, eliminating the need for refrigerant piping in occupied spaces. This means no PFAS risk, 95% less refrigerant charge (confined to the outdoor heat pump), lower maintenance costs, longer equipment life of 20+ years, and compatibility with multiple heat sources including heat pumps, boilers, and solar thermal.</p></div>
+  </details>
 </section>
 
 <div id="karnot-footer"></div>

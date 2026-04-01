@@ -161,6 +161,15 @@
 @media(max-width:900px){.ic15-section-padding{padding:40px 24px}.ic15-nav-back{padding:14px 24px}.ic15-product-hero{grid-template-columns:1fr;text-align:center}.ic15-certifications{justify-content:center}.ic15-page-cta{padding:44px 24px}.ic15-page-cta h2{font-size:24px}}
 @media(max-width:600px){.ic15-section-padding{padding:32px 16px}.ic15-hero-text h1{font-size:32px}.ic15-hero-text .subtitle{font-size:18px}.ic15-cta-row{flex-direction:column;align-items:center}}
 @media print{.ic15-print-button,.ic15-unit-toggle,.ic15-nav-back,.ic15-page-cta{display:none!important}.ic15-main-container{box-shadow:none;margin:0}.ic15-section-padding{page-break-inside:avoid}}
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -310,6 +319,22 @@
     <a href="contact.html" class="ic15-btn-orange">Get in Touch</a>
     <a href="icool.html" class="ic15-btn-outline-w">View Full iCRYO Range</a>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>How does the iCRYO 15 differ from the iCRYO 10?</summary>
+    <div class="faq-answer"><p>The iCRYO 15 has a 15kW motor (vs 10.5kW) delivering 9.58 kW cooling at -40°C (vs 5.65 kW). It uses an air-cooled turbo-compressor rather than water-cooled, simplifying installation. It&#x27;s suited for mid-scale facilities like cryotherapy chambers, biological storage banks, and industrial metal treatment.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Does the iCRYO 15 require water cooling?</summary>
+    <div class="faq-answer"><p>No. The iCRYO 15 uses an air-cooled turbo-compressor, eliminating the need for chilled water infrastructure. This simplifies installation and reduces operational complexity compared to water-cooled models.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is the Snow Catcher system on the iCRYO 15?</summary>
+    <div class="faq-answer"><p>The Snow Catcher is an integrated Humidity Extraction Device (HED) that removes moisture from the air before it reaches ultra-low temperatures, preventing frost buildup. This enables continuous operation without defrost cycles, maintaining stable process temperatures.</p></div>
+  </details>
 </section>
 
 </main>

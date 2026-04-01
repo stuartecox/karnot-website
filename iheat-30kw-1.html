@@ -96,6 +96,15 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helv
 @media(max-width:1000px){.dg{grid-template-columns:1fr}.isave-grid{grid-template-columns:1fr}}
 @media(max-width:900px){.sp{padding:40px 30px}.isave-box{margin:0 20px 40px;padding:25px}.product-hero{grid-template-columns:1fr;text-align:center}.certs{justify-content:center}.hero h1{font-size:42px}.hero .subtitle{font-size:18px}.mcs-logo{top:15px;right:15px;width:75px}}
 @media print{.back-nav,.trust-bar,.print-btn,.ut{display:none!important}body{background:#fff}.main-card{box-shadow:none;margin:0}.isave-box{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -148,6 +157,22 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helv
 </div>
 </div></div>
 <div class="note sp" style="border-top:1px solid var(--border)"><strong>Disclaimer:</strong> Specifications are subject to change without notice. Confirm all details before placing an order. Commercial installations should be designed and commissioned by a qualified heat pump engineer. Contact Karnot for project-specific guidance.</div></div>
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What applications is the Karnot iHEAT 30kW designed for?</summary>
+    <div class="faq-answer"><p>The 30kW is ideal for medium commercial buildings, multi-unit residential developments, hotels, schools, and care homes. Its 75°C output supports both domestic hot water and space heating via existing radiator systems, and it can be cascaded with other iHEAT units for larger loads.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What compressor does the CGK-100V4-B use?</summary>
+    <div class="faq-answer"><p>The CGK-100V4-B uses a HITACHI DC Inverter Scroll compressor. This delivers higher part-load efficiency than fixed-speed alternatives, quieter operation at 64 dBA, and reliable 24/7 commercial-duty performance.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Does the iHEAT 30kW use R290 refrigerant?</summary>
+    <div class="faq-answer"><p>Yes. The CGK-100V4-B runs on R290 (propane) with a 2.1kg charge. R290 has a GWP of 3 — 675x lower than R410A — is PFAS-free, and fully compliant with current and forthcoming F-gas regulations.</p></div>
+  </details>
+</section>
+
 <div id="karnot-footer"></div>
 
 <script src="js/karnot.js"></script>

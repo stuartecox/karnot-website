@@ -242,6 +242,15 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;background:#f57c00;bo
   .showcase-info h2{font-size:24px}
   .product-showcase{padding:50px 0}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -444,6 +453,22 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;background:#f57c00;bo
       <a href="contact.html" class="cta-btn">Request Free Energy Survey</a>
     </div>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What is the COP of iHEAT heat pumps?</summary>
+    <div class="faq-answer"><p>iHEAT R290 heat pumps achieve COP 4.0-4.5, meaning you get 4-4.5 kWh of heat for every 1 kWh of electricity. CO2 models achieve COP 3.5-4.2 at higher temperatures up to 130 C.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What temperatures can iHEAT produce?</summary>
+    <div class="faq-answer"><p>R290 models deliver hot water up to 75 C. CO2 transcritical models can reach up to 130 C, suitable for industrial process heating, sterilisation, and high-temperature sanitisation.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Are iHEAT systems MCS certified?</summary>
+    <div class="faq-answer"><p>Yes, iHEAT systems are MCS (Microgeneration Certification Scheme) certified, making them eligible for UK government incentives including the Boiler Upgrade Scheme.</p></div>
+  </details>
 </section>
 
 </main>

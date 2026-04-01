@@ -136,6 +136,15 @@
 @media(max-width:900px){.ispa-section-padding{padding:40px 24px}.ispa-nav-back{padding:14px 24px}.ispa-product-hero{grid-template-columns:1fr;text-align:center}.ispa-certifications{justify-content:center}.ispa-page-cta{padding:44px 24px}.ispa-page-cta h2{font-size:24px}}
 @media(max-width:600px){.ispa-section-padding{padding:32px 16px}.ispa-hero-text h1{font-size:32px}.ispa-hero-text .subtitle{font-size:18px}.ispa-cta-row{flex-direction:column;align-items:center}}
 @media print{.ispa-print-button,.ispa-unit-toggle,.ispa-nav-back,.ispa-page-cta{display:none!important}.ispa-main-container{box-shadow:none;margin:0}.ispa-section-padding{page-break-inside:avoid}}
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -276,6 +285,22 @@
     <a href="contact.html" class="ispa-btn-orange">Get in Touch</a>
     <a href="ispa.html" class="ispa-btn-outline-w">View Full iSPA Range</a>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What pool volume range is the iSPA 17R designed for?</summary>
+    <div class="faq-answer"><p>The iSPA 17R is recommended for swimming pools between 40 and 80 cubic metres. It delivers 17kW nominal heating capacity with a COP up to 14.56 under optimal conditions.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How energy efficient is the iSPA 17R?</summary>
+    <div class="faq-answer"><p>The iSPA 17R achieves a COP range of 7.28 to 14.56 under standard heating conditions, meaning it produces up to 14.56 units of heat for every unit of electricity consumed. DC inverter technology ensures efficient part-load operation.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Can the iSPA 17R operate in cold weather?</summary>
+    <div class="faq-answer"><p>Yes. The iSPA 17R is designed to operate in ambient temperatures from -15°C to 45°C, providing year-round pool heating even in cooler climates.</p></div>
+  </details>
 </section>
 
 </main>

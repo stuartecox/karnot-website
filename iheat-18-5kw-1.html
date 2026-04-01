@@ -183,6 +183,15 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helv
   .main-card{box-shadow:none;margin:0}
   .isave-box{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -405,6 +414,30 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helv
   </div>
 
 </div>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>Is the Karnot iHEAT 18.5kW eligible for the Boiler Upgrade Scheme grant?</summary>
+    <div class="faq-answer"><p>Yes. The iHEAT 18.5kW is MCS certified (HP0304) and fully eligible for the £7,500 BUS grant. Paired with iZONE fan coils for the £2,500 cooling grant, total government support reaches £10,000.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is the difference between the 1Ph and 3Ph 18.5kW versions?</summary>
+    <div class="faq-answer"><p>Both deliver identical heating (18.5kW, COP 5.59) and cooling (16.8kW). The 1Ph (CGK060V4P) runs on 220-240V at 37.46A with a 50A breaker. The 3Ph (CGK060V3L-B) runs on 380-420V at 16.52A with a 25A breaker — lower running current and better suited for properties with three-phase supply.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How does the 18.5kW compare to the 15.5kW?</summary>
+    <div class="faq-answer"><p>The 18.5kW delivers 19% more heating capacity (18.5kW vs 15.5kW) and 25% more cooling (16.8kW vs 13.4kW). It is suited to large homes, HMOs, or light commercial properties with higher thermal loads.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What refrigerant does the 18.5kW iHEAT use?</summary>
+    <div class="faq-answer"><p>R290 (propane) — GWP of 3, 675x lower than R410A. PFAS-free and compliant with EU F-gas regulations. The charge is 0.55kg per unit.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Can the iHEAT 18.5kW cool as well as heat?</summary>
+    <div class="faq-answer"><p>Yes. The 18.5kW provides up to 16.8kW of cooling (EER 3.51-4.16). When connected to iZONE fan coil units, it becomes a complete heating, hot water, and cooling system eligible for the £2,500 cooling grant.</p></div>
+  </details>
+</section>
 
 <div id="karnot-footer"></div>
 

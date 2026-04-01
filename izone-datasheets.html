@@ -196,6 +196,15 @@
   .ds-cta-section{padding:50px 16px}
   .ds-cta-section h2{font-size:26px}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 
 </head>
@@ -358,6 +367,22 @@
   <h2>Need Engineering Support?</h2>
   <p>Our technical team can help with unit selection, system design, and specification assistance for your next hydronic HVAC project.</p>
   <a href="mailto:sales@karnot.com?subject=iZONE%20Technical%20Enquiry" class="btn-cta-email"><i class="fa-solid fa-envelope"></i> Contact Engineering Team</a>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What is a hydronic fan coil?</summary>
+    <div class="faq-answer"><p>A hydronic fan coil is an indoor climate-control unit that uses chilled or heated water piped from a central heat pump or chiller to condition air in individual rooms or zones. A fan draws room air across a water-filled heat exchanger coil, delivering cooled or heated air without any refrigerant inside the occupied space. This makes hydronic systems safer, quieter, and more energy-efficient than traditional split AC.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is the difference between 2-pipe and 4-pipe systems?</summary>
+    <div class="faq-answer"><p>A 2-pipe system uses one supply and one return pipe, providing either heating or cooling at any given time. A 4-pipe system uses two independent sets of pipes (one for chilled water, one for hot water), allowing simultaneous heating and cooling in different zones. 4-pipe systems offer greater flexibility for buildings that need heating in some areas and cooling in others at the same time.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Can iZONE work with any heat pump?</summary>
+    <div class="faq-answer"><p>iZONE fan coil units are designed to work with any hydronic heat pump or chiller that supplies chilled and/or heated water. They pair optimally with Karnot iHEAT R290 heat pumps for a complete PFAS-free system, but are compatible with any standard hydronic water loop operating within the specified temperature and flow rate ranges listed in each datasheet.</p></div>
+  </details>
 </section>
 
 <div id="karnot-footer"></div>
