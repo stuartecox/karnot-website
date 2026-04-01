@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Engineering Unit Converter — Flow, Pressure, Energy, Temperature | Karnot Engineering Hub</title>
+<meta name="description" content="Free engineering unit converter: GPM to L/s, PSI to Bar, BTU to kW, Celsius to Fahrenheit, pipe sizing. Instant bidirectional conversion for HVAC, refrigeration, and heat pump engineers.">
+<meta name="keywords" content="GPM to L/s converter, PSI to Bar, BTU to kW, engineering unit converter, flow rate converter, pressure converter, HVAC unit converter, pipe sizing, DN to NPS, imperial to metric">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/unit-converter">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/unit-converter">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/unit-converter">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/unit-converter">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/unit-converter">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Engineering Unit Converter — Flow, Pressure, Energy, Temperature">
+<meta property="og:description" content="Free engineering unit converter for HVAC and refrigeration professionals. Convert flow rates, pressures, energy, temperature, and look up pipe sizes instantly.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/unit-converter">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Engineering Unit Converter — Flow, Pressure, Energy, Temperature">
+<meta name="twitter:description" content="Free engineering unit converter: GPM to L/s, PSI to Bar, BTU to kW. Instant bidirectional conversion for HVAC engineers.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"https://img1.wsimg.com/isteam/ip/cb1de239-c2b8-4674-b57d-5ae86a72feb1/logo.png","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]},"sameAs":["https://www.facebook.com/karnotenergy","https://www.linkedin.com/company/karnot-energy","https://www.instagram.com/karnotenergy"]},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Unit Converter","item":"https://karnot.com/engineering-hub/unit-converter"}]},
+    {"@type":"WebApplication","name":"Engineering Unit Converter","url":"https://karnot.com/engineering-hub/unit-converter","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Convert flow rates (GPM, L/min, m3/h), pressures (PSI, Bar, kPa), energy (BTU/h, kW, TR), temperature (C, F, K), length (mm, inches, feet), and look up pipe sizes (DN, NPS, OD). Instant bidirectional conversion for HVAC, refrigeration, and plumbing engineers.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I convert GPM to litres per second?","acceptedAnswer":{"@type":"Answer","text":"To convert US gallons per minute (GPM) to litres per second (L/s), multiply the GPM value by 0.0630902. For example, 10 US GPM equals 0.631 L/s. Imperial GPM is slightly larger: multiply by 0.0757682 to get L/s. Use the converter above for instant results."}},
+      {"@type":"Question","name":"What is the difference between PSI and Bar?","acceptedAnswer":{"@type":"Answer","text":"PSI (pounds per square inch) is the imperial unit of pressure, while Bar is the metric unit. 1 Bar equals 14.5038 PSI. In HVAC and refrigeration, system pressures are commonly stated in PSI in North America and in Bar or kPa in Europe and Asia."}},
+      {"@type":"Question","name":"How many BTU per hour is 1 kW?","acceptedAnswer":{"@type":"Answer","text":"1 kilowatt (kW) equals 3,412.14 BTU per hour. This conversion is essential for sizing heat pumps and air conditioning systems, where capacity may be rated in BTU/h (common in the US) or kW (common internationally)."}},
+      {"@type":"Question","name":"What is a Ton of Refrigeration (TR)?","acceptedAnswer":{"@type":"Answer","text":"A Ton of Refrigeration (TR) is a unit of cooling capacity equal to 12,000 BTU/h or 3.51685 kW. It originates from the cooling power of melting one short ton (2,000 lb) of ice in 24 hours. Commercial chillers and large air conditioning systems are commonly rated in TR."}},
+      {"@type":"Question","name":"How do DN pipe sizes relate to NPS and actual outside diameter?","acceptedAnswer":{"@type":"Answer","text":"DN (Diametre Nominal) is the metric designation and NPS (Nominal Pipe Size) is the imperial equivalent. Neither equals the actual pipe outside diameter (OD). For example, DN25 corresponds to NPS 1 inch, but the actual OD is 33.4 mm. The converter includes a full reference table of DN, NPS, and actual OD for common pipe sizes from DN15 to DN300."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* --- PAGE-SPECIFIC: Unit Converter --- */
+
+/* HERO */
+.uc-hero{
+  background:linear-gradient(135deg,rgba(0,60,140,.9),rgba(0,122,255,.75),rgba(245,102,0,.25));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.uc-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto}
+.uc-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7}
+.uc-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9}
+
+/* BREADCRUMB */
+.breadcrumb{font-size:13px;margin-bottom:12px;opacity:.8}
+.breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+
+/* CONVERTER SECTION */
+.converter-section{max-width:960px;margin:0 auto;padding:60px 20px 40px}
+
+/* TABS */
+.uc-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px;justify-content:center}
+.uc-tab{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 18px;border:1.5px solid #d2d2d7;border-radius:24px;
+  background:#fff;color:#555;font-size:14px;font-weight:600;cursor:pointer;
+  transition:all .2s;white-space:nowrap
+}
+.uc-tab:hover{border-color:#007aff;color:#007aff}
+.uc-tab.active{background:#007aff;color:#fff;border-color:#007aff}
+.uc-tab i{font-size:14px}
+
+/* MOBILE TAB DROPDOWN */
+.uc-tab-mobile{display:none;margin-bottom:20px}
+.uc-tab-select{
+  width:100%;padding:14px 16px;border:1.5px solid #ddd;border-radius:12px;
+  font-size:15px;font-weight:600;background:#fff;color:#1d1d1f;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23888'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;background-size:20px
+}
+
+@media(max-width:640px){
+  .uc-tabs{display:none}
+  .uc-tab-mobile{display:block}
+}
+
+/* CONVERTER CARD */
+.uc-card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);padding:36px;margin-bottom:32px;display:none}
+.uc-card.active{display:block;animation:fadeSlideIn .3s ease}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.uc-card h2{font-size:22px;font-weight:700;margin-bottom:20px;color:#1d1d1f;display:flex;align-items:center;gap:10px}
+.uc-card h2 i{color:#007aff}
+
+/* CONVERTER FIELDS */
+.uc-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px}
+@media(max-width:640px){.uc-fields{grid-template-columns:1fr}}
+.uc-field{display:flex;flex-direction:column}
+.uc-field label{font-size:13px;font-weight:600;color:#555;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.uc-field label .unit-abbr{color:#888;font-weight:500}
+.uc-input-wrap{position:relative;display:flex;align-items:center}
+.uc-field input{
+  width:100%;padding:12px 44px 12px 14px;border:1.5px solid #ddd;border-radius:10px;
+  font-size:16px;font-variant-numeric:tabular-nums;background:#fafafa;
+  transition:border-color .2s,box-shadow .2s;color:#1d1d1f
+}
+.uc-field input:focus{outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.15)}
+.uc-field input.source{border-color:#007aff;background:#f0f7ff}
+.copy-btn{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:#aaa;cursor:pointer;font-size:14px;padding:6px;
+  border-radius:6px;transition:all .2s
+}
+.copy-btn:hover{color:#007aff;background:rgba(0,122,255,.08)}
+.copy-btn.copied{color:#34c759}
+
+/* SWAP BUTTON ROW */
+.swap-row{grid-column:1/-1;display:flex;justify-content:center;margin:8px 0}
+.swap-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 20px;border:1.5px solid #d2d2d7;border-radius:20px;
+  background:#fff;color:#555;font-size:13px;font-weight:600;cursor:pointer;
+  transition:all .2s
+}
+.swap-btn:hover{border-color:#F56600;color:#F56600;background:#fff5ef}
+.swap-btn i{transition:transform .3s}
+.swap-btn:hover i{transform:rotate(180deg)}
+
+/* QUICK REFERENCE TABLE */
+.uc-ref{margin-top:28px}
+.uc-ref h3{font-size:16px;font-weight:700;color:#1d1d1f;margin-bottom:12px}
+.ref-table{width:100%;border-collapse:collapse;font-size:13px}
+.ref-table th,.ref-table td{padding:8px 12px;text-align:left;border-bottom:1px solid #eee}
+.ref-table th{background:#f5f5f7;font-weight:600;color:#555;font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+.ref-table td{color:#1d1d1f}
+.ref-table tr:hover td{background:#f8fbff}
+
+/* PIPE SIZING TABLE */
+.pipe-table{width:100%;border-collapse:collapse;font-size:14px}
+.pipe-table th,.pipe-table td{padding:10px 14px;text-align:center;border-bottom:1px solid #eee}
+.pipe-table th{background:#f5f5f7;font-weight:600;color:#555;font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+.pipe-table td{color:#1d1d1f}
+.pipe-table tr:hover td{background:#f8fbff}
+.pipe-table .highlight{background:#f0f7ff;font-weight:600}
+.pipe-search{
+  width:100%;max-width:320px;padding:10px 14px;border:1.5px solid #ddd;border-radius:10px;
+  font-size:14px;margin-bottom:16px;background:#fafafa;transition:border-color .2s
+}
+.pipe-search:focus{outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.15)}
+
+/* FAQ */
+.faq-section{max-width:960px;margin:0 auto;padding:40px 20px 60px}
+.faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.faq-item{border-bottom:1px solid #eee;padding:0}
+.faq-item details{padding:16px 0}
+.faq-item summary{font-size:16px;font-weight:600;color:#1d1d1f;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'\f078';font-family:'Font Awesome 6 Free';font-weight:900;font-size:12px;color:#888;transition:transform .3s}
+.faq-item details[open] summary::after{transform:rotate(180deg)}
+.faq-item .faq-answer{padding:12px 0 8px;font-size:15px;line-height:1.7;color:#555}
+
+/* CTA SECTION */
+.cta-section{background:linear-gradient(135deg,#007aff,#0056c8);padding:60px 20px;text-align:center;color:#fff}
+.cta-section h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.cta-section p{font-size:17px;opacity:.9;max-width:600px;margin:0 auto 24px}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#F56600;color:#fff;text-decoration:none;border-radius:12px;
+  padding:16px 36px;font-size:16px;font-weight:700;transition:background .2s,transform .15s
+}
+.cta-btn:hover{background:#e05500;transform:translateY(-2px)}
+
+/* PRINT */
+@media print{
+  .uc-hero,.cta-section,#karnot-nav,#karnot-footer,.faq-section,.skip-link,.uc-tabs,.uc-tab-mobile,.swap-row,.copy-btn{display:none!important}
+  .uc-card{display:block!important;box-shadow:none;border:1px solid #ccc}
+  .uc-field input{border:1px solid #999}
+}
+</style>
+</head>
+<body>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header class="uc-hero rv" aria-label="Unit converter introduction">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../">Home</a> &rsaquo; <a href="./">Engineering Hub</a> &rsaquo; Unit Converter
+  </nav>
+  <h1>Engineering Unit Converter</h1>
+  <p>Convert flow rates, pressures, energy, temperature, and pipe sizes instantly. Built for HVAC, refrigeration, and plumbing engineers who need quick, accurate imperial-to-metric conversions on site or at the desk.</p>
+  <p class="answer-first">This free converter handles GPM to litres per second, PSI to Bar, BTU/h to kW, Celsius to Fahrenheit, millimetres to inches, and DN-to-NPS pipe sizing. All conversions are bidirectional and update in real time as you type.</p>
+</header>
+
+<main id="main-content">
+
+<!-- CONVERTER -->
+<section class="converter-section">
+
+  <!-- Tabs (desktop) -->
+  <div class="uc-tabs rv sg" role="tablist" aria-label="Converter categories">
+    <button class="uc-tab active" role="tab" aria-selected="true" data-tab="flow"><i class="fas fa-faucet-drip"></i> Flow Rate</button>
+    <button class="uc-tab" role="tab" aria-selected="false" data-tab="pressure"><i class="fas fa-gauge-high"></i> Pressure</button>
+    <button class="uc-tab" role="tab" aria-selected="false" data-tab="energy"><i class="fas fa-bolt"></i> Energy / Power</button>
+    <button class="uc-tab" role="tab" aria-selected="false" data-tab="temperature"><i class="fas fa-temperature-half"></i> Temperature</button>
+    <button class="uc-tab" role="tab" aria-selected="false" data-tab="length"><i class="fas fa-ruler"></i> Length</button>
+    <button class="uc-tab" role="tab" aria-selected="false" data-tab="pipe"><i class="fas fa-ring"></i> Pipe Sizing</button>
+  </div>
+
+  <!-- Tabs (mobile dropdown) -->
+  <div class="uc-tab-mobile">
+    <select class="uc-tab-select" aria-label="Choose converter category">
+      <option value="flow">Flow Rate</option>
+      <option value="pressure">Pressure</option>
+      <option value="energy">Energy / Power</option>
+      <option value="temperature">Temperature</option>
+      <option value="length">Length / Distance</option>
+      <option value="pipe">Pipe Sizing</option>
+    </select>
+  </div>
+
+  <!-- ==================== FLOW RATE ==================== -->
+  <div class="uc-card active" id="panel-flow" role="tabpanel" aria-label="Flow rate converter">
+    <h2><i class="fas fa-faucet-drip"></i> Flow Rate Converter</h2>
+    <div class="uc-fields">
+      <div class="uc-field">
+        <label>US Gallons per Minute <span class="unit-abbr">(US GPM)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="flow" data-unit="usgpm" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Imperial Gallons per Minute <span class="unit-abbr">(Imp GPM)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="flow" data-unit="impgpm" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Litres per Minute <span class="unit-abbr">(L/min)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="flow" data-unit="lmin" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Litres per Second <span class="unit-abbr">(L/s)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="flow" data-unit="ls" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Cubic Metres per Hour <span class="unit-abbr">(m&sup3;/h)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="flow" data-unit="m3h" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Cubic Metres per Second <span class="unit-abbr">(m&sup3;/s)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="flow" data-unit="m3s" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="uc-ref">
+      <h3>Common Flow Rate Conversions</h3>
+      <table class="ref-table">
+        <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+        <tbody>
+          <tr><td>1 US GPM</td><td>L/min</td><td>3.78541</td></tr>
+          <tr><td>1 US GPM</td><td>L/s</td><td>0.0630902</td></tr>
+          <tr><td>1 US GPM</td><td>m&sup3;/h</td><td>0.227124</td></tr>
+          <tr><td>1 Imp GPM</td><td>L/min</td><td>4.54609</td></tr>
+          <tr><td>1 m&sup3;/h</td><td>L/min</td><td>16.6667</td></tr>
+          <tr><td>1 m&sup3;/h</td><td>L/s</td><td>0.277778</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== PRESSURE ==================== -->
+  <div class="uc-card" id="panel-pressure" role="tabpanel" aria-label="Pressure converter">
+    <h2><i class="fas fa-gauge-high"></i> Pressure Converter</h2>
+    <div class="uc-fields">
+      <div class="uc-field">
+        <label>Pounds per Square Inch <span class="unit-abbr">(PSI)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="pressure" data-unit="psi" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Bar</label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="pressure" data-unit="bar" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Kilopascals <span class="unit-abbr">(kPa)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="pressure" data-unit="kpa" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Megapascals <span class="unit-abbr">(MPa)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="pressure" data-unit="mpa" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Atmospheres <span class="unit-abbr">(atm)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="pressure" data-unit="atm" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Millimetres of Mercury <span class="unit-abbr">(mmHg)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="pressure" data-unit="mmhg" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Inches of Mercury <span class="unit-abbr">(inHg)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="pressure" data-unit="inhg" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Metres Water Column <span class="unit-abbr">(mH&#8322;O)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="pressure" data-unit="mh2o" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="uc-ref">
+      <h3>Common Pressure Conversions</h3>
+      <table class="ref-table">
+        <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+        <tbody>
+          <tr><td>1 PSI</td><td>Bar</td><td>0.0689476</td></tr>
+          <tr><td>1 PSI</td><td>kPa</td><td>6.89476</td></tr>
+          <tr><td>1 Bar</td><td>PSI</td><td>14.5038</td></tr>
+          <tr><td>1 Bar</td><td>kPa</td><td>100</td></tr>
+          <tr><td>1 atm</td><td>kPa</td><td>101.325</td></tr>
+          <tr><td>1 atm</td><td>mmHg</td><td>760</td></tr>
+          <tr><td>1 atm</td><td>inHg</td><td>29.9213</td></tr>
+          <tr><td>1 atm</td><td>mH&#8322;O</td><td>10.3323</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== ENERGY / POWER ==================== -->
+  <div class="uc-card" id="panel-energy" role="tabpanel" aria-label="Energy and power converter">
+    <h2><i class="fas fa-bolt"></i> Energy / Power Converter</h2>
+    <div class="uc-fields">
+      <div class="uc-field">
+        <label>Kilowatts <span class="unit-abbr">(kW)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="energy" data-unit="kw" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Watts <span class="unit-abbr">(W)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="energy" data-unit="w" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>BTU per Hour <span class="unit-abbr">(BTU/h)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="energy" data-unit="btuh" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Kilocalories per Hour <span class="unit-abbr">(kcal/h)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="energy" data-unit="kcalh" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Mechanical Horsepower <span class="unit-abbr">(HP)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="energy" data-unit="hp" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Tons of Refrigeration <span class="unit-abbr">(TR)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="energy" data-unit="tr" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="uc-ref">
+      <h3>Common Energy / Power Conversions</h3>
+      <table class="ref-table">
+        <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+        <tbody>
+          <tr><td>1 kW</td><td>BTU/h</td><td>3,412.14</td></tr>
+          <tr><td>1 kW</td><td>kcal/h</td><td>859.845</td></tr>
+          <tr><td>1 kW</td><td>HP</td><td>1.34102</td></tr>
+          <tr><td>1 TR</td><td>kW</td><td>3.51685</td></tr>
+          <tr><td>1 TR</td><td>BTU/h</td><td>12,000</td></tr>
+          <tr><td>1 HP</td><td>kW</td><td>0.7457</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== TEMPERATURE ==================== -->
+  <div class="uc-card" id="panel-temperature" role="tabpanel" aria-label="Temperature converter">
+    <h2><i class="fas fa-temperature-half"></i> Temperature Converter</h2>
+    <div class="uc-fields">
+      <div class="uc-field">
+        <label>Celsius <span class="unit-abbr">(&deg;C)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="temperature" data-unit="c" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Fahrenheit <span class="unit-abbr">(&deg;F)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="temperature" data-unit="f" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Kelvin <span class="unit-abbr">(K)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="temperature" data-unit="k" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Rankine <span class="unit-abbr">(&deg;R)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="temperature" data-unit="r" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="uc-ref">
+      <h3>Temperature Formulas</h3>
+      <table class="ref-table">
+        <thead><tr><th>Conversion</th><th>Formula</th></tr></thead>
+        <tbody>
+          <tr><td>&deg;C to &deg;F</td><td>&deg;F = &deg;C &times; 9/5 + 32</td></tr>
+          <tr><td>&deg;F to &deg;C</td><td>&deg;C = (&deg;F &minus; 32) &times; 5/9</td></tr>
+          <tr><td>&deg;C to K</td><td>K = &deg;C + 273.15</td></tr>
+          <tr><td>&deg;F to &deg;R</td><td>&deg;R = &deg;F + 459.67</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== LENGTH ==================== -->
+  <div class="uc-card" id="panel-length" role="tabpanel" aria-label="Length and distance converter">
+    <h2><i class="fas fa-ruler"></i> Length / Distance Converter</h2>
+    <div class="uc-fields">
+      <div class="uc-field">
+        <label>Millimetres <span class="unit-abbr">(mm)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="length" data-unit="mm" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Centimetres <span class="unit-abbr">(cm)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="length" data-unit="cm" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Metres <span class="unit-abbr">(m)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="length" data-unit="m" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Inches <span class="unit-abbr">(in)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="length" data-unit="in" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Feet <span class="unit-abbr">(ft)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="length" data-unit="ft" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="uc-field">
+        <label>Yards <span class="unit-abbr">(yd)</span></label>
+        <div class="uc-input-wrap">
+          <input type="number" step="any" data-group="length" data-unit="yd" placeholder="0" inputmode="decimal">
+          <button class="copy-btn" title="Copy value"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="uc-ref">
+      <h3>Common Length Conversions</h3>
+      <table class="ref-table">
+        <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+        <tbody>
+          <tr><td>1 inch</td><td>mm</td><td>25.4</td></tr>
+          <tr><td>1 foot</td><td>mm</td><td>304.8</td></tr>
+          <tr><td>1 yard</td><td>m</td><td>0.9144</td></tr>
+          <tr><td>1 m</td><td>feet</td><td>3.28084</td></tr>
+          <tr><td>1 m</td><td>inches</td><td>39.3701</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== PIPE SIZING ==================== -->
+  <div class="uc-card" id="panel-pipe" role="tabpanel" aria-label="Pipe sizing quick reference">
+    <h2><i class="fas fa-ring"></i> Pipe Sizing Quick Reference</h2>
+    <p style="color:#555;font-size:15px;margin-bottom:16px;">Look up nominal pipe sizes across DN (metric), NPS (imperial), and actual outside diameter. Type a value to filter.</p>
+    <input type="text" class="pipe-search" id="pipeSearch" placeholder="Search pipe size (e.g. DN50, 2&quot;, 60.3)..." aria-label="Search pipe sizes">
+    <div style="overflow-x:auto">
+      <table class="pipe-table" id="pipeTable">
+        <thead>
+          <tr><th>DN (Metric)</th><th>NPS (Imperial)</th><th>Actual OD (mm)</th><th>Actual OD (inches)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>DN15</td><td>1/2"</td><td>21.3</td><td>0.840"</td></tr>
+          <tr><td>DN20</td><td>3/4"</td><td>26.7</td><td>1.050"</td></tr>
+          <tr><td>DN25</td><td>1"</td><td>33.4</td><td>1.315"</td></tr>
+          <tr><td>DN32</td><td>1 1/4"</td><td>42.2</td><td>1.660"</td></tr>
+          <tr><td>DN40</td><td>1 1/2"</td><td>48.3</td><td>1.900"</td></tr>
+          <tr><td>DN50</td><td>2"</td><td>60.3</td><td>2.375"</td></tr>
+          <tr><td>DN65</td><td>2 1/2"</td><td>73.0</td><td>2.875"</td></tr>
+          <tr><td>DN80</td><td>3"</td><td>88.9</td><td>3.500"</td></tr>
+          <tr><td>DN100</td><td>4"</td><td>114.3</td><td>4.500"</td></tr>
+          <tr><td>DN125</td><td>5"</td><td>141.3</td><td>5.563"</td></tr>
+          <tr><td>DN150</td><td>6"</td><td>168.3</td><td>6.625"</td></tr>
+          <tr><td>DN200</td><td>8"</td><td>219.1</td><td>8.625"</td></tr>
+          <tr><td>DN250</td><td>10"</td><td>273.0</td><td>10.750"</td></tr>
+          <tr><td>DN300</td><td>12"</td><td>323.8</td><td>12.750"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+<!-- FAQ -->
+<section class="faq-section rv sg">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <details>
+      <summary>How do I convert GPM to litres per second?</summary>
+      <div class="faq-answer">
+        To convert US gallons per minute (GPM) to litres per second (L/s), multiply the GPM value by 0.0630902. For example, 10 US GPM equals 0.631 L/s. Imperial GPM is slightly larger: multiply by 0.0757682 to get L/s. Use the Flow Rate tab above for instant results.
+      </div>
+    </details>
+  </div>
+
+  <div class="faq-item">
+    <details>
+      <summary>What is the difference between PSI and Bar?</summary>
+      <div class="faq-answer">
+        PSI (pounds per square inch) is the imperial unit of pressure, while Bar is the metric unit. 1 Bar equals 14.5038 PSI. In HVAC and refrigeration, system pressures are commonly stated in PSI in North America and in Bar or kPa in Europe and Asia.
+      </div>
+    </details>
+  </div>
+
+  <div class="faq-item">
+    <details>
+      <summary>How many BTU per hour is 1 kW?</summary>
+      <div class="faq-answer">
+        1 kilowatt (kW) equals 3,412.14 BTU per hour. This conversion is essential for sizing heat pumps and air conditioning systems, where capacity may be rated in BTU/h (common in the US) or kW (common internationally).
+      </div>
+    </details>
+  </div>
+
+  <div class="faq-item">
+    <details>
+      <summary>What is a Ton of Refrigeration (TR)?</summary>
+      <div class="faq-answer">
+        A Ton of Refrigeration (TR) is a unit of cooling capacity equal to 12,000 BTU/h or 3.51685 kW. It originates from the cooling power of melting one short ton (2,000 lb) of ice in 24 hours. Commercial chillers and large air conditioning systems are commonly rated in TR.
+      </div>
+    </details>
+  </div>
+
+  <div class="faq-item">
+    <details>
+      <summary>How do DN pipe sizes relate to NPS and actual outside diameter?</summary>
+      <div class="faq-answer">
+        DN (Diametre Nominal) is the metric designation and NPS (Nominal Pipe Size) is the imperial equivalent. Neither equals the actual pipe outside diameter (OD). For example, DN25 corresponds to NPS 1 inch, but the actual OD is 33.4 mm. Use the Pipe Sizing tab above for a full reference table covering DN15 through DN300.
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section rv sg">
+  <h2>Need Engineering Support for Your Heat Pump Project?</h2>
+  <p>Our engineering team can help with system design, pipe sizing, flow calculations, and equipment selection across residential and commercial applications.</p>
+  <a href="../contact.html?intent=general_quote&product=Engineering_Hub" class="cta-btn">
+    <i class="fas fa-envelope"></i> Get Expert Advice
+  </a>
+</section>
+
+</main>
+
+<div id="karnot-footer"></div>
+
+<script src="../js/karnot.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* =============================================
+     TAB SWITCHING
+     ============================================= */
+  var tabs = document.querySelectorAll('.uc-tab');
+  var panels = document.querySelectorAll('.uc-card');
+  var mobileSelect = document.querySelector('.uc-tab-select');
+
+  function switchTab(tabId){
+    tabs.forEach(function(t){
+      var isActive = t.getAttribute('data-tab') === tabId;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    panels.forEach(function(p){
+      p.classList.toggle('active', p.id === 'panel-' + tabId);
+    });
+    if(mobileSelect) mobileSelect.value = tabId;
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){ switchTab(this.getAttribute('data-tab')); });
+  });
+
+  if(mobileSelect){
+    mobileSelect.addEventListener('change', function(){ switchTab(this.value); });
+  }
+
+  /* =============================================
+     CONVERSION ENGINE
+     ============================================= */
+
+  // All units are defined relative to a base unit per group.
+  // Flow: base = L/min
+  var flowToBase = {
+    usgpm: 3.78541,
+    impgpm: 4.54609,
+    lmin: 1,
+    ls: 60,              // 1 L/s = 60 L/min
+    m3h: 16.6667,        // 1 m3/h = 16.6667 L/min
+    m3s: 60000           // 1 m3/s = 60000 L/min
+  };
+
+  // Pressure: base = kPa
+  var pressureToBase = {
+    psi: 6.89476,
+    bar: 100,
+    kpa: 1,
+    mpa: 1000,
+    atm: 101.325,
+    mmhg: 0.133322,
+    inhg: 3.38639,
+    mh2o: 9.80665
+  };
+
+  // Energy: base = kW
+  var energyToBase = {
+    kw: 1,
+    w: 0.001,
+    btuh: 1 / 3412.14,
+    kcalh: 1 / 859.845,
+    hp: 0.7457,
+    tr: 3.51685
+  };
+
+  // Length: base = mm
+  var lengthToBase = {
+    mm: 1,
+    cm: 10,
+    m: 1000,
+    'in': 25.4,
+    ft: 304.8,
+    yd: 914.4
+  };
+
+  var conversionMaps = {
+    flow: flowToBase,
+    pressure: pressureToBase,
+    energy: energyToBase,
+    length: lengthToBase
+  };
+
+  function smartRound(val){
+    if(val === 0) return '0';
+    var abs = Math.abs(val);
+    var decimals;
+    if(abs >= 1000) decimals = 2;
+    else if(abs >= 1) decimals = 4;
+    else if(abs >= 0.001) decimals = 6;
+    else decimals = 8;
+    // Remove trailing zeros
+    return parseFloat(val.toFixed(decimals)).toString();
+  }
+
+  function convertGroup(group, sourceUnit, sourceValue){
+    if(group === 'temperature'){
+      convertTemperature(sourceUnit, sourceValue);
+      return;
+    }
+
+    var map = conversionMaps[group];
+    if(!map) return;
+
+    // Convert source to base, then base to each target
+    var baseValue = sourceValue * map[sourceUnit];
+
+    var inputs = document.querySelectorAll('input[data-group="' + group + '"]');
+    inputs.forEach(function(inp){
+      var unit = inp.getAttribute('data-unit');
+      if(unit === sourceUnit) return;
+      var result = baseValue / map[unit];
+      inp.value = (sourceValue === '' || isNaN(sourceValue)) ? '' : smartRound(result);
+      inp.classList.remove('source');
+    });
+  }
+
+  function convertTemperature(sourceUnit, val){
+    if(val === '' || isNaN(val)) {
+      document.querySelectorAll('input[data-group="temperature"]').forEach(function(inp){
+        if(inp.getAttribute('data-unit') !== sourceUnit) inp.value = '';
+        inp.classList.remove('source');
+      });
+      return;
+    }
+
+    var c, f, k, r;
+    switch(sourceUnit){
+      case 'c':
+        c = val; f = c * 9/5 + 32; k = c + 273.15; r = f + 459.67;
+        break;
+      case 'f':
+        f = val; c = (f - 32) * 5/9; k = c + 273.15; r = f + 459.67;
+        break;
+      case 'k':
+        k = val; c = k - 273.15; f = c * 9/5 + 32; r = f + 459.67;
+        break;
+      case 'r':
+        r = val; f = r - 459.67; c = (f - 32) * 5/9; k = c + 273.15;
+        break;
+    }
+
+    var results = {c: c, f: f, k: k, r: r};
+    document.querySelectorAll('input[data-group="temperature"]').forEach(function(inp){
+      var unit = inp.getAttribute('data-unit');
+      if(unit === sourceUnit) return;
+      inp.value = smartRound(results[unit]);
+      inp.classList.remove('source');
+    });
+  }
+
+  /* =============================================
+     INPUT LISTENERS — real-time conversion
+     ============================================= */
+  var allInputs = document.querySelectorAll('.uc-field input[data-group]');
+
+  allInputs.forEach(function(input){
+    input.addEventListener('input', function(){
+      var group = this.getAttribute('data-group');
+      var unit = this.getAttribute('data-unit');
+      var val = parseFloat(this.value);
+
+      // Highlight source field
+      document.querySelectorAll('input[data-group="' + group + '"]').forEach(function(inp){
+        inp.classList.remove('source');
+      });
+      this.classList.add('source');
+
+      if(this.value === '' || isNaN(val)){
+        // Clear other fields
+        document.querySelectorAll('input[data-group="' + group + '"]').forEach(function(inp){
+          if(inp.getAttribute('data-unit') !== unit) inp.value = '';
+        });
+        return;
+      }
+
+      convertGroup(group, unit, val);
+    });
+
+    // Select all on focus for easy overwrite
+    input.addEventListener('focus', function(){ this.select(); });
+  });
+
+  /* =============================================
+     COPY TO CLIPBOARD
+     ============================================= */
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var input = this.parentElement.querySelector('input');
+      if(!input || !input.value) return;
+
+      navigator.clipboard.writeText(input.value).then(function(){
+        btn.classList.add('copied');
+        btn.querySelector('i').className = 'fas fa-check';
+        setTimeout(function(){
+          btn.classList.remove('copied');
+          btn.querySelector('i').className = 'fas fa-copy';
+        }, 1500);
+      });
+    });
+  });
+
+  /* =============================================
+     PIPE SIZE SEARCH
+     ============================================= */
+  var pipeSearch = document.getElementById('pipeSearch');
+  var pipeTable = document.getElementById('pipeTable');
+
+  if(pipeSearch && pipeTable){
+    pipeSearch.addEventListener('input', function(){
+      var query = this.value.toLowerCase().replace(/\s+/g, '');
+      var rows = pipeTable.querySelectorAll('tbody tr');
+      rows.forEach(function(row){
+        var text = row.textContent.toLowerCase().replace(/\s+/g, '');
+        row.style.display = text.indexOf(query) > -1 ? '' : 'none';
+      });
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
