@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mass Flow Rate & Pump Sizing Calculator — Pipe Velocity & Pressure Drop | Karnot Engineering Hub</title>
+<meta name="description" content="Free mass flow rate calculator and pump sizing tool. Calculate flow rates, pipe velocity, pressure drop (Darcy-Weisbach), heating/cooling time, and temperature difference for hydronic systems.">
+<meta name="keywords" content="mass flow rate calculator, pump sizing calculator, pipe velocity calculator, pressure drop calculator, Darcy-Weisbach, hydronic system, heat pump flow rate, pipe sizing, HVAC calculator, flow rate to power">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/mass-flow-rate">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/mass-flow-rate">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/mass-flow-rate">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/mass-flow-rate">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/mass-flow-rate">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Mass Flow Rate & Pump Sizing Calculator">
+<meta property="og:description" content="Free mass flow rate calculator and pump sizing tool. Flow rates, pipe velocity, pressure drop, heating time — built for HVAC and refrigeration engineers.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/mass-flow-rate">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mass Flow Rate & Pump Sizing Calculator | Karnot Engineering Hub">
+<meta name="twitter:description" content="Calculate flow rates, pipe velocity, pressure drop, and heating/cooling time for hydronic heat pump systems.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"https://img1.wsimg.com/isteam/ip/cb1de239-c2b8-4674-b57d-5ae86a72feb1/logo.png","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Mass Flow Rate Calculator","item":"https://karnot.com/engineering-hub/mass-flow-rate"}]},
+    {"@type":"WebApplication","name":"Mass Flow Rate & Pump Sizing Calculator","url":"https://karnot.com/engineering-hub/mass-flow-rate","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate mass flow rates, pipe velocity, pressure drop (Darcy-Weisbach), heating/cooling time, and temperature difference for hydronic heating and cooling systems.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I calculate mass flow rate for a heat pump system?","acceptedAnswer":{"@type":"Answer","text":"Mass flow rate (kg/s) is calculated from volumetric flow rate using the formula: mass flow = (flow rate in L/min x 0.001 x fluid density) / 60. Once you have mass flow rate, thermal power is Q = mass flow x Cp x delta-T, where Cp is the specific heat capacity and delta-T is the temperature difference across the heat exchanger."}},
+      {"@type":"Question","name":"What flow rate do I need for a 15 kW heat pump?","acceptedAnswer":{"@type":"Answer","text":"For a 15 kW heat pump with water at a typical 5 degree C temperature difference, you need approximately 0.717 kg/s mass flow rate, which equals about 43.1 L/min or 2.59 cubic metres per hour. At a 10 degree C delta-T, the flow rate halves to about 21.5 L/min. Use our calculator to get exact figures for your specific fluid and conditions."}},
+      {"@type":"Question","name":"What is the optimal pipe velocity for hydronic systems?","acceptedAnswer":{"@type":"Answer","text":"The optimal pipe velocity for hydronic heating and cooling systems is between 1.0 and 2.0 m/s. Below 0.5 m/s, air entrainment becomes a problem. Above 3.0 m/s, you risk pipe erosion and excessive noise. Between 0.5 and 1.0 m/s is acceptable but may indicate an oversized pipe."}},
+      {"@type":"Question","name":"How do I calculate pressure drop in a pipe?","acceptedAnswer":{"@type":"Answer","text":"Pressure drop is calculated using the Darcy-Weisbach equation: delta-P = f x (L/D) x (density/2) x velocity-squared, where f is the Darcy friction factor, L is pipe length, D is internal diameter, and velocity is the fluid velocity. For smooth copper pipes, a friction factor of 0.02 to 0.03 is typical. Our calculator automates this calculation."}},
+      {"@type":"Question","name":"How long does it take to heat a water tank with a heat pump?","acceptedAnswer":{"@type":"Answer","text":"The time to heat a water volume depends on the volume, temperature rise needed, and heat pump power. The formula is: Energy (kJ) = volume (m3) x density x Cp x delta-T, then Time (seconds) = Energy / Power. For example, heating 500 litres of water by 40 degrees C with a 15 kW heat pump takes approximately 55.8 minutes, not accounting for standing losses."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* --- PAGE-SPECIFIC: Mass Flow Rate Calculator --- */
+
+/* HERO */
+.mfr-hero{
+  background:linear-gradient(135deg,rgba(0,100,60,.9),rgba(52,199,89,.75),rgba(0,122,255,.35));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.mfr-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto}
+.mfr-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7}
+.mfr-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9}
+
+/* BREADCRUMB */
+.breadcrumb{font-size:13px;margin-bottom:12px;opacity:.8}
+.breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+
+/* CALCULATOR SECTION */
+.calc-section{max-width:1000px;margin:0 auto;padding:60px 20px 40px}
+.calc-card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);padding:36px;margin-bottom:32px}
+.calc-card h2{font-size:24px;font-weight:700;margin-bottom:24px;color:#1d1d1f}
+
+/* TABS */
+.tab-bar{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:28px;border-bottom:2px solid #e5e5ea;padding-bottom:0}
+.tab-btn{
+  padding:12px 20px;border:none;background:none;font-size:14px;font-weight:600;
+  color:#6e6e73;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;
+  transition:all .2s;white-space:nowrap
+}
+.tab-btn:hover{color:#1d1d1f}
+.tab-btn.active{color:#34c759;border-bottom-color:#34c759}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* FORM GRID */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column}
+.form-group label{font-size:14px;font-weight:600;color:#444;margin-bottom:6px}
+.form-group input,.form-group select{
+  padding:12px 14px;border:1.5px solid #ddd;border-radius:10px;font-size:15px;
+  background:#fafafa;transition:border-color .2s,box-shadow .2s;color:#1d1d1f
+}
+.form-group input:focus,.form-group select:focus{
+  outline:none;border-color:#34c759;box-shadow:0 0 0 3px rgba(52,199,89,.15)
+}
+.form-group .hint{font-size:12px;color:#888;margin-top:4px}
+
+/* QUICK SELECT BUTTONS */
+.quick-select{margin-bottom:20px}
+.quick-select p{font-size:13px;font-weight:600;color:#666;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.quick-btns{display:flex;flex-wrap:wrap;gap:8px}
+.quick-btn{
+  padding:8px 16px;border:1.5px solid #34c759;border-radius:20px;background:#fff;
+  color:#34c759;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s
+}
+.quick-btn:hover,.quick-btn.active{background:#34c759;color:#fff}
+.quick-btn-blue{border-color:#007aff;color:#007aff}
+.quick-btn-blue:hover,.quick-btn-blue.active{background:#007aff;color:#fff}
+
+/* CALCULATE BUTTON */
+.calc-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#F56600;color:#fff;border:none;border-radius:12px;
+  padding:14px 36px;font-size:16px;font-weight:700;cursor:pointer;
+  margin-top:24px;transition:background .2s,transform .15s
+}
+.calc-btn:hover{background:#e05500;transform:translateY(-1px)}
+.calc-btn i{font-size:18px}
+
+/* RESULTS */
+.results-box{
+  display:none;background:linear-gradient(135deg,#f0fff4,#f8fcff);
+  border:2px solid #34c759;border-radius:16px;padding:32px;margin-top:32px
+}
+.results-box.show{display:block;animation:fadeSlideIn .4s ease}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:24px}
+.result-item{text-align:center;padding:16px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.result-item .result-label{font-size:12px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.result-item .result-value{font-size:28px;font-weight:800;color:#34c759}
+.result-item .result-unit{font-size:14px;color:#888;font-weight:500}
+.result-item.blue .result-value{color:#007aff}
+.result-item.orange .result-value{color:#F56600}
+.result-item.pass .result-value{color:#34c759}
+.result-item.warn .result-value{color:#ff9500}
+.result-item.fail .result-value{color:#ff3b30}
+
+/* VELOCITY ASSESSMENT */
+.velocity-bar{margin:20px 0;padding:20px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.velocity-bar h4{font-size:14px;font-weight:600;color:#444;margin-bottom:12px}
+.vel-scale{position:relative;height:32px;border-radius:16px;overflow:hidden;background:linear-gradient(90deg,#007aff 0%,#34c759 17%,#34c759 33%,#4cd964 50%,#ff9500 67%,#ff3b30 83%,#ff3b30 100%)}
+.vel-marker{position:absolute;top:-4px;width:4px;height:40px;background:#1d1d1f;border-radius:2px;transform:translateX(-50%);transition:left .4s}
+.vel-labels{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-top:6px}
+.vel-assessment{margin-top:10px;font-size:15px;font-weight:600;text-align:center;padding:8px;border-radius:8px}
+
+/* PIPE RECOMMENDATION */
+.pipe-rec{margin:20px 0;padding:20px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.pipe-rec h4{font-size:14px;font-weight:600;color:#444;margin-bottom:12px}
+.pipe-table{width:100%;border-collapse:collapse;font-size:14px}
+.pipe-table th{text-align:left;padding:8px 12px;background:#f5f5f7;font-weight:600;color:#444;border-bottom:2px solid #e5e5ea}
+.pipe-table td{padding:8px 12px;border-bottom:1px solid #e5e5ea}
+.pipe-table tr.recommended{background:rgba(52,199,89,.08);font-weight:600}
+.pipe-table tr.recommended td:first-child::after{content:' \2714';color:#34c759}
+
+/* SUMMARY TABLE */
+.summary-section{margin-top:24px}
+.summary-section h3{font-size:18px;font-weight:700;margin-bottom:12px;color:#1d1d1f}
+.summary-table{width:100%;border-collapse:collapse;font-size:14px}
+.summary-table td{padding:10px 12px;border-bottom:1px solid #e5e5ea}
+.summary-table td:first-child{font-weight:600;color:#444;width:45%}
+.summary-table td:last-child{color:#1d1d1f}
+
+/* FAQ */
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#34c759;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+/* CTA */
+.eh-cta{background:linear-gradient(135deg,#0d1b3e,#1a2d5a);padding:60px 20px;text-align:center}
+.eh-cta h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px}
+.eh-cta p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:600px;margin-left:auto;margin-right:auto}
+
+@media(max-width:768px){
+  .mfr-hero{padding:100px 16px 60px}
+  .mfr-hero h1{font-size:28px}
+  .tab-bar{gap:2px}
+  .tab-btn{padding:10px 12px;font-size:12px}
+  .results-grid{grid-template-columns:1fr 1fr}
+  .eh-cta h2{font-size:26px}
+}
+@media(max-width:480px){
+  .results-grid{grid-template-columns:1fr}
+  .result-item .result-value{font-size:24px}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="mfr-hero">
+  <nav class="breadcrumb rv" aria-label="Breadcrumb">
+    <a href="../">Home</a> &rsaquo; <a href="./">Engineering Hub</a> &rsaquo; Mass Flow Rate
+  </nav>
+  <h1 class="rv">Mass Flow Rate &amp; Pump Sizing Calculator</h1>
+  <p class="rv">Calculate flow rates, pipe velocity, pressure drop, and heating time for hydronic heat pump systems. Select your fluid, enter your parameters, and get precise pump and pipe sizing instantly.</p>
+  <p class="answer-first rv">A 15 kW heat pump with water at 5&deg;C &Delta;T needs approximately 43 L/min flow through DN32 pipe at 1.4 m/s &mdash; use the calculator below for your exact system.</p>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section">
+  <div class="calc-card">
+
+    <!-- Fluid Preset -->
+    <div class="quick-select">
+      <p><i class="fa-solid fa-droplet"></i> Preset Fluid</p>
+      <div class="form-grid" style="margin-bottom:0">
+        <div class="form-group">
+          <select id="fluid-preset">
+            <option value="custom">Custom (enter values below)</option>
+            <option value="4.182|998" selected>Water at 20&deg;C</option>
+            <option value="4.185|983">Water at 60&deg;C</option>
+            <option value="4.196|972">Water at 80&deg;C</option>
+            <option value="3.56|1043">30% Glycol at 20&deg;C</option>
+            <option value="3.28|1067">50% Glycol at 20&deg;C</option>
+            <option value="2.52|493">R290 (Propane)</option>
+            <option value="3.80|988">CO2 (R744) Liquid</option>
+            <option value="2.01|835">Diesel</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heat Pump Quick Select -->
+    <div class="quick-select">
+      <p><i class="fa-solid fa-fire-flame-curved"></i> Karnot Heat Pump Sizes</p>
+      <div class="quick-btns" id="hp-btns">
+        <button class="quick-btn" type="button" data-kw="9.5">9.5 kW</button>
+        <button class="quick-btn" type="button" data-kw="11.5">11.5 kW</button>
+        <button class="quick-btn" type="button" data-kw="15.5">15.5 kW</button>
+        <button class="quick-btn" type="button" data-kw="18.5">18.5 kW</button>
+        <button class="quick-btn" type="button" data-kw="25">25 kW</button>
+        <button class="quick-btn" type="button" data-kw="30">30 kW</button>
+        <button class="quick-btn" type="button" data-kw="50">50 kW</button>
+        <button class="quick-btn" type="button" data-kw="100">100 kW</button>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tab-bar" role="tablist">
+      <button class="tab-btn active" role="tab" data-tab="tab-power" aria-selected="true">Find Power (Q)</button>
+      <button class="tab-btn" role="tab" data-tab="tab-flow" aria-selected="false">Find Flow Rate</button>
+      <button class="tab-btn" role="tab" data-tab="tab-dt" aria-selected="false">Find &Delta;T</button>
+      <button class="tab-btn" role="tab" data-tab="tab-time" aria-selected="false">Time to Heat/Cool</button>
+      <button class="tab-btn" role="tab" data-tab="tab-velocity" aria-selected="false">Velocity &amp; &Delta;P</button>
+    </div>
+
+    <!-- MODE 1: Find Power -->
+    <div class="tab-pane active" id="tab-power">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="m1-flow"><i class="fas fa-tachometer-alt"></i> Flow Rate (L/min)</label>
+          <input type="number" id="m1-flow" min="0.1" step="0.1" placeholder="e.g. 43">
+        </div>
+        <div class="form-group">
+          <label for="m1-cp"><i class="fas fa-flask"></i> Specific Heat Cp (kJ/kg&middot;K)</label>
+          <input type="number" id="m1-cp" min="0.1" step="0.001" placeholder="e.g. 4.182">
+        </div>
+        <div class="form-group">
+          <label for="m1-density"><i class="fas fa-weight-hanging"></i> Fluid Density (kg/m&sup3;)</label>
+          <input type="number" id="m1-density" min="1" step="1" placeholder="e.g. 998">
+        </div>
+        <div class="form-group">
+          <label for="m1-tin"><i class="fas fa-thermometer-quarter"></i> Temp In (&deg;C)</label>
+          <input type="number" id="m1-tin" step="0.1" placeholder="e.g. 45">
+        </div>
+        <div class="form-group">
+          <label for="m1-tout"><i class="fas fa-thermometer-full"></i> Temp Out (&deg;C)</label>
+          <input type="number" id="m1-tout" step="0.1" placeholder="e.g. 50">
+        </div>
+      </div>
+      <button class="calc-btn" type="button" id="calc-m1"><i class="fas fa-calculator"></i> Calculate Power</button>
+    </div>
+
+    <!-- MODE 2: Find Flow Rate -->
+    <div class="tab-pane" id="tab-flow">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="m2-power"><i class="fas fa-bolt"></i> Power Q (kW)</label>
+          <input type="number" id="m2-power" min="0.1" step="0.1" placeholder="e.g. 15.5">
+        </div>
+        <div class="form-group">
+          <label for="m2-cp"><i class="fas fa-flask"></i> Specific Heat Cp (kJ/kg&middot;K)</label>
+          <input type="number" id="m2-cp" min="0.1" step="0.001" placeholder="e.g. 4.182">
+        </div>
+        <div class="form-group">
+          <label for="m2-density"><i class="fas fa-weight-hanging"></i> Fluid Density (kg/m&sup3;)</label>
+          <input type="number" id="m2-density" min="1" step="1" placeholder="e.g. 998">
+        </div>
+        <div class="form-group">
+          <label for="m2-tin"><i class="fas fa-thermometer-quarter"></i> Temp In (&deg;C)</label>
+          <input type="number" id="m2-tin" step="0.1" placeholder="e.g. 45">
+        </div>
+        <div class="form-group">
+          <label for="m2-tout"><i class="fas fa-thermometer-full"></i> Temp Out (&deg;C)</label>
+          <input type="number" id="m2-tout" step="0.1" placeholder="e.g. 50">
+        </div>
+      </div>
+      <button class="calc-btn" type="button" id="calc-m2"><i class="fas fa-calculator"></i> Calculate Flow Rate</button>
+    </div>
+
+    <!-- MODE 3: Find Delta-T -->
+    <div class="tab-pane" id="tab-dt">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="m3-power"><i class="fas fa-bolt"></i> Power Q (kW)</label>
+          <input type="number" id="m3-power" min="0.1" step="0.1" placeholder="e.g. 15.5">
+        </div>
+        <div class="form-group">
+          <label for="m3-cp"><i class="fas fa-flask"></i> Specific Heat Cp (kJ/kg&middot;K)</label>
+          <input type="number" id="m3-cp" min="0.1" step="0.001" placeholder="e.g. 4.182">
+        </div>
+        <div class="form-group">
+          <label for="m3-density"><i class="fas fa-weight-hanging"></i> Fluid Density (kg/m&sup3;)</label>
+          <input type="number" id="m3-density" min="1" step="1" placeholder="e.g. 998">
+        </div>
+        <div class="form-group">
+          <label for="m3-flow"><i class="fas fa-tachometer-alt"></i> Flow Rate (L/min)</label>
+          <input type="number" id="m3-flow" min="0.1" step="0.1" placeholder="e.g. 43">
+        </div>
+      </div>
+      <button class="calc-btn" type="button" id="calc-m3"><i class="fas fa-calculator"></i> Calculate &Delta;T</button>
+    </div>
+
+    <!-- MODE 4: Time to Heat/Cool -->
+    <div class="tab-pane" id="tab-time">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="m4-volume"><i class="fas fa-cube"></i> Volume (Litres)</label>
+          <input type="number" id="m4-volume" min="1" step="1" placeholder="e.g. 500">
+        </div>
+        <div class="form-group">
+          <label for="m4-density"><i class="fas fa-weight-hanging"></i> Fluid Density (kg/m&sup3;)</label>
+          <input type="number" id="m4-density" min="1" step="1" placeholder="e.g. 998">
+        </div>
+        <div class="form-group">
+          <label for="m4-cp"><i class="fas fa-flask"></i> Specific Heat Cp (kJ/kg&middot;K)</label>
+          <input type="number" id="m4-cp" min="0.1" step="0.001" placeholder="e.g. 4.182">
+        </div>
+        <div class="form-group">
+          <label for="m4-dt"><i class="fas fa-temperature-arrow-up"></i> Temperature Change &Delta;T (&deg;C)</label>
+          <input type="number" id="m4-dt" min="0.1" step="0.1" placeholder="e.g. 40">
+        </div>
+        <div class="form-group">
+          <label for="m4-power"><i class="fas fa-bolt"></i> Power Input (kW)</label>
+          <input type="number" id="m4-power" min="0.1" step="0.1" placeholder="e.g. 15.5">
+        </div>
+      </div>
+      <button class="calc-btn" type="button" id="calc-m4"><i class="fas fa-calculator"></i> Calculate Time</button>
+    </div>
+
+    <!-- MODE 5: Velocity & Pressure Drop -->
+    <div class="tab-pane" id="tab-velocity">
+      <div class="quick-select">
+        <p><i class="fa-solid fa-ring"></i> Common Pipe Sizes (Internal Diameter)</p>
+        <div class="quick-btns" id="pipe-btns">
+          <button class="quick-btn quick-btn-blue" type="button" data-id="16">DN15 (16mm)</button>
+          <button class="quick-btn quick-btn-blue" type="button" data-id="21.6">DN20 (21.6mm)</button>
+          <button class="quick-btn quick-btn-blue" type="button" data-id="27.3">DN25 (27.3mm)</button>
+          <button class="quick-btn quick-btn-blue" type="button" data-id="36">DN32 (36mm)</button>
+          <button class="quick-btn quick-btn-blue" type="button" data-id="41.9">DN40 (41.9mm)</button>
+          <button class="quick-btn quick-btn-blue" type="button" data-id="53.1">DN50 (53.1mm)</button>
+          <button class="quick-btn quick-btn-blue" type="button" data-id="68.9">DN65 (68.9mm)</button>
+          <button class="quick-btn quick-btn-blue" type="button" data-id="80.9">DN80 (80.9mm)</button>
+          <button class="quick-btn quick-btn-blue" type="button" data-id="105.3">DN100 (105.3mm)</button>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="m5-flow"><i class="fas fa-tachometer-alt"></i> Flow Rate (L/min)</label>
+          <input type="number" id="m5-flow" min="0.1" step="0.1" placeholder="e.g. 43">
+        </div>
+        <div class="form-group">
+          <label for="m5-id"><i class="fas fa-ring"></i> Pipe Internal Diameter (mm)</label>
+          <input type="number" id="m5-id" min="1" step="0.1" placeholder="e.g. 36">
+        </div>
+        <div class="form-group">
+          <label for="m5-density"><i class="fas fa-weight-hanging"></i> Fluid Density (kg/m&sup3;)</label>
+          <input type="number" id="m5-density" min="1" step="1" placeholder="e.g. 998">
+        </div>
+        <div class="form-group">
+          <label for="m5-friction"><i class="fas fa-grip-lines"></i> Darcy Friction Factor</label>
+          <input type="number" id="m5-friction" min="0.001" step="0.001" value="0.025" placeholder="e.g. 0.025">
+          <span class="hint">Typical: 0.02 (smooth) to 0.04 (rough). Default 0.025.</span>
+        </div>
+        <div class="form-group">
+          <label for="m5-length"><i class="fas fa-ruler-horizontal"></i> Pipe Length (m)</label>
+          <input type="number" id="m5-length" min="0.1" step="0.1" placeholder="e.g. 25">
+        </div>
+      </div>
+      <button class="calc-btn" type="button" id="calc-m5"><i class="fas fa-calculator"></i> Calculate Velocity &amp; &Delta;P</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-box" id="results-box">
+      <div class="results-grid" id="results-grid"></div>
+      <div id="velocity-section"></div>
+      <div id="pipe-rec-section"></div>
+      <div class="summary-section">
+        <h3><i class="fas fa-clipboard-list"></i> Calculation Summary</h3>
+        <table class="summary-table"><tbody id="summary-body"></tbody></table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>How do I calculate mass flow rate for a heat pump system?</summary>
+    <div class="faq-answer"><p>Mass flow rate (kg/s) is calculated from volumetric flow rate using the formula: mass flow = (flow rate in L/min &times; 0.001 &times; fluid density) / 60. Once you have mass flow rate, thermal power is Q = mass flow &times; Cp &times; &Delta;T, where Cp is the specific heat capacity and &Delta;T is the temperature difference across the heat exchanger.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What flow rate do I need for my heat pump?</summary>
+    <div class="faq-answer"><p>The required flow rate depends on the heat pump's thermal output and the temperature difference (&Delta;T) across the system. For a 15 kW heat pump with water at a typical 5&deg;C &Delta;T, you need approximately 43 L/min. At a 10&deg;C &Delta;T, the flow rate halves to about 21.5 L/min. Use the "Find Flow Rate" tab above with your specific parameters.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is the optimal pipe velocity for hydronic systems?</summary>
+    <div class="faq-answer"><p>The optimal pipe velocity for hydronic heating and cooling systems is between 1.0 and 2.0 m/s. Below 0.5 m/s, air entrainment becomes a problem. Above 3.0 m/s, you risk pipe erosion, noise, and excessive pressure drop. Use the "Velocity &amp; &Delta;P" tab to check your pipe sizing.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How do I calculate pressure drop in a pipe?</summary>
+    <div class="faq-answer"><p>Pressure drop is calculated using the Darcy-Weisbach equation: &Delta;P = f &times; (L/D) &times; (&rho;/2) &times; v&sup2;, where f is the Darcy friction factor (typically 0.02&ndash;0.04), L is pipe length, D is internal diameter, and v is fluid velocity. The calculator automates this and shows results in kPa.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How long does it take to heat a water tank with a heat pump?</summary>
+    <div class="faq-answer"><p>Use the "Time to Heat/Cool" tab. The formula is Energy (kJ) = volume (m&sup3;) &times; density &times; Cp &times; &Delta;T, then Time = Energy / Power. For example, heating 500 litres of water by 40&deg;C with a 15 kW heat pump takes approximately 56 minutes, not accounting for standing losses.</p></div>
+  </details>
+</section>
+
+<!-- CTA -->
+<section class="eh-cta rv">
+  <h2>Need System Design Support?</h2>
+  <p>Our engineering team can provide bespoke pump sizing, pipe routing, and heat pump system design for your project.</p>
+  <div class="cta-row">
+    <a href="../contact.html?intent=general_quote&product=Engineering_Hub" class="btn-orange">Talk to an Engineer</a>
+    <a href="./" class="btn-outline">Back to Engineering Hub</a>
+  </div>
+</section>
+
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ========================================
+     FLUID PRESETS
+     ======================================== */
+  var FLUIDS = {
+    'custom':     {cp: null, density: null},
+    '4.182|998':  {cp: 4.182, density: 998},
+    '4.185|983':  {cp: 4.185, density: 983},
+    '4.196|972':  {cp: 4.196, density: 972},
+    '3.56|1043':  {cp: 3.56,  density: 1043},
+    '3.28|1067':  {cp: 3.28,  density: 1067},
+    '2.52|493':   {cp: 2.52,  density: 493},
+    '3.80|988':   {cp: 3.80,  density: 988},
+    '2.01|835':   {cp: 2.01,  density: 835}
+  };
+
+  /* Pipe sizes: DN label, internal diameter (mm) */
+  var PIPE_SIZES = [
+    {dn:'DN15', id:16},
+    {dn:'DN20', id:21.6},
+    {dn:'DN25', id:27.3},
+    {dn:'DN32', id:36},
+    {dn:'DN40', id:41.9},
+    {dn:'DN50', id:53.1},
+    {dn:'DN65', id:68.9},
+    {dn:'DN80', id:80.9},
+    {dn:'DN100',id:105.3}
+  ];
+
+  /* ========================================
+     DOM REFS
+     ======================================== */
+  var fluidSelect  = document.getElementById('fluid-preset');
+  var resultsBox   = document.getElementById('results-box');
+  var resultsGrid  = document.getElementById('results-grid');
+  var velocitySec  = document.getElementById('velocity-section');
+  var pipeRecSec   = document.getElementById('pipe-rec-section');
+  var summaryBody  = document.getElementById('summary-body');
+
+  /* ========================================
+     FLUID PRESET -> AUTO-FILL Cp & DENSITY
+     ======================================== */
+  fluidSelect.addEventListener('change', function(){
+    var val = fluidSelect.value;
+    var f = FLUIDS[val];
+    if(!f || !f.cp) return;
+
+    // Fill all Cp and Density fields across all tabs
+    var cpFields = ['m1-cp','m2-cp','m3-cp','m4-cp'];
+    var densFields = ['m1-density','m2-density','m3-density','m4-density','m5-density'];
+    cpFields.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = f.cp;
+    });
+    densFields.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.value = f.density;
+    });
+  });
+
+  // Trigger initial fill
+  fluidSelect.dispatchEvent(new Event('change'));
+
+  /* ========================================
+     HEAT PUMP QUICK SELECT
+     ======================================== */
+  var hpBtns = document.querySelectorAll('#hp-btns .quick-btn');
+  hpBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      hpBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var kw = btn.getAttribute('data-kw');
+      // Fill power fields on tabs that have them
+      ['m2-power','m3-power','m4-power'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.value = kw;
+      });
+    });
+  });
+
+  /* ========================================
+     PIPE SIZE QUICK SELECT
+     ======================================== */
+  var pipeBtns = document.querySelectorAll('#pipe-btns .quick-btn');
+  pipeBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      pipeBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('m5-id').value = btn.getAttribute('data-id');
+    });
+  });
+
+  /* ========================================
+     TABS
+     ======================================== */
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+      // Hide results when switching tabs
+      resultsBox.classList.remove('show');
+    });
+  });
+
+  /* ========================================
+     HELPERS
+     ======================================== */
+  function addResult(label, value, unit, extraClass){
+    var div = document.createElement('div');
+    div.className = 'result-item' + (extraClass ? ' ' + extraClass : '');
+    div.innerHTML = '<div class="result-label">' + label + '</div>' +
+                    '<div class="result-value">' + value + '</div>' +
+                    '<div class="result-unit">' + unit + '</div>';
+    resultsGrid.appendChild(div);
+  }
+
+  function addSummaryRow(label, value){
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + label + '</td><td>' + value + '</td>';
+    summaryBody.appendChild(tr);
+  }
+
+  function clearResults(){
+    resultsGrid.innerHTML = '';
+    velocitySec.innerHTML = '';
+    pipeRecSec.innerHTML = '';
+    summaryBody.innerHTML = '';
+  }
+
+  function showResults(){
+    resultsBox.classList.add('show');
+    resultsBox.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function getVal(id){
+    return parseFloat(document.getElementById(id).value);
+  }
+
+  function assessVelocity(v){
+    if(v < 0.5) return {text:'Too slow — risk of air entrainment', cls:'fail'};
+    if(v < 1.0) return {text:'OK — acceptable but consider smaller pipe', cls:'warn'};
+    if(v <= 2.0) return {text:'Optimal — ideal range for hydronic systems', cls:'pass'};
+    if(v <= 3.0) return {text:'High — increased noise and pressure drop', cls:'warn'};
+    return {text:'Too high — risk of erosion and excessive noise', cls:'fail'};
+  }
+
+  function calcVelocity(flowLpm, idMm){
+    // v = (Q / A), Q in m3/s, A in m2
+    // flowLpm -> m3/s = flowLpm / 60000
+    // A = pi * (id/2000)^2
+    var Q_m3s = flowLpm / 60000;
+    var A = Math.PI * Math.pow(idMm / 2000, 2);
+    return Q_m3s / A;
+  }
+
+  function renderVelocityBar(velocity){
+    var assessment = assessVelocity(velocity);
+    // Scale: 0 to 4 m/s mapped to 0% to 100%
+    var pct = Math.min(Math.max(velocity / 4 * 100, 0), 100);
+    var colorMap = {pass:'#34c759', warn:'#ff9500', fail:'#ff3b30'};
+
+    velocitySec.innerHTML =
+      '<div class="velocity-bar">' +
+        '<h4><i class="fas fa-tachometer-alt"></i> Velocity Assessment</h4>' +
+        '<div class="vel-scale">' +
+          '<div class="vel-marker" style="left:' + pct + '%"></div>' +
+        '</div>' +
+        '<div class="vel-labels">' +
+          '<span>0 m/s</span><span>0.5</span><span>1.0</span><span>2.0</span><span>3.0</span><span>4.0+</span>' +
+        '</div>' +
+        '<div class="vel-assessment" style="background:' + colorMap[assessment.cls] + '20;color:' + colorMap[assessment.cls] + '">' +
+          velocity.toFixed(2) + ' m/s — ' + assessment.text +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderPipeRecommendation(flowLpm, density){
+    var html = '<div class="pipe-rec"><h4><i class="fas fa-ring"></i> Pipe Size Comparison</h4>' +
+      '<table class="pipe-table"><thead><tr><th>Pipe</th><th>ID (mm)</th><th>Velocity (m/s)</th><th>Assessment</th></tr></thead><tbody>';
+
+    var bestDN = null;
+    var bestVel = 999;
+
+    PIPE_SIZES.forEach(function(p){
+      var v = calcVelocity(flowLpm, p.id);
+      var a = assessVelocity(v);
+      // Find best pipe in optimal range
+      if(v >= 1.0 && v <= 2.0){
+        if(!bestDN || v < bestVel){
+          bestDN = p.dn;
+          bestVel = v;
+        }
+      }
+    });
+
+    // If none in optimal, find closest to 1.5 m/s
+    if(!bestDN){
+      var closestDiff = 999;
+      PIPE_SIZES.forEach(function(p){
+        var v = calcVelocity(flowLpm, p.id);
+        var diff = Math.abs(v - 1.5);
+        if(diff < closestDiff){
+          closestDiff = diff;
+          bestDN = p.dn;
+        }
+      });
+    }
+
+    PIPE_SIZES.forEach(function(p){
+      var v = calcVelocity(flowLpm, p.id);
+      var a = assessVelocity(v);
+      var isRec = (p.dn === bestDN);
+      var colorMap = {pass:'#34c759', warn:'#ff9500', fail:'#ff3b30'};
+      html += '<tr' + (isRec ? ' class="recommended"' : '') + '>' +
+        '<td>' + p.dn + '</td>' +
+        '<td>' + p.id + '</td>' +
+        '<td>' + v.toFixed(2) + '</td>' +
+        '<td style="color:' + colorMap[a.cls] + ';font-weight:600">' + a.text.split(' — ')[0] + '</td>' +
+        '</tr>';
+    });
+
+    html += '</tbody></table></div>';
+    pipeRecSec.innerHTML = html;
+
+    return bestDN;
+  }
+
+
+  /* ========================================
+     MODE 1: FIND POWER
+     ======================================== */
+  document.getElementById('calc-m1').addEventListener('click', function(){
+    var flow = getVal('m1-flow');
+    var cp = getVal('m1-cp');
+    var density = getVal('m1-density');
+    var tin = getVal('m1-tin');
+    var tout = getVal('m1-tout');
+
+    if(!flow || flow <= 0){ alert('Please enter a valid flow rate.'); return; }
+    if(!cp || cp <= 0){ alert('Please enter a valid specific heat capacity.'); return; }
+    if(!density || density <= 0){ alert('Please enter a valid fluid density.'); return; }
+    if(isNaN(tin) || isNaN(tout)){ alert('Please enter valid temperatures.'); return; }
+
+    var dt = Math.abs(tout - tin);
+    if(dt === 0){ alert('Temperature In and Out cannot be the same.'); return; }
+
+    // Mass flow = (flow L/min * 0.001 * density) / 60
+    var massFlow = (flow * 0.001 * density) / 60; // kg/s
+    var power = massFlow * cp * dt; // kW
+    var flowM3h = (flow / 1000) * 60;
+    var flowKgh = massFlow * 3600;
+
+    clearResults();
+    addResult('Thermal Power', power.toFixed(2), 'kW');
+    addResult('Mass Flow Rate', massFlow.toFixed(4), 'kg/s');
+    addResult('Flow Rate', flow.toFixed(1), 'L/min');
+    addResult('Flow Rate', flowM3h.toFixed(3), 'm\u00b3/h');
+    addResult('Flow Rate', flowKgh.toFixed(1), 'kg/h');
+    addResult('\u0394T', dt.toFixed(1), '\u00b0C');
+
+    // Pipe recommendation
+    renderPipeRecommendation(flow, density);
+
+    addSummaryRow('Calculation Mode', 'Find Power (Q)');
+    addSummaryRow('Fluid Preset', fluidSelect.options[fluidSelect.selectedIndex].text);
+    addSummaryRow('Flow Rate', flow + ' L/min');
+    addSummaryRow('Specific Heat (Cp)', cp + ' kJ/kg\u00b7K');
+    addSummaryRow('Fluid Density (\u03c1)', density + ' kg/m\u00b3');
+    addSummaryRow('Temp In', tin + ' \u00b0C');
+    addSummaryRow('Temp Out', tout + ' \u00b0C');
+    addSummaryRow('\u0394T', dt + ' \u00b0C');
+    addSummaryRow('Mass Flow Rate', massFlow.toFixed(4) + ' kg/s (' + flowKgh.toFixed(1) + ' kg/h)');
+    addSummaryRow('Thermal Power (Q)', power.toFixed(2) + ' kW');
+
+    showResults();
+  });
+
+  /* ========================================
+     MODE 2: FIND FLOW RATE
+     ======================================== */
+  document.getElementById('calc-m2').addEventListener('click', function(){
+    var power = getVal('m2-power');
+    var cp = getVal('m2-cp');
+    var density = getVal('m2-density');
+    var tin = getVal('m2-tin');
+    var tout = getVal('m2-tout');
+
+    if(!power || power <= 0){ alert('Please enter a valid power.'); return; }
+    if(!cp || cp <= 0){ alert('Please enter a valid specific heat capacity.'); return; }
+    if(!density || density <= 0){ alert('Please enter a valid fluid density.'); return; }
+    if(isNaN(tin) || isNaN(tout)){ alert('Please enter valid temperatures.'); return; }
+
+    var dt = Math.abs(tout - tin);
+    if(dt === 0){ alert('Temperature In and Out cannot be the same.'); return; }
+
+    // massFlow = Power / (Cp * dT)
+    var massFlow = power / (cp * dt); // kg/s
+    // flowRate L/min = ((massFlow / density) / 0.001) * 60
+    var flowLpm = ((massFlow / density) / 0.001) * 60;
+    var flowM3h = (massFlow / density) * 3600;
+    var flowKgh = massFlow * 3600;
+
+    clearResults();
+    addResult('Flow Rate', flowLpm.toFixed(1), 'L/min');
+    addResult('Flow Rate', flowM3h.toFixed(3), 'm\u00b3/h');
+    addResult('Flow Rate', flowKgh.toFixed(1), 'kg/h');
+    addResult('Mass Flow Rate', massFlow.toFixed(4), 'kg/s');
+    addResult('Thermal Power', power.toFixed(1), 'kW');
+    addResult('\u0394T', dt.toFixed(1), '\u00b0C');
+
+    // Pipe recommendation
+    renderPipeRecommendation(flowLpm, density);
+
+    addSummaryRow('Calculation Mode', 'Find Flow Rate');
+    addSummaryRow('Fluid Preset', fluidSelect.options[fluidSelect.selectedIndex].text);
+    addSummaryRow('Power (Q)', power + ' kW');
+    addSummaryRow('Specific Heat (Cp)', cp + ' kJ/kg\u00b7K');
+    addSummaryRow('Fluid Density (\u03c1)', density + ' kg/m\u00b3');
+    addSummaryRow('Temp In', tin + ' \u00b0C');
+    addSummaryRow('Temp Out', tout + ' \u00b0C');
+    addSummaryRow('\u0394T', dt + ' \u00b0C');
+    addSummaryRow('Mass Flow Rate', massFlow.toFixed(4) + ' kg/s (' + flowKgh.toFixed(1) + ' kg/h)');
+    addSummaryRow('Volumetric Flow', flowLpm.toFixed(1) + ' L/min = ' + flowM3h.toFixed(3) + ' m\u00b3/h');
+
+    showResults();
+  });
+
+  /* ========================================
+     MODE 3: FIND DELTA-T
+     ======================================== */
+  document.getElementById('calc-m3').addEventListener('click', function(){
+    var power = getVal('m3-power');
+    var cp = getVal('m3-cp');
+    var density = getVal('m3-density');
+    var flow = getVal('m3-flow');
+
+    if(!power || power <= 0){ alert('Please enter a valid power.'); return; }
+    if(!cp || cp <= 0){ alert('Please enter a valid specific heat capacity.'); return; }
+    if(!density || density <= 0){ alert('Please enter a valid fluid density.'); return; }
+    if(!flow || flow <= 0){ alert('Please enter a valid flow rate.'); return; }
+
+    // massFlow = (flow * 0.001 * density) / 60
+    var massFlow = (flow * 0.001 * density) / 60; // kg/s
+    // dT = Power / (Cp * massFlow)
+    var dt = power / (cp * massFlow);
+    var flowM3h = (flow / 1000) * 60;
+    var flowKgh = massFlow * 3600;
+
+    clearResults();
+    addResult('\u0394T', dt.toFixed(2), '\u00b0C');
+    addResult('Mass Flow Rate', massFlow.toFixed(4), 'kg/s');
+    addResult('Thermal Power', power.toFixed(1), 'kW');
+    addResult('Flow Rate', flow.toFixed(1), 'L/min');
+    addResult('Flow Rate', flowM3h.toFixed(3), 'm\u00b3/h');
+    addResult('Flow Rate', flowKgh.toFixed(1), 'kg/h');
+
+    addSummaryRow('Calculation Mode', 'Find Temperature Difference (\u0394T)');
+    addSummaryRow('Fluid Preset', fluidSelect.options[fluidSelect.selectedIndex].text);
+    addSummaryRow('Power (Q)', power + ' kW');
+    addSummaryRow('Specific Heat (Cp)', cp + ' kJ/kg\u00b7K');
+    addSummaryRow('Fluid Density (\u03c1)', density + ' kg/m\u00b3');
+    addSummaryRow('Flow Rate', flow + ' L/min = ' + flowM3h.toFixed(3) + ' m\u00b3/h');
+    addSummaryRow('Mass Flow Rate', massFlow.toFixed(4) + ' kg/s');
+    addSummaryRow('Temperature Difference (\u0394T)', dt.toFixed(2) + ' \u00b0C');
+
+    showResults();
+  });
+
+  /* ========================================
+     MODE 4: TIME TO HEAT/COOL
+     ======================================== */
+  document.getElementById('calc-m4').addEventListener('click', function(){
+    var volume = getVal('m4-volume');
+    var density = getVal('m4-density');
+    var cp = getVal('m4-cp');
+    var dt = getVal('m4-dt');
+    var power = getVal('m4-power');
+
+    if(!volume || volume <= 0){ alert('Please enter a valid volume.'); return; }
+    if(!density || density <= 0){ alert('Please enter a valid fluid density.'); return; }
+    if(!cp || cp <= 0){ alert('Please enter a valid specific heat capacity.'); return; }
+    if(!dt || dt <= 0){ alert('Please enter a valid temperature change.'); return; }
+    if(!power || power <= 0){ alert('Please enter a valid power input.'); return; }
+
+    // Energy = (Volume/1000) * Density * dT * Cp (kJ)
+    var energy_kJ = (volume / 1000) * density * dt * cp;
+    // Time = Energy / (Power * 1000) seconds — but Power is in kW, so Power*1000 = W? No.
+    // Actually: Power in kW = kJ/s, so Time = Energy_kJ / Power_kW seconds
+    var time_s = energy_kJ / power;
+    var time_min = time_s / 60;
+    var time_hr = time_s / 3600;
+    var mass_kg = (volume / 1000) * density;
+
+    clearResults();
+
+    if(time_hr >= 1){
+      addResult('Time', time_hr.toFixed(2), 'hours');
+    }
+    addResult('Time', time_min.toFixed(1), 'minutes');
+    addResult('Time', time_s.toFixed(0), 'seconds');
+    addResult('Energy Required', energy_kJ.toFixed(1), 'kJ');
+    addResult('Energy Required', (energy_kJ / 3600).toFixed(2), 'kWh');
+    addResult('Fluid Mass', mass_kg.toFixed(1), 'kg');
+
+    addSummaryRow('Calculation Mode', 'Time to Heat/Cool a Volume');
+    addSummaryRow('Fluid Preset', fluidSelect.options[fluidSelect.selectedIndex].text);
+    addSummaryRow('Volume', volume + ' litres (' + (volume / 1000).toFixed(3) + ' m\u00b3)');
+    addSummaryRow('Fluid Density (\u03c1)', density + ' kg/m\u00b3');
+    addSummaryRow('Fluid Mass', mass_kg.toFixed(1) + ' kg');
+    addSummaryRow('Specific Heat (Cp)', cp + ' kJ/kg\u00b7K');
+    addSummaryRow('Temperature Change (\u0394T)', dt + ' \u00b0C');
+    addSummaryRow('Power Input', power + ' kW');
+    addSummaryRow('Energy Required', energy_kJ.toFixed(1) + ' kJ (' + (energy_kJ / 3600).toFixed(2) + ' kWh)');
+    addSummaryRow('Heating/Cooling Time', time_min.toFixed(1) + ' minutes (' + time_hr.toFixed(2) + ' hours)');
+    addSummaryRow('Note', 'Does not account for standing heat losses or efficiency losses.');
+
+    showResults();
+  });
+
+  /* ========================================
+     MODE 5: VELOCITY & PRESSURE DROP
+     ======================================== */
+  document.getElementById('calc-m5').addEventListener('click', function(){
+    var flow = getVal('m5-flow');
+    var id_mm = getVal('m5-id');
+    var density = getVal('m5-density');
+    var friction = getVal('m5-friction');
+    var length = getVal('m5-length');
+
+    if(!flow || flow <= 0){ alert('Please enter a valid flow rate.'); return; }
+    if(!id_mm || id_mm <= 0){ alert('Please enter a valid pipe internal diameter.'); return; }
+    if(!density || density <= 0){ alert('Please enter a valid fluid density.'); return; }
+    if(!friction || friction <= 0){ alert('Please enter a valid friction factor.'); return; }
+    if(!length || length <= 0){ alert('Please enter a valid pipe length.'); return; }
+
+    // Velocity = ((FlowRate_cm3_per_min) * 21.22) / (ID^2)
+    // From spec: Velocity = ((FlowRate*1000/60)*21.22) / (ID^2)
+    // BUT let's use the proper physics formula for accuracy:
+    // v = Q / A, where Q = flow in m3/s, A = pi*(d/2)^2
+    var velocity = calcVelocity(flow, id_mm);
+
+    // Also compute using the spreadsheet formula for reference:
+    // Velocity_spreadsheet = ((flow * 1000 / 60) * 21.22) / (id_mm * id_mm)
+    // This is an approximation; we'll use the physics formula.
+
+    // Pressure Drop (Darcy-Weisbach):
+    // dP = f * (L/D) * (rho/2) * v^2  (Pa)
+    // In spec: dP = f * (1/ID) * (density/1000) * (v^2/2) * 10 * Length (kPa)
+    // Let's use standard Darcy-Weisbach: dP = f * (L / D) * (rho / 2) * v^2
+    var id_m = id_mm / 1000;
+    var dP_Pa = friction * (length / id_m) * (density / 2) * velocity * velocity;
+    var dP_kPa = dP_Pa / 1000;
+    var dP_bar = dP_Pa / 100000;
+    var dP_mH2O = dP_Pa / 9810;
+
+    var assessment = assessVelocity(velocity);
+    var flowM3h = (flow / 1000) * 60;
+
+    clearResults();
+    addResult('Velocity', velocity.toFixed(2), 'm/s', assessment.cls);
+    addResult('Pressure Drop', dP_kPa.toFixed(2), 'kPa');
+    addResult('Pressure Drop', dP_bar.toFixed(4), 'bar');
+    addResult('Pressure Drop', dP_mH2O.toFixed(2), 'm H\u2082O', 'blue');
+    addResult('Flow Rate', flowM3h.toFixed(3), 'm\u00b3/h');
+
+    renderVelocityBar(velocity);
+    renderPipeRecommendation(flow, density);
+
+    addSummaryRow('Calculation Mode', 'Fluid Velocity & Pressure Drop');
+    addSummaryRow('Fluid Preset', fluidSelect.options[fluidSelect.selectedIndex].text);
+    addSummaryRow('Flow Rate', flow + ' L/min (' + flowM3h.toFixed(3) + ' m\u00b3/h)');
+    addSummaryRow('Pipe Internal Diameter', id_mm + ' mm');
+    addSummaryRow('Pipe Length', length + ' m');
+    addSummaryRow('Fluid Density (\u03c1)', density + ' kg/m\u00b3');
+    addSummaryRow('Darcy Friction Factor (f)', friction);
+    addSummaryRow('Fluid Velocity', velocity.toFixed(3) + ' m/s');
+    addSummaryRow('Velocity Assessment', assessment.text);
+    addSummaryRow('Pressure Drop', dP_kPa.toFixed(2) + ' kPa = ' + dP_bar.toFixed(4) + ' bar = ' + dP_mH2O.toFixed(2) + ' m H\u2082O');
+    addSummaryRow('Formula', 'Darcy-Weisbach: \u0394P = f \u00d7 (L/D) \u00d7 (\u03c1/2) \u00d7 v\u00b2');
+
+    showResults();
+  });
+
+})();
+</script>
+
+</body>
+</html>
