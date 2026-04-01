@@ -75,6 +75,38 @@
           }
         }
       ]
+    },
+    {
+      "@type": "Product",
+      "name": "Karnot iHEAT R290 Heat Pump — UK Market",
+      "description": "MCS-eligible R290 natural refrigerant air source heat pump range from 9.5kW to 100kW. Qualifies for £7,500 BUS grant. Free MCS compliance pack included. Industry-leading installer margins.",
+      "brand": {"@type": "Brand", "name": "Karnot Energy Solutions"},
+      "manufacturer": {"@id": "https://karnot.com/#organization"},
+      "url": "https://karnot.com/uk",
+      "category": "Heat Pumps",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "GBP",
+        "lowPrice": "0",
+        "highPrice": "0",
+        "offerCount": "7",
+        "availability": "https://schema.org/InStock",
+        "areaServed": {"@type": "Country", "name": "United Kingdom"}
+      },
+      "additionalProperty": [
+        {"@type": "PropertyValue", "name": "Refrigerant", "value": "R290 (GWP 3)"},
+        {"@type": "PropertyValue", "name": "Capacity Range", "value": "9.5 kW – 100 kW"},
+        {"@type": "PropertyValue", "name": "BUS Grant Eligible", "value": "Yes — £7,500"},
+        {"@type": "PropertyValue", "name": "MCS Certified", "value": "Yes"},
+        {"@type": "PropertyValue", "name": "Installer Margin", "value": "Up to 57%"}
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://karnot.com/"},
+        {"@type": "ListItem", "position": 2, "name": "United Kingdom", "item": "https://karnot.com/uk"}
+      ]
     }
   ]
 }
@@ -652,6 +684,15 @@ input[type=range]::-moz-range-thumb{
   .region-btn{font-size:12px;padding:4px 10px}
   .calc-card{padding:24px}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -1151,6 +1192,22 @@ input[type=range]::-moz-range-thumb{
 
     </div>
   </div>
+</section>
+
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What margin do MCS installers earn on Karnot R290 heat pumps?</summary>
+    <div class="faq-answer"><p>Karnot MCS trade partners earn up to 57% gross margin on equipment. The iHEAT R290 range generates strong installer profit per job after typical labour and overheads — significantly more than standard market alternatives. Contact us for a trade account and full POA price list.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Are Karnot R290 heat pumps eligible for the Boiler Upgrade Scheme (BUS) grant?</summary>
+    <div class="faq-answer"><p>Yes. Karnot iHEAT R290 air source heat pumps are eligible for the £7,500 Boiler Upgrade Scheme grant in England and Wales when installed by an MCS-certified installer. Homeowners can additionally claim a £2,500 cooling grant, bringing total available grant funding to £10,000 per household. Karnot provides full MCS compliance documentation with every unit.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What MCS compliance support does Karnot provide to installer partners?</summary>
+    <div class="faq-answer"><p>Every Karnot iHEAT R290 unit includes a free MCS compliance pack with all required technical documentation, saving installers £1,200–£1,600 per job compared to umbrella scheme fees. Packs include MCS product certification data, technical specifications, performance test reports, installation guidelines, and commissioning checklists aligned with MCS 020 and MCS 007 standards.</p></div>
+  </details>
 </section>
 
 </main>

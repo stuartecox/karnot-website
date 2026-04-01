@@ -89,6 +89,34 @@
           }
         }
       ]
+    },
+    {
+      "@type": "Product",
+      "name": "Karnot iHEAT R290 Heat Pump — USA & Canada",
+      "description": "R290 and CO₂ natural refrigerant heat pumps for US and Canadian commercial facilities. 30% IRA Investment Tax Credit eligible. AIM Act compliant with zero HFC quota risk. Capacity range 9.5kW to 350kW.",
+      "brand": {"@type": "Brand", "name": "Karnot Energy Solutions"},
+      "manufacturer": {"@id": "https://karnot.com/#organization"},
+      "url": "https://karnot.com/usa-canada",
+      "category": "Commercial Heat Pumps",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "lowPrice": "0",
+        "highPrice": "0",
+        "offerCount": "10",
+        "availability": "https://schema.org/InStock",
+        "areaServed": [
+          {"@type": "Country", "name": "United States"},
+          {"@type": "Country", "name": "Canada"}
+        ]
+      },
+      "additionalProperty": [
+        {"@type": "PropertyValue", "name": "Refrigerant Options", "value": "R290 (GWP 3) and CO₂ (GWP 1)"},
+        {"@type": "PropertyValue", "name": "Capacity Range", "value": "9.5 kW – 350 kW"},
+        {"@type": "PropertyValue", "name": "IRA Tax Credit", "value": "30% ITC (up to 50% with bonus credits)"},
+        {"@type": "PropertyValue", "name": "AIM Act Compliant", "value": "Yes — zero HFC quota risk"},
+        {"@type": "PropertyValue", "name": "Max Water Temperature", "value": "75°C (167°F)"}
+      ]
     }
   ]
 }
@@ -522,6 +550,15 @@
   .usa-grants-wrap,.usa-canada-wrap,.usa-reg-wrap,.usa-benefits-section,.usa-prod-section{padding:60px 20px}
   .usa-footer-cta{padding:60px 20px}
 }
+
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
 </style>
 </head>
 <body>
@@ -899,6 +936,22 @@
     </div>
   </div>
 </section>
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>Are Karnot heat pumps eligible for the IRA Investment Tax Credit?</summary>
+    <div class="faq-answer"><p>Yes. Karnot iHEAT R290 and CO₂ heat pumps qualify for the 30% Investment Tax Credit (ITC) under the Inflation Reduction Act for commercial and industrial installations. Additional bonus credits of 10% are available for domestic content and another 10% for projects in designated energy communities, potentially bringing the total federal credit to 50%. These can be stacked with state rebates and utility programmes for payback periods under three years in many cases.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>Are Karnot heat pumps compliant with the EPA AIM Act?</summary>
+    <div class="faq-answer"><p>Yes. R290 (propane, GWP 3) and CO₂ (GWP 1) are fully exempt from all EPA AIM Act HFC consumption restrictions and quota requirements. The AIM Act mandates an 85% reduction in HFC consumption by 2036 and restricts refrigerants including R410A and R134a in new commercial equipment under EPA SNAP Rule 23. Karnot&#x27;s natural refrigerant systems face no quota risk, no supply disruption, and no refrigerant price escalation — now or in the future.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How much can a hotel or hospital save with Karnot heat pumps?</summary>
+    <div class="faq-answer"><p>A 100-room hotel using Karnot iHEAT R290 for hot water heating saves approximately $32,400 per year compared to a natural gas boiler, based on US average commercial electricity and gas prices. A hospital-scale operation with higher hot water demand can save $54,000 or more annually. Actual savings depend on facility size, local utility rates, current system type, and hot water consumption. Karnot provides detailed savings modelling and a free quote for every project.</p></div>
+  </details>
+</section>
+
 </main>
 
 <!-- SHARED FOOTER -->
