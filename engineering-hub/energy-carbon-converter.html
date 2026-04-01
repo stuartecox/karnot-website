@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Universal Energy & Carbon Equivalent Converter — BTU, Therms, LPG, Diesel to kWh & CO₂e | Karnot Engineering Hub</title>
+<meta name="description" content="Free energy converter: convert BTUs, Therms, LPG cylinders, diesel litres, and heating oil gallons to thermal kWh and Scope 1 CO₂e emissions. See how much electricity a heat pump needs to replace fossil fuel heating.">
+<meta name="keywords" content="energy converter, carbon calculator, BTU to kWh, therms to kWh, LPG CO2 emissions, diesel CO2 emissions, Scope 1 emissions calculator, ESG carbon accounting, heat pump vs fossil fuel, SEC reporting">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/energy-carbon-converter">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/energy-carbon-converter">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/energy-carbon-converter">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/energy-carbon-converter">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/energy-carbon-converter">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Universal Energy & Carbon Equivalent Converter — BTU, Therms, LPG, Diesel to kWh & CO₂e">
+<meta property="og:description" content="Convert everyday fuel purchases (bottles, therms, litres) into kWh thermal energy and Scope 1 CO₂e emissions. See the Karnot heat pump alternative.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/energy-carbon-converter">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Universal Energy & Carbon Equivalent Converter — kWh & CO₂e">
+<meta name="twitter:description" content="Convert BTUs, Therms, LPG, diesel, heating oil to thermal kWh and Scope 1 CO₂e. See the heat pump alternative.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"https://img1.wsimg.com/isteam/ip/cb1de239-c2b8-4674-b57d-5ae86a72feb1/logo.png","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%."},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},
+      {"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},
+      {"@type":"ListItem","position":3,"name":"Energy & Carbon Converter","item":"https://karnot.com/engineering-hub/energy-carbon-converter"}
+    ]},
+    {"@type":"WebApplication","name":"Universal Energy & Carbon Equivalent Converter","url":"https://karnot.com/engineering-hub/energy-carbon-converter","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Convert BTUs, Therms, LPG cylinders, diesel litres, and heating oil gallons into thermal kWh and Scope 1 CO₂e emissions. Includes heat pump comparison.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I convert BTUs to kWh?","acceptedAnswer":{"@type":"Answer","text":"Multiply the BTU value by 0.000293071. For example, 100,000 BTU equals 29.31 kWh of thermal energy. This converter does it instantly and also shows you the CO₂ emissions from burning that fuel."}},
+      {"@type":"Question","name":"How much CO₂ does an 11kg LPG cylinder produce?","acceptedAnswer":{"@type":"Answer","text":"One 11kg LPG/propane cylinder contains approximately 152.9 kWh of thermal energy and produces approximately 32.34 kg of CO₂e when burned. This is a direct Scope 1 emission that must be reported under SEC, CSRD, and Philippine SEC ESG frameworks."}},
+      {"@type":"Question","name":"What is the difference between Scope 1 and Scope 2 emissions?","acceptedAnswer":{"@type":"Answer","text":"Scope 1 covers direct emissions from burning fuels on your premises (gas, diesel, LPG). Scope 2 covers indirect emissions from purchased electricity. Switching from gas/diesel heating to a heat pump moves your heating from Scope 1 to Scope 2 — and because a heat pump uses 3-5x less energy per kWh of heat, total emissions drop dramatically."}},
+      {"@type":"Question","name":"How does a heat pump reduce my carbon footprint vs LPG or diesel?","acceptedAnswer":{"@type":"Answer","text":"A Karnot iHEAT R290 heat pump has a COP of 4.5, meaning it produces 4.5 kWh of heat for every 1 kWh of electricity consumed. This is 3-5x more efficient than direct combustion. Additionally, it eliminates Scope 1 emissions entirely from your heating, simplifying ESG reporting."}},
+      {"@type":"Question","name":"What carbon reporting frameworks require fuel-to-CO₂ conversion?","acceptedAnswer":{"@type":"Answer","text":"SEC Climate Disclosure Rules (USA), CSRD/ESRS (EU), Philippine SEC Sustainability Reporting Guidelines, TCFD, CDP, and GRI 305 all require companies to report Scope 1 emissions from on-site fuel combustion. This converter helps you quantify those emissions."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* --- PAGE-SPECIFIC: Energy & Carbon Converter --- */
+
+.ec-hero{
+  background:linear-gradient(135deg,rgba(13,27,62,.95),rgba(26,45,90,.85),rgba(52,199,89,.15));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.ec-hero::before{content:'';position:absolute;top:-40%;right:-15%;width:500px;height:500px;background:radial-gradient(circle,rgba(52,199,89,.12) 0%,transparent 70%);border-radius:50%}
+.ec-hero::after{content:'';position:absolute;bottom:-25%;left:-8%;width:400px;height:400px;background:radial-gradient(circle,rgba(245,102,0,.08) 0%,transparent 70%);border-radius:50%}
+.ec-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.ec-hero h1 span{background:linear-gradient(135deg,#34c759,#30d158);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ec-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative;z-index:1}
+.ec-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative;z-index:1}
+
+.breadcrumb{font-size:13px;margin-bottom:12px;opacity:.8;position:relative;z-index:1}
+.breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+
+/* CONVERTER */
+.ec-section{max-width:800px;margin:0 auto;padding:60px 20px 40px}
+.ec-card{background:#fff;border-radius:20px;padding:40px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:2px solid transparent;transition:border-color .3s}
+.ec-card:hover{border-color:rgba(52,199,89,.2)}
+
+.ec-input-group{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:8px}
+.ec-field label{display:block;font-size:13px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.ec-field input,.ec-field select{
+  width:100%;padding:14px 16px;border:1.5px solid #d2d2d7;border-radius:10px;
+  font-size:16px;font-weight:600;color:#1d1d1f;background:#fafafa;
+  transition:all .2s;outline:none;box-sizing:border-box
+}
+.ec-field input:focus,.ec-field select:focus{border-color:#34c759;box-shadow:0 0 0 3px rgba(52,199,89,.15);background:#fff}
+.ec-field input::placeholder{color:#aaa;font-weight:400}
+.ec-hint{font-size:12px;color:#999;margin-top:6px;min-height:18px}
+
+/* RESULTS */
+.ec-results{margin-top:32px;display:none}
+.ec-results.active{display:block}
+
+.ec-primary{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:16px;padding:28px;text-align:center;margin-bottom:24px}
+.ec-primary h3{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:16px}
+.ec-primary-values{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ec-val{text-align:center}
+.ec-val .num{font-size:36px;font-weight:800;color:#15803d;line-height:1}
+.ec-val .unit{font-size:14px;font-weight:600;color:#166534;margin-top:4px}
+.ec-val .label{font-size:12px;color:#6b7280;margin-top:2px}
+
+/* KARNOT DELTA */
+.ec-delta{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fdba74;border-radius:16px;padding:28px;margin-bottom:24px}
+.ec-delta h3{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9a3412;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ec-delta h3 i{color:#F56600}
+.ec-delta-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-bottom:16px}
+.ec-delta-box{text-align:center;padding:16px;border-radius:12px}
+.ec-delta-box.fossil{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)}
+.ec-delta-box.hp{background:rgba(52,199,89,.08);border:1px solid rgba(52,199,89,.2)}
+.ec-delta-box .big{font-size:28px;font-weight:800;line-height:1}
+.ec-delta-box.fossil .big{color:#dc2626}
+.ec-delta-box.hp .big{color:#15803d}
+.ec-delta-box .sm{font-size:12px;color:#6b7280;margin-top:4px}
+.ec-delta-arrow{font-size:24px;color:#F56600;text-align:center}
+.ec-delta-text{font-size:14px;line-height:1.7;color:#78350f}
+.ec-delta-text strong{color:#9a3412}
+
+/* SCOPE INSIGHT */
+.ec-scope{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:24px}
+.ec-scope h4{font-size:13px;font-weight:700;color:#334155;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ec-scope p{font-size:13px;line-height:1.6;color:#64748b;margin:0}
+
+/* CTA */
+.ec-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.ec-cta-row .btn-orange{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;background:linear-gradient(135deg,#F56600,#ff8c42);
+  color:#fff;font-size:15px;font-weight:700;border-radius:12px;
+  text-decoration:none;transition:all .3s;border:none;cursor:pointer
+}
+.ec-cta-row .btn-orange:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,102,0,.3)}
+.ec-cta-row .btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;background:transparent;
+  color:#F56600;font-size:15px;font-weight:700;border-radius:12px;
+  text-decoration:none;transition:all .3s;border:2px solid #F56600;cursor:pointer
+}
+.ec-cta-row .btn-outline:hover{background:rgba(245,102,0,.05)}
+
+/* METHODOLOGY */
+.ec-method{margin-top:40px}
+.ec-method summary{font-size:15px;font-weight:700;color:#374151;cursor:pointer;padding:12px 0}
+.ec-method .meth-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.ec-method .meth-table th{text-align:left;padding:10px 12px;background:#f3f4f6;font-weight:700;color:#374151;border-bottom:2px solid #e5e7eb}
+.ec-method .meth-table td{padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563}
+.ec-method .meth-table td:nth-child(2),.ec-method .meth-table td:nth-child(3){font-family:'SF Mono',Consolas,monospace;font-size:12px}
+
+/* FAQ */
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#34c759;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+.eh-cta{background:linear-gradient(135deg,#0d1b3e,#1a2d5a);padding:60px 20px;text-align:center}
+.eh-cta h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px}
+.eh-cta p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:600px;margin-left:auto;margin-right:auto}
+
+@media(max-width:768px){
+  .ec-hero{padding:100px 16px 60px}
+  .ec-hero h1{font-size:28px}
+  .ec-input-group{grid-template-columns:1fr}
+  .ec-primary-values{grid-template-columns:1fr}
+  .ec-delta-grid{grid-template-columns:1fr;gap:8px}
+  .ec-delta-arrow{transform:rotate(90deg)}
+  .ec-card{padding:24px 20px}
+  .ec-val .num{font-size:28px}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="karnot-nav" data-page="engineering"></div>
+
+<section class="ec-hero">
+  <nav class="breadcrumb rv" aria-label="Breadcrumb">
+    <a href="../">Home</a> / <a href="./">Engineering Hub</a> / Energy & Carbon Converter
+  </nav>
+  <h1 class="rv">Universal Energy & <span>Carbon Equivalent</span> Converter</h1>
+  <p class="rv">Convert everyday fuel purchases — LPG bottles, therms, diesel litres — into thermal kWh and Scope 1 CO₂e emissions. See exactly how much energy you are burning and what it costs the planet.</p>
+  <p class="answer-first rv">One 11 kg LPG cylinder = 152.9 kWh thermal = 32.3 kg CO₂ direct emissions. A Karnot iHEAT produces the same heat using just 34 kWh of electricity.</p>
+</section>
+
+<main id="main">
+<section class="ec-section">
+  <div class="ec-card">
+    <div class="ec-input-group">
+      <div class="ec-field">
+        <label for="ec-amount"><i class="fa-solid fa-hashtag"></i> Amount</label>
+        <input type="number" id="ec-amount" placeholder="e.g. 10" min="0" step="any" inputmode="decimal">
+        <div class="ec-hint" id="ec-amount-hint">Enter the quantity of fuel consumed</div>
+      </div>
+      <div class="ec-field">
+        <label for="ec-fuel"><i class="fa-solid fa-fire-flame-curved"></i> Fuel / Unit Type</label>
+        <select id="ec-fuel">
+          <option value="" disabled selected>Select fuel type...</option>
+          <option value="btu">BTUs (British Thermal Units)</option>
+          <option value="therm">Therms (Natural Gas)</option>
+          <option value="lpg11">11 kg LPG / Propane Cylinder</option>
+          <option value="diesel">Litres of Diesel</option>
+          <option value="heating_oil">US Gallons of Heating Oil</option>
+          <option value="lpg_kg">Standard kg of LPG</option>
+        </select>
+        <div class="ec-hint" id="ec-fuel-hint">Choose how you purchase or measure your fuel</div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="ec-results" id="ec-results">
+
+      <!-- Primary Output -->
+      <div class="ec-primary">
+        <h3><i class="fa-solid fa-bolt"></i> Energy & Emissions Equivalent</h3>
+        <div class="ec-primary-values">
+          <div class="ec-val">
+            <div class="num" id="ec-kwh">—</div>
+            <div class="unit">Thermal kWh</div>
+            <div class="label">Total heat energy content</div>
+          </div>
+          <div class="ec-val">
+            <div class="num" id="ec-co2">—</div>
+            <div class="unit">kg CO₂e</div>
+            <div class="label">Scope 1 direct emissions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Karnot Delta -->
+      <div class="ec-delta">
+        <h3><i class="fa-solid fa-leaf"></i> The Karnot Alternative</h3>
+        <div class="ec-delta-grid">
+          <div class="ec-delta-box fossil">
+            <div class="big" id="ec-fossil-kwh">—</div>
+            <div class="sm">kWh fossil fuel input</div>
+          </div>
+          <div class="ec-delta-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="ec-delta-box hp">
+            <div class="big" id="ec-hp-kwh">—</div>
+            <div class="sm">kWh electricity (iHEAT)</div>
+          </div>
+        </div>
+        <p class="ec-delta-text" id="ec-delta-text"></p>
+      </div>
+
+      <!-- Scope Insight -->
+      <div class="ec-scope">
+        <h4><i class="fa-solid fa-shield-halved"></i> ESG Reporting Impact</h4>
+        <p>Burning this fuel generates <strong id="ec-scope-co2">—</strong> of <strong>Scope 1</strong> emissions that must be reported under SEC Climate Disclosure Rules, EU CSRD/ESRS, Philippine SEC Sustainability Guidelines, and CDP/TCFD frameworks. Switching to a Karnot iHEAT <strong>eliminates this fuel from your Scope 1 reporting entirely</strong>, moving the reduced energy demand to Scope 2 (purchased electricity).</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="ec-cta-row">
+        <a href="../savings.html" class="btn-orange"><i class="fa-solid fa-calculator"></i> Calculate My Financial ROI</a>
+        <a href="../contact.html?intent=carbon_reduction&product=iHEAT_R290" class="btn-outline"><i class="fa-solid fa-envelope"></i> Talk to an Engineer</a>
+      </div>
+    </div>
+
+    <!-- Methodology -->
+    <details class="ec-method">
+      <summary><i class="fa-solid fa-flask"></i> Conversion Factors & Methodology</summary>
+      <table class="meth-table">
+        <thead><tr><th>Fuel Type</th><th>kWh per Unit</th><th>kg CO₂e per Unit</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>BTU</td><td>0.000293071</td><td>0.000293071 × 0.18</td><td>ASHRAE / EIA</td></tr>
+          <tr><td>Therm (Natural Gas)</td><td>29.3071</td><td>5.30</td><td>EPA GHG Protocol</td></tr>
+          <tr><td>11 kg LPG Cylinder</td><td>152.9</td><td>32.34</td><td>DEFRA 2024</td></tr>
+          <tr><td>Standard kg of LPG</td><td>13.9</td><td>2.94</td><td>DEFRA 2024</td></tr>
+          <tr><td>Litre of Diesel</td><td>10.68</td><td>2.68</td><td>DEFRA 2024 / IPCC</td></tr>
+          <tr><td>US Gallon of Heating Oil</td><td>40.7</td><td>10.21</td><td>EIA / EPA</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:#9ca3af;margin-top:12px">Karnot iHEAT R290 COP of 4.5 used for heat pump comparison (EN 14511 rated, hot water mode 15→60°C). CO₂e factors include combustion-only direct emissions (Scope 1). Grid electricity emission factors vary by region and are not included in this tool.</p>
+    </details>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>How do I convert BTUs to kWh?</summary>
+    <div class="faq-answer"><p>Multiply the BTU value by 0.000293071. For example, 100,000 BTU equals 29.31 kWh of thermal energy. This converter does it instantly and also shows you the CO₂ emissions from burning that fuel.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How much CO₂ does an 11 kg LPG cylinder produce?</summary>
+    <div class="faq-answer"><p>One 11 kg LPG/propane cylinder contains approximately 152.9 kWh of thermal energy and produces approximately 32.34 kg of CO₂e when burned. This is a direct Scope 1 emission that must be reported under SEC, CSRD, and Philippine SEC ESG frameworks.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is the difference between Scope 1 and Scope 2 emissions?</summary>
+    <div class="faq-answer"><p>Scope 1 covers direct emissions from burning fuels on your premises (gas, diesel, LPG). Scope 2 covers indirect emissions from purchased electricity. Switching from gas/diesel heating to a heat pump moves your heating from Scope 1 to Scope 2 — and because a heat pump uses 3-5x less energy per kWh of heat, total emissions drop dramatically.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How does a heat pump reduce my carbon footprint vs LPG or diesel?</summary>
+    <div class="faq-answer"><p>A Karnot iHEAT R290 heat pump has a COP of 4.5, meaning it produces 4.5 kWh of heat for every 1 kWh of electricity consumed. This is 3-5x more efficient than direct combustion. Additionally, it eliminates Scope 1 emissions entirely from your heating, simplifying ESG reporting.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What carbon reporting frameworks require fuel-to-CO₂ conversion?</summary>
+    <div class="faq-answer"><p>SEC Climate Disclosure Rules (USA), CSRD/ESRS (EU), Philippine SEC Sustainability Reporting Guidelines, TCFD, CDP, and GRI 305 all require companies to report Scope 1 emissions from on-site fuel combustion. This converter helps you quantify those emissions.</p></div>
+  </details>
+</section>
+
+<!-- CTA -->
+<section class="eh-cta rv">
+  <h2>Ready to Eliminate Scope 1 Heating Emissions?</h2>
+  <p>Our engineering team can size a Karnot iHEAT system to replace your fossil fuel heating and simplify your ESG reporting.</p>
+  <div class="cta-row">
+    <a href="../contact.html?intent=carbon_reduction&product=iHEAT_R290" class="btn-orange">Talk to an Engineer</a>
+    <a href="../savings.html" class="btn-outline">Calculate Savings</a>
+  </div>
+</section>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ─── CONVERSION CONSTANTS ─── */
+  const FUELS = {
+    btu:         { kwhPerUnit: 0.000293071, co2PerUnit: 0.000293071 * 0.18, unitName: 'BTU',                    plural: 'BTUs' },
+    therm:       { kwhPerUnit: 29.3071,     co2PerUnit: 5.30,               unitName: 'Therm',                   plural: 'Therms' },
+    lpg11:       { kwhPerUnit: 152.9,       co2PerUnit: 32.34,              unitName: '11 kg LPG Cylinder',      plural: '11 kg LPG Cylinders' },
+    diesel:      { kwhPerUnit: 10.68,       co2PerUnit: 2.68,               unitName: 'Litre of Diesel',         plural: 'Litres of Diesel' },
+    heating_oil: { kwhPerUnit: 40.7,        co2PerUnit: 10.21,              unitName: 'US Gallon of Heating Oil', plural: 'US Gallons of Heating Oil' },
+    lpg_kg:      { kwhPerUnit: 13.9,        co2PerUnit: 2.94,               unitName: 'kg of LPG',              plural: 'kg of LPG' },
+  };
+
+  const IHEAT_COP = 4.5;
+
+  /* ─── DOM REFS ─── */
+  const amountInput  = document.getElementById('ec-amount');
+  const fuelSelect   = document.getElementById('ec-fuel');
+  const resultsDiv   = document.getElementById('ec-results');
+  const kwhEl        = document.getElementById('ec-kwh');
+  const co2El        = document.getElementById('ec-co2');
+  const fossilEl     = document.getElementById('ec-fossil-kwh');
+  const hpEl         = document.getElementById('ec-hp-kwh');
+  const deltaTextEl  = document.getElementById('ec-delta-text');
+  const scopeCo2El   = document.getElementById('ec-scope-co2');
+  const amountHint   = document.getElementById('ec-amount-hint');
+  const fuelHint     = document.getElementById('ec-fuel-hint');
+
+  /* ─── FORMATTING ─── */
+  function fmt(n, decimals) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+    if (n >= 10000)   return (n / 1000).toFixed(1) + 'k';
+    if (typeof decimals === 'number') return n.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    if (n >= 100) return Math.round(n).toLocaleString();
+    if (n >= 10)  return n.toFixed(1);
+    if (n >= 1)   return n.toFixed(2);
+    return n.toFixed(3);
+  }
+
+  /* ─── CALCULATE ─── */
+  function calculate() {
+    const amount = parseFloat(amountInput.value);
+    const fuelKey = fuelSelect.value;
+
+    if (!amount || amount <= 0 || !fuelKey || !FUELS[fuelKey]) {
+      resultsDiv.classList.remove('active');
+      return;
+    }
+
+    const fuel = FUELS[fuelKey];
+    const thermalKWh = amount * fuel.kwhPerUnit;
+    const co2Kg      = amount * fuel.co2PerUnit;
+    const hpKWh      = thermalKWh / IHEAT_COP;
+    const reduction   = ((thermalKWh - hpKWh) / thermalKWh * 100).toFixed(0);
+
+    /* Update primary */
+    kwhEl.textContent  = fmt(thermalKWh);
+    co2El.textContent  = fmt(co2Kg);
+
+    /* Update delta */
+    fossilEl.textContent = fmt(thermalKWh);
+    hpEl.textContent     = fmt(hpKWh);
+
+    /* Delta text */
+    const fuelName = amount === 1 ? fuel.unitName : fuel.plural;
+    deltaTextEl.innerHTML =
+      'To generate the exact same <strong>' + fmt(thermalKWh) + ' kWh</strong> of heat, ' +
+      'a <strong>Karnot iHEAT R290</strong> system (COP ' + IHEAT_COP + ') would only require ' +
+      '<strong>' + fmt(hpKWh) + ' kWh</strong> of electricity — a <strong>' + reduction + '% reduction</strong> in energy input. ' +
+      'By eliminating combustion, you remove <strong>' + fmt(co2Kg) + ' kg CO\u2082e</strong> ' +
+      'from your Scope 1 SEC reporting entirely.';
+
+    /* Scope text */
+    scopeCo2El.textContent = fmt(co2Kg) + ' kg CO\u2082e';
+
+    /* Hints */
+    amountHint.textContent = fmt(amount) + ' ' + fuelName + ' = ' + fmt(thermalKWh) + ' kWh thermal';
+    fuelHint.textContent = fuel.kwhPerUnit + ' kWh and ' + fuel.co2PerUnit + ' kg CO\u2082e per ' + fuel.unitName;
+
+    /* Show results */
+    resultsDiv.classList.add('active');
+  }
+
+  /* ─── EVENT LISTENERS ─── */
+  amountInput.addEventListener('input', calculate);
+  fuelSelect.addEventListener('change', function() {
+    calculate();
+    if (amountInput.value === '') amountInput.focus();
+  });
+
+  /* Pre-fill example on first fuel select */
+  fuelSelect.addEventListener('change', function handler() {
+    if (!amountInput.value) {
+      const defaults = { btu: '100000', therm: '10', lpg11: '5', diesel: '100', heating_oil: '50', lpg_kg: '55' };
+      amountInput.value = defaults[fuelSelect.value] || '';
+      calculate();
+    }
+    fuelSelect.removeEventListener('change', handler);
+  });
+})();
+</script>
+</body>
+</html>

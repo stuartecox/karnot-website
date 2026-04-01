@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Philippine Energy Compliance Hub — RA 11285 DOE Calculator & SEC PFRS S2 Carbon Converter | Karnot</title>
+<meta name="description" content="Free Philippine SEC sustainability reporting calculator and RA 11285 DOE Energy Audit classification tool. Calculate your Scope 1 and 2 emissions, F-gas reporting liability, and DOE facility tier under Philippine law.">
+<meta name="keywords" content="Philippine SEC sustainability reporting, RA 11285 DOE Energy Audit requirements, Scope 1 and 2 emissions calculator Philippines, F-gas regulations PFRS S2, DEOS portal, CECO CEM certification, Philippine energy efficiency act">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/compliance">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/compliance">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/compliance">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Philippine Energy Compliance Hub — RA 11285 & SEC PFRS S2 Calculators">
+<meta property="og:description" content="Determine your DOE facility classification under RA 11285 and calculate your SEC PFRS S2 carbon reporting liability. Free interactive tools.">
+<meta property="og:url" content="https://karnot.com/compliance">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Philippine Energy Compliance Hub — RA 11285 & SEC PFRS S2">
+<meta name="twitter:description" content="Free DOE classification calculator and SEC carbon emissions converter for Philippine enterprises.">
+<link rel="stylesheet" href="css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com"},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},
+      {"@type":"ListItem","position":2,"name":"Compliance Hub","item":"https://karnot.com/compliance"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is RA 11285 and who does it apply to?","acceptedAnswer":{"@type":"Answer","text":"Republic Act 11285 is the Philippine Energy Efficiency and Conservation Act. It applies to all commercial and industrial establishments consuming more than 100,000 kWh-equivalent of energy annually. Facilities are classified into tiers (ODE, Type 1, Type 2) with increasing compliance requirements including mandatory energy audits, certified energy managers, and DEOS portal reporting."}},
+      {"@type":"Question","name":"What are Scope 1 and Scope 2 emissions under SEC PFRS S2?","acceptedAnswer":{"@type":"Answer","text":"Scope 1 covers direct emissions from on-site fuel combustion and refrigerant leaks (F-gas). Scope 2 covers indirect emissions from purchased grid electricity. Under the Philippine SEC's adoption of PFRS S2 (aligned with IFRS S2), listed companies must disclose both scopes. F-gas leaks from HFC chillers often represent a hidden Scope 1 liability that many companies overlook."}},
+      {"@type":"Question","name":"How do F-gas leaks from chillers affect my SEC carbon reporting?","acceptedAnswer":{"@type":"Answer","text":"Synthetic refrigerants like R410A (GWP 2,088), R134a (GWP 1,430), and R22 (GWP 1,810) have extremely high global warming potentials. A typical 100 TR chiller leaking 10-15% of its charge annually can generate 15-25 metric tons of CO₂e in Scope 1 emissions — often more than the electricity the chiller consumes. This must be disclosed under PFRS S2."}},
+      {"@type":"Question","name":"How does switching to natural refrigerants reduce my SEC reporting burden?","acceptedAnswer":{"@type":"Answer","text":"Natural refrigerants like R290 (propane, GWP 3) and CO₂/R744 (GWP 1) have near-zero global warming potential. Switching to a Karnot iCOOL or iHEAT system using these refrigerants eliminates your Scope 1 F-gas reporting liability entirely, while the higher COP (4.5 vs 3.0) simultaneously reduces Scope 2 grid emissions by 30-40%."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* --- PAGE-SPECIFIC: Compliance Hub --- */
+
+.cp-hero{
+  background:linear-gradient(135deg,rgba(13,27,62,.97),rgba(26,45,90,.9),rgba(220,38,38,.08));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.cp-hero::before{content:'';position:absolute;top:-40%;right:-15%;width:500px;height:500px;background:radial-gradient(circle,rgba(220,38,38,.08) 0%,transparent 70%);border-radius:50%}
+.cp-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cp-hero h1 span{background:linear-gradient(135deg,#F56600,#ff8c42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cp-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative;z-index:1}
+.cp-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative;z-index:1}
+.cp-badges{display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;position:relative;z-index:1}
+.cp-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.9);padding:8px 16px;border-radius:50px;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.15)}
+
+.breadcrumb{font-size:13px;margin-bottom:12px;opacity:.8;position:relative;z-index:1}
+.breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+
+/* SECTION */
+.cp-section{max-width:960px;margin:0 auto;padding:60px 20px 20px}
+.cp-section h2{font-size:clamp(24px,4vw,32px);font-weight:800;margin-bottom:12px;color:#1d1d1f}
+.cp-section h2 i{color:#F56600;margin-right:8px}
+.cp-answer{font-size:16px;line-height:1.7;color:#4b5563;margin-bottom:24px;max-width:800px}
+.cp-detail{font-size:14px;line-height:1.7;color:#6b7280;margin-bottom:32px}
+
+/* CARDS */
+.cp-card{background:#fff;border-radius:20px;padding:36px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:2px solid transparent;transition:border-color .3s;margin-bottom:32px}
+
+/* INPUTS */
+.cp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:8px}
+.cp-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
+.cp-field label{display:block;font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.cp-field input,.cp-field select{
+  width:100%;padding:12px 14px;border:1.5px solid #d2d2d7;border-radius:10px;
+  font-size:15px;font-weight:600;color:#1d1d1f;background:#fafafa;
+  transition:all .2s;outline:none;box-sizing:border-box
+}
+.cp-field input:focus,.cp-field select:focus{border-color:#F56600;box-shadow:0 0 0 3px rgba(245,102,0,.12);background:#fff}
+.cp-field .hint{font-size:11px;color:#999;margin-top:4px}
+
+/* RESULT BOXES */
+.cp-result{margin-top:24px;padding:24px;border-radius:14px;display:none}
+.cp-result.active{display:block}
+
+.cp-tier{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.cp-tier-value{font-size:28px;font-weight:800;margin-bottom:8px}
+.cp-tier-aec{font-size:14px;color:#6b7280;margin-bottom:12px}
+.cp-tier-msg{font-size:14px;line-height:1.7}
+
+.cp-result.exempt{background:#f0fdf4;border:2px solid #86efac}
+.cp-result.exempt .cp-tier{color:#166534}
+.cp-result.exempt .cp-tier-value{color:#15803d}
+.cp-result.ode{background:#fffbeb;border:2px solid #fcd34d}
+.cp-result.ode .cp-tier{color:#92400e}
+.cp-result.ode .cp-tier-value{color:#b45309}
+.cp-result.type1{background:#fff7ed;border:2px solid #fdba74}
+.cp-result.type1 .cp-tier{color:#9a3412}
+.cp-result.type1 .cp-tier-value{color:#c2410c}
+.cp-result.type2{background:#fef2f2;border:2px solid #fca5a5}
+.cp-result.type2 .cp-tier{color:#991b1b}
+.cp-result.type2 .cp-tier-value{color:#dc2626}
+
+/* KARNOT HOOK */
+.cp-hook{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fdba74;border-radius:14px;padding:24px;margin-top:20px;display:none}
+.cp-hook.active{display:block}
+.cp-hook h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9a3412;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.cp-hook p{font-size:14px;line-height:1.7;color:#78350f}
+.cp-hook a{color:#F56600;font-weight:700;text-decoration:none}
+.cp-hook a:hover{text-decoration:underline}
+
+/* SEC CALCULATOR */
+.sec-output{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.sec-box{padding:20px;border-radius:12px;text-align:center}
+.sec-box.scope2{background:#eff6ff;border:1.5px solid #93c5fd}
+.sec-box.scope1{background:#fef2f2;border:1.5px solid #fca5a5}
+.sec-box.total{background:#f3f4f6;border:1.5px solid #d1d5db;grid-column:1/-1}
+.sec-box .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6b7280;margin-bottom:4px}
+.sec-box .val{font-size:32px;font-weight:800;line-height:1}
+.sec-box .unit{font-size:12px;color:#9ca3af;margin-top:4px}
+.sec-box.scope2 .val{color:#1d4ed8}
+.sec-box.scope1 .val{color:#dc2626}
+.sec-box.total .val{color:#1f2937}
+
+/* DELTA */
+.sec-delta{margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:14px;padding:24px;display:none}
+.sec-delta.active{display:block}
+.sec-delta h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.sec-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-bottom:16px}
+.sec-cmp-box{text-align:center;padding:16px;border-radius:12px}
+.sec-cmp-box.legacy{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2)}
+.sec-cmp-box.karnot{background:rgba(52,199,89,.06);border:1px solid rgba(52,199,89,.2)}
+.sec-cmp-box .big{font-size:28px;font-weight:800;line-height:1}
+.sec-cmp-box.legacy .big{color:#dc2626}
+.sec-cmp-box.karnot .big{color:#15803d}
+.sec-cmp-box .sm{font-size:11px;color:#6b7280;margin-top:4px}
+.sec-arrow{font-size:24px;color:#22c55e;text-align:center}
+.sec-delta-text{font-size:14px;line-height:1.7;color:#14532d}
+
+/* LEAD FORM */
+.cp-lead{max-width:700px;margin:40px auto;padding:40px;background:#fff;border-radius:20px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:2px solid #e5e7eb}
+.cp-lead h3{font-size:22px;font-weight:800;margin-bottom:8px;text-align:center}
+.cp-lead .sub{font-size:14px;color:#6b7280;text-align:center;margin-bottom:24px}
+.cp-lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.cp-lead input[type="text"],.cp-lead input[type="email"],.cp-lead select{
+  width:100%;padding:12px 14px;border:1.5px solid #d2d2d7;border-radius:10px;
+  font-size:14px;color:#1d1d1f;background:#fafafa;outline:none;box-sizing:border-box
+}
+.cp-lead input:focus,.cp-lead select:focus{border-color:#F56600;box-shadow:0 0 0 3px rgba(245,102,0,.12)}
+.cp-lead-btn{
+  width:100%;padding:14px;background:linear-gradient(135deg,#F56600,#ff8c42);
+  color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;
+  transition:all .3s;margin-top:8px
+}
+.cp-lead-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,102,0,.3)}
+
+/* CTA */
+.cp-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.cp-cta .btn-orange{
+  display:inline-flex;align-items:center;gap:8px;padding:14px 28px;
+  background:linear-gradient(135deg,#F56600,#ff8c42);color:#fff;
+  font-size:15px;font-weight:700;border-radius:12px;text-decoration:none;transition:all .3s
+}
+.cp-cta .btn-orange:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,102,0,.3)}
+
+/* FAQ */
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#F56600;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+.eh-cta{background:linear-gradient(135deg,#0d1b3e,#1a2d5a);padding:60px 20px;text-align:center}
+.eh-cta h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px}
+.eh-cta p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:600px;margin-left:auto;margin-right:auto}
+
+@media(max-width:768px){
+  .cp-hero{padding:100px 16px 60px}
+  .cp-hero h1{font-size:28px}
+  .cp-grid{grid-template-columns:1fr}
+  .cp-grid-2{grid-template-columns:1fr}
+  .sec-output{grid-template-columns:1fr}
+  .sec-box.total{grid-column:auto}
+  .sec-compare{grid-template-columns:1fr;gap:8px}
+  .sec-arrow{transform:rotate(90deg)}
+  .cp-lead-grid{grid-template-columns:1fr}
+  .cp-card{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="karnot-nav" data-page="compliance"></div>
+
+<section class="cp-hero">
+  <nav class="breadcrumb rv" aria-label="Breadcrumb">
+    <a href="./">Home</a> / Compliance Hub
+  </nav>
+  <div class="cp-badges">
+    <span class="cp-badge"><i class="fa-solid fa-scale-balanced"></i> RA 11285 — DOE Energy Efficiency Act</span>
+    <span class="cp-badge"><i class="fa-solid fa-file-contract"></i> SEC PFRS S2 — Sustainability Disclosures</span>
+  </div>
+  <h1 class="rv">Philippine Regulatory <span>Compliance Hub</span></h1>
+  <p class="rv">Two new mandates are reshaping how Philippine enterprises report energy and carbon. Use our free calculators to determine your DOE facility classification under RA 11285 and quantify your SEC PFRS S2 carbon reporting liability — including the hidden F-gas trap most companies miss.</p>
+  <p class="answer-first rv">If your facility consumes more than 100,000 kWh-equivalent annually (including diesel and LPG), you are legally required to comply with RA 11285. If you operate HFC chillers, your F-gas leaks may be your largest undisclosed Scope 1 liability.</p>
+</section>
+
+<main id="main">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TOOL 1: RA 11285 DOE CLASSIFICATION        -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="cp-section">
+  <h2><i class="fa-solid fa-scale-balanced"></i> RA 11285 DOE Classification Calculator</h2>
+  <p class="cp-answer">Republic Act 11285 classifies all Philippine commercial and industrial facilities into regulatory tiers based on their Annual Energy Consumption (AEC) measured in kWh-equivalent. This includes electricity, diesel, and LPG converted to a common thermal energy baseline. Your tier determines whether you need a Certified Energy Manager, mandatory energy audits, and DEOS portal reporting.</p>
+  <p class="cp-detail">Enter your facility's average monthly energy consumption below. The calculator annualizes your inputs, converts all fuels to kWh-equivalent using DOE-standard conversion factors, and determines your legal classification under the Energy Efficiency and Conservation Act.</p>
+
+  <div class="cp-card">
+    <div class="cp-grid">
+      <div class="cp-field">
+        <label for="doe-elec"><i class="fa-solid fa-bolt"></i> Monthly Electricity (kWh)</label>
+        <input type="number" id="doe-elec" placeholder="e.g. 50000" min="0" step="any" inputmode="decimal">
+        <div class="hint">From your Meralco / electric co-op bill</div>
+      </div>
+      <div class="cp-field">
+        <label for="doe-diesel"><i class="fa-solid fa-gas-pump"></i> Monthly Diesel (Litres)</label>
+        <input type="number" id="doe-diesel" placeholder="e.g. 500" min="0" step="any" inputmode="decimal" value="0">
+        <div class="hint">Boilers, gensets, backup generators</div>
+      </div>
+      <div class="cp-field">
+        <label for="doe-lpg"><i class="fa-solid fa-fire"></i> Monthly LPG (kg)</label>
+        <input type="number" id="doe-lpg" placeholder="e.g. 200" min="0" step="any" inputmode="decimal" value="0">
+        <div class="hint">Kitchen, process heating, boilers</div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="cp-result" id="doe-result">
+      <div class="cp-tier" id="doe-tier-label">DOE CLASSIFICATION</div>
+      <div class="cp-tier-value" id="doe-tier-value"></div>
+      <div class="cp-tier-aec" id="doe-aec-text"></div>
+      <div class="cp-tier-msg" id="doe-msg"></div>
+    </div>
+
+    <!-- Karnot Hook -->
+    <div class="cp-hook" id="doe-hook">
+      <h4><i class="fa-solid fa-leaf"></i> Karnot Engineering Insight</h4>
+      <p id="doe-hook-text"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TOOL 2: SEC PFRS S2 CARBON & F-GAS         -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="cp-section" style="padding-top:20px">
+  <h2><i class="fa-solid fa-file-contract"></i> SEC PFRS S2 Carbon & F-Gas Converter</h2>
+  <p class="cp-answer">The Philippine SEC's adoption of PFRS S2 (aligned with IFRS S2) requires listed companies to disclose Scope 1 and Scope 2 greenhouse gas emissions. For facilities with HFC chillers, fugitive F-gas refrigerant leaks often represent the single largest — and most overlooked — Scope 1 emission source. A single 100 TR chiller leaking R410A can generate more Scope 1 CO₂e than a fleet of diesel trucks.</p>
+  <p class="cp-detail">Enter your chiller specifications below to quantify your total SEC carbon reporting liability. The calculator reveals both your Scope 2 grid emissions and your hidden Scope 1 F-gas liability, then shows the Karnot natural refrigerant alternative.</p>
+
+  <div class="cp-card">
+    <div class="cp-grid-2">
+      <div class="cp-field">
+        <label for="sec-capacity"><i class="fa-solid fa-snowflake"></i> Chiller Capacity</label>
+        <input type="number" id="sec-capacity" value="100" min="1" step="any" inputmode="decimal">
+      </div>
+      <div class="cp-field">
+        <label for="sec-cap-unit">Capacity Unit</label>
+        <select id="sec-cap-unit">
+          <option value="tr">Refrigeration Tons (TR)</option>
+          <option value="hp">Cooling Horsepower (HP)</option>
+        </select>
+      </div>
+    </div>
+    <div class="cp-grid-2">
+      <div class="cp-field">
+        <label for="sec-refrig"><i class="fa-solid fa-vial"></i> Current Refrigerant</label>
+        <select id="sec-refrig">
+          <option value="2088">R410A (GWP 2,088)</option>
+          <option value="1430">R134a (GWP 1,430)</option>
+          <option value="1810">R22 (GWP 1,810)</option>
+        </select>
+      </div>
+      <div class="cp-field">
+        <label for="sec-charge">Refrigerant Charge (kg)</label>
+        <input type="number" id="sec-charge" value="80" min="0" step="any" inputmode="decimal">
+      </div>
+    </div>
+    <div class="cp-grid-2">
+      <div class="cp-field">
+        <label for="sec-leak">Annual Leakage Rate (%)</label>
+        <input type="number" id="sec-leak" value="12" min="0" max="100" step="0.1" inputmode="decimal">
+        <div class="hint">Industry average: 8-15% per year</div>
+      </div>
+      <div class="cp-field">
+        <label for="sec-hours">Annual Run Hours</label>
+        <input type="number" id="sec-hours" value="4000" min="0" step="100" inputmode="decimal">
+        <div class="hint">8 hrs/day × 250 days = 2,000; 24/7 = 8,760</div>
+      </div>
+    </div>
+
+    <!-- SEC Output -->
+    <div class="sec-output" id="sec-output" style="display:none">
+      <div class="sec-box scope2">
+        <div class="lbl">Scope 2 — Grid Electricity</div>
+        <div class="val" id="sec-scope2">—</div>
+        <div class="unit">Metric Tons CO₂e</div>
+      </div>
+      <div class="sec-box scope1">
+        <div class="lbl">Scope 1 — F-Gas Leaks</div>
+        <div class="val" id="sec-scope1">—</div>
+        <div class="unit">Metric Tons CO₂e</div>
+      </div>
+      <div class="sec-box total">
+        <div class="lbl">Total SEC Carbon Reporting Liability</div>
+        <div class="val" id="sec-total">—</div>
+        <div class="unit">Metric Tons CO₂e per year</div>
+      </div>
+    </div>
+
+    <!-- Karnot Delta -->
+    <div class="sec-delta" id="sec-delta">
+      <h4><i class="fa-solid fa-leaf"></i> The Karnot Natural Refrigerant Alternative</h4>
+      <div class="sec-compare">
+        <div class="sec-cmp-box legacy">
+          <div class="big" id="sec-legacy-total">—</div>
+          <div class="sm">Legacy System (MT CO₂e)</div>
+        </div>
+        <div class="sec-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="sec-cmp-box karnot">
+          <div class="big" id="sec-karnot-total">—</div>
+          <div class="sm">Karnot iCOOL (MT CO₂e)</div>
+        </div>
+      </div>
+      <p class="sec-delta-text" id="sec-delta-text"></p>
+      <div class="cp-cta" style="margin-top:16px">
+        <a href="contact.html?intent=sec_compliance&product=iCOOL_R290" class="btn-orange"><i class="fa-solid fa-calendar-check"></i> Schedule SEC Compliance Engineering Review</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- LEAD CAPTURE FORM                           -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="cp-section" style="padding-top:0">
+  <div class="cp-lead">
+    <h3><i class="fa-solid fa-download" style="color:#F56600"></i> Free 2026 Compliance Pack</h3>
+    <p class="sub">Download our Philippine Energy Audit & SEC Compliance Guide — includes RA 11285 checklist, PFRS S2 reporting template, and F-gas inventory worksheet.</p>
+    <form action="https://formspree.io/f/mojpljew" method="POST">
+      <input type="hidden" name="intent" value="compliance_pack_download">
+      <input type="hidden" name="_subject" value="Compliance Pack Download Request">
+      <div class="cp-lead-grid">
+        <div class="cp-field">
+          <label for="lead-name">Full Name</label>
+          <input type="text" id="lead-name" name="name" placeholder="Juan dela Cruz" required>
+        </div>
+        <div class="cp-field">
+          <label for="lead-email">Work Email</label>
+          <input type="email" id="lead-email" name="email" placeholder="juan@company.com.ph" required>
+        </div>
+        <div class="cp-field">
+          <label for="lead-company">Company</label>
+          <input type="text" id="lead-company" name="company" placeholder="Your Company Inc.">
+        </div>
+        <div class="cp-field">
+          <label for="lead-role">Role</label>
+          <select id="lead-role" name="role">
+            <option value="">Select...</option>
+            <option value="facility_manager">Facility Manager</option>
+            <option value="energy_manager">Energy Manager / CECO / CEM</option>
+            <option value="cfo_finance">CFO / Finance</option>
+            <option value="sustainability">Sustainability / ESG</option>
+            <option value="engineering">Engineering / Maintenance</option>
+            <option value="executive">C-Suite / Executive</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="cp-lead-btn"><i class="fa-solid fa-file-arrow-down"></i> Download Free Compliance Pack</button>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What is RA 11285 and who does it apply to?</summary>
+    <div class="faq-answer"><p>Republic Act 11285 is the Philippine Energy Efficiency and Conservation Act. It applies to all commercial and industrial establishments consuming more than 100,000 kWh-equivalent of energy annually. Facilities are classified into tiers (ODE, Type 1, Type 2) with increasing compliance requirements including mandatory energy audits, certified energy managers (CECO/CEM), and DEOS portal reporting.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What are Scope 1 and Scope 2 emissions under SEC PFRS S2?</summary>
+    <div class="faq-answer"><p>Scope 1 covers direct emissions from on-site fuel combustion and refrigerant leaks (F-gas). Scope 2 covers indirect emissions from purchased grid electricity. Under the Philippine SEC's adoption of PFRS S2 (aligned with IFRS S2), listed companies must disclose both scopes. F-gas leaks from HFC chillers often represent a hidden Scope 1 liability that many companies overlook.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How do F-gas leaks from chillers affect my SEC carbon reporting?</summary>
+    <div class="faq-answer"><p>Synthetic refrigerants like R410A (GWP 2,088), R134a (GWP 1,430), and R22 (GWP 1,810) have extremely high global warming potentials. A typical 100 TR chiller leaking 10-15% of its charge annually can generate 15-25 metric tons of CO&#x2082;e in Scope 1 emissions. This must be disclosed under PFRS S2 and often exceeds the facility's electricity-related emissions.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>How does switching to natural refrigerants reduce my SEC reporting burden?</summary>
+    <div class="faq-answer"><p>Natural refrigerants like R290 (propane, GWP 3) and CO&#x2082;/R744 (GWP 1) have near-zero global warming potential. Switching to a Karnot iCOOL or iHEAT system eliminates your Scope 1 F-gas reporting liability entirely, while the higher COP (4.5 vs 3.0) simultaneously reduces Scope 2 grid emissions by 30-40%.</p></div>
+  </details>
+</section>
+
+<!-- CTA -->
+<section class="eh-cta rv">
+  <h2>Need a Full Compliance Engineering Review?</h2>
+  <p>Our team audits your facility, quantifies your DOE tier and SEC carbon liability, and designs a heat pump transition roadmap.</p>
+  <div class="cta-row">
+    <a href="contact.html?intent=compliance_review&product=Engineering_Hub" class="btn-orange">Schedule Free Assessment</a>
+    <a href="savings.html" class="btn-outline">Calculate Financial ROI</a>
+  </div>
+</section>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="js/karnot.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ═══════════════════════════════════════════
+     TOOL 1: RA 11285 DOE CLASSIFICATION
+     ═══════════════════════════════════════════ */
+  const DIESEL_KWH_PER_L = 10.68;
+  const LPG_KWH_PER_KG   = 13.9;
+
+  const doeElec   = document.getElementById('doe-elec');
+  const doeDiesel = document.getElementById('doe-diesel');
+  const doeLpg    = document.getElementById('doe-lpg');
+  const doeResult = document.getElementById('doe-result');
+  const doeTierLabel = document.getElementById('doe-tier-label');
+  const doeTierValue = document.getElementById('doe-tier-value');
+  const doeAecText   = document.getElementById('doe-aec-text');
+  const doeMsg       = document.getElementById('doe-msg');
+  const doeHook      = document.getElementById('doe-hook');
+  const doeHookText  = document.getElementById('doe-hook-text');
+
+  function fmt(n) {
+    if (n >= 1e6) return (n/1e6).toFixed(2) + 'M';
+    return Math.round(n).toLocaleString();
+  }
+
+  function calcDOE() {
+    const elec   = parseFloat(doeElec.value) || 0;
+    const diesel = parseFloat(doeDiesel.value) || 0;
+    const lpg    = parseFloat(doeLpg.value) || 0;
+
+    if (elec <= 0 && diesel <= 0 && lpg <= 0) {
+      doeResult.classList.remove('active');
+      doeResult.className = 'cp-result';
+      doeHook.classList.remove('active');
+      return;
+    }
+
+    const annualElec   = elec * 12;
+    const annualDiesel = (diesel * DIESEL_KWH_PER_L) * 12;
+    const annualLpg    = (lpg * LPG_KWH_PER_KG) * 12;
+    const totalAEC     = annualElec + annualDiesel + annualLpg;
+
+    let tier, tierName, tierClass, msg;
+
+    if (totalAEC < 100000) {
+      tier = 'EXEMPT';
+      tierName = 'Below Threshold — Voluntary Compliance Only';
+      tierClass = 'exempt';
+      msg = 'Your facility falls below the 100,000 kWh-equivalent threshold. You are not required to comply with RA 11285, but voluntary adoption of energy management practices is encouraged by the DOE.';
+    } else if (totalAEC < 500000) {
+      tier = 'ODE — OTHER DESIGNATED ESTABLISHMENT';
+      tierName = 'ODE Classification';
+      tierClass = 'ode';
+      msg = '<strong>Mandate:</strong> Integrate energy management systems and submit an Annual Energy Utilization Report (AEUR) to the DOE. You are required to designate an internal energy coordinator and implement energy conservation measures.';
+    } else if (totalAEC <= 4000000) {
+      tier = 'TYPE 1 ESTABLISHMENT';
+      tierName = 'Type 1 — Designated Establishment';
+      tierClass = 'type1';
+      msg = '<strong>Mandate:</strong> Employ a Certified Energy Conservation Officer (CECO), conduct an Energy Audit every 3 years by an accredited auditor, and submit compliance reports via the DOE DEOS portal. Penalties apply for non-compliance.';
+    } else {
+      tier = 'TYPE 2 ESTABLISHMENT';
+      tierName = 'Type 2 — Large Designated Establishment';
+      tierClass = 'type2';
+      msg = '<strong>Mandate:</strong> Employ a Certified Energy Manager (CEM), conduct an Energy Audit every 3 years via an External Certified Energy Auditor, and submit all reports via the DOE DEOS portal. Type 2 establishments face the highest level of regulatory scrutiny and penalties.';
+    }
+
+    doeResult.className = 'cp-result ' + tierClass + ' active';
+    doeTierLabel.textContent = tier;
+    doeTierValue.textContent = tierName;
+    doeAecText.innerHTML = 'Total Annual Energy Consumption (AEC): <strong>' + fmt(totalAEC) + ' kWh-equivalent</strong>' +
+      (annualDiesel > 0 ? ' &nbsp;|&nbsp; Diesel: ' + fmt(annualDiesel) + ' kWh' : '') +
+      (annualLpg > 0 ? ' &nbsp;|&nbsp; LPG: ' + fmt(annualLpg) + ' kWh' : '');
+    doeMsg.innerHTML = msg;
+
+    // Karnot Hook — show if they have diesel or LPG
+    if (annualDiesel > 0 || annualLpg > 0) {
+      const fossilKWh = annualDiesel + annualLpg;
+      const hpKWh = fossilKWh / 4.5;
+      const newAEC = annualElec + hpKWh;
+      let newTier = 'below the RA 11285 threshold';
+      if (newAEC >= 4000000) newTier = 'Type 2';
+      else if (newAEC >= 500000) newTier = 'Type 1';
+      else if (newAEC >= 100000) newTier = 'ODE';
+
+      doeHookText.innerHTML = 'Upgrading your diesel/LPG heating to an <strong>iHEAT R290 heat pump</strong> drops your ' + fmt(fossilKWh) + ' kWh of fossil thermal consumption to just <strong>' + fmt(hpKWh) + ' kWh</strong> of electricity (COP 4.5) — a <strong>78% reduction</strong>. Your new AEC would be <strong>' + fmt(newAEC) + ' kWh</strong>' +
+        (newTier !== tierClass ? ', potentially moving your facility to the <strong>' + newTier + '</strong> tier.' : '.') +
+        ' <a href="contact.html?intent=doe_compliance&product=iHEAT_R290">Talk to an Engineer &rarr;</a>';
+      doeHook.classList.add('active');
+    } else {
+      doeHook.classList.remove('active');
+    }
+  }
+
+  [doeElec, doeDiesel, doeLpg].forEach(el => el.addEventListener('input', calcDOE));
+
+
+  /* ═══════════════════════════════════════════
+     TOOL 2: SEC PFRS S2 CARBON & F-GAS
+     ═══════════════════════════════════════════ */
+  const PH_GRID_EF   = 0.712;  // kg CO2/kWh
+  const LEGACY_COP   = 3.0;
+  const KARNOT_COP   = 4.5;
+
+  const secCap    = document.getElementById('sec-capacity');
+  const secUnit   = document.getElementById('sec-cap-unit');
+  const secRefrig = document.getElementById('sec-refrig');
+  const secCharge = document.getElementById('sec-charge');
+  const secLeak   = document.getElementById('sec-leak');
+  const secHours  = document.getElementById('sec-hours');
+
+  const secOutput = document.getElementById('sec-output');
+  const secScope2 = document.getElementById('sec-scope2');
+  const secScope1 = document.getElementById('sec-scope1');
+  const secTotal  = document.getElementById('sec-total');
+  const secDelta  = document.getElementById('sec-delta');
+  const secLegacyTotal = document.getElementById('sec-legacy-total');
+  const secKarnotTotal = document.getElementById('sec-karnot-total');
+  const secDeltaText   = document.getElementById('sec-delta-text');
+
+  function fmtMT(n) { return n.toFixed(1); }
+
+  function calcSEC() {
+    const capacity  = parseFloat(secCap.value) || 0;
+    const unit      = secUnit.value;
+    const gwp       = parseInt(secRefrig.value) || 2088;
+    const charge    = parseFloat(secCharge.value) || 0;
+    const leakPct   = parseFloat(secLeak.value) || 0;
+    const hours     = parseFloat(secHours.value) || 0;
+
+    if (capacity <= 0) {
+      secOutput.style.display = 'none';
+      secDelta.classList.remove('active');
+      return;
+    }
+
+    // Convert to cooling kW
+    const coolingKW = unit === 'tr' ? capacity * 3.517 : capacity * 2.5;
+
+    // Legacy electrical draw
+    const legacyElecKW = coolingKW / LEGACY_COP;
+
+    // Scope 2 (grid)
+    const scope2_MT = (legacyElecKW * hours * PH_GRID_EF) / 1000;
+
+    // Scope 1 (F-gas)
+    const scope1_MT = (charge * (leakPct / 100) * gwp) / 1000;
+
+    // Total
+    const totalMT = scope2_MT + scope1_MT;
+
+    // Karnot alternative
+    const karnotElecKW = coolingKW / KARNOT_COP;
+    const karnotScope2 = (karnotElecKW * hours * PH_GRID_EF) / 1000;
+    const karnotScope1 = 0; // Natural refrigerant
+    const karnotTotal  = karnotScope2;
+    const avoided      = totalMT - karnotTotal;
+
+    // Display
+    secScope2.textContent = fmtMT(scope2_MT);
+    secScope1.textContent = fmtMT(scope1_MT);
+    secTotal.textContent  = fmtMT(totalMT);
+    secOutput.style.display = 'grid';
+
+    // Delta
+    secLegacyTotal.textContent = fmtMT(totalMT);
+    secKarnotTotal.textContent = fmtMT(karnotTotal);
+
+    const refrigName = secRefrig.options[secRefrig.selectedIndex].text;
+    secDeltaText.innerHTML = 'By switching to a <strong>Karnot iCOOL Natural Refrigerant system</strong> (R290/CO&#x2082;), you immediately <strong>eliminate ' + fmtMT(scope1_MT) + ' MT</strong> of Scope 1 F-gas reporting liability (' + refrigName + ' leakage) and reduce your Scope 2 grid emissions from <strong>' + fmtMT(scope2_MT) + '</strong> to <strong>' + fmtMT(karnotScope2) + ' MT</strong> (COP ' + KARNOT_COP + ' vs ' + LEGACY_COP + '). <strong>Total Carbon Avoided: ' + fmtMT(avoided) + ' Metric Tons CO&#x2082;e annually.</strong>';
+    secDelta.classList.add('active');
+  }
+
+  [secCap, secUnit, secRefrig, secCharge, secLeak, secHours].forEach(el => {
+    el.addEventListener('input', calcSEC);
+    el.addEventListener('change', calcSEC);
+  });
+
+  // Run initial calculation
+  calcSEC();
+})();
+</script>
+</body>
+</html>
