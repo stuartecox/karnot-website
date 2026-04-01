@@ -335,6 +335,44 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Programmatic SEO Solution Pages (0.6) -->
+  <url>
+    <loc>https://karnot.com/solutions/hotel-hot-water-philippines.html</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://karnot.com/solutions/hospital-heating-manila.html</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://karnot.com/solutions/commercial-laundry-heating-philippines.html</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://karnot.com/solutions/hotel-heating-uk.html</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://karnot.com/solutions/pool-temperature-control-philippines.html</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://karnot.com/solutions/cold-storage-cooling-philippines.html</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <!-- Lower Priority Pages (0.5) -->
   <url>
     <loc>https://karnot.com/privacy.html</loc>

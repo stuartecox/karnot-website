@@ -1,0 +1,158 @@
+{
+  "industries": [
+    {
+      "slug": "hotels-resorts",
+      "name": "Hotels & Resorts",
+      "icon": "fa-hotel",
+      "painPoints": ["high-dhw-cost", "diesel-dependency", "carbon-reduction"],
+      "temperature": "55-65°C",
+      "demandRange": "5,000-80,000 L/day",
+      "products": ["iHEAT", "AquaHERO", "iSPA"],
+      "savings": "60-78%",
+      "description": "Hotels consume massive volumes of domestic hot water for guest rooms, kitchens, laundry, and pool heating. Karnot R290 heat pumps replace diesel boilers, cutting energy costs by up to 78% while delivering 55-65°C hot water 24/7."
+    },
+    {
+      "slug": "commercial-laundries",
+      "name": "Commercial Laundries",
+      "icon": "fa-shirt",
+      "painPoints": ["high-dhw-cost", "steam-replacement", "energy-intensity"],
+      "temperature": "60-80°C",
+      "demandRange": "10,000-50,000 L/day",
+      "products": ["iHEAT"],
+      "savings": "60-75%",
+      "description": "Industrial laundering requires consistent 60-80°C hot water at high volumes. Karnot heat pumps provide reliable supply at a fraction of gas or diesel boiler running costs, with zero on-site emissions."
+    },
+    {
+      "slug": "pharmaceuticals",
+      "name": "Pharmaceuticals & Laboratories",
+      "icon": "fa-flask",
+      "painPoints": ["precision-temperature", "regulatory-compliance", "ultra-cold"],
+      "temperature": "-130 to +80°C",
+      "demandRange": "Variable",
+      "products": ["iHEAT", "iCOOL", "iCRYO"],
+      "savings": "50-70%",
+      "description": "Pharmaceutical manufacturing demands precise temperature control for process heating, CIP cleaning, lab water, and ultra-cold storage. Karnot natural refrigerant systems cover the full spectrum from -130°C cryogenics to +80°C process heat."
+    },
+    {
+      "slug": "food-processing",
+      "name": "Food Processing",
+      "icon": "fa-utensils",
+      "painPoints": ["high-dhw-cost", "cold-storage", "cip-cleaning"],
+      "temperature": "-40 to +80°C",
+      "demandRange": "10,000-100,000 L/day",
+      "products": ["iHEAT", "iCOOL"],
+      "savings": "55-75%",
+      "description": "Food processors need hot water for washing, blanching, and CIP systems, plus cold storage and blast freezing. Karnot provides both heating and cooling from natural refrigerant systems with heat recovery."
+    },
+    {
+      "slug": "swimming-pools",
+      "name": "Swimming Pools & Gyms",
+      "icon": "fa-person-swimming",
+      "painPoints": ["pool-temperature", "shower-heating", "energy-cost"],
+      "temperature": "26-32°C pool, 55°C showers",
+      "demandRange": "15-200 m³ pool volume",
+      "products": ["iSPA", "iHEAT"],
+      "savings": "65-80%",
+      "description": "Pool temperature control systems maintain optimal water temperature year-round — heating in cooler months and preventing overheating in tropical summer. iSPA inverter systems achieve COP up to 15.04."
+    },
+    {
+      "slug": "hospitals-healthcare",
+      "name": "Hospitals & Healthcare",
+      "icon": "fa-hospital",
+      "painPoints": ["high-dhw-cost", "sterilization", "24-7-reliability"],
+      "temperature": "55-80°C",
+      "demandRange": "20,000-80,000 L/day",
+      "products": ["iHEAT"],
+      "savings": "60-75%",
+      "description": "Hospitals require 24/7 hot water for sterilization, patient care, and infection control. Karnot R290 heat pumps deliver reliable 55-80°C water with redundant cascade configurations for zero downtime."
+    },
+    {
+      "slug": "brewing-distilling",
+      "name": "Brewing & Distilling",
+      "icon": "fa-beer-mug-empty",
+      "painPoints": ["process-heat", "fermentation-cooling", "energy-intensity"],
+      "temperature": "4-80°C",
+      "demandRange": "Variable",
+      "products": ["iHEAT", "iCOOL"],
+      "savings": "50-70%",
+      "description": "Breweries need mash heating, wort cooling, fermentation temperature control, and CIP cleaning across a wide temperature range. Karnot systems provide simultaneous heating and cooling with heat recovery."
+    },
+    {
+      "slug": "cold-storage",
+      "name": "Cold Storage & Warehousing",
+      "icon": "fa-snowflake",
+      "painPoints": ["refrigeration-cost", "hfc-phasedown", "carbon-reduction"],
+      "temperature": "-40 to +5°C",
+      "demandRange": "50-5,000 m³",
+      "products": ["iCOOL"],
+      "savings": "40-60%",
+      "description": "Commercial freezing and chilled storage with natural refrigerant CO₂ systems. Future-proof against HFC phase-downs while reducing energy costs by up to 60%."
+    },
+    {
+      "slug": "bottling-plants",
+      "name": "Bottling Plants",
+      "icon": "fa-bottle-water",
+      "painPoints": ["cip-cleaning", "high-volume-dhw", "process-cooling"],
+      "temperature": "60-80°C wash, 4-10°C cooling",
+      "demandRange": "10,000-50,000 L/day",
+      "products": ["iHEAT", "iCOOL"],
+      "savings": "55-70%",
+      "description": "Bottling operations require high-volume CIP wash water and bottle rinsing at 60-80°C, plus process cooling. Karnot heat pumps meet both needs with simultaneous heating and cooling modes."
+    },
+    {
+      "slug": "data-centres",
+      "name": "Data Centres",
+      "icon": "fa-server",
+      "painPoints": ["cooling-cost", "pue-optimization", "heat-recovery"],
+      "temperature": "18-27°C supply air",
+      "demandRange": "100-5,000 kW cooling",
+      "products": ["iCOOL", "iMESH"],
+      "savings": "30-50%",
+      "description": "Data centre cooling represents 30-40% of total energy use. Karnot CO₂ cooling with waste heat recovery can pre-heat domestic water while maintaining optimal server temperatures."
+    },
+    {
+      "slug": "plastic-recycling",
+      "name": "Plastic Recycling",
+      "icon": "fa-recycle",
+      "painPoints": ["process-heat", "drying", "energy-intensity"],
+      "temperature": "60-90°C",
+      "demandRange": "Variable",
+      "products": ["iHEAT"],
+      "savings": "50-65%",
+      "description": "Recycling plastics requires process heat for washing, drying, and pelletizing at 60-90°C. Karnot R290 heat pumps provide consistent temperatures at a fraction of fossil fuel costs."
+    },
+    {
+      "slug": "agriculture",
+      "name": "Agriculture & Livestock",
+      "icon": "fa-seedling",
+      "painPoints": ["climate-control", "livestock-heating", "crop-drying"],
+      "temperature": "20-40°C",
+      "demandRange": "Variable",
+      "products": ["NearFarm", "iHEAT", "iCOOL"],
+      "savings": "40-65%",
+      "description": "Climate-controlled growing, livestock heating, and the HydroGreen NearFarm vertical pasture system for year-round fodder production in tropical climates."
+    }
+  ],
+  "locations": [
+    {"slug": "philippines", "name": "Philippines", "currency": "PHP", "symbol": "₱", "dieselPrice": "₱119/L", "electricRate": "₱12/kWh", "climate": "tropical"},
+    {"slug": "manila", "name": "Manila", "currency": "PHP", "symbol": "₱", "dieselPrice": "₱119/L", "electricRate": "₱12/kWh", "climate": "tropical"},
+    {"slug": "cebu", "name": "Cebu", "currency": "PHP", "symbol": "₱", "dieselPrice": "₱119/L", "electricRate": "₱11/kWh", "climate": "tropical"},
+    {"slug": "davao", "name": "Davao", "currency": "PHP", "symbol": "₱", "dieselPrice": "₱119/L", "electricRate": "₱10/kWh", "climate": "tropical"},
+    {"slug": "uk", "name": "United Kingdom", "currency": "GBP", "symbol": "£", "gasPrice": "7p/kWh", "electricRate": "24p/kWh", "climate": "temperate", "grants": "£7,500 BUS Grant"},
+    {"slug": "london", "name": "London", "currency": "GBP", "symbol": "£", "gasPrice": "7p/kWh", "electricRate": "24p/kWh", "climate": "temperate", "grants": "£7,500 BUS Grant"},
+    {"slug": "usa", "name": "United States", "currency": "USD", "symbol": "$", "gasPrice": "$1.20/therm", "electricRate": "$0.16/kWh", "climate": "varied", "grants": "30% IRA Tax Credit"},
+    {"slug": "canada", "name": "Canada", "currency": "CAD", "symbol": "C$", "gasPrice": "C$0.40/m³", "electricRate": "C$0.13/kWh", "climate": "cold", "grants": "Greener Homes Grant"}
+  ],
+  "painPoints": [
+    {"slug": "high-dhw-cost", "name": "High Hot Water Costs", "description": "Reduce commercial hot water heating costs by 60-78% compared to diesel, gas, or electric boilers."},
+    {"slug": "diesel-dependency", "name": "Diesel Boiler Replacement", "description": "Eliminate diesel procurement, storage, and price volatility with heat pump technology."},
+    {"slug": "carbon-reduction", "name": "Carbon Emission Reduction", "description": "Cut scope 1 and 2 emissions with natural refrigerant systems achieving near-zero direct GWP."},
+    {"slug": "steam-replacement", "name": "Steam Boiler Replacement", "description": "Replace inefficient steam systems with high-temperature R290 or CO₂ heat pumps."},
+    {"slug": "cold-storage", "name": "Cold Storage Efficiency", "description": "Future-proof refrigeration with natural CO₂ systems ahead of HFC phase-downs."},
+    {"slug": "precision-temperature", "name": "Precision Temperature Control", "description": "Maintain exact process temperatures from -130°C to +80°C with inverter-driven systems."},
+    {"slug": "hfc-phasedown", "name": "HFC Phase-Down Compliance", "description": "Stay ahead of Kigali Amendment and AIM Act regulations with natural refrigerant systems."},
+    {"slug": "pool-temperature", "name": "Pool Temperature Control", "description": "Maintain optimal pool temperature year-round with inverter heat pump technology."},
+    {"slug": "process-heat", "name": "Industrial Process Heat", "description": "Replace gas-fired process heating with efficient heat pump solutions up to 80°C."},
+    {"slug": "energy-intensity", "name": "Energy-Intensive Operations", "description": "Reduce energy consumption in high-demand applications with COP 4.0-5.0 heat pumps."}
+  ]
+}
