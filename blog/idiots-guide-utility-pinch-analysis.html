@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Idiot's Guide to Utility Pinch Analysis — Karnot Energy Blog</title>
+<meta name="description" content="No jargon, no PhD required. Learn how pinch analysis identifies the minimum heating and cooling your industrial process needs, and where a heat pump saves the most money. A plain-English guide for facility managers and engineers.">
+<meta name="keywords" content="pinch analysis explained, utility pinch analysis guide, heat recovery, composite curves, pinch point, heat pump integration, industrial energy efficiency, process integration, dairy heat recovery">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/blog/idiots-guide-utility-pinch-analysis">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/blog/idiots-guide-utility-pinch-analysis">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/blog/idiots-guide-utility-pinch-analysis">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="The Idiot's Guide to Utility Pinch Analysis">
+<meta property="og:description" content="No jargon, no PhD required. Learn how pinch analysis finds the minimum heating and cooling your process truly needs — and where a Karnot Heat Pump saves the most money.">
+<meta property="og:url" content="https://karnot.com/blog/idiots-guide-utility-pinch-analysis">
+<meta property="og:locale" content="en_PH">
+<meta property="article:published_time" content="2026-04-02">
+<meta property="article:author" content="Karnot Energy Solutions">
+<meta property="article:section" content="Engineering">
+<meta property="article:tag" content="pinch analysis">
+<meta property="article:tag" content="heat recovery">
+<meta property="article:tag" content="heat pump">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Idiot's Guide to Utility Pinch Analysis">
+<meta name="twitter:description" content="Plain-English guide to pinch analysis, composite curves, and heat pump integration for industrial energy savings.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://karnot.com/blog/"},
+      {"@type":"ListItem","position":3,"name":"The Idiot's Guide to Utility Pinch Analysis","item":"https://karnot.com/blog/idiots-guide-utility-pinch-analysis"}
+    ]},
+    {"@type":"Article","headline":"The Idiot's Guide to Utility Pinch Analysis","description":"A plain-English guide to pinch analysis for facility managers and engineers. Learn composite curves, the pinch point, and where a heat pump saves the most.","datePublished":"2026-04-02","dateModified":"2026-04-02","author":{"@type":"Organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com"},"publisher":{"@type":"Organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":{"@type":"ImageObject","url":"https://karnot.com/favicon.svg"}},"mainEntityOfPage":"https://karnot.com/blog/idiots-guide-utility-pinch-analysis","articleSection":"Engineering","keywords":["pinch analysis","heat recovery","composite curves","heat pump integration","industrial energy"]}
+  ]
+}
+</script>
+
+<style>
+:root{--orange:#F56600;--text:#1d1d1f;--text2:#6e6e73;--bg:#f5f5f7;--border:#d2d2d7;--blue:#003c8c}
+
+/* ARTICLE HERO */
+.art-hero{background:linear-gradient(135deg,rgba(0,60,140,.92),rgba(42,82,152,.82),rgba(245,102,0,.25));color:#fff;padding:120px 20px 70px;text-align:center;position:relative;overflow:hidden}
+.art-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.art-breadcrumb{font-size:13px;margin-bottom:16px;opacity:.78;position:relative}
+.art-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.art-breadcrumb a:hover{text-decoration:underline}
+.art-tag{display:inline-block;background:rgba(245,102,0,.9);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:5px 14px;border-radius:6px;margin-bottom:18px;position:relative}
+.art-hero h1{font-size:clamp(28px,5vw,46px);font-weight:800;line-height:1.18;margin-bottom:18px;max-width:820px;margin-left:auto;margin-right:auto;position:relative}
+.art-hero .art-sub{font-size:18px;opacity:.92;max-width:660px;margin:0 auto;line-height:1.7;position:relative}
+.art-meta{margin-top:22px;font-size:13px;opacity:.7;position:relative;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+.art-meta i{font-size:12px;margin-right:4px}
+
+/* ARTICLE BODY */
+.art-section{padding:60px 20px 100px}
+.art-wrap{max-width:780px;margin:0 auto}
+.art-wrap h2{font-size:26px;font-weight:800;color:var(--text);margin:52px 0 18px;line-height:1.25;padding-top:16px}
+.art-wrap h3{font-size:20px;font-weight:700;color:var(--text);margin:36px 0 14px;line-height:1.3}
+.art-wrap p{font-size:16px;color:var(--text2);line-height:1.85;margin-bottom:18px}
+.art-wrap strong{color:var(--text);font-weight:600}
+.art-wrap ul,.art-wrap ol{padding-left:24px;margin-bottom:18px}
+.art-wrap li{font-size:16px;color:var(--text2);line-height:1.8;margin-bottom:6px}
+.art-wrap a{color:var(--orange);font-weight:500;text-decoration:none}
+.art-wrap a:hover{text-decoration:underline}
+
+/* CALLOUT BOXES */
+.art-callout{border-radius:14px;padding:24px 28px;margin:28px 0;line-height:1.7}
+.art-callout p{margin-bottom:8px}
+.art-callout p:last-child{margin-bottom:0}
+.art-callout.tip{background:#f0fdf4;border-left:4px solid #22c55e}
+.art-callout.tip .art-callout-title{color:#16a34a;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.art-callout.warn{background:#fef3c7;border-left:4px solid #f59e0b}
+.art-callout.warn .art-callout-title{color:#d97706;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.art-callout.key{background:#eff6ff;border-left:4px solid #3b82f6}
+.art-callout.key .art-callout-title{color:#2563eb;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.art-callout.orange{background:#fff7ed;border-left:4px solid var(--orange)}
+.art-callout.orange .art-callout-title{color:var(--orange);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+
+/* DIAGRAM BOXES (inline SVG illustrations) */
+.art-diagram{background:var(--bg);border-radius:14px;border:1.5px solid var(--border);padding:24px;margin:28px 0;text-align:center}
+.art-diagram svg{max-width:100%;height:auto}
+.art-diagram-caption{font-size:13px;color:var(--text2);margin-top:12px;font-style:italic}
+
+/* STEP CARDS */
+.art-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:24px 0 28px}
+.art-step{background:#fff;border-radius:14px;padding:22px;box-shadow:0 2px 14px rgba(0,0,0,.06);text-align:center;border-top:3px solid var(--orange)}
+.art-step-num{width:36px;height:36px;border-radius:50%;background:var(--orange);color:#fff;font-size:16px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px}
+.art-step h4{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+.art-step p{font-size:13px;color:var(--text2);line-height:1.6;margin:0}
+
+/* COMPARISON TABLE */
+.art-table-wrap{overflow-x:auto;margin:24px 0;border-radius:12px;border:1.5px solid var(--border)}
+.art-table{width:100%;border-collapse:collapse;font-size:14px}
+.art-table thead tr{background:var(--bg)}
+.art-table th{padding:12px 16px;text-align:left;font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border)}
+.art-table td{padding:12px 16px;border-bottom:1px solid #f0f0f3;color:var(--text)}
+.art-table tr:last-child td{border-bottom:none}
+.art-table .good{color:#16a34a;font-weight:600}
+.art-table .bad{color:#dc2626;font-weight:600}
+
+/* CTA */
+.art-cta{background:linear-gradient(135deg,var(--blue),#005ecb);border-radius:18px;padding:42px 36px;text-align:center;color:#fff;margin:48px 0 0}
+.art-cta h2{font-size:26px;font-weight:800;margin-bottom:12px;color:#fff}
+.art-cta p{font-size:16px;opacity:.9;max-width:540px;margin:0 auto 24px;line-height:1.7;color:#fff}
+.art-cta-btn{display:inline-flex;align-items:center;gap:9px;background:var(--orange);color:#fff;border-radius:12px;padding:14px 32px;font-size:16px;font-weight:700;text-decoration:none;transition:background .2s,transform .15s}
+.art-cta-btn:hover{background:#e05500;transform:translateY(-2px);color:#fff}
+
+/* SHARE */
+.art-share{display:flex;align-items:center;gap:12px;margin-top:36px;padding-top:24px;border-top:1.5px solid #f0f0f3}
+.art-share span{font-size:13px;font-weight:600;color:var(--text2)}
+.art-share a{width:36px;height:36px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--text2);text-decoration:none;transition:background .2s,color .2s;font-size:15px}
+.art-share a:hover{background:var(--orange);color:#fff}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .art-hero{padding:70px 16px 50px}
+  .art-section{padding:40px 16px 60px}
+  .art-wrap h2{font-size:22px;margin-top:36px}
+  .art-steps{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="karnot-nav" data-page="blog"></div>
+
+<!-- HERO -->
+<section class="art-hero rv" aria-label="Article header">
+  <div class="art-breadcrumb">
+    <a href="/">Home</a> / <a href="/blog/">Blog</a> / Pinch Analysis Guide
+  </div>
+  <span class="art-tag">Engineering Guide</span>
+  <h1>The Idiot's Guide to Utility Pinch Analysis</h1>
+  <p class="art-sub">No jargon. No PhD required. Learn how pinch analysis finds the exact minimum heating and cooling your process needs — and where a Karnot Heat Pump saves the most money.</p>
+  <div class="art-meta">
+    <span><i class="fa-regular fa-calendar"></i> 2 April 2026</span>
+    <span><i class="fa-regular fa-clock"></i> 12 min read</span>
+    <span><i class="fa-solid fa-industry"></i> Process Integration</span>
+  </div>
+</section>
+
+<main id="main-content">
+<section class="art-section">
+<div class="art-wrap">
+
+  <!-- ============ INTRO ============ -->
+  <p><strong>You are paying for more energy than your process actually needs.</strong> That is not a guess — it is a thermodynamic certainty in nearly every factory, dairy, brewery, and food plant on the planet. The question is: how much more?</p>
+
+  <p>Pinch analysis answers that question with mathematical precision. It tells you the absolute minimum amount of external heating (boiler fuel) and external cooling (chiller electricity) your process requires — after you have squeezed every possible drop of heat recovery out of your existing streams.</p>
+
+  <p>This guide will explain the whole thing in plain English. No differential equations. No assumptions about your engineering background. Just the core concepts, a worked example you can follow, and a clear explanation of where a Karnot Heat Pump fits into the picture.</p>
+
+  <div class="art-callout key">
+    <div class="art-callout-title"><i class="fa-solid fa-bullseye"></i> The big idea in one sentence</div>
+    <p>Pinch analysis finds the thermodynamic bottleneck in your process (the "pinch") that sets the absolute minimum amount of boiler and chiller energy you need. Everything above that minimum is waste you can eliminate.</p>
+  </div>
+
+  <!-- ============ SECTION 1 ============ -->
+  <h2>1. The Problem: You Are Heating and Cooling at the Same Time</h2>
+
+  <p>Walk through any food factory. On one side of the building, a boiler is burning gas to heat water. On the other side, a chiller is consuming electricity to cool something down. Often, these two things are happening simultaneously, within metres of each other.</p>
+
+  <p>This is spectacularly wasteful. The hot thing that needs cooling <em>contains the energy</em> that the cold thing needs. If you could transfer that heat across — from the stream that does not want it to the stream that does — you would need less boiler fuel <strong>and</strong> less chiller electricity.</p>
+
+  <p>Heat exchangers do exactly this. But here is the catch: <strong>how do you know you have recovered the maximum possible amount of heat?</strong> How do you know there is not another exchanger you could add that would save even more? And how do you know the exchangers you already have are not actually fighting each other?</p>
+
+  <p>That is the question pinch analysis was invented to answer.</p>
+
+  <!-- ============ SECTION 2 ============ -->
+  <h2>2. Hot Streams, Cold Streams, and Why They Matter</h2>
+
+  <p>Before we dive in, we need to define two terms. Everything in pinch analysis comes back to these:</p>
+
+  <ul>
+    <li><strong>Hot stream:</strong> Any flow of material that needs to be <em>cooled down</em>. It has heat to give away. Example: pasteurised milk at 90°C that needs to be cooled to 4°C.</li>
+    <li><strong>Cold stream:</strong> Any flow of material that needs to be <em>heated up</em>. It needs heat from somewhere. Example: raw milk at 4°C that needs to be preheated to 65°C.</li>
+  </ul>
+
+  <p>In a typical dairy, you might have 3–4 hot streams and 3–4 cold streams running at the same time. A pinch analysis considers <strong>all of them together</strong> — not one pair at a time — and that is what makes it so powerful.</p>
+
+  <div class="art-callout tip">
+    <div class="art-callout-title"><i class="fa-solid fa-lightbulb"></i> Think of it like a budget</div>
+    <p>Hot streams are like income — they have energy to spend. Cold streams are like expenses — they need energy. Pinch analysis is the accountant that figures out the maximum amount of internal transfer before you need to go to the bank (boiler) or throw money away (chiller).</p>
+  </div>
+
+  <!-- ============ SECTION 3 ============ -->
+  <h2>3. The Three Numbers That Change Everything</h2>
+
+  <p>When you run a pinch analysis, you get three results that define the energy performance of your entire process:</p>
+
+  <div class="art-steps">
+    <div class="art-step">
+      <div class="art-step-num">1</div>
+      <h4>Q<sub>H min</sub></h4>
+      <p>The minimum heating utility. This is the absolute least amount of boiler energy your process needs, after maximum heat recovery.</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num">2</div>
+      <h4>Q<sub>C min</sub></h4>
+      <p>The minimum cooling utility. The absolute least amount of chiller energy required, after maximum heat recovery.</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num">3</div>
+      <h4>Pinch Point</h4>
+      <p>The temperature at which the bottleneck occurs. This is where the magic happens — it splits your process in two.</p>
+    </div>
+  </div>
+
+  <p>If your current boiler is supplying more than Q<sub>H min</sub>, the difference is waste. If your chiller is removing more than Q<sub>C min</sub>, that is also waste. The gap between what you use now and the pinch target is your savings opportunity.</p>
+
+  <!-- ============ SECTION 4 ============ -->
+  <h2>4. Composite Curves: The Picture That Explains Everything</h2>
+
+  <p>Here is where it gets visual. Pinch analysis takes all your hot streams and stacks them into a single red line called the <strong>Hot Composite Curve</strong>. It does the same with all your cold streams to make a blue <strong>Cold Composite Curve</strong>.</p>
+
+  <p>These two curves are plotted on a graph with <strong>temperature</strong> on the vertical axis and <strong>heat load (kW)</strong> on the horizontal axis.</p>
+
+  <!-- INLINE SVG DIAGRAM: Composite Curves -->
+  <div class="art-diagram rv">
+    <svg viewBox="0 0 700 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Composite curves diagram showing hot curve, cold curve, heat recovery overlap, QH min and QC min">
+      <!--
+        Correct composite curve geometry:
+        - X axis = cumulative enthalpy (Heat Load, kW). Y axis = Temperature (°C).
+        - Hot composite (red) is ALWAYS above cold composite (blue). They never cross.
+        - Cold curve starts at Q=0. Hot curve starts offset to the right by QC_min.
+        - At the hot end, cold curve extends further right than hot curve by QH_min.
+        - Pinch = where vertical gap between curves is smallest (ΔT_min).
+        - QC min = horizontal gap at bottom (cold end). QH min = horizontal gap at top (hot end).
+
+        Plot area: x=[90..620], y=[50..340]  → T=[5..105°C], Q=[0..1000 kW]
+        Scale: 0.53 px/kW, 2.72 px/°C
+
+        Hot curve  (Ts→Te): 30°C @ Q=80  → 45°C @ 200 → 65°C @ 360 → 80°C @ 480 → 95°C @ 540 → 100°C @ 560
+        Cold curve (Ts→Te): 10°C @ Q=0   → 25°C @ 130 → 50°C @ 310 → 70°C @ 440 → 90°C @ 530 → 105°C @ 640
+
+        Pinch region: around Q≈480–530, T≈80–90°C  (closest approach ~10°C)
+        QC min: cold starts at Q=0, hot starts at Q=80  → 80 kW gap at bottom
+        QH min: hot ends at Q=560, cold ends at Q=640  → 80 kW gap at top
+      -->
+      <defs>
+        <linearGradient id="recovGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".10"/><stop offset="100%" stop-color="#22c55e" stop-opacity=".03"/></linearGradient>
+        <linearGradient id="qhGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ef4444" stop-opacity=".10"/><stop offset="100%" stop-color="#ef4444" stop-opacity=".02"/></linearGradient>
+        <linearGradient id="qcGrad" x1="1" y1="0" x2="0" y2="0"><stop offset="0%" stop-color="#3b82f6" stop-opacity=".10"/><stop offset="100%" stop-color="#3b82f6" stop-opacity=".02"/></linearGradient>
+      </defs>
+      <!-- Background -->
+      <rect width="700" height="440" fill="#fff" rx="12"/>
+
+      <!-- Grid — light dashed -->
+      <g stroke="#eee" stroke-width="0.8" stroke-dasharray="3 3">
+        <line x1="90" y1="68" x2="620" y2="68"/>
+        <line x1="90" y1="122" x2="620" y2="122"/>
+        <line x1="90" y1="177" x2="620" y2="177"/>
+        <line x1="90" y1="231" x2="620" y2="231"/>
+        <line x1="90" y1="286" x2="620" y2="286"/>
+        <line x1="196" y1="50" x2="196" y2="340"/>
+        <line x1="302" y1="50" x2="302" y2="340"/>
+        <line x1="408" y1="50" x2="408" y2="340"/>
+        <line x1="514" y1="50" x2="514" y2="340"/>
+      </g>
+
+      <!-- Axes -->
+      <line x1="90" y1="50" x2="90" y2="340" stroke="#444" stroke-width="1.5"/>
+      <line x1="90" y1="340" x2="620" y2="340" stroke="#444" stroke-width="1.5"/>
+
+      <!-- Y-axis ticks (T: 0°C at bottom to 120°C at top) -->
+      <g font-size="11" fill="#888" font-family="system-ui, sans-serif" text-anchor="end">
+        <text x="82" y="344">0</text>
+        <text x="82" y="290">20</text>
+        <text x="82" y="235">40</text>
+        <text x="82" y="181">60</text>
+        <text x="82" y="126">80</text>
+        <text x="82" y="72">100</text>
+      </g>
+      <!-- X-axis ticks (Q: 0 to 1000 kW) -->
+      <g font-size="11" fill="#888" font-family="system-ui, sans-serif" text-anchor="middle">
+        <text x="90" y="358">0</text>
+        <text x="196" y="358">200</text>
+        <text x="302" y="358">400</text>
+        <text x="408" y="358">600</text>
+        <text x="514" y="358">800</text>
+        <text x="620" y="358">1000</text>
+      </g>
+
+      <!-- Axis titles -->
+      <text x="355" y="395" text-anchor="middle" font-size="13" fill="#444" font-weight="600" font-family="system-ui, sans-serif">Heat Load (kW)</text>
+      <text x="28" y="200" text-anchor="middle" font-size="13" fill="#444" font-weight="600" font-family="system-ui, sans-serif" transform="rotate(-90 28 200)">Temperature (°C)</text>
+
+      <!-- === SHADED ZONES (behind curves) === -->
+
+      <!-- QC min zone — vertical blue strip at bottom-left -->
+      <!-- Cold curve starts at (90,313) = Q=0, T=10°C.  Hot curve starts at (132,286) = Q=80, T=20°C (actually 30°C) -->
+      <!-- This is the horizontal gap at the cold end -->
+      <rect x="90" y="260" width="42" height="80" fill="url(#qcGrad)" rx="0"/>
+
+      <!-- Heat recovery overlap zone (between the two curves in the overlap region) -->
+      <!-- Top edge = hot curve, bottom edge = cold curve (reversed), from x=132 to x=560 -->
+      <polygon points="132,259 196,209 325,166 380,144 420,130 480,117 530,100 560,93 560,109 530,118 480,138 420,162 380,171 325,187 196,242 132,291" fill="url(#recovGrad)"/>
+
+      <!-- QH min zone — vertical red strip at top-right -->
+      <!-- Hot ends at x=560. Cold ends at x=610. -->
+      <rect x="560" y="80" width="50" height="28" fill="url(#qhGrad)" rx="0"/>
+
+      <!-- === CURVES === -->
+      <!--
+        Reshaped so pinch (closest approach = ΔTmin ≈ 10°C) occurs clearly
+        around Q≈480 kW, T≈72°C hot / 62°C cold.
+        The curves diverge above and below the pinch.
+
+        Hot:  Q=80→T=30  Q=200→T=48  Q=350→T=64  Q=480→T=72  Q=560→T=82  Q=620→T=92  Q=660→T=95
+        Cold: Q=0→T=10   Q=80→T=18   Q=200→T=36  Q=350→T=56  Q=480→T=62  Q=560→T=74  Q=660→T=86  Q=740→T=95
+
+        Vertical gaps (in °C): 12, 12, 12, 8, 10, 8, 18, 9 — clear minimum at pinch (Q=480)
+
+        Y scale: 0°C=340, 100°C=68  → 1°C = 2.72px
+        X scale: Q=0→x=90, Q=1000→x=620  → 1kW = 0.53px
+      -->
+      <!-- HOT composite (red) — starts offset right by QC_min, always ABOVE cold -->
+      <polyline points="132,259 196,209 325,166 380,144 420,130 480,117 530,100 560,93" stroke="#ef4444" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+
+      <!-- COLD composite (blue) — starts at Q=0, extends further right at hot end -->
+      <polyline points="90,313 132,291 196,242 325,187 380,171 420,162 480,138 530,118 560,109 610,95" stroke="#3b82f6" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+
+
+      <!-- === QH min bracket === -->
+      <!-- Horizontal bracket at top: from hot curve end (x=560) to cold curve end (x=610) -->
+      <line x1="562" y1="82" x2="608" y2="82" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5 3"/>
+      <line x1="562" y1="78" x2="562" y2="86" stroke="#dc2626" stroke-width="1.5"/>
+      <line x1="608" y1="78" x2="608" y2="86" stroke="#dc2626" stroke-width="1.5"/>
+      <text x="585" y="74" text-anchor="middle" font-size="11" fill="#dc2626" font-weight="700" font-family="system-ui, sans-serif">Q<tspan font-size="8" dy="2">H min</tspan></text>
+      <text x="585" y="62" text-anchor="middle" font-size="9.5" fill="#999" font-family="system-ui, sans-serif">Boiler needed</text>
+
+      <!-- === QC min bracket === -->
+      <!-- Horizontal bracket at bottom: from Q=0 (x=90) to hot curve start (x=132) -->
+      <line x1="92" y1="350" x2="130" y2="350" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 3"/>
+      <line x1="92" y1="346" x2="92" y2="354" stroke="#2563eb" stroke-width="1.5"/>
+      <line x1="130" y1="346" x2="130" y2="354" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="111" y="368" text-anchor="middle" font-size="11" fill="#2563eb" font-weight="700" font-family="system-ui, sans-serif">Q<tspan font-size="8" dy="2">C min</tspan></text>
+      <text x="111" y="382" text-anchor="middle" font-size="9.5" fill="#999" font-family="system-ui, sans-serif">Chiller needed</text>
+
+      <!-- === Heat recovery label === -->
+      <text x="350" y="225" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="700" font-family="system-ui, sans-serif" opacity=".7">HEAT RECOVERY</text>
+      <text x="350" y="241" text-anchor="middle" font-size="10.5" fill="#16a34a" font-family="system-ui, sans-serif" opacity=".5">(internal exchange)</text>
+
+      <!-- Legend -->
+      <rect x="500" y="300" width="126" height="38" rx="6" fill="#fff" stroke="#e5e5e7" stroke-width="1"/>
+      <line x1="510" y1="314" x2="530" y2="314" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+      <text x="536" y="318" font-size="10.5" fill="#444" font-family="system-ui, sans-serif">Hot Composite</text>
+      <line x1="510" y1="330" x2="530" y2="330" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+      <text x="536" y="334" font-size="10.5" fill="#444" font-family="system-ui, sans-serif">Cold Composite</text>
+    </svg>
+    <div class="art-diagram-caption">Composite curves: the shaded overlap is free heat recovery. The gaps at top-right (boiler) and bottom-left (chiller) are the minimum utilities you cannot avoid.</div>
+  </div>
+
+  <p>Here is how to read it:</p>
+  <ul>
+    <li><strong>The overlap</strong> between the two curves (the green zone) is the maximum amount of heat you can transfer internally — hot streams to cold streams — using heat exchangers. This is free energy recovery. No fuel. No electricity.</li>
+    <li><strong>The gap at the top-right</strong> (above the hot curve) is Q<sub>H min</sub> — the heating that <em>must</em> come from an external source (boiler, heat pump, etc.) because there are no hot streams available at that temperature.</li>
+    <li><strong>The gap at the bottom-left</strong> (below the cold curve) is Q<sub>C min</sub> — the cooling that <em>must</em> be rejected externally (chiller, cooling tower) because there are no cold streams available to absorb it.</li>
+    <li><strong>The narrowest point</strong> between the curves is the <strong>pinch point</strong>. This is the thermodynamic bottleneck.</li>
+  </ul>
+
+  <!-- ============ SECTION 5 ============ -->
+  <h2>5. The Pinch Point: The Most Important Temperature in Your Factory</h2>
+
+  <p>The pinch point is where the net heat flow through your process is zero. It divides the entire process into two halves:</p>
+
+  <ul>
+    <li><strong>Above the pinch:</strong> There is a net heat <em>deficit</em>. Cold streams need more energy than hot streams can provide. This is where external heating (boiler) is required.</li>
+    <li><strong>Below the pinch:</strong> There is a net heat <em>surplus</em>. Hot streams have more energy than cold streams can absorb. This is where external cooling (chiller) is required.</li>
+  </ul>
+
+  <div class="art-callout warn">
+    <div class="art-callout-title"><i class="fa-solid fa-triangle-exclamation"></i> The golden rule of pinch analysis</div>
+    <p><strong>Never transfer heat across the pinch.</strong> If you take heat from above the pinch and send it below, you increase both Q<sub>H</sub> and Q<sub>C</sub> simultaneously. Every kW of cross-pinch transfer costs you 1 kW of extra boiler <em>and</em> 1 kW of extra chiller. It is the single most expensive design mistake in process integration.</p>
+  </div>
+
+  <p>This rule sounds simple, but it is violated constantly in real factories. The classic example: using a boiler to heat CIP water on one side of the plant while simultaneously running a chiller to cool product on the other — when those two streams could have been exchanging heat directly.</p>
+
+  <!-- ============ SECTION 6 ============ -->
+  <h2>6. A Worked Example: Mid-Size Dairy Plant</h2>
+
+  <p>Let us walk through a real example. Take a typical mid-size dairy with these process streams running simultaneously:</p>
+
+  <div class="art-table-wrap">
+    <table class="art-table">
+      <thead>
+        <tr><th>Stream</th><th>Type</th><th>From</th><th>To</th><th>Load</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Raw Milk Reception Cooling</td><td class="bad">Hot</td><td>35°C</td><td>4°C</td><td>150 kW</td></tr>
+        <tr><td>Pasteurisation Preheating</td><td class="good">Cold</td><td>4°C</td><td>66°C</td><td>250 kW</td></tr>
+        <tr><td>Pasteurisation (to 90°C)</td><td class="good">Cold</td><td>66°C</td><td>90°C</td><td>120 kW</td></tr>
+        <tr><td>Pasteurisation Cooling</td><td class="bad">Hot</td><td>90°C</td><td>4°C</td><td>350 kW</td></tr>
+        <tr><td>Cream Pasteurisation</td><td class="good">Cold</td><td>66°C</td><td>98°C</td><td>80 kW</td></tr>
+        <tr><td>Cream Cooling</td><td class="bad">Hot</td><td>98°C</td><td>4°C</td><td>120 kW</td></tr>
+        <tr><td>Evaporation Preheating</td><td class="good">Cold</td><td>4°C</td><td>70°C</td><td>180 kW</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Total hot load (streams that need cooling): <strong>620 kW</strong>. Total cold load (streams that need heating): <strong>630 kW</strong>. At first glance, it looks like these should nearly cancel out. And they almost do — but not at the right temperatures.</p>
+
+  <p>Running a pinch analysis on these streams (with a minimum approach temperature of 10°C) gives us:</p>
+
+  <div class="art-steps">
+    <div class="art-step">
+      <div class="art-step-num" style="background:#dc2626">Q<sub>H</sub></div>
+      <h4>~210 kW</h4>
+      <p>Minimum boiler heating. Everything above this is recoverable.</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num" style="background:#2563eb">Q<sub>C</sub></div>
+      <h4>~200 kW</h4>
+      <p>Minimum chiller cooling. Everything above this is recoverable.</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num" style="background:#16a34a"><i class="fa-solid fa-recycle" style="font-size:14px"></i></div>
+      <h4>~420 kW</h4>
+      <p>Maximum internal heat recovery — energy you never need to buy.</p>
+    </div>
+  </div>
+
+  <p>If this dairy is currently running a 500 kW boiler and a 400 kW chiller, the pinch analysis tells them they only <em>need</em> about 210 kW of heating and 200 kW of cooling. The rest — nearly 60% — is waste from poor heat integration.</p>
+
+  <div class="art-callout tip">
+    <div class="art-callout-title"><i class="fa-solid fa-calculator"></i> Try it yourself</div>
+    <p>You can run this exact example in our free <a href="/engineering-hub/pinch-analysis.html">Pinch Analysis Tool</a>. Select the "General Dairy Plant" template — it uses these same streams. Adjust the temperatures and loads to match your own process.</p>
+  </div>
+
+  <!-- ============ SECTION 7 ============ -->
+  <h2>7. The Grand Composite Curve: Where Exactly to Put a Heat Pump</h2>
+
+  <p>The composite curves tell you <em>how much</em> energy you need. The <strong>Grand Composite Curve</strong> (GCC) tells you <em>at what temperature</em> you need it.</p>
+
+  <p>The GCC is a single line that shows the net heat surplus or deficit at each temperature level. It is the tool that reveals exactly where a Karnot Heat Pump fits.</p>
+
+  <p>Here is the critical insight: a heat pump is a device that <strong>moves heat from a low temperature to a high temperature</strong>, using electricity to drive the process. It is the opposite of what heat naturally wants to do.</p>
+
+  <p>In a pinch analysis, the perfect place for a heat pump is <strong>straddling the pinch</strong>:</p>
+
+  <ul>
+    <li><strong>Evaporator side</strong> (below the pinch): The heat pump absorbs waste heat that would otherwise go to the chiller. This <em>reduces your cooling bill</em>.</li>
+    <li><strong>Condenser side</strong> (above the pinch): The heat pump delivers that energy — upgraded to a higher temperature — where the boiler would normally supply it. This <em>reduces your heating bill</em>.</li>
+  </ul>
+
+  <!-- INLINE SVG: Heat Pump Placement Diagram -->
+  <div class="art-diagram rv">
+    <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing how a Karnot Heat Pump straddles the pinch point">
+      <defs>
+        <linearGradient id="hp-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#dcfce7" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#bbf7d0" stop-opacity="0.3"/>
+        </linearGradient>
+        <linearGradient id="hot-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fef2f2"/>
+          <stop offset="100%" stop-color="#fee2e2" stop-opacity="0.5"/>
+        </linearGradient>
+        <linearGradient id="cold-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#eff6ff"/>
+          <stop offset="100%" stop-color="#dbeafe" stop-opacity="0.5"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background -->
+      <rect width="640" height="400" fill="#fafbfc" rx="12"/>
+
+      <!-- Pinch divider line -->
+      <line x1="20" y1="200" x2="620" y2="200" stroke="#F56600" stroke-width="2" stroke-dasharray="10 6"/>
+      <rect x="20" y="189" width="108" height="22" rx="4" fill="#F56600"/>
+      <text x="74" y="204" text-anchor="middle" font-size="11" fill="#fff" font-weight="700" font-family="system-ui, sans-serif" letter-spacing="0.5">PINCH POINT</text>
+
+      <!-- ABOVE PINCH zone -->
+      <rect x="32" y="24" width="220" height="160" rx="14" fill="url(#hot-bg)" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="142" y="52" text-anchor="middle" font-size="12" fill="#b91c1c" font-weight="700" font-family="system-ui, sans-serif" letter-spacing="0.8">ABOVE PINCH</text>
+      <line x1="92" y1="60" x2="192" y2="60" stroke="#fca5a5" stroke-width="1"/>
+      <text x="142" y="82" text-anchor="middle" font-size="11" fill="#6e6e73" font-family="system-ui, sans-serif">Heat deficit</text>
+      <text x="142" y="112" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="system-ui, sans-serif">Currently supplied by:</text>
+      <text x="142" y="134" text-anchor="middle" font-size="13" fill="#dc2626" font-weight="700" font-family="system-ui, sans-serif">Boiler</text>
+      <text x="142" y="152" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="system-ui, sans-serif">(gas / diesel)</text>
+
+      <!-- BELOW PINCH zone -->
+      <rect x="32" y="216" width="220" height="160" rx="14" fill="url(#cold-bg)" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="142" y="244" text-anchor="middle" font-size="12" fill="#1d4ed8" font-weight="700" font-family="system-ui, sans-serif" letter-spacing="0.8">BELOW PINCH</text>
+      <line x1="92" y1="252" x2="192" y2="252" stroke="#93c5fd" stroke-width="1"/>
+      <text x="142" y="274" text-anchor="middle" font-size="11" fill="#6e6e73" font-family="system-ui, sans-serif">Heat surplus</text>
+      <text x="142" y="304" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="system-ui, sans-serif">Currently removed by:</text>
+      <text x="142" y="326" text-anchor="middle" font-size="13" fill="#2563eb" font-weight="700" font-family="system-ui, sans-serif">Chiller</text>
+      <text x="142" y="344" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="system-ui, sans-serif">(electricity)</text>
+
+      <!-- KARNOT HEAT PUMP -->
+      <rect x="348" y="44" width="260" height="312" rx="18" fill="url(#hp-bg)" stroke="#4ade80" stroke-width="2"/>
+      <text x="478" y="74" text-anchor="middle" font-size="16" fill="#15803d" font-weight="800" font-family="system-ui, sans-serif" letter-spacing="1">KARNOT HEAT PUMP</text>
+      <line x1="398" y1="84" x2="558" y2="84" stroke="#86efac" stroke-width="1"/>
+
+      <!-- Condenser sub-box -->
+      <rect x="383" y="100" width="190" height="54" rx="10" fill="#fff" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="478" y="120" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="700" font-family="system-ui, sans-serif">CONDENSER</text>
+      <text x="478" y="140" text-anchor="middle" font-size="10" fill="#6e6e73" font-family="system-ui, sans-serif">Delivers heat (replaces boiler)</text>
+
+      <!-- Evaporator sub-box -->
+      <rect x="383" y="246" width="190" height="54" rx="10" fill="#fff" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="478" y="266" text-anchor="middle" font-size="12" fill="#2563eb" font-weight="700" font-family="system-ui, sans-serif">EVAPORATOR</text>
+      <text x="478" y="286" text-anchor="middle" font-size="10" fill="#6e6e73" font-family="system-ui, sans-serif">Absorbs heat (replaces chiller)</text>
+
+      <!-- Dashed connecting lines: Above Pinch → Condenser -->
+      <line x1="252" y1="104" x2="380" y2="122" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="6 4"/>
+
+      <!-- Dashed connecting lines: Below Pinch → Evaporator -->
+      <line x1="252" y1="296" x2="380" y2="274" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="6 4"/>
+    </svg>
+    <div class="art-diagram-caption">A Karnot Heat Pump straddles the pinch — absorbing waste heat below and delivering useful heat above. It reduces both your boiler and chiller simultaneously.</div>
+  </div>
+
+  <p>This is what makes a well-placed heat pump so powerful: <strong>it attacks both utility bills at once.</strong> Every kW the evaporator absorbs is a kW the chiller does not need to remove. Every kW the condenser delivers is a kW the boiler does not need to burn.</p>
+
+  <div class="art-callout orange">
+    <div class="art-callout-title"><i class="fa-solid fa-bolt"></i> The maths of a COP 3.8 Karnot Heat Pump</div>
+    <p>With a COP of 3.8, for every 1 kW of electricity the compressor consumes, the condenser delivers 3.8 kW of heat. That means the evaporator absorbs 2.8 kW from below the pinch. So for 1 kW of electricity input, you save up to 3.8 kW of boiler fuel AND 2.8 kW of chiller electricity. That is a 6.6 kW swing from 1 kW of input.</p>
+  </div>
+
+  <!-- ============ SECTION 8 ============ -->
+  <h2>8. Why Placement Matters More Than Size</h2>
+
+  <p>One of the most common mistakes is buying a heat pump and putting it in the wrong place. If you place a heat pump <strong>entirely above the pinch</strong>, it is just replacing boiler fuel with electricity — useful, but not optimal. If you place it <strong>entirely below the pinch</strong>, it is just replacing chiller electricity with... more electricity. Pointless.</p>
+
+  <p>Only a heat pump that <strong>straddles the pinch</strong> — evaporator below, condenser above — delivers the double benefit.</p>
+
+  <div class="art-table-wrap">
+    <table class="art-table">
+      <thead>
+        <tr><th>Placement</th><th>Heating Savings</th><th>Cooling Savings</th><th>Verdict</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Entirely above pinch</td><td class="good">Yes (replaces boiler)</td><td class="bad">None</td><td>Suboptimal</td></tr>
+        <tr><td>Entirely below pinch</td><td class="bad">None</td><td class="bad">None (swaps elec for elec)</td><td>Wasteful</td></tr>
+        <tr><td><strong>Straddling the pinch</strong></td><td class="good">Yes (replaces boiler)</td><td class="good">Yes (replaces chiller)</td><td class="good">Optimal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>This is why you need pinch analysis <em>before</em> you buy the heat pump. Without it, you are guessing at the placement. With it, you know exactly the right temperature range and duty.</p>
+
+  <!-- ============ SECTION 8b ============ -->
+  <h3>How It Actually Connects: Utility Piping in Practice</h3>
+
+  <p>The theory is clear — straddle the pinch. But how does a Karnot Heat Pump physically connect to your plant? It is simpler than most people expect, because it ties into the <strong>utility loops</strong> you already have.</p>
+
+  <p>A typical process plant has two utility circuits:</p>
+  <ul>
+    <li><strong>Hot water loop</strong> — heated by a boiler, circulated to process heat exchangers, returns cooler.</li>
+    <li><strong>Cooling water loop</strong> — cooled by a chiller or cooling tower, circulated to process heat exchangers, returns warmer.</li>
+  </ul>
+
+  <p>The Karnot Heat Pump connects to both:</p>
+
+  <div class="art-steps">
+    <div class="art-step">
+      <div class="art-step-num" style="background:#2563eb">1</div>
+      <h4>Evaporator connects to the cooling return</h4>
+      <p>Warm water returning from the process (or from the cooling tower return) passes through the heat pump evaporator. The heat pump extracts heat from this water, cooling it down before it reaches the chiller or cooling tower.</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num" style="background:#dc2626">2</div>
+      <h4>Condenser connects to the hot water supply</h4>
+      <p>The heat pump upgrades that extracted energy to a higher temperature and delivers it into the hot water line — either pre-heating the boiler return or directly supplying process heat exchangers.</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num" style="background:#16a34a">3</div>
+      <h4>Both utilities benefit simultaneously</h4>
+      <p>The boiler fires less because the hot water is already partially heated. The cooling tower or chiller works less because the return water arrives cooler. One device, two savings.</p>
+    </div>
+  </div>
+
+  <div class="art-callout key">
+    <div class="art-callout-title"><i class="fa-solid fa-tower-broadcast"></i> Cooling tower bonus</div>
+    <p>When the evaporator takes heat from the cooling tower return, the water arriving at the tower is already cooler. The tower fans run less, water evaporation drops, and chemical treatment costs fall. This is a third saving that most simple payback calculations miss entirely.</p>
+  </div>
+
+  <!-- INLINE SVG: Utility Connection Diagram -->
+  <div class="art-diagram rv">
+    <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing how a Karnot Heat Pump connects to plant utility loops">
+      <defs>
+        <linearGradient id="inst-hp-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#dcfce7" stop-opacity="0.4"/><stop offset="100%" stop-color="#bbf7d0" stop-opacity="0.2"/></linearGradient>
+      </defs>
+      <!-- Background -->
+      <rect width="700" height="340" fill="#fafbfc" rx="12"/>
+
+      <!-- Process box (centre top) -->
+      <rect x="260" y="20" width="180" height="50" rx="10" fill="#f5f5f7" stroke="#d1d5db" stroke-width="1.5"/>
+      <text x="350" y="50" text-anchor="middle" font-size="13" fill="#444" font-weight="700" font-family="system-ui, sans-serif">PROCESS</text>
+
+      <!-- Boiler (top left) -->
+      <rect x="30" y="20" width="130" height="50" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="95" y="44" text-anchor="middle" font-size="11" fill="#dc2626" font-weight="700" font-family="system-ui, sans-serif">BOILER</text>
+      <text x="95" y="58" text-anchor="middle" font-size="9" fill="#9ca3af" font-family="system-ui, sans-serif">(fires less)</text>
+
+      <!-- Cooling tower (top right) -->
+      <rect x="540" y="20" width="130" height="50" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="605" y="44" text-anchor="middle" font-size="11" fill="#2563eb" font-weight="700" font-family="system-ui, sans-serif">COOLING TOWER</text>
+      <text x="605" y="58" text-anchor="middle" font-size="9" fill="#9ca3af" font-family="system-ui, sans-serif">(runs less)</text>
+
+      <!-- Karnot HP (centre) -->
+      <rect x="245" y="135" width="210" height="110" rx="16" fill="url(#inst-hp-bg)" stroke="#4ade80" stroke-width="2"/>
+      <text x="350" y="162" text-anchor="middle" font-size="14" fill="#15803d" font-weight="800" font-family="system-ui, sans-serif">KARNOT HEAT PUMP</text>
+
+      <!-- Condenser label inside HP -->
+      <rect x="262" y="172" width="82" height="28" rx="6" fill="#fff" stroke="#fca5a5" stroke-width="1"/>
+      <text x="303" y="190" text-anchor="middle" font-size="9.5" fill="#dc2626" font-weight="600" font-family="system-ui, sans-serif">Condenser</text>
+
+      <!-- Evaporator label inside HP -->
+      <rect x="356" y="172" width="82" height="28" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1"/>
+      <text x="397" y="190" text-anchor="middle" font-size="9.5" fill="#2563eb" font-weight="600" font-family="system-ui, sans-serif">Evaporator</text>
+
+      <!-- HOT WATER LOOP (red/orange) — left side -->
+      <!-- Boiler → Process (hot supply) -->
+      <line x1="160" y1="35" x2="260" y2="35" stroke="#ef4444" stroke-width="2"/>
+      <text x="210" y="28" text-anchor="middle" font-size="8.5" fill="#dc2626" font-family="system-ui, sans-serif">Hot supply</text>
+
+      <!-- Process → HP Condenser (return, cooler) -->
+      <line x1="280" y1="70" x2="280" y2="135" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 3"/>
+      <text x="268" y="105" text-anchor="end" font-size="8.5" fill="#dc2626" font-family="system-ui, sans-serif">Return (cooler)</text>
+
+      <!-- HP Condenser → Boiler (pre-heated return) -->
+      <line x1="262" y1="186" x2="95" y2="186" stroke="#ef4444" stroke-width="2"/>
+      <line x1="95" y1="186" x2="95" y2="70" stroke="#ef4444" stroke-width="2"/>
+      <text x="170" y="210" text-anchor="middle" font-size="8.5" fill="#dc2626" font-family="system-ui, sans-serif">Pre-heated return</text>
+
+      <!-- COOLING WATER LOOP (blue) — right side -->
+      <!-- Process → Cooling tower (warm return) -->
+      <line x1="440" y1="35" x2="540" y2="35" stroke="#3b82f6" stroke-width="2"/>
+      <text x="490" y="28" text-anchor="middle" font-size="8.5" fill="#2563eb" font-family="system-ui, sans-serif">Warm return</text>
+
+      <!-- Cooling tower return → HP Evaporator -->
+      <line x1="420" y1="70" x2="420" y2="135" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5 3"/>
+      <text x="434" y="105" text-anchor="start" font-size="8.5" fill="#2563eb" font-family="system-ui, sans-serif">Tower return</text>
+
+      <!-- HP Evaporator → Cooling tower (pre-cooled) -->
+      <line x1="438" y1="186" x2="605" y2="186" stroke="#3b82f6" stroke-width="2"/>
+      <line x1="605" y1="186" x2="605" y2="70" stroke="#3b82f6" stroke-width="2"/>
+      <text x="525" y="210" text-anchor="middle" font-size="8.5" fill="#2563eb" font-family="system-ui, sans-serif">Pre-cooled return</text>
+
+      <!-- Electricity input -->
+      <line x1="350" y1="310" x2="350" y2="245" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="350" y="326" text-anchor="middle" font-size="9.5" fill="#d97706" font-weight="600" font-family="system-ui, sans-serif">Electricity</text>
+
+      <!-- Savings annotations -->
+      <text x="95" y="280" text-anchor="middle" font-size="9" fill="#16a34a" font-weight="600" font-family="system-ui, sans-serif">Less fuel burned</text>
+      <text x="605" y="280" text-anchor="middle" font-size="9" fill="#16a34a" font-weight="600" font-family="system-ui, sans-serif">Less fan energy</text>
+      <text x="605" y="294" text-anchor="middle" font-size="9" fill="#16a34a" font-weight="600" font-family="system-ui, sans-serif">Less water lost</text>
+    </svg>
+    <div class="art-diagram-caption">The Karnot Heat Pump sits between your hot and cold utility loops. The condenser pre-heats boiler return water; the evaporator pre-cools cooling tower return water. Both utilities work less.</div>
+  </div>
+
+  <p>In practice, this means <strong>four pipe connections</strong> and an electrical supply. No changes to your process heat exchangers, no re-routing of product lines. The heat pump operates entirely on the utility side.</p>
+
+  <!-- ============ SECTION 9 ============ -->
+  <h2>9. What About ΔT<sub>min</sub>?</h2>
+
+  <p>You will see this term everywhere in pinch analysis: ΔT<sub>min</sub>, the "minimum approach temperature." It is the smallest temperature difference you will allow between a hot stream and a cold stream in a heat exchanger.</p>
+
+  <p>A smaller ΔT<sub>min</sub> means more heat recovery (the curves get closer together) but requires larger, more expensive heat exchangers. A larger ΔT<sub>min</sub> means less recovery but cheaper exchangers.</p>
+
+  <p>Typical values:</p>
+  <ul>
+    <li><strong>5–10°C</strong> for liquid-to-liquid (dairy, food processing)</li>
+    <li><strong>10–20°C</strong> for gas-to-liquid</li>
+    <li><strong>20–30°C</strong> for gas-to-gas</li>
+  </ul>
+
+  <p>For most food and dairy processes, <strong>10°C</strong> is a sensible starting point. Our <a href="/engineering-hub/pinch-analysis.html">Pinch Analysis Tool</a> lets you adjust this and see how it affects the targets in real time.</p>
+
+  <!-- ============ SECTION 10 ============ -->
+  <h2>10. From Theory to Action: What to Do Next</h2>
+
+  <p>Here is a practical roadmap for applying pinch analysis in your facility:</p>
+
+  <div class="art-steps">
+    <div class="art-step">
+      <div class="art-step-num">1</div>
+      <h4>List Your Streams</h4>
+      <p>Identify every hot stream (needs cooling) and cold stream (needs heating). Record supply temp, target temp, and heat load (kW).</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num">2</div>
+      <h4>Run the Analysis</h4>
+      <p>Use our free <a href="/engineering-hub/pinch-analysis.html" style="color:#F56600">Pinch Analysis Tool</a> or contact our engineering team. Get your QH min, QC min, and pinch point.</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num">3</div>
+      <h4>Compare to Reality</h4>
+      <p>How much boiler and chiller energy are you actually using? The gap between actual and target is your savings opportunity.</p>
+    </div>
+    <div class="art-step">
+      <div class="art-step-num">4</div>
+      <h4>Size the Heat Pump</h4>
+      <p>Using the pinch targets, determine the optimal condenser duty and temperature lift. Our tool recommends the right Karnot equipment automatically.</p>
+    </div>
+  </div>
+
+  <div class="art-callout key">
+    <div class="art-callout-title"><i class="fa-solid fa-chart-line"></i> Real-world impact</div>
+    <p>In our dairy example, a Karnot Heat Pump sized at the pinch target can cut combined heating and cooling costs by <strong>40–60%</strong>, with a simple payback of <strong>2–4 years</strong>. The CO<sub>2</sub> reduction typically exceeds 50%, which also helps with SEC PFRS S2 sustainability reporting and DOE compliance under RA 11285.</p>
+  </div>
+
+  <!-- ============ SUMMARY ============ -->
+  <h2>Summary: The Five Things to Remember</h2>
+
+  <ol>
+    <li><strong>Every factory heats and cools simultaneously.</strong> The overlap is wasted energy you can recover.</li>
+    <li><strong>Pinch analysis finds the thermodynamic minimum.</strong> It tells you the absolute least energy your process needs — everything above that is waste.</li>
+    <li><strong>The pinch point splits your process in two.</strong> Above = heat deficit (needs boiler). Below = heat surplus (needs chiller). Never transfer heat across the pinch.</li>
+    <li><strong>A Karnot Heat Pump straddles the pinch.</strong> Evaporator below (replaces chiller), condenser above (replaces boiler). Double savings from a single device.</li>
+    <li><strong>Placement matters more than size.</strong> Do the pinch analysis first, then size the equipment. Not the other way around.</li>
+  </ol>
+
+  <!-- CTA -->
+  <div class="art-cta rv">
+    <h2>Run your own pinch analysis — free</h2>
+    <p>Enter your process streams into our Pinch Analysis Tool and see your minimum utility targets, composite curves, and recommended Karnot equipment in seconds.</p>
+    <a href="/engineering-hub/pinch-analysis.html" class="art-cta-btn">
+      <i class="fa-solid fa-calculator"></i> Open Pinch Analysis Tool
+    </a>
+  </div>
+
+  <!-- SHARE -->
+  <div class="art-share">
+    <span>Share this article:</span>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://karnot.com/blog/idiots-guide-utility-pinch-analysis" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://karnot.com/blog/idiots-guide-utility-pinch-analysis" target="_blank" rel="noopener" aria-label="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=https://karnot.com/blog/idiots-guide-utility-pinch-analysis&text=The%20Idiot%27s%20Guide%20to%20Utility%20Pinch%20Analysis" target="_blank" rel="noopener" aria-label="Share on Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+  </div>
+
+</div>
+</section>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+</body>
+</html>

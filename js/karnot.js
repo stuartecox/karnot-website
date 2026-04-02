@@ -12,6 +12,17 @@ var KARNOT_BASE = (function(){
 })();
 function kLink(page){ return KARNOT_BASE + page; }
 
+// --- INJECT FAVICON (if not already present) ---
+(function(){
+  if(!document.querySelector('link[rel="icon"]')){
+    var link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/svg+xml';
+    link.href = kLink('favicon.svg');
+    document.head.appendChild(link);
+  }
+})();
+
 // --- INJECT NAV ---
 (function(){
   var nav = document.getElementById('karnot-nav');
@@ -27,13 +38,10 @@ function kLink(page){ return KARNOT_BASE + page; }
     </a>\
     <div class="nav-links">\
       <a href="' + kLink('products.html') + '"' + active('products') + ' class="nav-hide-tablet">Products</a>\
-      <a href="' + kLink('iheat.html') + '"' + active('iheat') + ' class="nav-hide-tablet">iHEAT</a>\
-      <a href="' + kLink('icool.html') + '"' + active('icool') + ' class="nav-hide-tablet">iCOOL</a>\
-      <a href="' + kLink('ispa.html') + '"' + active('ispa') + ' class="nav-hide-tablet">iSPA</a>\
-      <a href="' + kLink('icryo.html') + '"' + active('icryo') + ' class="nav-hide-tablet">iCRYO</a>\
       <a href="' + kLink('applications.html') + '"' + active('applications') + ' class="nav-hide-tablet">Applications</a>\
       <a href="' + kLink('engineering-hub/') + '"' + active('engineering') + ' class="nav-hide-tablet">Engineering Hub</a>\
       <a href="' + kLink('compliance.html') + '"' + active('compliance') + ' class="nav-hide-tablet">Compliance</a>\
+      <a href="' + kLink('blog/') + '"' + active('blog') + ' class="nav-hide-tablet">Blog</a>\
       <a href="' + kLink('about.html') + '"' + active('about') + ' class="nav-hide-tablet">About</a>\
       <a href="' + kLink('contact.html') + '"' + active('contact') + '>Contact</a>\
       <a href="' + kLink('savings.html') + '" class="nav-cta">Calculate Savings</a>\
@@ -44,13 +52,10 @@ function kLink(page){ return KARNOT_BASE + page; }
     <button class="mobile-close" aria-label="Close menu" onclick="this.parentElement.classList.remove(\'open\')"><i class="fa-solid fa-xmark"></i></button>\
     <a href="' + kLink('') + '" onclick="this.parentElement.classList.remove(\'open\')">Home</a>\
     <a href="' + kLink('products.html') + '">Products</a>\
-    <a href="' + kLink('iheat.html') + '">iHEAT</a>\
-    <a href="' + kLink('icool.html') + '">iCOOL</a>\
-    <a href="' + kLink('ispa.html') + '">iSPA Pools</a>\
-    <a href="' + kLink('icryo.html') + '">iCRYO</a>\
     <a href="' + kLink('applications.html') + '">Applications</a>\
     <a href="' + kLink('engineering-hub/') + '">Engineering Hub</a>\
     <a href="' + kLink('compliance.html') + '">Compliance</a>\
+    <a href="' + kLink('blog/') + '">Blog</a>\
     <a href="' + kLink('izone.html') + '">iZONE</a>\
     <a href="' + kLink('isave.html') + '">iSAVE</a>\
     <a href="' + kLink('imesh.html') + '">iMESH</a>\
@@ -94,6 +99,7 @@ function kLink(page){ return KARNOT_BASE + page; }
         <h4>Resources</h4>\
         <a href="' + kLink('savings.html') + '">Savings Calculator</a>\
         <a href="' + kLink('engineering-hub/') + '">Engineering Hub</a>\
+        <a href="' + kLink('blog/') + '">Blog</a>\
         <a href="' + kLink('faq.html') + '">FAQ</a>\
         <a href="' + kLink('about.html') + '">About Us</a>\
         <a href="' + kLink('contact.html') + '">Contact</a>\
