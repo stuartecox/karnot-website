@@ -872,10 +872,19 @@ function fetchProducts() {
       });
 
       if (converted.length > 0) {
+        // Check if CRM has CO2 heat pump products
+        var hasCO2 = converted.some(function(p) { return p.type === 'co2'; });
+        if (!hasCO2) {
+          // CRM has no CO2 iHEAT products yet (they may be categorised as iCOOL)
+          // Keep the fallback CO2 range so high-temp selections still work
+          var fallbackCO2 = FALLBACK_PRODUCTS.filter(function(p) { return p.type === 'co2'; });
+          converted = converted.concat(fallbackCO2);
+        }
         converted.sort(function(a, b) { return a.kw - b.kw; });
         KARNOT_PRODUCTS = converted;
         productsSource = 'firestore';
-        console.log('[Karnot] Loaded ' + converted.length + ' products from CRM Firestore');
+        console.log('[Karnot] Loaded ' + converted.length + ' products from CRM Firestore' +
+                     (hasCO2 ? '' : ' (+ fallback CO\u2082 range)'));
       }
     })
     .catch(function(err) {
