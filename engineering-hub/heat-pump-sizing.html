@@ -1268,9 +1268,16 @@ function renderProductRecommendation(requiredKW, sinkTemp, cop) {
   if (!container) return;
 
   // Filter to products that can achieve the sink temp
-  const candidates = KARNOT_PRODUCTS.filter(function(p) {
+  var candidates = KARNOT_PRODUCTS.filter(function(p) {
     return sinkTemp <= p.maxT;
   });
+
+  // If no exact match, use products with highest available maxT
+  if (candidates.length === 0) {
+    var highestT = 0;
+    KARNOT_PRODUCTS.forEach(function(p) { if (p.maxT > highestT) highestT = p.maxT; });
+    candidates = KARNOT_PRODUCTS.filter(function(p) { return p.maxT >= highestT - 5; });
+  }
 
   if (candidates.length === 0) {
     container.innerHTML = '<p style="color:#c0392b">No suitable product found for the specified flow temperature.</p>';

@@ -1609,9 +1609,23 @@ let KARNOT_PRODUCTS = FALLBACK_PA_PRODUCTS.slice();
 })();
 
 function findMatchingProduct(dutyKW, sinkTemp){
+  if(!KARNOT_PRODUCTS.length) return null;
+
+  // 1. Try exact match: products that can reach the sink temp
+  let candidates = KARNOT_PRODUCTS.filter(p => p.maxTemp >= sinkTemp);
+
+  // 2. If no exact match, use the products with highest maxTemp available
+  //    (better to recommend something than show nothing)
+  if(!candidates.length){
+    const highestTemp = Math.max.apply(null, KARNOT_PRODUCTS.map(p => p.maxTemp || 0));
+    candidates = KARNOT_PRODUCTS.filter(p => p.maxTemp >= highestTemp - 5);
+  }
+
+  // 3. If still nothing, use all products
+  if(!candidates.length) candidates = KARNOT_PRODUCTS.slice();
+
   // Prefer CO2 for high-temp (>70°C), else R290
   const preferCO2 = sinkTemp > 70;
-  let candidates = KARNOT_PRODUCTS.filter(p => p.maxTemp >= sinkTemp);
   if(preferCO2){
     const co2 = candidates.filter(p => p.type === 'co2');
     if(co2.length) candidates = co2;
