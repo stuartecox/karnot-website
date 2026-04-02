@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heat Pump Sizing Calculator — Building Heat Loss &amp; Karnot HP Selection | Karnot Engineering Hub</title>
+<meta name="description" content="Free heat pump sizing calculator. Calculate building heat loss per BS EN 12831 / ASHRAE, size a Karnot heat pump (R-290 or CO2), and compare annual running costs vs gas, oil, or electric heating.">
+<meta name="keywords" content="heat pump sizing calculator, building heat loss, BS EN 12831, ASHRAE, U-value, HDD, COP, R290 heat pump, CO2 heat pump, Karnot heat pump, annual savings, payback, domestic heating">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/heat-pump-sizing">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/heat-pump-sizing">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/heat-pump-sizing">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/heat-pump-sizing">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/heat-pump-sizing">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Heat Pump Sizing Calculator — Building Heat Loss &amp; Karnot HP Selection">
+<meta property="og:description" content="Calculate building heat loss, size a Karnot heat pump, and compare annual running costs vs your current heating system. Free engineering tool.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/heat-pump-sizing">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Heat Pump Sizing Calculator — Building Heat Loss &amp; Karnot HP Selection">
+<meta name="twitter:description" content="Free heat pump sizing calculator. Building heat loss per BS EN 12831, Karnot HP selection, COP estimation, annual savings vs gas/oil/electric.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"https://img1.wsimg.com/isteam/ip/cb1de239-c2b8-4674-b57d-5ae86a72feb1/logo.png","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]},"sameAs":["https://www.facebook.com/karnotenergy","https://www.linkedin.com/company/karnot-energy","https://www.instagram.com/karnotenergy"]},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Heat Pump Sizing Calculator","item":"https://karnot.com/engineering-hub/heat-pump-sizing"}]},
+    {"@type":"WebApplication","name":"Heat Pump Sizing Calculator","url":"https://karnot.com/engineering-hub/heat-pump-sizing","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate building heat loss per BS EN 12831 / ASHRAE, size a Karnot heat pump (R-290 or CO2), estimate COP, and compare annual running costs and CO2 emissions vs gas, oil, or electric heating.","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How is building heat loss calculated?","acceptedAnswer":{"@type":"Answer","text":"Building heat loss is calculated per BS EN 12831 / ASHRAE by summing fabric (transmission) losses and ventilation losses. Fabric loss for each element (walls, roof, floor, windows, doors) = U-value x Area x Temperature Difference (indoor minus outdoor design temperature). Ventilation loss = Volume x Air Changes per Hour x 0.33 x Temperature Difference. The total design heat loss determines the minimum heat pump capacity required."}},
+      {"@type":"Question","name":"What COP should I expect from a Karnot heat pump?","acceptedAnswer":{"@type":"Answer","text":"COP (Coefficient of Performance) depends on the temperature lift — the difference between the heat source (outdoor air) and the heat sink (flow temperature). At typical UK conditions (-4°C outdoor, 45°C flow), an R-290 Karnot iHEAT achieves a COP of approximately 2.8–3.2. Lower flow temperatures (e.g. 35°C underfloor) give higher COPs, while colder climates or higher flow temperatures reduce COP. The Karnot CO2 range excels at high-temperature applications above 80°C."}},
+      {"@type":"Question","name":"What flow temperature should I use?","acceptedAnswer":{"@type":"Answer","text":"Flow temperature depends on your heat distribution system. Underfloor heating typically runs at 35°C, low-temperature radiators at 45°C, standard radiators at 55°C, and high-temperature systems at 65°C. Lower flow temperatures give significantly better heat pump efficiency (higher COP). If you are retrofitting, consider oversizing radiators to allow a lower flow temperature."}},
+      {"@type":"Question","name":"How do Heating Degree Days (HDD) affect annual energy estimates?","acceptedAnswer":{"@type":"Answer","text":"Heating Degree Days quantify how much heating a building needs over a full year by summing the daily temperature deficits below a base temperature (typically 15.5°C). The annual energy formula is: Annual kWh = (Design kW × HDD × 24) / Design ΔT. HDD accounts for mild days where little or no heating is needed, giving a far more accurate annual estimate than simply multiplying the peak heat loss by 8,760 hours."}},
+      {"@type":"Question","name":"What is the difference between R-290 and CO2 heat pumps?","acceptedAnswer":{"@type":"Answer","text":"R-290 (propane) heat pumps are ideal for heating up to 80°C with excellent COP. They use a natural refrigerant with a GWP of just 3. Karnot CO2 (R-744) heat pumps can deliver temperatures up to 110°C, making them suitable for domestic hot water, high-temperature radiators, and process heating. CO2 operates in a transcritical cycle that excels at heating water from low to high temperatures. R-290 is generally more efficient for space heating; CO2 is preferred when high-temperature output is required."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   HEAT PUMP SIZING — hs- prefix
+   =========================== */
+
+/* HERO */
+.hs-hero{
+  background:linear-gradient(135deg,rgba(0,60,140,.92),rgba(0,100,200,.78),rgba(245,102,0,.3));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.hs-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.hs-hero h1{font-size:clamp(28px,5vw,46px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:860px;margin-left:auto;margin-right:auto;position:relative}
+.hs-hero p{font-size:18px;max-width:760px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.hs-hero .hs-subtitle{font-size:16px;max-width:720px;margin:18px auto 0;line-height:1.7;opacity:.88;position:relative}
+.hs-breadcrumb{font-size:13px;margin-bottom:14px;opacity:.78;position:relative}
+.hs-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.hs-breadcrumb a:hover{text-decoration:underline}
+.hs-breadcrumb span{margin:0 6px;opacity:.6}
+
+/* MAIN WRAPPER */
+.hs-wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+
+/* SECTION CARDS */
+.hs-card{
+  background:#fff;border-radius:18px;
+  box-shadow:0 4px 28px rgba(0,0,0,.07);
+  padding:36px;margin-top:32px
+}
+.hs-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hs-card h2 i{color:#F56600;font-size:20px}
+.hs-card h3{font-size:17px;font-weight:600;color:#1d1d1f;margin-bottom:12px}
+
+/* COLLAPSIBLE */
+.hs-collapsible-header{
+  display:flex;align-items:center;justify-content:space-between;cursor:pointer;
+  padding:18px 0;border-bottom:1.5px solid #f0f0f3;user-select:none
+}
+.hs-collapsible-header h2{margin-bottom:0;font-size:20px}
+.hs-collapsible-toggle{color:#F56600;font-size:18px;transition:transform .25s;flex-shrink:0}
+.hs-collapsible-body{overflow:hidden;max-height:0;transition:max-height .35s ease}
+.hs-collapsible-body.open{max-height:1200px}
+.hs-collapsible-body-inner{padding:20px 0 8px}
+
+/* HOW IT WORKS GRID */
+.hs-hiw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px}
+.hs-hiw-item{background:#f5f5f7;border-radius:12px;padding:20px;text-align:center}
+.hs-hiw-item i{font-size:28px;margin-bottom:10px;display:block}
+.hs-hiw-item.envelope i{color:#ef4444}
+.hs-hiw-item.climate i{color:#3b82f6}
+.hs-hiw-item.calc i{color:#F56600}
+.hs-hiw-item.select i{color:#22c55e}
+.hs-hiw-item h4{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:6px}
+.hs-hiw-item p{font-size:13px;color:#6e6e73;line-height:1.5;margin:0}
+
+/* TEMPLATE DROPDOWN */
+.hs-template-row{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.hs-template-row label{font-size:14px;font-weight:600;color:#444;white-space:nowrap}
+.hs-template-select{
+  flex:1;min-width:200px;padding:11px 14px;border:1.5px solid #ddd;border-radius:10px;
+  font-size:15px;background:#fafafa;color:#1d1d1f;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s
+}
+.hs-template-select:focus{outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.13)}
+
+/* INPUT FIELDS GRID */
+.hs-fields-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px 22px}
+.hs-field{display:flex;flex-direction:column}
+.hs-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.hs-field input,.hs-field select{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.hs-field input:focus,.hs-field select:focus{outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.12)}
+.hs-field .hs-hint{font-size:11px;color:#999;margin-top:3px}
+.hs-field-divider{grid-column:1/-1;height:1px;background:#f0f0f3;margin:4px 0}
+
+/* FUEL TOGGLE BUTTONS */
+.hs-fuel-toggle{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1.5px solid #ddd;margin-bottom:18px;max-width:360px}
+.hs-fuel-btn{
+  flex:1;padding:12px 16px;font-size:14px;font-weight:600;
+  text-align:center;cursor:pointer;background:#fafafa;color:#6e6e73;
+  border:none;border-right:1px solid #e5e5e7;transition:all .2s;
+  user-select:none
+}
+.hs-fuel-btn:last-child{border-right:none}
+.hs-fuel-btn.active{background:#1d1d1f;color:#fff}
+.hs-fuel-btn:hover:not(.active){background:#f0f0f3}
+
+/* FLOW TEMP TOGGLE */
+.hs-flow-toggle{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1.5px solid #ddd;margin-bottom:18px;flex-wrap:wrap}
+.hs-flow-btn{
+  flex:1;padding:10px 12px;font-size:13px;font-weight:600;
+  text-align:center;cursor:pointer;background:#fafafa;color:#6e6e73;
+  border:none;border-right:1px solid #e5e5e7;transition:all .2s;
+  user-select:none;min-width:100px
+}
+.hs-flow-btn:last-child{border-right:none}
+.hs-flow-btn.active{background:#1d1d1f;color:#fff}
+.hs-flow-btn:hover:not(.active){background:#f0f0f3}
+
+/* CALCULATE BUTTON */
+.hs-calc-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;max-width:500px;margin:36px auto 0;
+  background:#F56600;color:#fff;border:none;border-radius:14px;
+  padding:18px 32px;font-size:18px;font-weight:700;cursor:pointer;
+  transition:background .2s,transform .15s;box-shadow:0 4px 18px rgba(245,102,0,.25)
+}
+.hs-calc-btn:hover{background:#e05500;transform:translateY(-2px)}
+.hs-calc-btn:active{transform:translateY(0)}
+
+/* RESULTS METRIC CARDS */
+.hs-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px}
+.hs-metric{
+  border-radius:14px;padding:22px 20px;text-align:center;
+  box-shadow:0 2px 12px rgba(0,0,0,.07)
+}
+.hs-metric-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.hs-metric-value{font-size:34px;font-weight:800;line-height:1;margin-bottom:4px}
+.hs-metric-unit{font-size:13px;font-weight:500;opacity:.75}
+.hs-metric.heat{background:linear-gradient(135deg,#fff5f5,#fee2e2);border:1.5px solid rgba(239,68,68,.3)}
+.hs-metric.heat .hs-metric-label{color:#ef4444}
+.hs-metric.heat .hs-metric-value{color:#dc2626}
+.hs-metric.cool{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid rgba(59,130,246,.3)}
+.hs-metric.cool .hs-metric-label{color:#3b82f6}
+.hs-metric.cool .hs-metric-value{color:#2563eb}
+.hs-metric.teal{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1.5px solid rgba(20,184,166,.3)}
+.hs-metric.teal .hs-metric-label{color:#14b8a6}
+.hs-metric.teal .hs-metric-value{color:#0d9488}
+.hs-metric.total{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(245,102,0,.35)}
+.hs-metric.total .hs-metric-label{color:#F56600}
+.hs-metric.total .hs-metric-value{color:#ea580c;font-size:42px}
+
+/* BREAKDOWN TABLE */
+.hs-breakdown-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:20px}
+.hs-breakdown-table th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.hs-breakdown-table td{padding:10px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+.hs-breakdown-table tr:last-child td{border-bottom:none;font-weight:700;background:#f5f5f7}
+.hs-breakdown-table .hs-formula{font-size:12px;color:#999;font-family:monospace}
+
+/* CANVAS CHARTS */
+.hs-chart-wrap{background:#fafafa;border-radius:14px;border:1.5px solid #e5e5e7;padding:18px;position:relative}
+canvas.hs-canvas{display:block;width:100%;max-width:100%}
+.hs-chart-title{font-size:15px;font-weight:700;color:#1d1d1f;margin-bottom:12px}
+
+/* PRODUCT RECOMMENDATION */
+.hs-product-box{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1.5px solid rgba(34,197,94,.3);border-radius:14px;padding:24px;margin-bottom:16px}
+.hs-product-name{font-size:20px;font-weight:800;color:#1d1d1f;margin-bottom:4px}
+.hs-product-ref{font-size:13px;color:#F56600;font-weight:600;margin-bottom:14px}
+.hs-product-specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.hs-product-spec{background:rgba(255,255,255,.7);border-radius:9px;padding:12px;text-align:center}
+.hs-product-spec .hs-ps-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6e6e73;margin-bottom:4px}
+.hs-product-spec .hs-ps-value{font-size:18px;font-weight:800;color:#1d1d1f}
+.hs-product-spec .hs-ps-unit{font-size:11px;color:#999}
+.hs-product-note{font-size:13px;color:#6e6e73;line-height:1.6;margin-top:14px;padding:12px 14px;background:rgba(245,102,0,.06);border-radius:9px;border-left:3px solid #F56600}
+
+/* SAVINGS HERO METRICS */
+.hs-savings-heroes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+.hs-shero{border-radius:14px;padding:22px;text-align:center;background:linear-gradient(135deg,#fff7ed,#fef3c7);border:1.5px solid rgba(245,102,0,.25)}
+.hs-shero .hs-sh-label{font-size:11px;font-weight:700;color:#F56600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.hs-shero .hs-sh-value{font-size:28px;font-weight:800;color:#1d1d1f;line-height:1;margin-bottom:4px}
+.hs-shero .hs-sh-unit{font-size:13px;color:#6e6e73}
+.hs-shero.green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:rgba(34,197,94,.25)}
+.hs-shero.green .hs-sh-label{color:#16a34a}
+.hs-shero.blue{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:rgba(59,130,246,.25)}
+.hs-shero.blue .hs-sh-label{color:#2563eb}
+
+/* COST TABLE */
+.hs-cost-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:24px}
+.hs-cost-table th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.hs-cost-table td{padding:12px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+.hs-cost-table tr:last-child td{border-bottom:none;font-weight:700;background:#f5f5f7}
+.hs-cost-table .hs-saving{color:#16a34a;font-weight:700}
+.hs-cost-table .hs-added{color:#dc2626}
+
+/* CO2 TABLE */
+.hs-co2-table{width:100%;border-collapse:collapse;font-size:14px}
+.hs-co2-table th{padding:10px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.hs-co2-table td{padding:11px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+.hs-co2-table tr:last-child td{border-bottom:none;font-weight:700;background:#f5f5f7}
+
+/* CTA */
+.hs-cta{
+  background:linear-gradient(135deg,#003c8c,#005ecb);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.hs-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.hs-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.hs-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#F56600;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.hs-cta-btn:hover{background:#e05500;transform:translateY(-2px);color:#fff}
+
+/* FAQ */
+.hs-faq{margin-top:16px}
+.hs-faq-item{border-bottom:1.5px solid #f0f0f3}
+.hs-faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;cursor:pointer;user-select:none;gap:12px
+}
+.hs-faq-q span{font-size:16px;font-weight:600;color:#1d1d1f;flex:1}
+.hs-faq-q i{color:#F56600;font-size:14px;transition:transform .25s;flex-shrink:0}
+.hs-faq-q.open i{transform:rotate(180deg)}
+.hs-faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.hs-faq-a.open{max-height:400px}
+.hs-faq-a p{font-size:15px;color:#6e6e73;line-height:1.75;padding-bottom:18px;margin:0}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .hs-card{padding:22px 16px}
+  .hs-fields-grid{grid-template-columns:1fr 1fr}
+  .hs-results-grid{grid-template-columns:1fr 1fr}
+  .hs-savings-heroes{grid-template-columns:1fr 1fr}
+  .hs-product-specs{grid-template-columns:1fr 1fr}
+  .hs-flow-toggle{flex-wrap:wrap}
+  .hs-flow-btn{min-width:80px;font-size:12px;padding:8px 6px}
+}
+@media(max-width:400px){
+  .hs-fields-grid{grid-template-columns:1fr}
+  .hs-results-grid{grid-template-columns:1fr}
+  .hs-savings-heroes{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div id="karnot-nav" data-page="engineering"></div>
+
+<!-- HERO -->
+<section class="hs-hero">
+  <div class="hs-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Heat Pump Sizing
+  </div>
+  <h1>Heat Pump Sizing Calculator</h1>
+  <p>Calculate building heat loss per BS EN 12831 / ASHRAE, size a Karnot heat pump, and compare annual costs vs gas boiler.</p>
+  <p class="hs-subtitle">Enter your building dimensions, insulation levels, and climate data below. The tool computes design heat loss, estimates seasonal COP, selects the optimal Karnot Heat Pump, and produces a full annual savings report.</p>
+</section>
+
+<div class="hs-wrap">
+
+  <!-- HOW IT WORKS (collapsible, default closed) -->
+  <div class="hs-card rv">
+    <div class="hs-collapsible-header" id="hs-hiw-header" aria-expanded="false" aria-controls="hs-hiw-body">
+      <h2><i class="fa-solid fa-circle-info"></i> How It Works</h2>
+      <i class="fa-solid fa-chevron-down hs-collapsible-toggle" id="hs-hiw-icon"></i>
+    </div>
+    <div class="hs-collapsible-body" id="hs-hiw-body" role="region">
+      <div class="hs-collapsible-body-inner">
+        <p style="font-size:15px;color:#6e6e73;line-height:1.8;margin-bottom:18px">
+          This calculator follows the BS EN 12831 / ASHRAE methodology: it sums fabric (transmission) losses through walls, roof, floor, windows, and doors, adds ventilation losses, then adds domestic hot water demand to determine the total design heat load. It then sizes a Karnot Heat Pump and estimates annual running costs using the Heating Degree Day method.
+        </p>
+        <div class="hs-hiw-grid">
+          <div class="hs-hiw-item envelope">
+            <i class="fa-solid fa-building"></i>
+            <h4>Building Envelope</h4>
+            <p>Define dimensions and U-values for walls, roof, floor, windows, and doors. Pick a building age preset or enter custom values.</p>
+          </div>
+          <div class="hs-hiw-item climate">
+            <i class="fa-solid fa-cloud-sun"></i>
+            <h4>Climate Data</h4>
+            <p>Select your region to auto-fill design outdoor temperature and Heating Degree Days (HDD). These drive both peak and annual calculations.</p>
+          </div>
+          <div class="hs-hiw-item calc">
+            <i class="fa-solid fa-calculator"></i>
+            <h4>Heat Loss Calc</h4>
+            <p>Fabric loss + ventilation loss + DHW peak demand = total design heat load in kW. Each element is shown with its formula.</p>
+          </div>
+          <div class="hs-hiw-item select">
+            <i class="fa-solid fa-check-circle"></i>
+            <h4>HP Selection &amp; Savings</h4>
+            <p>The tool sizes a Karnot iHEAT, estimates COP at design conditions, and calculates annual running cost savings vs your current fuel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: BUILDING ENVELOPE -->
+  <div class="hs-card rv">
+    <h2><i class="fa-solid fa-building"></i> Building Envelope</h2>
+
+    <div class="hs-template-row">
+      <label for="hs-building-preset">Building type:</label>
+      <select id="hs-building-preset" class="hs-template-select">
+        <option value="pre_1920">Pre-1920 (Solid walls)</option>
+        <option value="1920_1950">1920&ndash;1950 (Cavity, uninsulated)</option>
+        <option value="1950_1976">1950&ndash;1976 (Some insulation)</option>
+        <option value="1976_2000" selected>1976&ndash;2000 (Building regs)</option>
+        <option value="post_2000">Post-2000 (Modern regs)</option>
+        <option value="passive">Passive House</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
+
+    <h3>Dimensions</h3>
+    <div class="hs-fields-grid">
+      <div class="hs-field">
+        <label for="hs-floor-area">Floor Area (m&sup2;)</label>
+        <input type="number" id="hs-floor-area" value="120" min="10" max="10000" step="1">
+        <span class="hs-hint">Total heated floor area per storey</span>
+      </div>
+      <div class="hs-field">
+        <label for="hs-length">Building Length (m)</label>
+        <input type="number" id="hs-length" value="12" min="1" max="200" step="0.5">
+      </div>
+      <div class="hs-field">
+        <label for="hs-width">Building Width (m)</label>
+        <input type="number" id="hs-width" value="10" min="1" max="200" step="0.5">
+      </div>
+      <div class="hs-field">
+        <label for="hs-ceiling">Ceiling Height (m)</label>
+        <input type="number" id="hs-ceiling" value="2.5" min="2" max="6" step="0.1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-floors">Number of Floors</label>
+        <input type="number" id="hs-floors" value="2" min="1" max="10" step="1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-window-area">Window Area (m&sup2;)</label>
+        <input type="number" id="hs-window-area" value="20" min="0" max="500" step="1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-door-area">Door Area (m&sup2;)</label>
+        <input type="number" id="hs-door-area" value="4" min="0" max="50" step="0.5">
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">U-Values &amp; Air Tightness</h3>
+    <div class="hs-fields-grid">
+      <div class="hs-field">
+        <label for="hs-u-wall">Wall U-value (W/m&sup2;K)</label>
+        <input type="number" id="hs-u-wall" value="0.6" min="0.05" max="5" step="0.01">
+      </div>
+      <div class="hs-field">
+        <label for="hs-u-roof">Roof U-value (W/m&sup2;K)</label>
+        <input type="number" id="hs-u-roof" value="0.35" min="0.05" max="5" step="0.01">
+      </div>
+      <div class="hs-field">
+        <label for="hs-u-floor">Floor U-value (W/m&sup2;K)</label>
+        <input type="number" id="hs-u-floor" value="0.45" min="0.05" max="3" step="0.01">
+      </div>
+      <div class="hs-field">
+        <label for="hs-u-window">Window U-value (W/m&sup2;K)</label>
+        <input type="number" id="hs-u-window" value="2.8" min="0.5" max="6" step="0.1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-u-door">Door U-value (W/m&sup2;K)</label>
+        <input type="number" id="hs-u-door" value="2.0" min="0.5" max="5" step="0.1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-ach">Air Changes/Hour (ACH)</label>
+        <input type="number" id="hs-ach" value="0.7" min="0.1" max="5" step="0.1">
+        <span class="hs-hint">Natural infiltration rate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: CLIMATE & ENERGY -->
+  <div class="hs-card rv">
+    <h2><i class="fa-solid fa-cloud-sun"></i> Climate &amp; Energy</h2>
+
+    <div class="hs-template-row">
+      <label for="hs-climate-preset">Region:</label>
+      <select id="hs-climate-preset" class="hs-template-select">
+        <option value="london" selected>London, UK</option>
+        <option value="manchester">Manchester, UK</option>
+        <option value="edinburgh">Edinburgh, UK</option>
+        <option value="belfast">Belfast, UK</option>
+        <option value="manila">Manila, Philippines</option>
+        <option value="baguio">Baguio, Philippines</option>
+        <option value="new_york">New York, USA</option>
+        <option value="chicago">Chicago, USA</option>
+        <option value="miami">Miami, USA</option>
+        <option value="denver">Denver, USA</option>
+        <option value="seattle">Seattle, USA</option>
+        <option value="toronto">Toronto, Canada</option>
+        <option value="vancouver">Vancouver, Canada</option>
+        <option value="montreal">Montreal, Canada</option>
+        <option value="calgary">Calgary, Canada</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
+
+    <div class="hs-fields-grid">
+      <div class="hs-field">
+        <label for="hs-outdoor-temp">Design Outdoor Temp (&deg;C)</label>
+        <input type="number" id="hs-outdoor-temp" value="-4" min="-50" max="40" step="1">
+        <span class="hs-hint">Coldest design day temperature</span>
+      </div>
+      <div class="hs-field">
+        <label for="hs-indoor-temp">Indoor Design Temp (&deg;C)</label>
+        <input type="number" id="hs-indoor-temp" value="21" min="15" max="30" step="1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-hdd">Heating Degree Days (HDD)</label>
+        <input type="number" id="hs-hdd" value="2021" min="0" max="10000" step="1">
+        <span class="hs-hint">Annual HDD (base 15.5&deg;C)</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">Current Fuel Source</h3>
+    <div class="hs-fuel-toggle" id="hs-fuel-toggle">
+      <button type="button" class="hs-fuel-btn active" data-fuel="gas">Gas</button>
+      <button type="button" class="hs-fuel-btn" data-fuel="oil">Oil</button>
+      <button type="button" class="hs-fuel-btn" data-fuel="electric">Electric</button>
+    </div>
+
+    <div class="hs-fields-grid">
+      <div class="hs-field">
+        <label for="hs-fuel-rate">Fuel Rate (&pound;/kWh)</label>
+        <input type="number" id="hs-fuel-rate" value="0.065" min="0.001" max="2" step="0.001">
+        <span class="hs-hint">Cost per kWh of current fuel</span>
+      </div>
+      <div class="hs-field">
+        <label for="hs-boiler-eff">Boiler/System Efficiency (%)</label>
+        <input type="number" id="hs-boiler-eff" value="85" min="50" max="100" step="1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-elec-rate">Electricity Rate for HP (&pound;/kWh)</label>
+        <input type="number" id="hs-elec-rate" value="0.202" min="0.01" max="2" step="0.001">
+        <span class="hs-hint">Grid electricity cost for heat pump</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: DHW DEMAND -->
+  <div class="hs-card rv">
+    <h2><i class="fa-solid fa-faucet-drip"></i> Domestic Hot Water (DHW)</h2>
+
+    <div class="hs-fields-grid">
+      <div class="hs-field">
+        <label for="hs-occupants">Occupants</label>
+        <input type="number" id="hs-occupants" value="4" min="1" max="50" step="1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-litres">Litres per Person per Day</label>
+        <input type="number" id="hs-litres" value="50" min="10" max="200" step="5">
+      </div>
+      <div class="hs-field">
+        <label for="hs-cold-water">Cold Water Inlet (&deg;C)</label>
+        <input type="number" id="hs-cold-water" value="10" min="0" max="30" step="1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-hot-water">Hot Water Target (&deg;C)</label>
+        <input type="number" id="hs-hot-water" value="55" min="40" max="75" step="1">
+      </div>
+      <div class="hs-field">
+        <label for="hs-recovery">Recovery Hours</label>
+        <input type="number" id="hs-recovery" value="4" min="1" max="24" step="0.5">
+        <span class="hs-hint">Time to reheat DHW cylinder</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: CALCULATE BUTTON -->
+  <button type="button" class="hs-calc-btn rv" id="hs-calc-btn">
+    <i class="fa-solid fa-calculator"></i> Calculate Heat Loss &amp; Size Heat Pump
+  </button>
+
+  <!-- SECTION 7: DESIGN HEAT LOSS RESULTS -->
+  <div class="hs-card rv" id="hs-results-card" style="display:none">
+    <h2><i class="fa-solid fa-chart-bar"></i> Design Heat Loss Results</h2>
+
+    <div class="hs-results-grid">
+      <div class="hs-metric heat">
+        <div class="hs-metric-label"><i class="fa-solid fa-arrow-right-from-bracket"></i> Transmission Loss</div>
+        <div class="hs-metric-value" id="res-transmission">--</div>
+        <div class="hs-metric-unit">kW</div>
+      </div>
+      <div class="hs-metric cool">
+        <div class="hs-metric-label"><i class="fa-solid fa-wind"></i> Ventilation Loss</div>
+        <div class="hs-metric-value" id="res-ventilation">--</div>
+        <div class="hs-metric-unit">kW</div>
+      </div>
+      <div class="hs-metric teal">
+        <div class="hs-metric-label"><i class="fa-solid fa-faucet-drip"></i> DHW Peak Load</div>
+        <div class="hs-metric-value" id="res-dhw">--</div>
+        <div class="hs-metric-unit">kW</div>
+      </div>
+      <div class="hs-metric total">
+        <div class="hs-metric-label"><i class="fa-solid fa-bolt"></i> Total Design Load</div>
+        <div class="hs-metric-value" id="res-total">--</div>
+        <div class="hs-metric-unit">kW</div>
+      </div>
+    </div>
+
+    <h3>Heat Loss Breakdown</h3>
+    <div style="overflow-x:auto">
+      <table class="hs-breakdown-table">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Formula</th>
+            <th>Result (kW)</th>
+          </tr>
+        </thead>
+        <tbody id="hs-breakdown-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 8: COP & PRODUCT SELECTION -->
+  <div class="hs-card rv" id="hs-cop-card" style="display:none">
+    <h2><i class="fa-solid fa-temperature-half"></i> COP &amp; Product Selection</h2>
+
+    <h3>Flow Temperature</h3>
+    <div class="hs-flow-toggle" id="hs-flow-toggle">
+      <button type="button" class="hs-flow-btn" data-flow="35">Underfloor (35&deg;C)</button>
+      <button type="button" class="hs-flow-btn active" data-flow="45">Low-temp Rads (45&deg;C)</button>
+      <button type="button" class="hs-flow-btn" data-flow="55">Std Radiators (55&deg;C)</button>
+      <button type="button" class="hs-flow-btn" data-flow="65">High-temp (65&deg;C)</button>
+      <button type="button" class="hs-flow-btn" data-flow="dhw">DHW Priority (55&deg;C)</button>
+    </div>
+
+    <div class="hs-fields-grid" style="margin-bottom:24px">
+      <div class="hs-field">
+        <label>COP at Design Conditions</label>
+        <div style="font-size:32px;font-weight:800;color:#F56600" id="res-cop">--</div>
+      </div>
+      <div class="hs-field">
+        <label>Source Temp (Outdoor Design)</label>
+        <div style="font-size:20px;font-weight:700;color:#1d1d1f" id="res-source">--</div>
+      </div>
+      <div class="hs-field">
+        <label>Sink Temp (Flow)</label>
+        <div style="font-size:20px;font-weight:700;color:#1d1d1f" id="res-sink">--</div>
+      </div>
+    </div>
+
+    <h3>COP vs Outdoor Temperature</h3>
+    <div class="hs-chart-wrap">
+      <canvas id="hs-cop-canvas" class="hs-canvas" height="320"></canvas>
+    </div>
+
+    <h3 style="margin-top:28px">Recommended Karnot Equipment</h3>
+    <div id="hs-product-result"></div>
+    <p style="font-size:12px;color:#999;margin-top:16px;line-height:1.5"><em>Product selection is indicative. Contact our engineering team for a detailed specification and formal quotation tailored to your site conditions.</em></p>
+  </div>
+
+  <!-- SECTION 9: ANNUAL ENERGY & SAVINGS -->
+  <div class="hs-card rv" id="hs-savings-card" style="display:none">
+    <h2><i class="fa-solid fa-piggy-bank"></i> Annual Energy &amp; Savings</h2>
+
+    <div class="hs-savings-heroes">
+      <div class="hs-shero green">
+        <div class="hs-sh-label">Annual Cost Saving</div>
+        <div class="hs-sh-value" id="sav-annual">--</div>
+        <div class="hs-sh-unit">&pound;/year</div>
+      </div>
+      <div class="hs-shero blue">
+        <div class="hs-sh-label">CO<sub>2</sub> Reduction</div>
+        <div class="hs-sh-value" id="sav-co2">--</div>
+        <div class="hs-sh-unit">tonnes CO<sub>2</sub>/year</div>
+      </div>
+      <div class="hs-shero">
+        <div class="hs-sh-label">Simple Payback</div>
+        <div class="hs-sh-value" id="sav-payback">--</div>
+        <div class="hs-sh-unit">years</div>
+      </div>
+    </div>
+
+    <h3>Cost Comparison (&pound;/year)</h3>
+    <div style="overflow-x:auto">
+      <table class="hs-cost-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Current System</th>
+            <th>With Karnot HP</th>
+            <th>Saving</th>
+          </tr>
+        </thead>
+        <tbody id="hs-cost-tbody"></tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:28px">CO<sub>2</sub> Emissions (tonnes/year)</h3>
+    <div style="overflow-x:auto">
+      <table class="hs-co2-table">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Current System</th>
+            <th>With Karnot HP</th>
+            <th>Saved</th>
+          </tr>
+        </thead>
+        <tbody id="hs-co2-tbody"></tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:28px">Annual Cost Comparison</h3>
+    <div class="hs-chart-wrap">
+      <canvas id="hs-cost-canvas" class="hs-canvas" height="300"></canvas>
+    </div>
+  </div>
+
+  <!-- SECTION 10: CTA -->
+  <div class="hs-cta rv">
+    <h2>Ready to size your Karnot Heat Pump?</h2>
+    <p>Our engineering team can perform a detailed site survey, building heat loss assessment, and Karnot Heat Pump specification tailored to your exact requirements.</p>
+    <a href="/contact.html" class="hs-cta-btn">
+      <i class="fa-solid fa-envelope"></i> Contact Karnot Engineering
+    </a>
+  </div>
+
+  <!-- SECTION 11: FAQ -->
+  <div class="hs-card rv">
+    <h2><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h2>
+    <div class="hs-faq" id="hs-faq">
+      <div class="hs-faq-item">
+        <div class="hs-faq-q" tabindex="0" role="button">
+          <span>How is building heat loss calculated?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hs-faq-a">
+          <p>Building heat loss is calculated per BS EN 12831 / ASHRAE by summing fabric (transmission) losses and ventilation losses. Fabric loss for each element (walls, roof, floor, windows, doors) = U-value &times; Area &times; Temperature Difference (indoor minus outdoor design temperature). Ventilation loss = Volume &times; Air Changes per Hour &times; 0.33 &times; Temperature Difference. The total design heat loss determines the minimum heat pump capacity required.</p>
+        </div>
+      </div>
+      <div class="hs-faq-item">
+        <div class="hs-faq-q" tabindex="0" role="button">
+          <span>What COP should I expect from a Karnot heat pump?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hs-faq-a">
+          <p>COP (Coefficient of Performance) depends on the temperature lift &mdash; the difference between the heat source (outdoor air) and the heat sink (flow temperature). At typical UK conditions (-4&deg;C outdoor, 45&deg;C flow), an R-290 Karnot iHEAT achieves a COP of approximately 2.8&ndash;3.2. Lower flow temperatures (e.g. 35&deg;C underfloor) give higher COPs, while colder climates or higher flow temperatures reduce COP. The Karnot CO<sub>2</sub> range excels at high-temperature applications above 80&deg;C.</p>
+        </div>
+      </div>
+      <div class="hs-faq-item">
+        <div class="hs-faq-q" tabindex="0" role="button">
+          <span>What flow temperature should I use?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hs-faq-a">
+          <p>Flow temperature depends on your heat distribution system. Underfloor heating typically runs at 35&deg;C, low-temperature radiators at 45&deg;C, standard radiators at 55&deg;C, and high-temperature systems at 65&deg;C. Lower flow temperatures give significantly better heat pump efficiency (higher COP). If you are retrofitting, consider oversizing radiators to allow a lower flow temperature.</p>
+        </div>
+      </div>
+      <div class="hs-faq-item">
+        <div class="hs-faq-q" tabindex="0" role="button">
+          <span>How do Heating Degree Days (HDD) affect annual energy estimates?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hs-faq-a">
+          <p>Heating Degree Days quantify how much heating a building needs over a full year by summing the daily temperature deficits below a base temperature (typically 15.5&deg;C). The annual energy formula is: Annual kWh = (Design kW &times; HDD &times; 24) / Design &Delta;T. HDD accounts for mild days where little or no heating is needed, giving a far more accurate annual estimate than simply multiplying the peak heat loss by 8,760 hours.</p>
+        </div>
+      </div>
+      <div class="hs-faq-item">
+        <div class="hs-faq-q" tabindex="0" role="button">
+          <span>What is the difference between R-290 and CO<sub>2</sub> heat pumps?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hs-faq-a">
+          <p>R-290 (propane) heat pumps are ideal for heating up to 80&deg;C with excellent COP. They use a natural refrigerant with a GWP of just 3. Karnot CO<sub>2</sub> (R-744) heat pumps can deliver temperatures up to 110&deg;C, making them suitable for domestic hot water, high-temperature radiators, and process heating. CO<sub>2</sub> operates in a transcritical cycle that excels at heating water from low to high temperatures. R-290 is generally more efficient for space heating; CO<sub>2</sub> is preferred when high-temperature output is required.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /hs-wrap -->
+
+<!-- FOOTER -->
+<div id="karnot-footer"></div>
+
+<!-- SHARED JS -->
+<script src="../js/karnot.js"></script>
+
+<!-- HEAT PUMP SIZING IIFE -->
+<script>
+(function(){
+'use strict';
+const $ = id => document.getElementById(id);
+
+/* =====================================================
+   DATA: BUILDING PRESETS
+   ===================================================== */
+const BUILDING_PRESETS = {
+  pre_1920:   { wall: 2.1,  roof: 2.3,  floor: 0.8,  window: 4.8, door: 3.0, ach: 1.5, label: 'Pre-1920 (Solid walls)' },
+  '1920_1950':{ wall: 1.7,  roof: 1.5,  floor: 0.7,  window: 4.8, door: 3.0, ach: 1.2, label: '1920\u20131950 (Cavity, uninsulated)' },
+  '1950_1976':{ wall: 1.6,  roof: 0.68, floor: 0.7,  window: 3.1, door: 3.0, ach: 1.0, label: '1950\u20131976 (Some insulation)' },
+  '1976_2000':{ wall: 0.6,  roof: 0.35, floor: 0.45, window: 2.8, door: 2.0, ach: 0.7, label: '1976\u20132000 (Building regs)' },
+  post_2000:  { wall: 0.3,  roof: 0.16, floor: 0.22, window: 1.6, door: 1.5, ach: 0.5, label: 'Post-2000 (Modern regs)' },
+  passive:    { wall: 0.15, roof: 0.1,  floor: 0.15, window: 0.8, door: 1.0, ach: 0.3, label: 'Passive House' }
+};
+
+/* =====================================================
+   DATA: CLIMATE PRESETS
+   ===================================================== */
+const CLIMATE_PRESETS = {
+  london:    { temp: -4,  hdd: 2021, indoor: 21, label: 'London, UK' },
+  manchester:{ temp: -5,  hdd: 2310, indoor: 21, label: 'Manchester, UK' },
+  edinburgh: { temp: -6,  hdd: 2620, indoor: 21, label: 'Edinburgh, UK' },
+  belfast:   { temp: -4,  hdd: 2230, indoor: 21, label: 'Belfast, UK' },
+  manila:    { temp: 20,  hdd: 0,    indoor: 24, label: 'Manila, Philippines' },
+  baguio:    { temp: 8,   hdd: 200,  indoor: 22, label: 'Baguio, Philippines' },
+  new_york:  { temp: -12, hdd: 2640, indoor: 21, label: 'New York, USA' },
+  chicago:   { temp: -19, hdd: 3425, indoor: 21, label: 'Chicago, USA' },
+  miami:     { temp: 7,   hdd: 94,   indoor: 24, label: 'Miami, USA' },
+  denver:    { temp: -17, hdd: 3175, indoor: 21, label: 'Denver, USA' },
+  seattle:   { temp: -4,  hdd: 2580, indoor: 21, label: 'Seattle, USA' },
+  toronto:   { temp: -19, hdd: 3780, indoor: 21, label: 'Toronto, Canada' },
+  vancouver: { temp: -7,  hdd: 2825, indoor: 21, label: 'Vancouver, Canada' },
+  montreal:  { temp: -23, hdd: 4460, indoor: 21, label: 'Montreal, Canada' },
+  calgary:   { temp: -27, hdd: 5100, indoor: 21, label: 'Calgary, Canada' }
+};
+
+/* =====================================================
+   DATA: FUEL PRESETS
+   ===================================================== */
+const FUEL_PRESETS = {
+  gas:      { rate: 0.065, eff: 85, co2: 0.205, label: 'Gas' },
+  oil:      { rate: 0.075, eff: 80, co2: 0.265, label: 'Oil' },
+  electric: { rate: 0.202, eff: 100, co2: 0.233, label: 'Electric' }
+};
+const ELEC_CO2 = 0.233; // kg CO2/kWh UK grid average
+
+/* =====================================================
+   DATA: KARNOT PRODUCTS — fetched from CRM Firestore
+   ProductManager in the CRM is the master database.
+   "Publish to Website" pushes to /public/catalog/products
+   which is publicly readable via Firestore rules.
+   Fallback array used only if Firestore is unavailable.
+   ===================================================== */
+
+// Fallback products (used if Firestore is unreachable)
+const FALLBACK_PRODUCTS = [
+  {n:'iHEAT 9.5',     kw:9.5,  type:'r290', maxT:80,  ref:'R-290', cop:5.61},
+  {n:'iHEAT 11.5',    kw:11.5, type:'r290', maxT:80,  ref:'R-290', cop:5.64},
+  {n:'iHEAT 15.5',    kw:15.5, type:'r290', maxT:80,  ref:'R-290', cop:5.10},
+  {n:'iHEAT 18.5',    kw:18.5, type:'r290', maxT:80,  ref:'R-290', cop:4.80},
+  {n:'iHEAT 25',      kw:25,   type:'r290', maxT:80,  ref:'R-290', cop:4.50},
+  {n:'iHEAT 30',      kw:30,   type:'r290', maxT:80,  ref:'R-290', cop:4.30},
+  {n:'iHEAT 50',      kw:50,   type:'r290', maxT:80,  ref:'R-290', cop:4.10},
+  {n:'iHEAT 100',     kw:100,  type:'r290', maxT:80,  ref:'R-290', cop:3.90},
+  {n:'iHEAT CO\u2082 35',  kw:35,  type:'co2', maxT:130, ref:'R-744', cop:3.50},
+  {n:'iHEAT CO\u2082 75',  kw:75,  type:'co2', maxT:130, ref:'R-744', cop:3.30},
+  {n:'iHEAT CO\u2082 105', kw:105, type:'co2', maxT:130, ref:'R-744', cop:3.20}
+];
+
+// Live product catalog — populated from Firestore or fallback
+let KARNOT_PRODUCTS = FALLBACK_PRODUCTS.slice();
+let productsSource = 'fallback';
+
+/**
+ * Convert CRM product record (from Firestore public collection) to calculator format.
+ * CRM stores: name, category, kW_DHW_Nominal, kW_Heating_Nominal,
+ *             Refrigerant, max_temp_c, COP_DHW, isReversible, etc.
+ */
+function crmToCalcProduct(p) {
+  var name = p.name || '';
+  var ref = (p.Refrigerant || '').toUpperCase();
+  var isCO2 = ref.includes('R744') || ref.includes('CO2') || name.toUpperCase().includes('CO2');
+  var kw = parseFloat(p.kW_DHW_Nominal || p.kW_Heating_Nominal || 0);
+  if (kw <= 0) {
+    var m = name.match(/(\d+\.?\d*)\s*kW/i);
+    if (m) kw = parseFloat(m[1]);
+  }
+  if (kw <= 0) return null;
+
+  return {
+    n: name.replace(/^Karnot\s+/i, ''),
+    kw: kw,
+    type: isCO2 ? 'co2' : 'r290',
+    maxT: parseFloat(p.max_temp_c || (isCO2 ? 130 : 80)),
+    ref: isCO2 ? 'R-744' : 'R-290',
+    cop: parseFloat(p.COP_DHW || (isCO2 ? 3.5 : 4.0)),
+    isReversible: p.isReversible || false,
+    img: p.Image_URL || '',
+    _raw: p
+  };
+}
+
+/**
+ * Fetch products directly from Firestore public collection.
+ * Path: /public/catalog/products
+ * No auth required — Firestore rules allow public read.
+ * Uses Firebase REST API to avoid loading full SDK.
+ */
+function fetchProducts() {
+  var projectId = 'karnot-crm';
+  var url = 'https://firestore.googleapis.com/v1/projects/' + projectId +
+            '/databases/(default)/documents/public/catalog/products?pageSize=100';
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.documents || data.documents.length === 0) {
+        console.warn('[Karnot] No published products found, using fallback');
+        return;
+      }
+
+      var converted = [];
+      data.documents.forEach(function(doc) {
+        // Parse Firestore REST format: fields are {stringValue, integerValue, doubleValue, booleanValue}
+        var f = doc.fields || {};
+        var p = {};
+        Object.keys(f).forEach(function(key) {
+          var v = f[key];
+          if (v.stringValue !== undefined) p[key] = v.stringValue;
+          else if (v.doubleValue !== undefined) p[key] = v.doubleValue;
+          else if (v.integerValue !== undefined) p[key] = parseFloat(v.integerValue);
+          else if (v.booleanValue !== undefined) p[key] = v.booleanValue;
+        });
+
+        // Filter to heat pump products only
+        var cat = (p.category || '').toLowerCase();
+        var name = (p.name || '').toLowerCase();
+        var isHP = cat.includes('iheat') || cat.includes('heat pump') ||
+                   name.includes('iheat') || name.includes('heat pump');
+        if (!isHP) return;
+
+        var c = crmToCalcProduct(p);
+        if (c && c.kw > 0) converted.push(c);
+      });
+
+      if (converted.length > 0) {
+        converted.sort(function(a, b) { return a.kw - b.kw; });
+        KARNOT_PRODUCTS = converted;
+        productsSource = 'firestore';
+        console.log('[Karnot] Loaded ' + converted.length + ' products from CRM Firestore');
+      }
+    })
+    .catch(function(err) {
+      console.warn('[Karnot] Firestore fetch failed, using fallback products:', err.message);
+    });
+}
+
+// Fetch on page load
+fetchProducts();
+
+/* =====================================================
+   STATE
+   ===================================================== */
+let currentFuel = 'gas';
+let currentFlowTemp = 45;
+let lastCalcResult = null;
+
+/* =====================================================
+   FORMAT HELPERS
+   ===================================================== */
+function fmt(v, dp){ return v == null || isNaN(v) ? '--' : Number(v).toFixed(dp === undefined ? 1 : dp); }
+function fmtKW(v){ return fmt(v, 2); }
+function fmtCurrency(v){ return v == null || isNaN(v) ? '--' : '\u00a3' + Number(v).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function fmtNum(v){ return v == null || isNaN(v) ? '--' : Number(v).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+/* =====================================================
+   COP ESTIMATION
+   ===================================================== */
+function estimateCOP(sinkTemp, sourceTemp) {
+  const tHot = sinkTemp + 273.15;
+  const tCold = sourceTemp + 273.15;
+  if (tHot <= tCold) return 6.0;
+  const carnotCOP = tHot / (tHot - tCold);
+  const isR290 = sinkTemp <= 80;
+  const efficiency = isR290 ? 0.50 : 0.40;
+  let cop = carnotCOP * efficiency;
+  return Math.max(1.8, Math.min(cop, 6.0));
+}
+
+/* =====================================================
+   CANVAS DPR HELPER
+   ===================================================== */
+function setupCanvas(canvas, cssH) {
+  const dpr = window.devicePixelRatio || 1;
+  const cssW = canvas.offsetWidth || canvas.parentElement.offsetWidth || 700;
+  cssH = cssH || 320;
+  canvas.width  = cssW * dpr;
+  canvas.height = cssH * dpr;
+  canvas.style.height = cssH + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return { ctx, w: cssW, h: cssH };
+}
+
+/* =====================================================
+   ROUND RECT HELPER
+   ===================================================== */
+function roundRect(ctx, x, y, w, h, r) {
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+/* =====================================================
+   BUILDING PRESET HANDLER
+   ===================================================== */
+$('hs-building-preset').addEventListener('change', function() {
+  const key = this.value;
+  if (key === 'custom') return;
+  const p = BUILDING_PRESETS[key];
+  if (!p) return;
+  $('hs-u-wall').value = p.wall;
+  $('hs-u-roof').value = p.roof;
+  $('hs-u-floor').value = p.floor;
+  $('hs-u-window').value = p.window;
+  $('hs-u-door').value = p.door;
+  $('hs-ach').value = p.ach;
+});
+
+/* =====================================================
+   CLIMATE PRESET HANDLER
+   ===================================================== */
+$('hs-climate-preset').addEventListener('change', function() {
+  const key = this.value;
+  if (key === 'custom') return;
+  const p = CLIMATE_PRESETS[key];
+  if (!p) return;
+  $('hs-outdoor-temp').value = p.temp;
+  $('hs-indoor-temp').value = p.indoor;
+  $('hs-hdd').value = p.hdd;
+});
+
+/* =====================================================
+   FUEL TOGGLE HANDLER
+   ===================================================== */
+$('hs-fuel-toggle').addEventListener('click', function(e) {
+  const btn = e.target.closest('.hs-fuel-btn');
+  if (!btn) return;
+  this.querySelectorAll('.hs-fuel-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFuel = btn.dataset.fuel;
+  const fp = FUEL_PRESETS[currentFuel];
+  $('hs-fuel-rate').value = fp.rate;
+  $('hs-boiler-eff').value = fp.eff;
+});
+
+/* =====================================================
+   FLOW TEMP TOGGLE HANDLER
+   ===================================================== */
+$('hs-flow-toggle').addEventListener('click', function(e) {
+  const btn = e.target.closest('.hs-flow-btn');
+  if (!btn) return;
+  this.querySelectorAll('.hs-flow-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const val = btn.dataset.flow;
+  currentFlowTemp = val === 'dhw' ? 55 : parseInt(val, 10);
+  // If results are showing, recalculate COP section
+  if (lastCalcResult) {
+    updateCOPAndProducts(lastCalcResult);
+    updateSavings(lastCalcResult);
+  }
+});
+
+/* =====================================================
+   CALCULATION: HEAT LOSS
+   ===================================================== */
+function calculateHeatLoss() {
+  const floorArea = parseFloat($('hs-floor-area').value) || 120;
+  const length = parseFloat($('hs-length').value) || Math.sqrt(floorArea) * 1.1;
+  const width = parseFloat($('hs-width').value) || floorArea / length;
+  const ceiling = parseFloat($('hs-ceiling').value) || 2.5;
+  const floors = parseInt($('hs-floors').value, 10) || 2;
+  const windowArea = parseFloat($('hs-window-area').value) || 20;
+  const doorArea = parseFloat($('hs-door-area').value) || 4;
+
+  const uWall = parseFloat($('hs-u-wall').value) || 0.6;
+  const uRoof = parseFloat($('hs-u-roof').value) || 0.35;
+  const uFloor = parseFloat($('hs-u-floor').value) || 0.45;
+  const uWindow = parseFloat($('hs-u-window').value) || 2.8;
+  const uDoor = parseFloat($('hs-u-door').value) || 2.0;
+  const ach = parseFloat($('hs-ach').value) || 0.7;
+
+  const tOutdoor = parseFloat($('hs-outdoor-temp').value);
+  const tIndoor = parseFloat($('hs-indoor-temp').value) || 21;
+  const hdd = parseFloat($('hs-hdd').value) || 0;
+
+  const occupants = parseInt($('hs-occupants').value, 10) || 4;
+  const litres = parseFloat($('hs-litres').value) || 50;
+  const tColdWater = parseFloat($('hs-cold-water').value) || 10;
+  const tHotWater = parseFloat($('hs-hot-water').value) || 55;
+  const recoveryHrs = parseFloat($('hs-recovery').value) || 4;
+
+  const fuelRate = parseFloat($('hs-fuel-rate').value) || 0.065;
+  const boilerEff = (parseFloat($('hs-boiler-eff').value) || 85) / 100;
+  const elecRate = parseFloat($('hs-elec-rate').value) || 0.202;
+  const fuelCO2 = FUEL_PRESETS[currentFuel] ? FUEL_PRESETS[currentFuel].co2 : 0.205;
+
+  const deltaT = tIndoor - tOutdoor;
+
+  // Geometry
+  const totalHeight = ceiling * floors;
+  const perimeter = 2 * (length + width);
+  const grossWallArea = perimeter * totalHeight;
+  const netWallArea = Math.max(0, grossWallArea - windowArea - doorArea);
+  const roofArea = floorArea; // top floor only
+  const floorAreaCalc = floorArea; // ground floor only
+  const volume = floorArea * ceiling * floors;
+
+  // Fabric losses (kW)
+  const wallLoss = uWall * netWallArea * deltaT / 1000;
+  const roofLoss = uRoof * roofArea * deltaT / 1000;
+  const floorLoss = uFloor * floorAreaCalc * deltaT / 1000;
+  const windowLoss = uWindow * windowArea * deltaT / 1000;
+  const doorLoss = uDoor * doorArea * deltaT / 1000;
+  const transmissionLoss = wallLoss + roofLoss + floorLoss + windowLoss + doorLoss;
+
+  // Ventilation loss (kW)
+  const ventilationLoss = volume * ach * 0.33 * deltaT / 1000;
+
+  // DHW peak load (kW)
+  const dailyLitres = occupants * litres;
+  const dhwDeltaT = tHotWater - tColdWater;
+  const dhwPeakKW = dailyLitres * 4.186 * dhwDeltaT / (3600 * recoveryHrs);
+
+  // Total design load
+  const totalDesignKW = transmissionLoss + ventilationLoss + dhwPeakKW;
+
+  return {
+    floorArea, length, width, ceiling, floors, windowArea, doorArea,
+    uWall, uRoof, uFloor, uWindow, uDoor, ach,
+    tOutdoor, tIndoor, hdd, deltaT,
+    netWallArea, roofArea, floorAreaCalc, volume,
+    wallLoss, roofLoss, floorLoss, windowLoss, doorLoss,
+    transmissionLoss, ventilationLoss, dhwPeakKW, totalDesignKW,
+    occupants, litres, tColdWater, tHotWater, recoveryHrs, dailyLitres, dhwDeltaT,
+    fuelRate, boilerEff, elecRate, fuelCO2
+  };
+}
+
+/* =====================================================
+   RENDER: HEAT LOSS BREAKDOWN TABLE
+   ===================================================== */
+function renderBreakdown(r) {
+  const dT = '\u0394T=' + fmt(r.deltaT, 0);
+  const rows = [
+    ['Walls',    r.uWall + ' \u00d7 ' + fmt(r.netWallArea,1) + ' \u00d7 ' + fmt(r.deltaT,0) + ' / 1000',   fmtKW(r.wallLoss)],
+    ['Roof',     r.uRoof + ' \u00d7 ' + fmt(r.roofArea,1) + ' \u00d7 ' + fmt(r.deltaT,0) + ' / 1000',      fmtKW(r.roofLoss)],
+    ['Floor',    r.uFloor + ' \u00d7 ' + fmt(r.floorAreaCalc,1) + ' \u00d7 ' + fmt(r.deltaT,0) + ' / 1000', fmtKW(r.floorLoss)],
+    ['Windows',  r.uWindow + ' \u00d7 ' + fmt(r.windowArea,1) + ' \u00d7 ' + fmt(r.deltaT,0) + ' / 1000',   fmtKW(r.windowLoss)],
+    ['Doors',    r.uDoor + ' \u00d7 ' + fmt(r.doorArea,1) + ' \u00d7 ' + fmt(r.deltaT,0) + ' / 1000',      fmtKW(r.doorLoss)],
+    ['Ventilation', fmt(r.volume,0) + ' \u00d7 ' + r.ach + ' \u00d7 0.33 \u00d7 ' + fmt(r.deltaT,0) + ' / 1000', fmtKW(r.ventilationLoss)],
+    ['DHW Peak', fmt(r.dailyLitres,0) + ' \u00d7 4.186 \u00d7 ' + fmt(r.dhwDeltaT,0) + ' / (3600 \u00d7 ' + fmt(r.recoveryHrs,1) + ')', fmtKW(r.dhwPeakKW)],
+    ['<strong>Total Design Load</strong>', '', '<strong>' + fmtKW(r.totalDesignKW) + '</strong>']
+  ];
+
+  $('hs-breakdown-tbody').innerHTML = rows.map(function(row) {
+    return '<tr><td>' + row[0] + '</td><td class="hs-formula">' + row[1] + '</td><td>' + row[2] + '</td></tr>';
+  }).join('');
+}
+
+/* =====================================================
+   RENDER: COP & PRODUCT
+   ===================================================== */
+function updateCOPAndProducts(r) {
+  const sourceTemp = r.tOutdoor;
+  const sinkTemp = currentFlowTemp;
+  const cop = estimateCOP(sinkTemp, sourceTemp);
+
+  $('res-cop').textContent = fmt(cop, 2);
+  $('res-source').textContent = sourceTemp + '\u00b0C';
+  $('res-sink').textContent = sinkTemp + '\u00b0C';
+
+  // Draw COP chart
+  drawCOPChart(sinkTemp);
+
+  // Product selection
+  renderProductRecommendation(r.totalDesignKW, sinkTemp, cop);
+}
+
+/* =====================================================
+   DRAW: COP vs OUTDOOR TEMPERATURE CHART
+   ===================================================== */
+function drawCOPChart(sinkTemp) {
+  const canvas = $('hs-cop-canvas');
+  if (!canvas) return;
+  const { ctx, w, h } = setupCanvas(canvas, 320);
+
+  const pad = { top: 30, right: 30, bottom: 50, left: 60 };
+  const plotW = w - pad.left - pad.right;
+  const plotH = h - pad.top - pad.bottom;
+
+  // Background
+  ctx.fillStyle = '#fafafa';
+  ctx.fillRect(0, 0, w, h);
+
+  // Generate data points
+  const points = [];
+  for (let t = -20; t <= 20; t += 1) {
+    const cop = estimateCOP(sinkTemp, t);
+    points.push({ t, cop });
+  }
+
+  const minCOP = 1.5;
+  const maxCOP = 6.5;
+  const minT = -20;
+  const maxT = 20;
+
+  function xPos(t) { return pad.left + (t - minT) / (maxT - minT) * plotW; }
+  function yPos(cop) { return pad.top + (1 - (cop - minCOP) / (maxCOP - minCOP)) * plotH; }
+
+  // Grid lines
+  ctx.strokeStyle = '#e5e5e7';
+  ctx.lineWidth = 1;
+  for (let cop = 2; cop <= 6; cop += 0.5) {
+    const y = yPos(cop);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(w - pad.right, y);
+    ctx.stroke();
+  }
+  for (let t = -20; t <= 20; t += 5) {
+    const x = xPos(t);
+    ctx.beginPath();
+    ctx.moveTo(x, pad.top);
+    ctx.lineTo(x, h - pad.bottom);
+    ctx.stroke();
+  }
+
+  // Plot area border
+  ctx.strokeStyle = '#ccc';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(pad.left, pad.top, plotW, plotH);
+
+  // COP line
+  ctx.beginPath();
+  ctx.strokeStyle = '#F56600';
+  ctx.lineWidth = 3;
+  ctx.lineJoin = 'round';
+  points.forEach(function(p, i) {
+    const x = xPos(p.t);
+    const y = yPos(p.cop);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // Fill under curve
+  ctx.lineTo(xPos(20), yPos(minCOP));
+  ctx.lineTo(xPos(-20), yPos(minCOP));
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(245,102,0,0.08)';
+  ctx.fill();
+
+  // Design point marker
+  const designOutdoor = parseFloat($('hs-outdoor-temp').value) || -4;
+  const designCOP = estimateCOP(sinkTemp, designOutdoor);
+  if (designOutdoor >= minT && designOutdoor <= maxT) {
+    const dx = xPos(designOutdoor);
+    const dy = yPos(designCOP);
+
+    // Vertical dashed line
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(dx, pad.top);
+    ctx.lineTo(dx, h - pad.bottom);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Point
+    ctx.fillStyle = '#F56600';
+    ctx.beginPath();
+    ctx.arc(dx, dy, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(dx, dy, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Label
+    ctx.fillStyle = '#1d1d1f';
+    ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Design: COP ' + fmt(designCOP, 2), dx + 10, dy - 8);
+  }
+
+  // Axes labels
+  ctx.fillStyle = '#6e6e73';
+  ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'center';
+  for (let t = -20; t <= 20; t += 5) {
+    ctx.fillText(t + '\u00b0C', xPos(t), h - pad.bottom + 20);
+  }
+  ctx.textAlign = 'right';
+  for (let cop = 2; cop <= 6; cop += 1) {
+    ctx.fillText(fmt(cop, 1), pad.left - 10, yPos(cop) + 4);
+  }
+
+  // Axis titles
+  ctx.fillStyle = '#1d1d1f';
+  ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Outdoor Temperature (\u00b0C)', w / 2, h - 6);
+
+  ctx.save();
+  ctx.translate(16, h / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('COP', 0, 0);
+  ctx.restore();
+
+  // Title
+  ctx.fillStyle = '#1d1d1f';
+  ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('COP vs Outdoor Temperature (Flow: ' + sinkTemp + '\u00b0C)', pad.left, 18);
+}
+
+/* =====================================================
+   RENDER: PRODUCT RECOMMENDATION
+   ===================================================== */
+function renderProductRecommendation(requiredKW, sinkTemp, cop) {
+  const container = $('hs-product-result');
+  if (!container) return;
+
+  // Filter to products that can achieve the sink temp
+  const candidates = KARNOT_PRODUCTS.filter(function(p) {
+    return sinkTemp <= p.maxT;
+  });
+
+  if (candidates.length === 0) {
+    container.innerHTML = '<p style="color:#c0392b">No suitable product found for the specified flow temperature.</p>';
+    return;
+  }
+
+  // Find smallest single unit that covers the load
+  let selected = null;
+  let qty = 1;
+  for (let i = 0; i < candidates.length; i++) {
+    if (candidates[i].kw >= requiredKW) {
+      selected = candidates[i];
+      break;
+    }
+  }
+
+  // If no single unit is large enough, use the largest and calculate quantity
+  if (!selected) {
+    selected = candidates[candidates.length - 1];
+    qty = Math.ceil(requiredKW / selected.kw);
+  }
+
+  // Use COP from product database if available, otherwise use calculated estimate
+  const productCOP = selected.cop && selected.cop > 0 ? selected.cop : null;
+
+  const totalCapacity = selected.kw * qty;
+  const multiUnitNote = qty > 1
+    ? '<div style="margin-top:8px;padding:8px 12px;background:#fef3c7;border-radius:8px;font-size:13px;color:#92400e">' +
+        '<i class="fa-solid fa-layer-group" style="margin-right:6px"></i>' +
+        '<strong>' + qty + ' units in cascade/parallel</strong> — design load of ' + fmtKW(requiredKW) + ' kW exceeds single unit capacity. ' +
+        'Multiple units provide ' + fmt(totalCapacity, 1) + ' kW total with N+1 redundancy benefit.' +
+      '</div>'
+    : '';
+
+  const sourceLabel = productsSource === 'firestore'
+    ? '<span style="font-size:10px;color:#059669;margin-left:8px;vertical-align:middle"><i class="fa-solid fa-circle-check" style="margin-right:3px"></i>Live CRM data</span>'
+    : '';
+
+  const html =
+    '<div class="hs-product-box">' +
+      '<div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#15803d;margin-bottom:8px;text-transform:uppercase"><i class="fa-solid fa-fire-flame-curved" style="margin-right:4px"></i> Heat Pump Unit' + sourceLabel + '</div>' +
+      '<div class="hs-product-name">Karnot ' + selected.n + (qty > 1 ? ' \u00d7 ' + qty : '') + '</div>' +
+      '<div class="hs-product-ref">Refrigerant: ' + selected.ref + ' | Max output: ' + selected.maxT + '\u00b0C</div>' +
+      '<div class="hs-product-specs">' +
+        '<div class="hs-product-spec">' +
+          '<div class="hs-ps-label">Model</div>' +
+          '<div class="hs-ps-value">' + selected.n + '</div>' +
+        '</div>' +
+        '<div class="hs-product-spec">' +
+          '<div class="hs-ps-label">Quantity</div>' +
+          '<div class="hs-ps-value">' + qty + '</div>' +
+        '</div>' +
+        '<div class="hs-product-spec">' +
+          '<div class="hs-ps-label">Total Capacity</div>' +
+          '<div class="hs-ps-value">' + fmt(totalCapacity, 1) + '</div>' +
+          '<div class="hs-ps-unit">kW</div>' +
+        '</div>' +
+        '<div class="hs-product-spec">' +
+          '<div class="hs-ps-label">COP (Design)</div>' +
+          '<div class="hs-ps-value">' + fmt(cop, 2) + '</div>' +
+        '</div>' +
+        (productCOP ? '<div class="hs-product-spec"><div class="hs-ps-label">COP (Rated)</div><div class="hs-ps-value">' + fmt(productCOP, 2) + '</div></div>' : '') +
+        '<div class="hs-product-spec">' +
+          '<div class="hs-ps-label">Refrigerant</div>' +
+          '<div class="hs-ps-value">' + selected.ref + '</div>' +
+        '</div>' +
+      '</div>' +
+      multiUnitNote +
+      '<div class="hs-product-note">' +
+        '<strong>Design load:</strong> ' + fmtKW(requiredKW) + ' kW. ' +
+        (qty === 1 && totalCapacity > requiredKW * 1.1 ? 'Selected unit provides ' + fmt((totalCapacity / requiredKW - 1) * 100, 0) + '% headroom above design load. ' : '') +
+        'COP estimated at ' + fmt(cop, 2) + ' for ' + fmt(parseFloat($('hs-outdoor-temp').value), 0) + '\u00b0C outdoor / ' + sinkTemp + '\u00b0C flow.' +
+      '</div>' +
+    '</div>';
+
+  container.innerHTML = html;
+
+  // Add iSTOR Integral Hydronic Tank recommendation for domestic installations
+  const dhwOccupants = parseFloat($('hs-occupants').value) || 4;
+  const dhwLitres = parseFloat($('hs-litres').value) || 50;
+  const dailyDHW = dhwOccupants * dhwLitres;
+  if (dailyDHW > 0 && requiredKW <= 100) {
+    // iSTOR is the Integral Hydronic Tank — combined buffer + DHW storage
+    // Includes: dual-zone control, expansion tank, 3-way valve, electric backup heater, WiFi, solar input
+    const istorSize = dailyDHW <= 200 ? 150 : 210;
+    const istorModel = istorSize === 150 ? 'iSTOR 150' : 'iSTOR 210';
+    const istorHTML =
+      '<div class="hs-product-box" style="margin-top:16px;border-color:#0ea5e9">' +
+        '<div class="hs-product-name" style="color:#0369a1">+ Karnot ' + istorModel + ' Integral Hydronic Tank</div>' +
+        '<div class="hs-product-ref">Combined buffer &amp; DHW storage — pre-plumbed with controller, expansion tank, 3-way valve &amp; electric backup</div>' +
+        '<div class="hs-product-specs">' +
+          '<div class="hs-product-spec">' +
+            '<div class="hs-ps-label">Tank Capacity</div>' +
+            '<div class="hs-ps-value">' + istorSize + '</div>' +
+            '<div class="hs-ps-unit">litres</div>' +
+          '</div>' +
+          '<div class="hs-product-spec">' +
+            '<div class="hs-ps-label">Daily DHW Demand</div>' +
+            '<div class="hs-ps-value">' + fmtNum(dailyDHW) + '</div>' +
+            '<div class="hs-ps-unit">litres/day</div>' +
+          '</div>' +
+          '<div class="hs-product-spec">' +
+            '<div class="hs-ps-label">Dual Zone</div>' +
+            '<div class="hs-ps-value">Yes</div>' +
+            '<div class="hs-ps-unit">UFH + radiators</div>' +
+          '</div>' +
+          '<div class="hs-product-spec">' +
+            '<div class="hs-ps-label">Electric Backup</div>' +
+            '<div class="hs-ps-value">Built-in</div>' +
+          '</div>' +
+          '<div class="hs-product-spec">' +
+            '<div class="hs-ps-label">WiFi Control</div>' +
+            '<div class="hs-ps-value">Yes</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="hs-product-note">' +
+          '<strong>Recommended for faster installation.</strong> The ' + istorModel + ' is a pre-plumbed integral hydronic tank that connects directly to the ' + selected.n + '. It includes a built-in controller, expansion tank, 3-way valve for dual temperature zones (underfloor + radiators), electric backup heater, and WiFi module. Reduces on-site installation time significantly vs separate components.' +
+        '</div>' +
+      '</div>';
+    container.innerHTML += istorHTML;
+  }
+}
+
+/* =====================================================
+   CALCULATION: ANNUAL SAVINGS
+   ===================================================== */
+function updateSavings(r) {
+  const cop = estimateCOP(currentFlowTemp, r.tOutdoor);
+  const deltaT = r.deltaT;
+
+  // Seasonal COP is higher than design COP (milder average conditions)
+  // Approximate: seasonal COP ~ design COP * 1.2 (since average outdoor is warmer than design)
+  // More accurately, use a weighted average, but for simplicity use a factor
+  const avgOutdoor = r.tIndoor - (r.hdd > 0 && deltaT > 0 ? (r.hdd * 24 / 8760) : 0);
+  const seasonalCOP = estimateCOP(currentFlowTemp, Math.min(avgOutdoor, r.tIndoor - 5));
+
+  // Annual space heating energy (HDD method)
+  let annualHeatingKWh = 0;
+  if (deltaT > 0 && r.hdd > 0) {
+    const spaceHeatDesignKW = r.transmissionLoss + r.ventilationLoss;
+    annualHeatingKWh = (spaceHeatDesignKW * r.hdd * 24) / deltaT;
+  }
+
+  // Annual DHW energy
+  const dhwAnnualKWh = r.occupants * r.litres * 4.186 * r.dhwDeltaT / 3600 * 365;
+
+  const totalAnnualKWh = annualHeatingKWh + dhwAnnualKWh;
+
+  // Current system costs
+  const currentHeatingCost = (annualHeatingKWh / r.boilerEff) * r.fuelRate;
+  const currentDHWCost = (dhwAnnualKWh / r.boilerEff) * r.fuelRate;
+  const currentTotalCost = currentHeatingCost + currentDHWCost;
+
+  // HP costs
+  const hpHeatingElec = annualHeatingKWh / seasonalCOP;
+  const hpDHWElec = dhwAnnualKWh / seasonalCOP;
+  const hpHeatingCost = hpHeatingElec * r.elecRate;
+  const hpDHWCost = hpDHWElec * r.elecRate;
+  const hpTotalCost = hpHeatingCost + hpDHWCost;
+
+  // Savings
+  const heatingSaving = currentHeatingCost - hpHeatingCost;
+  const dhwSaving = currentDHWCost - hpDHWCost;
+  const totalSaving = currentTotalCost - hpTotalCost;
+
+  // CO2
+  const currentCO2Heating = (annualHeatingKWh / r.boilerEff) * r.fuelCO2 / 1000; // tonnes
+  const currentCO2DHW = (dhwAnnualKWh / r.boilerEff) * r.fuelCO2 / 1000;
+  const currentCO2Total = currentCO2Heating + currentCO2DHW;
+
+  const hpCO2Heating = hpHeatingElec * ELEC_CO2 / 1000;
+  const hpCO2DHW = hpDHWElec * ELEC_CO2 / 1000;
+  const hpCO2Total = hpCO2Heating + hpCO2DHW;
+  const co2Saved = currentCO2Total - hpCO2Total;
+
+  // Payback estimate (approximate installed cost based on capacity)
+  const designKW = r.totalDesignKW;
+  const estimatedCapex = designKW <= 15 ? 8000 : designKW <= 30 ? 12000 : designKW <= 50 ? 18000 : designKW <= 80 ? 28000 : 40000;
+  const payback = totalSaving > 0 ? estimatedCapex / totalSaving : Infinity;
+
+  // Update hero cards
+  $('sav-annual').textContent = fmtCurrency(totalSaving);
+  $('sav-co2').textContent = fmt(co2Saved, 2);
+  $('sav-payback').textContent = payback === Infinity ? 'N/A' : fmt(payback, 1);
+
+  // Cost comparison table
+  $('hs-cost-tbody').innerHTML =
+    '<tr><td>Space Heating</td><td>' + fmtCurrency(currentHeatingCost) + '</td><td>' + fmtCurrency(hpHeatingCost) + '</td><td class="hs-saving">' + fmtCurrency(heatingSaving) + '</td></tr>' +
+    '<tr><td>Domestic Hot Water</td><td>' + fmtCurrency(currentDHWCost) + '</td><td>' + fmtCurrency(hpDHWCost) + '</td><td class="hs-saving">' + fmtCurrency(dhwSaving) + '</td></tr>' +
+    '<tr><td><strong>Total</strong></td><td><strong>' + fmtCurrency(currentTotalCost) + '</strong></td><td><strong>' + fmtCurrency(hpTotalCost) + '</strong></td><td class="hs-saving"><strong>' + fmtCurrency(totalSaving) + '</strong></td></tr>';
+
+  // CO2 table
+  $('hs-co2-tbody').innerHTML =
+    '<tr><td>Space Heating</td><td>' + fmt(currentCO2Heating, 2) + '</td><td>' + fmt(hpCO2Heating, 2) + '</td><td>' + fmt(currentCO2Heating - hpCO2Heating, 2) + '</td></tr>' +
+    '<tr><td>Domestic Hot Water</td><td>' + fmt(currentCO2DHW, 2) + '</td><td>' + fmt(hpCO2DHW, 2) + '</td><td>' + fmt(currentCO2DHW - hpCO2DHW, 2) + '</td></tr>' +
+    '<tr><td><strong>Total</strong></td><td><strong>' + fmt(currentCO2Total, 2) + '</strong></td><td><strong>' + fmt(hpCO2Total, 2) + '</strong></td><td><strong>' + fmt(co2Saved, 2) + '</strong></td></tr>';
+
+  // Draw cost comparison chart
+  drawCostComparisonChart(currentTotalCost, hpTotalCost, totalSaving);
+
+  // Store for resize
+  lastCalcResult._savings = { currentTotalCost, hpTotalCost, totalSaving };
+}
+
+/* =====================================================
+   DRAW: ANNUAL COST COMPARISON CHART
+   ===================================================== */
+function drawCostComparisonChart(currentCost, hpCost, saving) {
+  const canvas = $('hs-cost-canvas');
+  if (!canvas) return;
+  const { ctx, w, h } = setupCanvas(canvas, 300);
+
+  const pad = { top: 30, right: 30, bottom: 50, left: 80 };
+  const plotW = w - pad.left - pad.right;
+  const plotH = h - pad.top - pad.bottom;
+
+  // Background
+  ctx.fillStyle = '#fafafa';
+  ctx.fillRect(0, 0, w, h);
+
+  const maxVal = Math.max(currentCost, hpCost, Math.abs(saving)) * 1.15;
+  if (maxVal <= 0) return;
+
+  const barData = [
+    { label: 'Current System', value: currentCost, color: '#ef4444' },
+    { label: 'Karnot Heat Pump', value: hpCost, color: '#3b82f6' },
+    { label: 'Annual Saving', value: Math.max(0, saving), color: '#22c55e' }
+  ];
+
+  const barWidth = Math.min(80, plotW / 5);
+  const gap = (plotW - barWidth * 3) / 4;
+
+  function yPos(val) { return pad.top + (1 - val / maxVal) * plotH; }
+
+  // Grid lines
+  ctx.strokeStyle = '#e5e5e7';
+  ctx.lineWidth = 1;
+  const gridSteps = 5;
+  for (let i = 0; i <= gridSteps; i++) {
+    const val = (maxVal / gridSteps) * i;
+    const y = yPos(val);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(w - pad.right, y);
+    ctx.stroke();
+
+    ctx.fillStyle = '#6e6e73';
+    ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('\u00a3' + fmtNum(val), pad.left - 10, y + 4);
+  }
+
+  // Bars
+  barData.forEach(function(d, i) {
+    const x = pad.left + gap + i * (barWidth + gap);
+    const barH = (d.value / maxVal) * plotH;
+    const y = pad.top + plotH - barH;
+
+    // Shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.06)';
+    roundRect(ctx, x + 3, y + 3, barWidth, barH, 6);
+    ctx.fill();
+
+    // Bar
+    ctx.fillStyle = d.color;
+    roundRect(ctx, x, y, barWidth, barH, 6);
+    ctx.fill();
+
+    // Value label
+    ctx.fillStyle = '#1d1d1f';
+    ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('\u00a3' + fmtNum(d.value), x + barWidth / 2, y - 8);
+
+    // Bottom label
+    ctx.fillStyle = '#6e6e73';
+    ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+    const words = d.label.split(' ');
+    if (words.length > 2) {
+      ctx.fillText(words.slice(0, 2).join(' '), x + barWidth / 2, h - pad.bottom + 16);
+      ctx.fillText(words.slice(2).join(' '), x + barWidth / 2, h - pad.bottom + 30);
+    } else {
+      ctx.fillText(d.label, x + barWidth / 2, h - pad.bottom + 20);
+    }
+  });
+
+  // Title
+  ctx.fillStyle = '#1d1d1f';
+  ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('Annual Cost Comparison (\u00a3/year)', pad.left, 18);
+}
+
+/* =====================================================
+   MAIN RECALCULATE
+   ===================================================== */
+function recalculate() {
+  const r = calculateHeatLoss();
+  lastCalcResult = r;
+
+  // Show result cards
+  showCard('hs-results-card');
+  showCard('hs-cop-card');
+  showCard('hs-savings-card');
+
+  // Update metric cards
+  $('res-transmission').textContent = fmtKW(r.transmissionLoss);
+  $('res-ventilation').textContent = fmtKW(r.ventilationLoss);
+  $('res-dhw').textContent = fmtKW(r.dhwPeakKW);
+  $('res-total').textContent = fmtKW(r.totalDesignKW);
+
+  // Breakdown table
+  renderBreakdown(r);
+
+  // COP and product
+  updateCOPAndProducts(r);
+
+  // Savings
+  updateSavings(r);
+
+  // Scroll to results
+  $('hs-results-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showCard(id) {
+  const el = $(id);
+  if (el) {
+    el.style.display = '';
+    // Trigger scroll reveal if not already visible
+    el.classList.add('visible');
+  }
+}
+
+/* =====================================================
+   CALCULATE BUTTON
+   ===================================================== */
+$('hs-calc-btn').addEventListener('click', recalculate);
+
+/* =====================================================
+   COLLAPSIBLE PANELS
+   ===================================================== */
+function setupCollapsible(headerId, bodyId, iconId, defaultOpen) {
+  const header = $(headerId);
+  const body   = $(bodyId);
+  const icon   = $(iconId);
+  if (!header || !body) return;
+
+  if (defaultOpen) {
+    body.classList.add('open');
+    if (icon) icon.style.transform = 'rotate(180deg)';
+    header.setAttribute('aria-expanded', 'true');
+  }
+
+  header.addEventListener('click', function() {
+    const isOpen = body.classList.toggle('open');
+    if (icon) icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+    header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  header.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); header.click(); }
+  });
+}
+
+setupCollapsible('hs-hiw-header', 'hs-hiw-body', 'hs-hiw-icon', false);
+
+/* =====================================================
+   FAQ
+   ===================================================== */
+document.querySelectorAll('.hs-faq-q').forEach(function(q) {
+  q.addEventListener('click', function() {
+    var a = q.nextElementSibling;
+    var isOpen = a.classList.toggle('open');
+    q.classList.toggle('open', isOpen);
+  });
+  q.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+  });
+});
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+/* =====================================================
+   RESIZE — REDRAW CANVASES
+   ===================================================== */
+var resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function() {
+    if (lastCalcResult) {
+      drawCOPChart(currentFlowTemp);
+      if (lastCalcResult._savings) {
+        var s = lastCalcResult._savings;
+        drawCostComparisonChart(s.currentTotalCost, s.hpTotalCost, s.totalSaving);
+      }
+    }
+  }, 120);
+});
+
+/* =====================================================
+   INIT — set defaults from presets
+   ===================================================== */
+(function init() {
+  // Building preset is already set to 1976_2000 via selected attribute
+  // Climate preset is already set to london via selected attribute
+  // Fuel defaults already applied
+  // No auto-calculate — wait for user to press Calculate
+})();
+
+})();
+</script>
+</body>
+</html>

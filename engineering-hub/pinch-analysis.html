@@ -1539,24 +1539,74 @@ function fmtUSD(n){ return '$' + fmt(n, 0); }
 function fmtKW(n){ return fmt(n, 1); }
 
 /* =====================================================
-   KARNOT PRODUCT CATALOG (synced with savings.html)
+   KARNOT PRODUCT CATALOG — fetched from CRM Firestore
+   ProductManager in the CRM is the master database.
+   "Publish to Website" pushes to /public/catalog/products
    ===================================================== */
-const KARNOT_PRODUCTS = [
-  {kw:9.5,n:"Karnot iHEAT R290 — 9.5 kW",type:'r290',cop:3.8,maxTemp:80},
-  {kw:11.5,n:"Karnot iHEAT R290 — 11.5 kW",type:'r290',cop:3.8,maxTemp:80},
-  {kw:15.5,n:"Karnot iHEAT R290 — 15.5 kW",type:'r290',cop:3.8,maxTemp:80},
-  {kw:18,n:"Karnot iHEAT R290 — 18 kW",type:'r290',cop:3.8,maxTemp:80},
-  {kw:25,n:"Karnot iHEAT R290 — 25 kW",type:'r290',cop:3.85,maxTemp:80},
-  {kw:30,n:"Karnot iHEAT R290 — 30 kW",type:'r290',cop:3.85,maxTemp:80},
-  {kw:50,n:"Karnot iHEAT R290 — 50 kW",type:'r290',cop:3.80,maxTemp:80},
-  {kw:100,n:"Karnot iHEAT R290 — 100 kW",type:'r290',cop:3.71,maxTemp:80},
-  {kw:35,n:"Karnot iHEAT CO₂ — 35 kW",type:'co2',cop:3.8,maxTemp:110},
-  {kw:75,n:"Karnot iHEAT CO₂ — 75 kW",type:'co2',cop:3.8,maxTemp:110},
-  {kw:105,n:"Karnot iHEAT CO₂ — 105 kW",type:'co2',cop:3.70,maxTemp:100},
-  {kw:160,n:"Karnot iHEAT CO₂ — 160 kW",type:'co2',cop:3.65,maxTemp:100},
-  {kw:300,n:"Karnot iHEAT CO₂ — 300 kW",type:'co2',cop:3.60,maxTemp:100},
-  {kw:500,n:"Karnot iHEAT CO₂ — 500 kW",type:'co2',cop:3.55,maxTemp:100}
+
+const FALLBACK_PA_PRODUCTS = [
+  {kw:9.5,n:"Karnot iHEAT R290 — 9.5 kW",type:'r290',cop:5.61,maxTemp:80},
+  {kw:11.5,n:"Karnot iHEAT R290 — 11.5 kW",type:'r290',cop:5.64,maxTemp:80},
+  {kw:15.5,n:"Karnot iHEAT R290 — 15.5 kW",type:'r290',cop:5.10,maxTemp:80},
+  {kw:18.5,n:"Karnot iHEAT R290 — 18.5 kW",type:'r290',cop:4.80,maxTemp:80},
+  {kw:25,n:"Karnot iHEAT R290 — 25 kW",type:'r290',cop:4.50,maxTemp:80},
+  {kw:30,n:"Karnot iHEAT R290 — 30 kW",type:'r290',cop:4.30,maxTemp:80},
+  {kw:50,n:"Karnot iHEAT R290 — 50 kW",type:'r290',cop:4.10,maxTemp:80},
+  {kw:100,n:"Karnot iHEAT R290 — 100 kW",type:'r290',cop:3.90,maxTemp:80},
+  {kw:35,n:"Karnot iHEAT CO\u2082 — 35 kW",type:'co2',cop:3.50,maxTemp:130},
+  {kw:75,n:"Karnot iHEAT CO\u2082 — 75 kW",type:'co2',cop:3.30,maxTemp:130},
+  {kw:105,n:"Karnot iHEAT CO\u2082 — 105 kW",type:'co2',cop:3.20,maxTemp:130}
 ];
+
+let KARNOT_PRODUCTS = FALLBACK_PA_PRODUCTS.slice();
+
+(function fetchPAProducts() {
+  var projectId = 'karnot-crm';
+  var url = 'https://firestore.googleapis.com/v1/projects/' + projectId +
+            '/databases/(default)/documents/public/catalog/products?pageSize=100';
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.documents || data.documents.length === 0) return;
+      var converted = [];
+      data.documents.forEach(function(doc) {
+        var f = doc.fields || {};
+        var p = {};
+        Object.keys(f).forEach(function(key) {
+          var v = f[key];
+          if (v.stringValue !== undefined) p[key] = v.stringValue;
+          else if (v.doubleValue !== undefined) p[key] = v.doubleValue;
+          else if (v.integerValue !== undefined) p[key] = parseFloat(v.integerValue);
+          else if (v.booleanValue !== undefined) p[key] = v.booleanValue;
+        });
+
+        var cat = (p.category || '').toLowerCase();
+        var name = (p.name || '').toLowerCase();
+        if (!(cat.includes('iheat') || cat.includes('heat pump') || name.includes('iheat'))) return;
+        var ref = (p.Refrigerant || '').toUpperCase();
+        var isCO2 = ref.includes('R744') || ref.includes('CO2') || name.includes('co2');
+        var kw = parseFloat(p.kW_DHW_Nominal || p.kW_Heating_Nominal || 0);
+        if (kw <= 0) { var m = name.match(/(\d+\.?\d*)\s*kw/i); if (m) kw = parseFloat(m[1]); }
+        if (kw <= 0) return;
+        converted.push({
+          kw: kw,
+          n: (p.name || '').replace(/^Karnot\s+/i, 'Karnot '),
+          type: isCO2 ? 'co2' : 'r290',
+          cop: parseFloat(p.COP_DHW || (isCO2 ? 3.5 : 4.0)),
+          maxTemp: parseFloat(p.max_temp_c || (isCO2 ? 130 : 80))
+        });
+      });
+      if (converted.length > 0) {
+        converted.sort(function(a, b) { return a.kw - b.kw; });
+        KARNOT_PRODUCTS = converted;
+        console.log('[Karnot PA] Loaded ' + converted.length + ' products from CRM Firestore');
+      }
+    })
+    .catch(function(err) {
+      console.warn('[Karnot PA] Firestore fetch failed, using fallback:', err.message);
+    });
+})();
 
 function findMatchingProduct(dutyKW, sinkTemp){
   // Prefer CO2 for high-temp (>70°C), else R290
