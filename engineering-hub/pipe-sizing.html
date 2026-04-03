@@ -387,6 +387,8 @@ function calculate() {
 
   var rows = [];
   var recommended = null;
+  var bestVelOnly = null;  // smallest pipe meeting velocity only
+  var bestDPOnly = null;   // smallest pipe meeting dP only
 
   for (var i = 0; i < pipes.length; i++) {
     var p = pipes[i];
@@ -408,21 +410,42 @@ function calculate() {
     var dP_per_m = f * (1 / D) * (props.rho / 2) * v * v; // Pa/m
     var totalDP = dP_per_m * pipeLen / 1000; // kPa
 
-    var ok = v <= maxVel && dP_per_m <= maxDP;
-    var status = ok ? 'OK' : (v > maxVel ? 'Velocity high' : 'dP high');
+    var velOk = v <= maxVel;
+    var dpOk = dP_per_m <= maxDP;
+    var ok = velOk && dpOk;
+    var status = ok ? 'OK' : (!velOk && !dpOk ? 'Both high' : (!velOk ? 'Velocity high' : 'dP high'));
 
-    rows.push({
+    var row = {
       dn: p.dn, id: p.id, v: v, Re: Re, regime: regime,
       f: f, dP: dP_per_m, totalDP: totalDP, ok: ok, status: status
-    });
+    };
+    rows.push(row);
 
     if (ok && !recommended) {
-      recommended = rows[rows.length - 1];
+      recommended = row;
+    }
+    if (velOk && !bestVelOnly) {
+      bestVelOnly = row;
+    }
+    if (dpOk && !bestDPOnly) {
+      bestDPOnly = row;
     }
   }
 
-  // If no pipe meets both criteria, recommend the largest
-  if (!recommended) recommended = rows[rows.length - 1];
+  // Smart fallback: if no pipe meets both, pick smallest meeting velocity
+  // (velocity is the primary engineering constraint; dP can be compensated with pump head)
+  if (!recommended) {
+    recommended = bestVelOnly || bestDPOnly || rows[rows.length - 1];
+  }
+
+  // Show binding constraint note
+  var bindingNote = '';
+  if (bestVelOnly && !bestVelOnly.ok) {
+    bindingNote = '<div style="margin:12px 0;padding:12px 16px;background:#fff3e0;border-left:4px solid #EA580C;border-radius:8px;font-size:14px;color:#555">' +
+      '<strong style="color:#EA580C">Note:</strong> ' + recommended.dn + ' meets your velocity limit (' + recommended.v.toFixed(2) + ' m/s &le; ' + maxVel + ' m/s) ' +
+      'but exceeds the pressure drop limit (' + recommended.dP.toFixed(0) + ' Pa/m vs ' + maxDP + ' Pa/m max). ' +
+      'Increase your max dP limit or accept higher pump head to use a smaller pipe.</div>';
+  }
 
   // Render metrics
   var metricsDiv = document.getElementById('ps-metrics');
@@ -438,6 +461,7 @@ function calculate() {
   }
 
   addMetric('Recommended Size', recommended.dn, 'ID ' + recommended.id + ' mm', 'blue');
+  if (bindingNote) metricsDiv.insertAdjacentHTML('beforeend', '<div style="grid-column:1/-1">' + bindingNote + '</div>');
   addMetric('Velocity', recommended.v.toFixed(2), 'm/s', 'green');
   addMetric('Pressure Drop', recommended.dP.toFixed(1), 'Pa/m', 'orange');
   addMetric('Reynolds Number', Math.round(recommended.Re).toLocaleString(), recommended.regime, 'teal');
