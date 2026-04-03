@@ -271,6 +271,15 @@
         <input type="number" id="sk-steam-rate" value="" placeholder="e.g. 500" min="0" step="10">
         <span style="font-size:11px;color:#999;margin-top:3px">Auto-calculates fuel from boiler rating</span>
       </div>
+      <div class="sk-field">
+        <label for="sk-op-hours">Boiler Running Hours / Day</label>
+        <input type="number" id="sk-op-hours" value="10" min="1" max="24" step="1">
+        <span style="font-size:11px;color:#999;margin-top:3px">Typical: 8-12 hrs for factories</span>
+      </div>
+      <div class="sk-field">
+        <label for="sk-op-days">Operating Days / Month</label>
+        <input type="number" id="sk-op-days" value="22" min="1" max="31" step="1">
+      </div>
     </div>
 
     <div class="sk-results-grid">
@@ -797,19 +806,21 @@ function updateCostResults() {
   var elecCost = parseFloat(document.getElementById('sk-elec-cost').value) || 10;
   var litres = parseFloat(document.getElementById('sk-fuel-litres').value) || 5000;
 
-  // Steam rate auto-calc: if user enters kg/hr, compute litres/month
+  // Steam rate auto-calc: if user enters kg/hr, compute fuel/month
   var steamRate = parseFloat(document.getElementById('sk-steam-rate').value);
   if (steamRate > 0) {
-    // Steam enthalpy ~2700 kJ/kg = 0.75 kWh/kg
-    // Diesel: 10.8 kWh/L at ~82% combustion efficiency
-    // LPG: 7.1 kWh/L at ~82%
-    // Electric: 0.75 kWh per kg steam
-    var steamKwhPerKg = 0.75; // latent heat approx
-    var monthlyHours = 720; // 30 days × 24h (adjust with operating hours)
+    var hrsPerDay = parseFloat(document.getElementById('sk-op-hours').value) || 10;
+    var daysPerMonth = parseFloat(document.getElementById('sk-op-days').value) || 22;
+    var monthlyHours = hrsPerDay * daysPerMonth;
+
+    // Steam enthalpy: ~2,770 kJ/kg at 8 bar, feedwater ~80°C = 335 kJ/kg
+    // Net energy per kg steam = (2770 - 335) = 2,435 kJ/kg = 0.676 kWh/kg
+    var steamKwhPerKg = 0.676;
     var steamKwhMonth = steamRate * steamKwhPerKg * monthlyHours;
     var combEff = 0.82;
+
     if (activeTab === 'electric' || activeTab === 'iheat') {
-      litres = steamKwhMonth; // kWh directly for electric
+      litres = steamKwhMonth / 0.98; // electric boiler ~98% element efficiency
     } else if (activeTab === 'propane') {
       litres = steamKwhMonth / (12.78 * combEff); // kg LPG
     } else {
@@ -952,7 +963,7 @@ document.getElementById('sk-tabs').addEventListener('click', function(e) {
 /* =====================================================
    COST INPUT EVENTS
    ===================================================== */
-['sk-fuel-cost','sk-elec-cost','sk-fuel-litres','sk-steam-rate'].forEach(function(id) {
+['sk-fuel-cost','sk-elec-cost','sk-fuel-litres','sk-steam-rate','sk-op-hours','sk-op-days'].forEach(function(id) {
   var el = document.getElementById(id);
   el.addEventListener('input', function() { updateCostResults(); renderSankey(); });
   el.addEventListener('change', function() { updateCostResults(); renderSankey(); });
