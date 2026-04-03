@@ -272,12 +272,20 @@
         <span style="font-size:11px;color:#999;margin-top:3px">Auto-calculates fuel from boiler rating</span>
       </div>
       <div class="sk-field">
-        <label for="sk-op-hours">Boiler Running Hours / Day</label>
-        <input type="number" id="sk-op-hours" value="10" min="1" max="24" step="1">
-        <span style="font-size:11px;color:#999;margin-top:3px">Typical: 8-12 hrs for factories</span>
+        <label for="sk-steam-pressure">Steam Pressure (bar g)</label>
+        <input type="number" id="sk-steam-pressure" value="8" min="1" max="30" step="0.5">
+        <span style="font-size:11px;color:#999;margin-top:3px">Affects steam enthalpy</span>
       </div>
       <div class="sk-field">
-        <label for="sk-op-days">Operating Days / Month</label>
+        <label for="sk-feedwater-temp">Feedwater Temp (°C)</label>
+        <input type="number" id="sk-feedwater-temp" value="80" min="10" max="100" step="5">
+      </div>
+      <div class="sk-field">
+        <label for="sk-op-hours">Running Hours / Day</label>
+        <input type="number" id="sk-op-hours" value="10" min="1" max="24" step="1">
+      </div>
+      <div class="sk-field">
+        <label for="sk-op-days">Days / Month</label>
         <input type="number" id="sk-op-days" value="22" min="1" max="31" step="1">
       </div>
     </div>
@@ -813,9 +821,36 @@ function updateCostResults() {
     var daysPerMonth = parseFloat(document.getElementById('sk-op-days').value) || 22;
     var monthlyHours = hrsPerDay * daysPerMonth;
 
-    // Steam enthalpy: ~2,770 kJ/kg at 8 bar, feedwater ~80°C = 335 kJ/kg
-    // Net energy per kg steam = (2770 - 335) = 2,435 kJ/kg = 0.676 kWh/kg
-    var steamKwhPerKg = 0.676;
+    // Steam enthalpy lookup by gauge pressure (bar g → kJ/kg hg)
+    var pressureBarG = parseFloat(document.getElementById('sk-steam-pressure').value) || 8;
+    var feedwaterTemp = parseFloat(document.getElementById('sk-feedwater-temp').value) || 80;
+
+    // hg (total steam enthalpy) at saturation by bar g — from steam tables
+    var steamTable = [
+      {p:1, hg:2706}, {p:2, hg:2725}, {p:3, hg:2739}, {p:4, hg:2749},
+      {p:5, hg:2757}, {p:6, hg:2763}, {p:7, hg:2769}, {p:8, hg:2774},
+      {p:9, hg:2778}, {p:10, hg:2781}, {p:12, hg:2787}, {p:14, hg:2791},
+      {p:16, hg:2794}, {p:18, hg:2796}, {p:20, hg:2797}, {p:25, hg:2800},
+      {p:30, hg:2802}
+    ];
+    // Interpolate hg
+    var hg = 2774; // default 8 bar g
+    for (var si = 0; si < steamTable.length - 1; si++) {
+      if (pressureBarG >= steamTable[si].p && pressureBarG <= steamTable[si+1].p) {
+        var frac = (pressureBarG - steamTable[si].p) / (steamTable[si+1].p - steamTable[si].p);
+        hg = steamTable[si].hg + frac * (steamTable[si+1].hg - steamTable[si].hg);
+        break;
+      }
+    }
+    if (pressureBarG <= 1) hg = 2706;
+    if (pressureBarG >= 30) hg = 2802;
+
+    // Feedwater enthalpy ≈ 4.18 × T (kJ/kg)
+    var hf = 4.18 * feedwaterTemp;
+
+    // Net energy per kg steam
+    var netKJperKg = hg - hf;
+    var steamKwhPerKg = netKJperKg / 3600;
     var steamKwhMonth = steamRate * steamKwhPerKg * monthlyHours;
     var combEff = 0.82;
 
@@ -963,7 +998,7 @@ document.getElementById('sk-tabs').addEventListener('click', function(e) {
 /* =====================================================
    COST INPUT EVENTS
    ===================================================== */
-['sk-fuel-cost','sk-elec-cost','sk-fuel-litres','sk-steam-rate','sk-op-hours','sk-op-days'].forEach(function(id) {
+['sk-fuel-cost','sk-elec-cost','sk-fuel-litres','sk-steam-rate','sk-steam-pressure','sk-feedwater-temp','sk-op-hours','sk-op-days'].forEach(function(id) {
   var el = document.getElementById(id);
   el.addEventListener('input', function() { updateCostResults(); renderSankey(); });
   el.addEventListener('change', function() { updateCostResults(); renderSankey(); });
