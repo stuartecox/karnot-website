@@ -258,13 +258,25 @@
         <input type="number" id="sk-fuel-cost" value="72" min="1" step="1">
       </div>
       <div class="sk-field">
-        <label for="sk-elec-cost">Electricity Cost (PHP/kWh)</label>
+        <label for="sk-elec-cost">Electricity Cost (₱/kWh)</label>
         <input type="number" id="sk-elec-cost" value="10" min="1" step="0.5">
       </div>
       <div class="sk-field">
-        <label for="sk-fuel-litres">Monthly Fuel Consumption (litres/month)</label>
-        <input type="number" id="sk-fuel-litres" value="5000" min="100" step="100">
+        <label for="sk-fuel-litres" id="sk-consumption-label">Monthly Fuel (litres/month)</label>
+        <input type="number" id="sk-fuel-litres" value="5000" min="10" step="100">
+        <span style="font-size:11px;color:#999;margin-top:3px">Or enter steam rate below</span>
       </div>
+      <div class="sk-field">
+        <label for="sk-steam-rate">Steam Output (kg/hr) <span style="font-size:11px;color:#999">— optional</span></label>
+        <input type="number" id="sk-steam-rate" value="" placeholder="e.g. 500" min="0" step="10">
+        <span style="font-size:11px;color:#999;margin-top:3px">Auto-calculates fuel from boiler rating</span>
+      </div>
+    </div>
+    <div style="margin:12px 0;display:flex;align-items:center;gap:10px">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;font-weight:600;color:#555">
+        <input type="checkbox" id="sk-no-condensate" style="width:18px;height:18px;accent-color:#EA580C">
+        No condensate return (pharma / food / sparging — all condensate lost)
+      </label>
     </div>
 
     <div class="sk-results-grid">
@@ -790,6 +802,34 @@ function updateCostResults() {
   var elecCost = parseFloat(document.getElementById('sk-elec-cost').value) || 10;
   var litres = parseFloat(document.getElementById('sk-fuel-litres').value) || 5000;
 
+  // Steam rate auto-calc: if user enters kg/hr, compute litres/month
+  var steamRate = parseFloat(document.getElementById('sk-steam-rate').value);
+  if (steamRate > 0) {
+    // Steam enthalpy ~2700 kJ/kg = 0.75 kWh/kg
+    // Diesel: 10.8 kWh/L at ~82% combustion efficiency
+    // LPG: 7.1 kWh/L at ~82%
+    // Electric: 0.75 kWh per kg steam
+    var steamKwhPerKg = 0.75; // latent heat approx
+    var monthlyHours = 720; // 30 days × 24h (adjust with operating hours)
+    var steamKwhMonth = steamRate * steamKwhPerKg * monthlyHours;
+    var combEff = 0.82;
+    if (activeTab === 'electric' || activeTab === 'iheat') {
+      litres = steamKwhMonth; // kWh directly for electric
+    } else if (activeTab === 'propane') {
+      litres = steamKwhMonth / (7.1 * combEff);
+    } else {
+      litres = steamKwhMonth / (10.8 * combEff);
+    }
+    document.getElementById('sk-fuel-litres').value = Math.round(litres);
+  }
+
+  // No condensate return toggle — increases condensate loss to max
+  var noCondensate = document.getElementById('sk-no-condensate').checked;
+  if (noCondensate) {
+    if (sliders.coil) sliders.coil.condensate = 13;
+    if (sliders.propane) sliders.propane.condensate = 13;
+  }
+
   // Get current system efficiency
   var data = getData();
   var eff;
@@ -898,10 +938,14 @@ document.getElementById('sk-tabs').addEventListener('click', function(e) {
 /* =====================================================
    COST INPUT EVENTS
    ===================================================== */
-['sk-fuel-cost','sk-elec-cost','sk-fuel-litres'].forEach(function(id) {
+['sk-fuel-cost','sk-elec-cost','sk-fuel-litres','sk-steam-rate'].forEach(function(id) {
   var el = document.getElementById(id);
-  el.addEventListener('input', updateCostResults);
-  el.addEventListener('change', updateCostResults);
+  el.addEventListener('input', function() { updateCostResults(); renderSankey(); });
+  el.addEventListener('change', function() { updateCostResults(); renderSankey(); });
+});
+document.getElementById('sk-no-condensate').addEventListener('change', function() {
+  updateCostResults();
+  renderSankey();
 });
 
 /* =====================================================
