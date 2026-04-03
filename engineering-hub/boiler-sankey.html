@@ -272,12 +272,6 @@
         <span style="font-size:11px;color:#999;margin-top:3px">Auto-calculates fuel from boiler rating</span>
       </div>
     </div>
-    <div style="margin:12px 0;display:flex;align-items:center;gap:10px">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;font-weight:600;color:#555">
-        <input type="checkbox" id="sk-no-condensate" style="width:18px;height:18px;accent-color:#EA580C">
-        No condensate return (pharma / food / sparging — all condensate lost)
-      </label>
-    </div>
 
     <div class="sk-results-grid">
       <!-- Current system -->
@@ -423,7 +417,7 @@ var sliderDefs = {
     {key:'radiation', label:'Radiation Loss', min:0, max:8, unit:'%'},
     {key:'distribution', label:'Distribution Loss', min:0, max:10, unit:'%'},
     {key:'coilHX', label:'Coil HX Loss', min:3, max:13, unit:'%'},
-    {key:'condensate', label:'Condensate Loss', min:3, max:13, unit:'%'}
+    {key:'condensate', label:'Condensate Loss (100% = no return)', min:0, max:100, unit:'%'}
   ],
   sparging: [
     {key:'flueGas', label:'Flue Gas Loss', min:6, max:16, unit:'%'},
@@ -442,7 +436,7 @@ var sliderDefs = {
     {key:'radiation', label:'Radiation Loss', min:0, max:8, unit:'%'},
     {key:'distribution', label:'Distribution Loss', min:0, max:10, unit:'%'},
     {key:'coilHX', label:'Coil HX Loss', min:3, max:13, unit:'%'},
-    {key:'condensate', label:'Condensate Loss', min:3, max:13, unit:'%'}
+    {key:'condensate', label:'Condensate Loss (100% = no return)', min:0, max:100, unit:'%'}
   ],
   iheat: [
     {key:'pipeLoss', label:'Pipe Distribution Loss', min:0, max:10, unit:'%'}
@@ -824,12 +818,6 @@ function updateCostResults() {
     document.getElementById('sk-fuel-litres').value = Math.round(litres);
   }
 
-  // No condensate return toggle — increases condensate loss to max
-  var noCondensate = document.getElementById('sk-no-condensate').checked;
-  if (noCondensate) {
-    if (sliders.coil) sliders.coil.condensate = 13;
-    if (sliders.propane) sliders.propane.condensate = 13;
-  }
 
   // Get current system efficiency
   var data = getData();
@@ -968,10 +956,6 @@ document.getElementById('sk-tabs').addEventListener('click', function(e) {
   var el = document.getElementById(id);
   el.addEventListener('input', function() { updateCostResults(); renderSankey(); });
   el.addEventListener('change', function() { updateCostResults(); renderSankey(); });
-});
-document.getElementById('sk-no-condensate').addEventListener('change', function() {
-  updateCostResults();
-  renderSankey();
 });
 
 /* =====================================================
