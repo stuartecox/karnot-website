@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Electrical Load Calculator — kW, kVA, Current &amp; Power Factor | Karnot Engineering Hub</title>
+<meta name="description" content="Free electrical load calculator. Calculate current, kVA, kVAr, power factor correction and MCB/fuse rating for single-phase and three-phase electrical loads at 220V, 380V, 415V and 440V.">
+<meta name="keywords" content="electrical load calculator, kW to amps, kVA calculator, power factor correction, kVAr, MCB rating, fuse sizing, three-phase current, single-phase current, electrical engineering calculator">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/electrical-load">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/electrical-load">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/electrical-load">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/electrical-load">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/electrical-load">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Electrical Load Calculator — kW, kVA, Current &amp; Power Factor">
+<meta property="og:description" content="Free electrical load calculator. Convert kW to amps, calculate kVA, kVAr, power factor correction and MCB sizing for single and three-phase systems.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/electrical-load">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Electrical Load Calculator | Karnot Engineering Hub">
+<meta name="twitter:description" content="Calculate current, kVA, kVAr, power factor correction and MCB rating for single-phase and three-phase systems.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Electrical Load Calculator","item":"https://karnot.com/engineering-hub/electrical-load"}]},
+    {"@type":"WebApplication","name":"Electrical Load Calculator","url":"https://karnot.com/engineering-hub/electrical-load","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate current, apparent power (kVA), reactive power (kVAr), power factor correction capacitor sizing and recommended MCB/fuse rating for single-phase and three-phase electrical loads.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I convert kW to amps for a three-phase supply?","acceptedAnswer":{"@type":"Answer","text":"For a three-phase supply, current in amps equals kW times 1000 divided by (square root of 3 times voltage times power factor). For example, a 15 kW load at 415V and 0.85 power factor draws 15000 / (1.732 x 415 x 0.85) = 24.5 amps. This calculator does this conversion instantly for any voltage and power factor."}},
+      {"@type":"Question","name":"What is the difference between kW, kVA, and kVAr?","acceptedAnswer":{"@type":"Answer","text":"kW (kilowatts) is real power that does useful work. kVA (kilovolt-amperes) is apparent power, the total power drawn from the supply. kVAr (kilovolt-amperes reactive) is reactive power consumed by inductors and capacitors. They form a power triangle: kVA squared equals kW squared plus kVAr squared. Power factor equals kW divided by kVA."}},
+      {"@type":"Question","name":"What is power factor correction and why do I need it?","acceptedAnswer":{"@type":"Answer","text":"Power factor correction uses capacitors to offset the reactive power drawn by inductive loads like motors and transformers. Low power factor means higher current for the same real power, leading to larger cables, higher losses, and penalty charges from utilities. Correcting from 0.85 to 0.95 power factor can reduce apparent power demand by around 10 percent."}},
+      {"@type":"Question","name":"How do I select the right MCB or fuse rating?","acceptedAnswer":{"@type":"Answer","text":"Select the next standard MCB or fuse rating above the calculated full-load current. Standard MCB ratings are 6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, and 200 amps. The MCB must also be rated for the correct number of poles (single-pole for single-phase, three-pole for three-phase) and the correct breaking capacity for the installation."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   ELECTRICAL LOAD — el- prefix
+   =========================== */
+
+.el-hero{
+  background:linear-gradient(135deg,rgba(88,28,135,.92),rgba(168,85,247,.75),rgba(234,88,12,.25));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.el-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.el-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.el-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.el-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+.el-breadcrumb{font-size:13px;margin-bottom:12px;opacity:.78;position:relative}
+.el-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.el-breadcrumb a:hover{text-decoration:underline}
+.el-breadcrumb span{margin:0 6px;opacity:.6}
+
+.el-wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+.el-card{background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(0,0,0,.07);padding:36px;margin-top:32px}
+.el-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.el-card h2 i{color:#a855f7;font-size:20px}
+
+.el-mode-toggle{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1.5px solid #ddd;margin-bottom:24px;max-width:360px}
+.el-mode-btn{
+  flex:1;padding:12px 16px;font-size:14px;font-weight:600;
+  text-align:center;cursor:pointer;background:#fafafa;color:#6e6e73;
+  border:none;border-right:1px solid #e5e5e7;transition:all .2s;user-select:none
+}
+.el-mode-btn:last-child{border-right:none}
+.el-mode-btn.active{background:#1d1d1f;color:#fff}
+.el-mode-btn:hover:not(.active){background:#f0f0f3}
+
+.el-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px 22px;margin-bottom:24px}
+.el-field{display:flex;flex-direction:column}
+.el-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.el-field input,.el-field select{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.el-field input:focus,.el-field select:focus{outline:none;border-color:#a855f7;box-shadow:0 0 0 3px rgba(168,85,247,.12)}
+.el-field .el-hint{font-size:11px;color:#999;margin-top:3px}
+
+.el-results{display:none}
+.el-results.show{display:block}
+.el-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+.el-metric{border-radius:14px;padding:22px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.el-metric-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.el-metric-value{font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
+.el-metric-unit{font-size:13px;font-weight:500;opacity:.75}
+.el-metric.purple{background:linear-gradient(135deg,#faf5ff,#e9d5ff);border:1.5px solid rgba(168,85,247,.3)}
+.el-metric.purple .el-metric-label{color:#a855f7}
+.el-metric.purple .el-metric-value{color:#7c3aed}
+.el-metric.blue{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid rgba(59,130,246,.3)}
+.el-metric.blue .el-metric-label{color:#3b82f6}
+.el-metric.blue .el-metric-value{color:#2563eb}
+.el-metric.orange{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(245,102,0,.35)}
+.el-metric.orange .el-metric-label{color:#EA580C}
+.el-metric.orange .el-metric-value{color:#ea580c}
+.el-metric.green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid rgba(34,197,94,.3)}
+.el-metric.green .el-metric-label{color:#16a34a}
+.el-metric.green .el-metric-value{color:#15803d}
+.el-metric.teal{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1.5px solid rgba(20,184,166,.3)}
+.el-metric.teal .el-metric-label{color:#14b8a6}
+.el-metric.teal .el-metric-value{color:#0d9488}
+
+.el-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:20px}
+.el-table th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.el-table td{padding:10px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+
+.el-formula-box{background:#f8f9fa;border:1.5px solid #e5e5e7;border-radius:12px;padding:20px;margin-top:12px}
+.el-formula-box p{font-size:14px;color:#6e6e73;line-height:1.7;margin:0 0 12px}
+
+.el-faq-section{padding:60px 0;max-width:1000px;margin:0 auto}
+.el-faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.el-faq-item{border-bottom:1px solid #d2d2d7}
+.el-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#1d1d1f}
+.el-faq-item summary::-webkit-details-marker{display:none}
+.el-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#a855f7;transition:transform .3s}
+.el-faq-item[open] summary::after{content:'\2212'}
+.el-faq-item .el-faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+.el-cta{
+  background:linear-gradient(135deg,#3b0764,#7c3aed);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.el-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.el-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.el-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#EA580C;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.el-cta-btn:hover{background:#c2410c;transform:translateY(-2px);color:#fff}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .el-card{padding:22px 16px}
+  .el-fields{grid-template-columns:1fr 1fr}
+  .el-results-grid{grid-template-columns:1fr 1fr}
+  .el-mode-toggle{max-width:100%}
+}
+@media(max-width:400px){
+  .el-fields{grid-template-columns:1fr}
+  .el-results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<section class="el-hero">
+  <div class="el-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Electrical Load
+  </div>
+  <h1>Electrical Load Calculator</h1>
+  <p>A 15 kW three-phase load at 415V and 0.85 power factor draws 24.5 A and needs a 32 A MCB. Enter your power, voltage and phase configuration below to calculate current, kVA, kVAr, power factor correction capacitor size and MCB/fuse rating.</p>
+  <p class="answer-first">This tool computes full-load current, apparent power, reactive power, and recommends the next standard MCB/fuse rating for single-phase and three-phase electrical loads at common industrial voltages.</p>
+</section>
+
+<div class="el-wrap">
+
+  <div class="el-card rv">
+    <h2><i class="fas fa-bolt"></i> Electrical Load Inputs</h2>
+
+    <div class="el-mode-toggle">
+      <button class="el-mode-btn active" data-mode="kw" type="button">From kW</button>
+      <button class="el-mode-btn" data-mode="amps" type="button">From Amps</button>
+    </div>
+
+    <div class="el-fields">
+      <div class="el-field">
+        <label for="el-voltage">Voltage (V)</label>
+        <select id="el-voltage">
+          <option value="220">220 V</option>
+          <option value="380">380 V</option>
+          <option value="415" selected>415 V</option>
+          <option value="440">440 V</option>
+        </select>
+      </div>
+      <div class="el-field">
+        <label for="el-phase">Phase</label>
+        <select id="el-phase">
+          <option value="3" selected>Three Phase</option>
+          <option value="1">Single Phase</option>
+        </select>
+      </div>
+      <div class="el-field">
+        <label for="el-pf">Power Factor</label>
+        <input type="number" id="el-pf" value="0.85" min="0.1" max="1.0" step="0.01">
+        <span class="el-hint">Typical: 0.80-0.95</span>
+      </div>
+      <div class="el-field" id="el-kw-group">
+        <label for="el-kw">Real Power (kW)</label>
+        <input type="number" id="el-kw" value="15" min="0.1" step="0.1">
+      </div>
+      <div class="el-field" id="el-amps-group" style="display:none">
+        <label for="el-amps">Current (A)</label>
+        <input type="number" id="el-amps" value="25" min="0.1" step="0.1">
+      </div>
+      <div class="el-field">
+        <label for="el-target-pf">Target PF (for correction)</label>
+        <input type="number" id="el-target-pf" value="0.95" min="0.8" max="1.0" step="0.01">
+        <span class="el-hint">Desired power factor after correction</span>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="el-results" id="el-results">
+      <h3 style="font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:16px"><i class="fas fa-gauge-high" style="color:#a855f7;margin-right:8px"></i>Electrical Load Results</h3>
+
+      <div class="el-results-grid" id="el-metrics"></div>
+
+      <div style="overflow-x:auto">
+        <table class="el-table" id="el-detail-table">
+          <thead>
+            <tr><th>Property</th><th>Value</th><th>Unit</th></tr>
+          </thead>
+          <tbody id="el-detail-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="el-card rv">
+    <h2><i class="fas fa-square-root-variable"></i> Electrical Formulas</h2>
+    <div class="el-formula-box">
+      <p><strong>Three-phase current:</strong></p>
+      <div id="el-katex-3ph"></div>
+      <p><strong>Single-phase current:</strong></p>
+      <div id="el-katex-1ph"></div>
+      <p><strong>Power triangle:</strong></p>
+      <div id="el-katex-triangle"></div>
+      <p><strong>PF correction capacitor:</strong></p>
+      <div id="el-katex-cap"></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="el-faq-section rv" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <details class="el-faq-item">
+      <summary>How do I convert kW to amps for a three-phase supply?</summary>
+      <div class="el-faq-answer"><p>For three-phase: I = P / (sqrt(3) x V x cos phi). For example, 15 kW at 415V and PF 0.85 gives 15000 / (1.732 x 415 x 0.85) = 24.5 A. This calculator does the conversion instantly for any voltage and power factor.</p></div>
+    </details>
+    <details class="el-faq-item">
+      <summary>What is the difference between kW, kVA, and kVAr?</summary>
+      <div class="el-faq-answer"><p>kW is real (useful) power, kVA is apparent (total) power, kVAr is reactive power. They form a power triangle: S (kVA) squared = P (kW) squared + Q (kVAr) squared. Power factor = kW / kVA. Low PF means you draw more current than needed for the same useful work.</p></div>
+    </details>
+    <details class="el-faq-item">
+      <summary>What is power factor correction and why do I need it?</summary>
+      <div class="el-faq-answer"><p>Power factor correction uses capacitors to cancel reactive power from inductive loads. Improving PF from 0.85 to 0.95 reduces apparent power by about 10%, meaning smaller cables, lower losses, and no utility penalty charges.</p></div>
+    </details>
+    <details class="el-faq-item">
+      <summary>How do I select the right MCB or fuse rating?</summary>
+      <div class="el-faq-answer"><p>Select the next standard MCB rating above the calculated full-load current. Standard ratings are 6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, and 200 A. The MCB must also match the number of poles and breaking capacity for your installation.</p></div>
+    </details>
+  </section>
+
+  <div class="el-cta rv">
+    <h2>Need Electrical Engineering Support?</h2>
+    <p>Our engineers can design complete electrical systems for heat pump installations, including power supply, MCB sizing, and power factor correction.</p>
+    <a href="../contact.html?intent=electrical_design&product=iHEAT" class="el-cta-btn">Talk to an Engineer <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+</div>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   MCB RATINGS
+   ===================================================== */
+var MCB_RATINGS = [6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, 200];
+
+function nextMCB(current) {
+  for (var i = 0; i < MCB_RATINGS.length; i++) {
+    if (MCB_RATINGS[i] >= current) return MCB_RATINGS[i];
+  }
+  return MCB_RATINGS[MCB_RATINGS.length - 1];
+}
+
+/* =====================================================
+   MODE TOGGLE
+   ===================================================== */
+var mode = 'kw';
+var modeBtns = document.querySelectorAll('.el-mode-btn');
+modeBtns.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    modeBtns.forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    mode = btn.getAttribute('data-mode');
+    document.getElementById('el-kw-group').style.display = mode === 'kw' ? '' : 'none';
+    document.getElementById('el-amps-group').style.display = mode === 'amps' ? '' : 'none';
+    calculate();
+  });
+});
+
+/* =====================================================
+   CALCULATE
+   ===================================================== */
+function calculate() {
+  var V = parseFloat(document.getElementById('el-voltage').value);
+  var phases = parseInt(document.getElementById('el-phase').value);
+  var pf = parseFloat(document.getElementById('el-pf').value);
+  var targetPF = parseFloat(document.getElementById('el-target-pf').value);
+
+  if (isNaN(V) || isNaN(pf) || isNaN(targetPF) || pf <= 0 || pf > 1) return;
+
+  var P_kW, I_A, S_kVA, Q_kVAr;
+
+  if (mode === 'kw') {
+    P_kW = parseFloat(document.getElementById('el-kw').value);
+    if (isNaN(P_kW) || P_kW <= 0) return;
+
+    // Calculate current
+    if (phases === 3) {
+      I_A = (P_kW * 1000) / (Math.sqrt(3) * V * pf);
+    } else {
+      I_A = (P_kW * 1000) / (V * pf);
+    }
+  } else {
+    I_A = parseFloat(document.getElementById('el-amps').value);
+    if (isNaN(I_A) || I_A <= 0) return;
+
+    // Calculate kW from amps
+    if (phases === 3) {
+      P_kW = (Math.sqrt(3) * V * I_A * pf) / 1000;
+    } else {
+      P_kW = (V * I_A * pf) / 1000;
+    }
+  }
+
+  // Apparent and reactive power
+  S_kVA = P_kW / pf;
+  Q_kVAr = Math.sqrt(S_kVA * S_kVA - P_kW * P_kW);
+
+  // PF correction
+  var Q_target = P_kW * Math.tan(Math.acos(targetPF));
+  var Q_cap = Q_kVAr - Q_target;
+  if (Q_cap < 0) Q_cap = 0;
+
+  // Corrected values
+  var S_corrected = P_kW / targetPF;
+  var I_corrected;
+  if (phases === 3) {
+    I_corrected = (P_kW * 1000) / (Math.sqrt(3) * V * targetPF);
+  } else {
+    I_corrected = (P_kW * 1000) / (V * targetPF);
+  }
+
+  // MCB rating
+  var mcb = nextMCB(I_A);
+
+  // Render metrics
+  var metricsDiv = document.getElementById('el-metrics');
+  metricsDiv.innerHTML = '';
+  function addMetric(label, value, unit, cls) {
+    metricsDiv.innerHTML +=
+      '<div class="el-metric ' + cls + '">' +
+        '<div class="el-metric-label">' + label + '</div>' +
+        '<div class="el-metric-value">' + value + '</div>' +
+        '<div class="el-metric-unit">' + unit + '</div>' +
+      '</div>';
+  }
+
+  addMetric('Current', I_A.toFixed(1), 'A', 'purple');
+  addMetric('Apparent Power', S_kVA.toFixed(2), 'kVA', 'blue');
+  addMetric('Reactive Power', Q_kVAr.toFixed(2), 'kVAr', 'orange');
+  addMetric('MCB / Fuse', mcb, 'A', 'green');
+  if (Q_cap > 0) {
+    addMetric('PF Correction Cap', Q_cap.toFixed(1), 'kVAr', 'teal');
+  }
+
+  // Detail table
+  var tbody = document.getElementById('el-detail-body');
+  tbody.innerHTML = '';
+  function addRow(p, v, u) {
+    tbody.innerHTML += '<tr><td>' + p + '</td><td><strong>' + v + '</strong></td><td>' + u + '</td></tr>';
+  }
+
+  addRow('Supply Voltage', V, 'V');
+  addRow('Phase Configuration', phases === 3 ? 'Three Phase' : 'Single Phase', '');
+  addRow('Power Factor', pf, '');
+  addRow('Real Power (P)', P_kW.toFixed(2), 'kW');
+  addRow('Full Load Current (I)', I_A.toFixed(2), 'A');
+  addRow('Apparent Power (S)', S_kVA.toFixed(2), 'kVA');
+  addRow('Reactive Power (Q)', Q_kVAr.toFixed(2), 'kVAr');
+  addRow('Recommended MCB / Fuse', mcb, 'A');
+  addRow('', '', '');
+  addRow('Target Power Factor', targetPF, '');
+  addRow('PF Correction Capacitor', Q_cap.toFixed(1), 'kVAr');
+  addRow('Corrected Apparent Power', S_corrected.toFixed(2), 'kVA');
+  addRow('Corrected Current', I_corrected.toFixed(2), 'A');
+  addRow('Current Reduction', ((1 - I_corrected / I_A) * 100).toFixed(1), '%');
+
+  document.getElementById('el-results').classList.add('show');
+}
+
+/* =====================================================
+   EVENTS
+   ===================================================== */
+var inputs = document.querySelectorAll('#el-voltage, #el-phase, #el-pf, #el-kw, #el-amps, #el-target-pf');
+inputs.forEach(function(el) {
+  el.addEventListener('input', calculate);
+  el.addEventListener('change', calculate);
+});
+
+/* =====================================================
+   KATEX
+   ===================================================== */
+function renderKatex() {
+  if (typeof katex === 'undefined') return;
+  katex.render('I = \\frac{P}{\\sqrt{3} \\cdot V \\cdot \\cos\\varphi} \\quad \\text{(three-phase, A)}', document.getElementById('el-katex-3ph'), {displayMode:true});
+  katex.render('I = \\frac{P}{V \\cdot \\cos\\varphi} \\quad \\text{(single-phase, A)}', document.getElementById('el-katex-1ph'), {displayMode:true});
+  katex.render('S = \\frac{P}{\\cos\\varphi}, \\quad Q = \\sqrt{S^2 - P^2}', document.getElementById('el-katex-triangle'), {displayMode:true});
+  katex.render('Q_{\\text{cap}} = P \\cdot (\\tan\\varphi_1 - \\tan\\varphi_2) \\quad \\text{(kVAr)}', document.getElementById('el-katex-cap'), {displayMode:true});
+}
+if (document.readyState === 'complete') renderKatex();
+else window.addEventListener('load', renderKatex);
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.1});
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+calculate();
+
+})();
+</script>
+</body>
+</html>

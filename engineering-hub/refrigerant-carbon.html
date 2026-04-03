@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PFAS & Refrigerant Carbon Calculator — GWP, Scope 1 CO₂e & SEC PFRS S2 Liability | Karnot Engineering Hub</title>
+<meta name="description" content="Free PFAS refrigerant carbon calculator. Compare GWP of R290, CO2, R32, R410A, R134a, R404A and more. Calculate Scope 1 CO₂e emissions, carbon tax liability, and SEC PFRS S2 reporting impact.">
+<meta name="keywords" content="PFAS refrigerant calculator, GWP calculator, refrigerant carbon emissions, R290 vs R410A, Scope 1 refrigerant emissions, SEC PFRS S2, carbon tax, forever chemicals, F-gas regulation, natural refrigerant">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/refrigerant-carbon">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/refrigerant-carbon">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/refrigerant-carbon">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/refrigerant-carbon">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/refrigerant-carbon">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="PFAS & Refrigerant Carbon Calculator — GWP, Scope 1 CO₂e & SEC PFRS S2 Liability">
+<meta property="og:description" content="Calculate your refrigerant Scope 1 CO₂e emissions and carbon tax liability. Compare PFAS vs natural refrigerants. Free engineering tool.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/refrigerant-carbon">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PFAS & Refrigerant Carbon Calculator — GWP, CO₂e & Carbon Tax">
+<meta name="twitter:description" content="Calculate refrigerant Scope 1 CO₂e emissions, PFAS classification, and carbon tax liability. Compare R290 and CO₂ natural alternatives.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%."},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},
+      {"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},
+      {"@type":"ListItem","position":3,"name":"PFAS & Refrigerant Carbon Calculator","item":"https://karnot.com/engineering-hub/refrigerant-carbon"}
+    ]},
+    {"@type":"WebApplication","name":"PFAS & Refrigerant Carbon Calculator","url":"https://karnot.com/engineering-hub/refrigerant-carbon","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate refrigerant Scope 1 CO₂e emissions from system leakage. Compare GWP, PFAS classification, carbon tax liability, and natural refrigerant alternatives.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What are PFAS and why do they matter for refrigerants?","acceptedAnswer":{"@type":"Answer","text":"PFAS (Per- and Polyfluoroalkyl Substances) are synthetic 'forever chemicals' that do not break down in the environment. Most common HFC refrigerants — including R410A, R134a, R404A, and R32 — are classified as PFAS. The EU F-Gas Regulation is phasing down HFC production by 98% by 2050, and PFAS bans are being considered globally. Natural refrigerants like R290 (propane) and R744 (CO₂) are not PFAS and are exempt from these regulations."}},
+      {"@type":"Question","name":"What is GWP and how does it affect my carbon liability?","acceptedAnswer":{"@type":"Answer","text":"Global Warming Potential (GWP) measures how much heat a greenhouse gas traps relative to CO₂ over 100 years. R410A has a GWP of 2,088 — meaning 1 kg of R410A leaked is equivalent to 2,088 kg of CO₂. R290 has a GWP of just 3, making it over 600x less damaging. Refrigerant leakage is a direct Scope 1 emission that must be reported under SEC Climate Disclosure Rules and IFRS S2."}},
+      {"@type":"Question","name":"What are Scope 1 emissions from refrigerant leakage?","acceptedAnswer":{"@type":"Answer","text":"Scope 1 emissions include all direct greenhouse gas releases from company-owned equipment. Refrigerant leakage from HVAC, chiller, and heat pump systems is a Scope 1 fugitive emission. The GHG Protocol requires companies to report refrigerant losses as CO₂e using the GWP of the specific refrigerant. Annual leak rates typically range from 2% to 15% depending on system age and maintenance."}},
+      {"@type":"Question","name":"What is SEC PFRS S2 and how does it relate to refrigerants?","acceptedAnswer":{"@type":"Answer","text":"The Philippine SEC adopted PFRS S2 (equivalent to IFRS S2 Climate-related Disclosures) requiring publicly listed companies to disclose Scope 1, 2, and 3 greenhouse gas emissions. Refrigerant leakage is a material Scope 1 source for companies with large HVAC or refrigeration installations. Switching to natural refrigerants like R290 or CO₂ can eliminate this reporting liability entirely."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* --- PAGE-SPECIFIC: PFAS & Refrigerant Carbon Calculator --- */
+
+.ec-hero{
+  background:linear-gradient(135deg,rgba(13,27,42,.95),rgba(15,40,35,.85),rgba(52,199,89,.18));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.ec-hero::before{content:'';position:absolute;top:-40%;right:-15%;width:500px;height:500px;background:radial-gradient(circle,rgba(52,199,89,.12) 0%,transparent 70%);border-radius:50%}
+.ec-hero::after{content:'';position:absolute;bottom:-25%;left:-8%;width:400px;height:400px;background:radial-gradient(circle,rgba(0,151,167,.1) 0%,transparent 70%);border-radius:50%}
+.ec-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.ec-hero h1 span{background:linear-gradient(135deg,#34c759,#30d158);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ec-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative;z-index:1}
+.ec-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative;z-index:1}
+
+.breadcrumb{font-size:13px;margin-bottom:12px;opacity:.8;position:relative;z-index:1}
+.breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+
+/* CALCULATOR */
+.ec-section{max-width:800px;margin:0 auto;padding:60px 20px 40px}
+.ec-card{background:#fff;border-radius:20px;padding:40px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:2px solid transparent;transition:border-color .3s}
+.ec-card:hover{border-color:rgba(52,199,89,.2)}
+
+.ec-input-group{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:8px}
+.ec-field label{display:block;font-size:13px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.ec-field input,.ec-field select{
+  width:100%;padding:14px 16px;border:1.5px solid #d2d2d7;border-radius:10px;
+  font-size:16px;font-weight:600;color:#1d1d1f;background:#fafafa;
+  transition:all .2s;outline:none;box-sizing:border-box
+}
+.ec-field input:focus,.ec-field select:focus{border-color:#34c759;box-shadow:0 0 0 3px rgba(52,199,89,.15);background:#fff}
+.ec-field input::placeholder{color:#aaa;font-weight:400}
+.ec-hint{font-size:12px;color:#999;margin-top:6px;min-height:18px}
+
+/* GWP BADGE */
+.ec-gwp-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-top:8px}
+.ec-gwp-badge.green{background:rgba(52,199,89,.12);color:#166534;border:1px solid rgba(52,199,89,.3)}
+.ec-gwp-badge.amber{background:rgba(234,88,12,.1);color:#9a3412;border:1px solid rgba(234,88,12,.25)}
+.ec-gwp-badge.red{background:rgba(255,59,48,.1);color:#dc2626;border:1px solid rgba(255,59,48,.25)}
+
+/* PFAS BADGE */
+.ec-pfas-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-size:14px;font-weight:700;margin-top:12px;width:fit-content}
+.ec-pfas-badge.natural{background:linear-gradient(135deg,rgba(52,199,89,.1),rgba(52,199,89,.05));color:#166534;border:2px solid #86efac}
+.ec-pfas-badge.pfas{background:linear-gradient(135deg,rgba(255,59,48,.1),rgba(255,59,48,.05));color:#dc2626;border:2px solid #fca5a5}
+
+/* SLIDER */
+.ec-slider-group{display:flex;align-items:center;gap:12px}
+.ec-slider-group input[type="range"]{flex:1;height:6px;-webkit-appearance:none;appearance:none;background:#e5e7eb;border-radius:3px;outline:none}
+.ec-slider-group input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#0097a7;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.ec-slider-group input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#0097a7;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.ec-slider-val{min-width:48px;text-align:center;font-size:16px;font-weight:700;color:#1d1d1f}
+
+/* RESULTS */
+.ec-results{margin-top:32px;display:none}
+.ec-results.active{display:block}
+
+.ec-primary{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:16px;padding:28px;text-align:center;margin-bottom:24px}
+.ec-primary h3{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:16px}
+.ec-primary-values{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ec-val{text-align:center}
+.ec-val .num{font-size:36px;font-weight:800;color:#15803d;line-height:1}
+.ec-val .unit{font-size:14px;font-weight:600;color:#166534;margin-top:4px}
+.ec-val .label{font-size:12px;color:#6b7280;margin-top:2px}
+
+.ec-primary.danger{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#fca5a5}
+.ec-primary.danger h3{color:#991b1b}
+.ec-primary.danger .ec-val .num{color:#dc2626}
+.ec-primary.danger .ec-val .unit{color:#991b1b}
+
+/* COMPARISON */
+.ec-delta{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:2px solid #5eead4;border-radius:16px;padding:28px;margin-bottom:24px}
+.ec-delta h3{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#134e4a;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.ec-delta h3 i{color:#0097a7}
+.ec-delta-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.ec-delta-box{text-align:center;padding:16px;border-radius:12px}
+.ec-delta-box.r290{background:rgba(52,199,89,.08);border:1px solid rgba(52,199,89,.2)}
+.ec-delta-box.co2{background:rgba(0,151,167,.08);border:1px solid rgba(0,151,167,.2)}
+.ec-delta-box .big{font-size:28px;font-weight:800;line-height:1}
+.ec-delta-box.r290 .big{color:#15803d}
+.ec-delta-box.co2 .big{color:#0097a7}
+.ec-delta-box .sm{font-size:12px;color:#6b7280;margin-top:4px}
+.ec-delta-box .refname{font-size:13px;font-weight:700;color:#374151;margin-bottom:6px}
+.ec-delta-text{font-size:14px;line-height:1.7;color:#134e4a}
+.ec-delta-text strong{color:#0f766e}
+
+/* CARBON TAX */
+.ec-tax{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fdba74;border-radius:16px;padding:28px;margin-bottom:24px;text-align:center}
+.ec-tax h3{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9a3412;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px}
+.ec-tax h3 i{color:#EA580C}
+.ec-tax .big{font-size:36px;font-weight:800;color:#EA580C;line-height:1;margin-bottom:4px}
+.ec-tax .sm{font-size:13px;color:#78350f}
+
+/* SCOPE INSIGHT */
+.ec-scope{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:24px}
+.ec-scope h4{font-size:13px;font-weight:700;color:#334155;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ec-scope p{font-size:13px;line-height:1.6;color:#64748b;margin:0}
+
+/* FORMULA SECTION */
+.ec-formula{max-width:800px;margin:0 auto;padding:0 20px 40px}
+.ec-formula-card{background:#fff;border-radius:20px;padding:40px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.ec-formula-card h2{font-size:24px;font-weight:800;color:#1F2937;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.ec-formula-card h2 i{color:#0097a7}
+.ec-formula-block{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:24px;margin-bottom:20px;text-align:center}
+.ec-formula-block .katex-display{margin:12px 0}
+.ec-formula-block p{font-size:13px;color:#6b7280;margin-top:8px;line-height:1.6}
+.ec-formula-block h4{font-size:13px;font-weight:700;color:#374151;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+
+/* CTA */
+.ec-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.ec-cta-row .btn-orange{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;background:linear-gradient(135deg,#F56600,#ff8c42);
+  color:#fff;font-size:15px;font-weight:700;border-radius:12px;
+  text-decoration:none;transition:all .3s;border:none;cursor:pointer
+}
+.ec-cta-row .btn-orange:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,102,0,.3)}
+.ec-cta-row .btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;background:transparent;
+  color:#0097a7;font-size:15px;font-weight:700;border-radius:12px;
+  text-decoration:none;transition:all .3s;border:2px solid #0097a7;cursor:pointer
+}
+.ec-cta-row .btn-outline:hover{background:rgba(0,151,167,.05)}
+
+/* FAQ */
+.faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#34c759;transition:transform .3s}
+.faq-item[open] summary::after{content:'\2212'}
+.faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+.eh-cta{background:linear-gradient(135deg,#0d1b2e,#0f2823);padding:60px 20px;text-align:center}
+.eh-cta h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px}
+.eh-cta p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:600px;margin-left:auto;margin-right:auto}
+
+/* METHODOLOGY TABLE */
+.ec-method{margin-top:40px}
+.ec-method summary{font-size:15px;font-weight:700;color:#374151;cursor:pointer;padding:12px 0}
+.ec-method .meth-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.ec-method .meth-table th{text-align:left;padding:10px 12px;background:#f3f4f6;font-weight:700;color:#374151;border-bottom:2px solid #e5e7eb}
+.ec-method .meth-table td{padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563}
+.ec-method .meth-table td:nth-child(2){font-family:'SF Mono',Consolas,monospace;font-size:12px}
+
+@media(max-width:768px){
+  .ec-hero{padding:100px 16px 60px}
+  .ec-hero h1{font-size:28px}
+  .ec-input-group{grid-template-columns:1fr}
+  .ec-primary-values{grid-template-columns:1fr}
+  .ec-delta-grid{grid-template-columns:1fr}
+  .ec-card{padding:24px 20px}
+  .ec-formula-card{padding:24px 20px}
+  .ec-val .num{font-size:28px}
+  .ec-tax .big{font-size:28px}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="karnot-nav" data-page="engineering"></div>
+
+<section class="ec-hero">
+  <nav class="breadcrumb rv" aria-label="Breadcrumb">
+    <a href="../">Home</a> / <a href="./">Engineering Hub</a> / PFAS & Refrigerant Carbon Calculator
+  </nav>
+  <h1 class="rv">PFAS & Refrigerant <span>Carbon Calculator</span></h1>
+  <p class="rv">Calculate your refrigerant Scope 1 CO₂e emissions from system leakage. See the PFAS classification, carbon tax liability, and how switching to R290 or CO₂ eliminates your exposure entirely.</p>
+  <p class="answer-first rv">A single R410A system with 10 kg charge leaking at 5% per year = 1.04 tonnes CO₂e. With R290, that drops to 0.0015 tonnes — a 99.9% reduction.</p>
+</section>
+
+<main id="main">
+<section class="ec-section">
+  <div class="ec-card">
+    <div class="ec-input-group">
+      <div class="ec-field">
+        <label for="ec-refrigerant"><i class="fa-solid fa-snowflake"></i> Refrigerant Type</label>
+        <select id="ec-refrigerant">
+          <option value="R290" data-gwp="3" data-pfas="0">R290 (Propane) — GWP 3</option>
+          <option value="R744" data-gwp="1" data-pfas="0">R744 (CO₂) — GWP 1</option>
+          <option value="R32" data-gwp="675" data-pfas="1">R32 — GWP 675</option>
+          <option value="R410A" data-gwp="2088" data-pfas="1" selected>R410A — GWP 2,088</option>
+          <option value="R134a" data-gwp="1430" data-pfas="1">R134a — GWP 1,430</option>
+          <option value="R404A" data-gwp="3922" data-pfas="1">R404A — GWP 3,922</option>
+          <option value="R407C" data-gwp="1774" data-pfas="1">R407C — GWP 1,774</option>
+          <option value="R22" data-gwp="1810" data-pfas="1">R22 (HCFC) — GWP 1,810</option>
+          <option value="R448A" data-gwp="1387" data-pfas="1">R448A — GWP 1,387</option>
+          <option value="R449A" data-gwp="1397" data-pfas="1">R449A — GWP 1,397</option>
+        </select>
+        <div id="ec-gwp-badge" class="ec-gwp-badge red">GWP 2,088 &#10060; Phase-down underway</div>
+      </div>
+      <div class="ec-field">
+        <label for="ec-charge"><i class="fa-solid fa-weight-hanging"></i> System Charge Size (kg)</label>
+        <input type="number" id="ec-charge" value="10" min="0.1" step="0.1" inputmode="decimal">
+        <div class="ec-hint">Total refrigerant charge per system</div>
+      </div>
+    </div>
+
+    <div class="ec-input-group" style="margin-top:20px">
+      <div class="ec-field">
+        <label for="ec-leak"><i class="fa-solid fa-droplet"></i> Annual Leak Rate (%)</label>
+        <div class="ec-slider-group">
+          <input type="range" id="ec-leak" min="0" max="25" value="5" step="0.5">
+          <span class="ec-slider-val" id="ec-leak-val">5%</span>
+        </div>
+        <div class="ec-hint">Typical: 2-5% well-maintained, 10-15% older systems</div>
+      </div>
+      <div class="ec-field">
+        <label for="ec-systems"><i class="fa-solid fa-building"></i> Number of Systems</label>
+        <input type="number" id="ec-systems" value="1" min="1" step="1" inputmode="numeric">
+        <div class="ec-hint">Total units across all sites</div>
+      </div>
+    </div>
+
+    <!-- PFAS Badge -->
+    <div style="text-align:center;margin-top:16px">
+      <div id="ec-pfas-badge" class="ec-pfas-badge pfas">
+        <i class="fa-solid fa-triangle-exclamation"></i> PFAS — Forever Chemical
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="ec-results active" id="ec-results">
+
+      <!-- Primary Output -->
+      <div class="ec-primary danger" id="ec-primary">
+        <h3><i class="fa-solid fa-cloud"></i> Annual Refrigerant Emissions</h3>
+        <div class="ec-primary-values">
+          <div class="ec-val">
+            <div class="num" id="ec-leaked-kg">0.50</div>
+            <div class="unit">kg leaked / year</div>
+            <div class="label">Refrigerant lost to atmosphere</div>
+          </div>
+          <div class="ec-val">
+            <div class="num" id="ec-co2e">1.04</div>
+            <div class="unit">tonnes CO₂e / year</div>
+            <div class="label">Scope 1 equivalent emissions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carbon Tax -->
+      <div class="ec-tax" id="ec-tax">
+        <h3><i class="fa-solid fa-coins"></i> Carbon Tax Liability</h3>
+        <div class="big" id="ec-tax-cost">$52.20</div>
+        <div class="sm">per year at $50 / tonne CO₂e</div>
+      </div>
+
+      <!-- Natural Refrigerant Comparison -->
+      <div class="ec-delta">
+        <h3><i class="fa-solid fa-leaf"></i> Switch to Natural Refrigerants</h3>
+        <div class="ec-delta-grid">
+          <div class="ec-delta-box r290">
+            <div class="refname">R290 (Propane)</div>
+            <div class="big" id="ec-r290-co2e">0.002</div>
+            <div class="sm">tonnes CO₂e / year</div>
+          </div>
+          <div class="ec-delta-box co2">
+            <div class="refname">R744 (CO₂)</div>
+            <div class="big" id="ec-r744-co2e">0.001</div>
+            <div class="sm">tonnes CO₂e / year</div>
+          </div>
+        </div>
+        <p class="ec-delta-text" id="ec-delta-text">With <strong>R290</strong> your liability = <strong>0.002 tonnes</strong> CO₂e/year. With <strong>CO₂</strong> your liability = <strong>0.001 tonnes</strong> CO₂e/year. Switching eliminates virtually all refrigerant-related Scope 1 emissions.</p>
+      </div>
+
+      <!-- Scope Insight -->
+      <div class="ec-scope">
+        <h4><i class="fa-solid fa-shield-halved"></i> SEC PFRS S2 / Scope 1 Reporting</h4>
+        <p id="ec-scope-text">Your <strong>R410A</strong> systems generate <strong>1.04 tonnes CO₂e</strong> of Scope 1 fugitive emissions per year from refrigerant leakage alone. Under SEC PFRS S2 (IFRS S2), this must be disclosed in your climate-related financial statements. Natural refrigerants (R290, CO₂) reduce this liability by over 99%.</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="ec-cta-row">
+        <a href="../contact.html?intent=refrigerant_transition&product=R290" class="btn-orange"><i class="fa-solid fa-leaf"></i> Switch to R290 / CO₂</a>
+        <a href="../contact.html?intent=carbon_audit" class="btn-outline"><i class="fa-solid fa-clipboard-check"></i> Request Carbon Audit</a>
+      </div>
+    </div>
+
+    <!-- Methodology -->
+    <details class="ec-method">
+      <summary><i class="fa-solid fa-flask"></i> Refrigerant GWP Data & Sources</summary>
+      <table class="meth-table">
+        <thead><tr><th>Refrigerant</th><th>GWP (AR5)</th><th>Type</th><th>PFAS</th></tr></thead>
+        <tbody>
+          <tr><td>R290 (Propane)</td><td>3</td><td>Natural — Hydrocarbon</td><td>No</td></tr>
+          <tr><td>R744 (CO₂)</td><td>1</td><td>Natural — Inorganic</td><td>No</td></tr>
+          <tr><td>R32</td><td>675</td><td>HFC</td><td>Yes</td></tr>
+          <tr><td>R410A</td><td>2,088</td><td>HFC Blend</td><td>Yes</td></tr>
+          <tr><td>R134a</td><td>1,430</td><td>HFC</td><td>Yes</td></tr>
+          <tr><td>R404A</td><td>3,922</td><td>HFC Blend</td><td>Yes</td></tr>
+          <tr><td>R407C</td><td>1,774</td><td>HFC Blend</td><td>Yes</td></tr>
+          <tr><td>R22 (HCFC)</td><td>1,810</td><td>HCFC (phased out)</td><td>Yes</td></tr>
+          <tr><td>R448A</td><td>1,387</td><td>HFO/HFC Blend</td><td>Yes</td></tr>
+          <tr><td>R449A</td><td>1,397</td><td>HFO/HFC Blend</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:#9ca3af;margin-top:12px">GWP values from IPCC AR5 (100-year horizon). PFAS classification per ECHA definition of per- and polyfluoroalkyl substances. Carbon tax calculated at $50/tonne CO₂e (representative global benchmark). Actual leak rates vary by system design, age, and maintenance regime.</p>
+    </details>
+  </div>
+</section>
+
+<!-- Formula Section -->
+<section class="ec-formula">
+  <div class="ec-formula-card">
+    <h2><i class="fa-solid fa-square-root-variable"></i> Calculation Method</h2>
+
+    <div class="ec-formula-block">
+      <h4>Annual Refrigerant Leaked</h4>
+      <div id="katex-leaked"></div>
+      <p>Where Q<sub>charge</sub> is the system charge in kg, r<sub>leak</sub> is the annual leak rate (%), and n is the number of systems.</p>
+    </div>
+
+    <div class="ec-formula-block">
+      <h4>CO₂ Equivalent Emissions</h4>
+      <div id="katex-co2e"></div>
+      <p>The leaked mass is multiplied by the refrigerant's Global Warming Potential (GWP) and divided by 1,000 to convert from kg to tonnes.</p>
+    </div>
+
+    <div class="ec-formula-block">
+      <h4>Carbon Tax Liability</h4>
+      <div id="katex-tax"></div>
+      <p>Applied at $50 per tonne CO₂e, a representative global carbon price benchmark used by the World Bank and IMF.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq-item">
+    <summary>What are PFAS and why do they matter for refrigerants?</summary>
+    <div class="faq-answer"><p>PFAS (Per- and Polyfluoroalkyl Substances) are synthetic "forever chemicals" that do not break down in the environment. Most common HFC refrigerants — including R410A, R134a, R404A, and R32 — are classified as PFAS. The EU F-Gas Regulation is phasing down HFC production by 98% by 2050, and PFAS bans are being considered globally. Natural refrigerants like R290 (propane) and R744 (CO₂) are not PFAS and are exempt from these regulations.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is GWP and how does it affect my carbon liability?</summary>
+    <div class="faq-answer"><p>Global Warming Potential (GWP) measures how much heat a greenhouse gas traps relative to CO₂ over 100 years. R410A has a GWP of 2,088 — meaning 1 kg of R410A leaked is equivalent to 2,088 kg of CO₂. R290 has a GWP of just 3, making it over 600x less damaging. Refrigerant leakage is a direct Scope 1 emission that must be reported under SEC Climate Disclosure Rules and IFRS S2.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What are Scope 1 emissions from refrigerant leakage?</summary>
+    <div class="faq-answer"><p>Scope 1 emissions include all direct greenhouse gas releases from company-owned equipment. Refrigerant leakage from HVAC, chiller, and heat pump systems is a Scope 1 fugitive emission. The GHG Protocol requires companies to report refrigerant losses as CO₂e using the GWP of the specific refrigerant. Annual leak rates typically range from 2% to 15% depending on system age and maintenance.</p></div>
+  </details>
+  <details class="faq-item">
+    <summary>What is SEC PFRS S2 and how does it relate to refrigerants?</summary>
+    <div class="faq-answer"><p>The Philippine SEC adopted PFRS S2 (equivalent to IFRS S2 Climate-related Disclosures) requiring publicly listed companies to disclose Scope 1, 2, and 3 greenhouse gas emissions. Refrigerant leakage is a material Scope 1 source for companies with large HVAC or refrigeration installations. Switching to natural refrigerants like R290 or CO₂ can eliminate this reporting liability entirely.</p></div>
+  </details>
+</section>
+
+<!-- CTA -->
+<section class="eh-cta rv">
+  <h2>Eliminate Your Scope 1 Refrigerant Liability</h2>
+  <p>Switch to R290 or CO₂ — eliminate your Scope 1 refrigerant liability entirely. Our engineering team can design the transition.</p>
+  <div class="cta-row">
+    <a href="../contact.html?intent=refrigerant_transition&product=R290" class="btn-orange">Talk to an Engineer</a>
+    <a href="./" class="btn-outline">Back to Engineering Hub</a>
+  </div>
+</section>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* --- REFRIGERANT DATA --- */
+  const REFRIGERANTS = {
+    R290:  { gwp: 3,    pfas: false, name: 'R290 (Propane)' },
+    R744:  { gwp: 1,    pfas: false, name: 'R744 (CO\u2082)' },
+    R32:   { gwp: 675,  pfas: true,  name: 'R32' },
+    R410A: { gwp: 2088, pfas: true,  name: 'R410A' },
+    R134a: { gwp: 1430, pfas: true,  name: 'R134a' },
+    R404A: { gwp: 3922, pfas: true,  name: 'R404A' },
+    R407C: { gwp: 1774, pfas: true,  name: 'R407C' },
+    R22:   { gwp: 1810, pfas: true,  name: 'R22' },
+    R448A: { gwp: 1387, pfas: true,  name: 'R448A' },
+    R449A: { gwp: 1397, pfas: true,  name: 'R449A' }
+  };
+
+  const CARBON_TAX = 50; // $/tonne
+
+  /* --- DOM REFS --- */
+  const refSelect   = document.getElementById('ec-refrigerant');
+  const chargeInput = document.getElementById('ec-charge');
+  const leakSlider  = document.getElementById('ec-leak');
+  const leakVal     = document.getElementById('ec-leak-val');
+  const systemsInput= document.getElementById('ec-systems');
+  const resultsDiv  = document.getElementById('ec-results');
+  const gwpBadge    = document.getElementById('ec-gwp-badge');
+  const pfasBadge   = document.getElementById('ec-pfas-badge');
+  const primaryDiv  = document.getElementById('ec-primary');
+  const leakedEl    = document.getElementById('ec-leaked-kg');
+  const co2eEl      = document.getElementById('ec-co2e');
+  const taxCostEl   = document.getElementById('ec-tax-cost');
+  const r290Co2eEl  = document.getElementById('ec-r290-co2e');
+  const r744Co2eEl  = document.getElementById('ec-r744-co2e');
+  const deltaTextEl = document.getElementById('ec-delta-text');
+  const scopeTextEl = document.getElementById('ec-scope-text');
+
+  /* --- FORMATTING --- */
+  function fmt(n, d) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+    if (n >= 10000)   return (n / 1000).toFixed(1) + 'k';
+    if (typeof d === 'number') return n.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d });
+    if (n >= 100) return Math.round(n).toLocaleString();
+    if (n >= 10)  return n.toFixed(1);
+    if (n >= 1)   return n.toFixed(2);
+    if (n >= 0.01) return n.toFixed(3);
+    return n.toFixed(4);
+  }
+
+  function fmtMoney(n) {
+    return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  /* --- UPDATE GWP BADGE --- */
+  function updateBadges(ref) {
+    var gwp = ref.gwp;
+    if (gwp <= 3) {
+      gwpBadge.className = 'ec-gwp-badge green';
+      gwpBadge.innerHTML = 'GWP ' + gwp.toLocaleString() + ' &#9989; Natural refrigerant';
+    } else if (gwp <= 750) {
+      gwpBadge.className = 'ec-gwp-badge amber';
+      gwpBadge.innerHTML = 'GWP ' + gwp.toLocaleString() + ' &#9888;&#65039; Low GWP synthetic';
+    } else {
+      gwpBadge.className = 'ec-gwp-badge red';
+      gwpBadge.innerHTML = 'GWP ' + gwp.toLocaleString() + ' &#10060; Phase-down underway';
+    }
+
+    if (ref.pfas) {
+      pfasBadge.className = 'ec-pfas-badge pfas';
+      pfasBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> PFAS \u2014 Forever Chemical';
+    } else {
+      pfasBadge.className = 'ec-pfas-badge natural';
+      pfasBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Natural \u2014 Not PFAS';
+    }
+  }
+
+  /* --- CALCULATE --- */
+  function calculate() {
+    var key = refSelect.value;
+    var ref = REFRIGERANTS[key];
+    var charge = parseFloat(chargeInput.value) || 0;
+    var leakRate = parseFloat(leakSlider.value) || 0;
+    var systems = parseInt(systemsInput.value) || 1;
+
+    /* Update slider display */
+    leakVal.textContent = leakRate + '%';
+
+    /* Update badges */
+    updateBadges(ref);
+
+    if (charge <= 0) {
+      resultsDiv.classList.remove('active');
+      return;
+    }
+
+    /* Core calculations */
+    var leakedKg = charge * (leakRate / 100) * systems;
+    var co2eTonnes = leakedKg * ref.gwp / 1000;
+    var taxCost = co2eTonnes * CARBON_TAX;
+
+    /* R290 and CO2 comparison */
+    var r290Co2e = leakedKg * 3 / 1000;
+    var r744Co2e = leakedKg * 1 / 1000;
+
+    /* Primary card colour */
+    if (ref.gwp <= 3) {
+      primaryDiv.className = 'ec-primary';
+    } else {
+      primaryDiv.className = 'ec-primary danger';
+    }
+
+    /* Update display */
+    leakedEl.textContent = fmt(leakedKg);
+    co2eEl.textContent = fmt(co2eTonnes);
+    taxCostEl.textContent = fmtMoney(taxCost);
+    r290Co2eEl.textContent = fmt(r290Co2e);
+    r744Co2eEl.textContent = fmt(r744Co2e);
+
+    /* Delta text */
+    deltaTextEl.innerHTML =
+      'With <strong>R290</strong> your liability = <strong>' + fmt(r290Co2e) + ' tonnes</strong> CO\u2082e/year. ' +
+      'With <strong>CO\u2082</strong> your liability = <strong>' + fmt(r744Co2e) + ' tonnes</strong> CO\u2082e/year. ' +
+      (ref.gwp > 3
+        ? 'Switching eliminates <strong>' + ((1 - r290Co2e / co2eTonnes) * 100).toFixed(1) + '%</strong> of your refrigerant Scope 1 emissions.'
+        : 'You are already using a natural refrigerant with minimal climate impact.');
+
+    /* Scope text */
+    scopeTextEl.innerHTML =
+      'Your <strong>' + ref.name + '</strong> systems generate <strong>' + fmt(co2eTonnes) + ' tonnes CO\u2082e</strong> of Scope 1 fugitive emissions per year from refrigerant leakage alone. ' +
+      'Under SEC PFRS S2 (IFRS S2), this must be disclosed in your climate-related financial statements. ' +
+      (ref.pfas
+        ? 'As a <strong>PFAS substance</strong>, this refrigerant also faces regulatory phase-down under EU F-Gas and potential global bans.'
+        : 'As a <strong>natural refrigerant</strong>, your system is exempt from PFAS regulations and F-Gas phase-down requirements.');
+
+    resultsDiv.classList.add('active');
+  }
+
+  /* --- EVENT LISTENERS --- */
+  refSelect.addEventListener('change', calculate);
+  chargeInput.addEventListener('input', calculate);
+  leakSlider.addEventListener('input', calculate);
+  systemsInput.addEventListener('input', calculate);
+
+  /* Initial calculation */
+  calculate();
+
+  /* --- KaTeX RENDERING --- */
+  function renderFormulas() {
+    if (typeof katex === 'undefined') {
+      setTimeout(renderFormulas, 100);
+      return;
+    }
+    katex.render(
+      'm_{\\text{leaked}} = Q_{\\text{charge}} \\times \\frac{r_{\\text{leak}}}{100} \\times n',
+      document.getElementById('katex-leaked'),
+      { displayMode: true, throwOnError: false }
+    );
+    katex.render(
+      '\\text{CO}_2\\text{e (tonnes)} = \\frac{m_{\\text{leaked}} \\times \\text{GWP}}{1000}',
+      document.getElementById('katex-co2e'),
+      { displayMode: true, throwOnError: false }
+    );
+    katex.render(
+      '\\text{Carbon Tax} = \\text{CO}_2\\text{e (tonnes)} \\times \\$50',
+      document.getElementById('katex-tax'),
+      { displayMode: true, throwOnError: false }
+    );
+  }
+  renderFormulas();
+})();
+</script>
+</body>
+</html>

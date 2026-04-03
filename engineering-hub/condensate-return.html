@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Condensate Return &amp; Flash Steam Calculator | Karnot Engineering Hub</title>
+<meta name="description" content="Free condensate return and flash steam calculator. Calculate flash steam percentage, heat recovery potential, annual energy value, and recommended return pipe DN. Discover how a Karnot iHEAT heat pump can recover waste flash steam energy.">
+<meta name="keywords" content="condensate return calculator, flash steam calculator, flash steam recovery, condensate heat recovery, steam trap, boiler condensate, flash steam percentage, heat pump heat recovery, Karnot iHEAT">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/condensate-return">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/condensate-return">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/condensate-return">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/condensate-return">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/condensate-return">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Condensate Return &amp; Flash Steam Calculator">
+<meta property="og:description" content="Calculate flash steam generation, heat recovery potential and annual energy savings from condensate return. Free engineering tool.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/condensate-return">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Condensate Return &amp; Flash Steam Calculator | Karnot Engineering Hub">
+<meta name="twitter:description" content="Calculate flash steam percentage, heat recovery potential, and recommended condensate return pipe size.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Condensate Return Calculator","item":"https://karnot.com/engineering-hub/condensate-return"}]},
+    {"@type":"WebApplication","name":"Condensate Return & Flash Steam Calculator","url":"https://karnot.com/engineering-hub/condensate-return","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate flash steam generation, heat recovery potential, annual energy value, and recommended condensate return pipe DN from steam pressure and condensate flow data.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is flash steam and how is it calculated?","acceptedAnswer":{"@type":"Answer","text":"Flash steam forms when high-pressure condensate is released to a lower pressure. The percentage of condensate that flashes to steam equals (hf_high minus hf_low) divided by hfg_low times 100, where hf_high is the enthalpy of the high-pressure condensate, hf_low is the enthalpy at the lower pressure, and hfg_low is the latent heat at the lower pressure."}},
+      {"@type":"Question","name":"How much energy is lost in flash steam?","acceptedAnswer":{"@type":"Answer","text":"Flash steam carries significant energy. For example, 1000 kg/h of condensate at 10 bar g flashing to atmospheric pressure produces approximately 133 kg/h of flash steam, carrying around 300 kW of thermal energy. This energy is often vented to atmosphere but can be recovered using heat exchangers or a Karnot iHEAT heat pump."}},
+      {"@type":"Question","name":"Can a heat pump recover flash steam energy?","acceptedAnswer":{"@type":"Answer","text":"Yes. A Karnot iHEAT heat pump can recover low-grade waste heat from flash steam and condensate return systems. The heat pump absorbs energy from the flash steam or hot condensate and upgrades it to useful process temperatures, typically achieving a COP of 3 to 5. This can save 60 to 80 percent of the energy that would otherwise be wasted."}},
+      {"@type":"Question","name":"What pipe size do I need for condensate return?","acceptedAnswer":{"@type":"Answer","text":"Condensate return pipes carry a two-phase mixture of liquid condensate and flash steam, so they must be sized for the combined volume. The flash steam volume is much larger than the liquid volume. Typical velocities for two-phase condensate return are 15 to 25 m/s. This calculator recommends a pipe DN based on the total volumetric flow of liquid plus flash steam."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   CONDENSATE RETURN — cr- prefix
+   =========================== */
+
+.cr-hero{
+  background:linear-gradient(135deg,rgba(30,64,90,.92),rgba(0,151,167,.75),rgba(52,199,89,.30));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.cr-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.cr-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.cr-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.cr-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+.cr-breadcrumb{font-size:13px;margin-bottom:12px;opacity:.78;position:relative}
+.cr-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.cr-breadcrumb a:hover{text-decoration:underline}
+.cr-breadcrumb span{margin:0 6px;opacity:.6}
+
+.cr-wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+.cr-card{background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(0,0,0,.07);padding:36px;margin-top:32px}
+.cr-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.cr-card h2 i{color:#0097a7;font-size:20px}
+
+.cr-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px 22px;margin-bottom:24px}
+.cr-field{display:flex;flex-direction:column}
+.cr-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.cr-field input{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.cr-field input:focus{outline:none;border-color:#0097a7;box-shadow:0 0 0 3px rgba(0,151,167,.12)}
+.cr-field .cr-hint{font-size:11px;color:#999;margin-top:3px}
+
+.cr-results{display:none}
+.cr-results.show{display:block}
+.cr-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px}
+.cr-metric{border-radius:14px;padding:22px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.cr-metric-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.cr-metric-value{font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
+.cr-metric-unit{font-size:13px;font-weight:500;opacity:.75}
+.cr-metric.teal{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1.5px solid rgba(20,184,166,.3)}
+.cr-metric.teal .cr-metric-label{color:#14b8a6}
+.cr-metric.teal .cr-metric-value{color:#0d9488}
+.cr-metric.blue{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid rgba(59,130,246,.3)}
+.cr-metric.blue .cr-metric-label{color:#3b82f6}
+.cr-metric.blue .cr-metric-value{color:#2563eb}
+.cr-metric.orange{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(245,102,0,.35)}
+.cr-metric.orange .cr-metric-label{color:#EA580C}
+.cr-metric.orange .cr-metric-value{color:#ea580c}
+.cr-metric.green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid rgba(34,197,94,.3)}
+.cr-metric.green .cr-metric-label{color:#16a34a}
+.cr-metric.green .cr-metric-value{color:#15803d}
+
+.cr-iheat-panel{
+  background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:2px solid rgba(34,197,94,.4);
+  border-radius:14px;padding:24px;margin:24px 0;
+}
+.cr-iheat-panel h3{font-size:18px;font-weight:700;color:#166534;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.cr-iheat-panel h3 i{color:#22c55e;font-size:22px}
+.cr-iheat-panel p{font-size:15px;color:#166534;line-height:1.7;margin:0 0 16px}
+.cr-iheat-panel a{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#16a34a;color:#fff;padding:12px 24px;border-radius:10px;
+  font-size:14px;font-weight:700;text-decoration:none;transition:all .2s
+}
+.cr-iheat-panel a:hover{background:#15803d;transform:translateY(-1px)}
+
+.cr-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:20px}
+.cr-table th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.cr-table td{padding:10px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+
+.cr-formula-box{background:#f8f9fa;border:1.5px solid #e5e5e7;border-radius:12px;padding:20px;margin-top:12px}
+.cr-formula-box p{font-size:14px;color:#6e6e73;line-height:1.7;margin:0 0 12px}
+
+.cr-faq-section{padding:60px 0;max-width:1000px;margin:0 auto}
+.cr-faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.cr-faq-item{border-bottom:1px solid #d2d2d7}
+.cr-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#1d1d1f}
+.cr-faq-item summary::-webkit-details-marker{display:none}
+.cr-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#0097a7;transition:transform .3s}
+.cr-faq-item[open] summary::after{content:'\2212'}
+.cr-faq-item .cr-faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+.cr-cta{
+  background:linear-gradient(135deg,#003c5c,#0097a7);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.cr-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.cr-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.cr-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#EA580C;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.cr-cta-btn:hover{background:#c2410c;transform:translateY(-2px);color:#fff}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .cr-card{padding:22px 16px}
+  .cr-fields{grid-template-columns:1fr}
+  .cr-results-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:400px){
+  .cr-results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<section class="cr-hero">
+  <div class="cr-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Condensate Return
+  </div>
+  <h1>Condensate Return &amp; Flash Steam Calculator</h1>
+  <p>1,000 kg/h of condensate at 10 bar g flashing to atmospheric pressure produces 133 kg/h of flash steam carrying approximately 300 kW of recoverable thermal energy. Enter your steam system pressures and condensate flow below to calculate flash steam generation and heat recovery potential.</p>
+  <p class="answer-first">This tool uses IAPWS-IF97 saturation data to calculate flash steam percentage, mass flow, heat recovery potential, annual energy value, and recommended condensate return pipe size.</p>
+</section>
+
+<div class="cr-wrap">
+
+  <div class="cr-card rv">
+    <h2><i class="fas fa-droplet"></i> Condensate Return Inputs</h2>
+
+    <div class="cr-fields">
+      <div class="cr-field">
+        <label for="cr-psteam">Steam Pressure (bar g)</label>
+        <input type="number" id="cr-psteam" value="10" min="0.1" max="100" step="0.1">
+        <span class="cr-hint">Boiler / process steam pressure</span>
+      </div>
+      <div class="cr-field">
+        <label for="cr-flow">Condensate Flow Rate (kg/h)</label>
+        <input type="number" id="cr-flow" value="1000" min="1" step="10">
+      </div>
+      <div class="cr-field">
+        <label for="cr-preturn">Return Line Pressure (bar g)</label>
+        <input type="number" id="cr-preturn" value="0" min="0" max="50" step="0.1">
+        <span class="cr-hint">0 = atmospheric, or flash vessel pressure</span>
+      </div>
+      <div class="cr-field">
+        <label for="cr-length">Return Line Length (m)</label>
+        <input type="number" id="cr-length" value="100" min="1" step="1">
+      </div>
+      <div class="cr-field">
+        <label for="cr-hours">Operating Hours/Year</label>
+        <input type="number" id="cr-hours" value="8000" min="100" max="8760" step="100">
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="cr-results" id="cr-results">
+      <h3 style="font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:16px"><i class="fas fa-fire" style="color:#0097a7;margin-right:8px"></i>Flash Steam &amp; Recovery Results</h3>
+
+      <div class="cr-results-grid" id="cr-metrics"></div>
+
+      <!-- iHEAT PANEL -->
+      <div class="cr-iheat-panel" id="cr-iheat-panel">
+        <h3><i class="fas fa-leaf"></i> Heat Recovery Opportunity for iHEAT</h3>
+        <p id="cr-iheat-text">This flash steam energy could be recovered by a Karnot iHEAT heat pump, upgrading waste heat to useful process temperatures with a COP of 3-5, saving up to 80% of the energy currently being vented.</p>
+        <a href="../contact.html?intent=flash_steam_recovery&product=iHEAT"><i class="fas fa-arrow-right"></i> Discuss Heat Recovery with Karnot</a>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="cr-table" id="cr-detail-table">
+          <thead>
+            <tr><th>Property</th><th>Value</th><th>Unit</th></tr>
+          </thead>
+          <tbody id="cr-detail-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="cr-card rv">
+    <h2><i class="fas fa-square-root-variable"></i> Flash Steam Formulas</h2>
+    <div class="cr-formula-box">
+      <p><strong>Flash steam percentage:</strong></p>
+      <div id="cr-katex-flash"></div>
+      <p><strong>Flash steam mass flow:</strong></p>
+      <div id="cr-katex-mflash"></div>
+      <p><strong>Heat recovery potential:</strong></p>
+      <div id="cr-katex-q"></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="cr-faq-section rv" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <details class="cr-faq-item">
+      <summary>What is flash steam and how is it calculated?</summary>
+      <div class="cr-faq-answer"><p>Flash steam forms when high-pressure condensate drops to a lower pressure. The percentage equals (hf_high - hf_low) / hfg_low x 100. This is because the excess enthalpy in the condensate must be released as latent heat to reach equilibrium at the lower pressure.</p></div>
+    </details>
+    <details class="cr-faq-item">
+      <summary>How much energy is lost in flash steam?</summary>
+      <div class="cr-faq-answer"><p>Flash steam carries significant energy. A typical 1,000 kg/h condensate flow at 10 bar g flashing to atmosphere produces roughly 133 kg/h of flash steam carrying about 300 kW of thermal energy that is often simply vented to the atmosphere.</p></div>
+    </details>
+    <details class="cr-faq-item">
+      <summary>Can a heat pump recover flash steam energy?</summary>
+      <div class="cr-faq-answer"><p>Yes. A Karnot iHEAT heat pump can absorb low-grade waste heat from flash steam and condensate, upgrading it to useful process temperatures. With a COP of 3 to 5, this recovers 60 to 80 percent of the energy that would otherwise be lost.</p></div>
+    </details>
+    <details class="cr-faq-item">
+      <summary>What pipe size do I need for condensate return?</summary>
+      <div class="cr-faq-answer"><p>Condensate return lines carry a two-phase mixture of liquid and flash steam. Since steam volume is much larger than liquid, the pipe must be sized for the total combined flow at typical velocities of 15 to 25 m/s. This calculator recommends a DN size based on total volumetric flow.</p></div>
+    </details>
+  </section>
+
+  <div class="cr-cta rv">
+    <h2>Recover Your Waste Steam Energy</h2>
+    <p>Our engineers can design flash steam recovery systems using Karnot iHEAT heat pumps to slash your fuel consumption by up to 80%.</p>
+    <a href="../contact.html?intent=condensate_recovery&product=iHEAT" class="cr-cta-btn">Talk to an Engineer <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+</div>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   STEAM TABLE DATA (saturation, absolute pressure in bar)
+   ===================================================== */
+var STEAM = [
+  {P:0.00611, T:0,     hf:0,     hg:2501, hfg:2501, rhoV:0.00485},
+  {P:0.0234,  T:20,    hf:83.9,  hg:2538, hfg:2454, rhoV:0.0173},
+  {P:0.0738,  T:40,    hf:167.5, hg:2574, hfg:2406, rhoV:0.0512},
+  {P:0.1994,  T:60,    hf:251.1, hg:2609, hfg:2358, rhoV:0.130},
+  {P:0.4739,  T:80,    hf:334.9, hg:2644, hfg:2309, rhoV:0.294},
+  {P:1.014,   T:100,   hf:419.0, hg:2676, hfg:2257, rhoV:0.598},
+  {P:1.985,   T:120,   hf:503.7, hg:2706, hfg:2203, rhoV:1.121},
+  {P:3.614,   T:140,   hf:589.1, hg:2734, hfg:2145, rhoV:1.966},
+  {P:6.181,   T:160,   hf:675.5, hg:2758, hfg:2083, rhoV:3.259},
+  {P:10.03,   T:180,   hf:763.2, hg:2778, hfg:2015, rhoV:5.157},
+  {P:15.55,   T:200,   hf:852.5, hg:2793, hfg:1941, rhoV:7.861},
+  {P:23.20,   T:220,   hf:943.6, hg:2802, hfg:1858, rhoV:11.62},
+  {P:39.76,   T:250,   hf:1085,  hg:2801, hfg:1716, rhoV:19.97},
+  {P:85.93,   T:300,   hf:1344,  hg:2749, hfg:1405, rhoV:46.21},
+  {P:165.4,   T:350,   hf:1671,  hg:2564, hfg:893,  rhoV:113.6},
+  {P:220.64,  T:374.15,hf:2084,  hg:2084, hfg:0,    rhoV:317}
+];
+
+function lerp(x, x0, x1, y0, y1) {
+  if (x1 === x0) return y0;
+  return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+}
+
+function lookupByPressure(P_abs) {
+  P_abs = Math.max(0.00611, Math.min(220.64, P_abs));
+  for (var i = 0; i < STEAM.length - 1; i++) {
+    if (P_abs >= STEAM[i].P && P_abs <= STEAM[i+1].P) {
+      var a = STEAM[i], b = STEAM[i+1];
+      return {
+        T: lerp(P_abs, a.P, b.P, a.T, b.T),
+        hf: lerp(P_abs, a.P, b.P, a.hf, b.hf),
+        hg: lerp(P_abs, a.P, b.P, a.hg, b.hg),
+        hfg: lerp(P_abs, a.P, b.P, a.hfg, b.hfg),
+        rhoV: lerp(P_abs, a.P, b.P, a.rhoV, b.rhoV)
+      };
+    }
+  }
+  var last = STEAM[STEAM.length - 1];
+  return {T: last.T, hf: last.hf, hg: last.hg, hfg: last.hfg, rhoV: last.rhoV};
+}
+
+/* =====================================================
+   PIPE SIZING (for two-phase flow)
+   ===================================================== */
+var PIPE_DNS = [
+  {dn:'DN15', id:15.8}, {dn:'DN20', id:20.9}, {dn:'DN25', id:26.6},
+  {dn:'DN32', id:35.1}, {dn:'DN40', id:40.9}, {dn:'DN50', id:52.5},
+  {dn:'DN65', id:62.7}, {dn:'DN80', id:77.9}, {dn:'DN100', id:102.3},
+  {dn:'DN125', id:128.2}, {dn:'DN150', id:154.1}
+];
+
+function recommendPipeDN(totalVolFlow_m3s) {
+  // Target velocity 15-25 m/s for two-phase
+  var targetVel = 20;
+  var reqArea = totalVolFlow_m3s / targetVel;
+  var reqDia = Math.sqrt(4 * reqArea / Math.PI) * 1000; // mm
+  for (var i = 0; i < PIPE_DNS.length; i++) {
+    if (PIPE_DNS[i].id >= reqDia) return PIPE_DNS[i];
+  }
+  return PIPE_DNS[PIPE_DNS.length - 1];
+}
+
+/* =====================================================
+   CALCULATE
+   ===================================================== */
+function calculate() {
+  var P_steam_g = parseFloat(document.getElementById('cr-psteam').value);
+  var flow_kgh = parseFloat(document.getElementById('cr-flow').value);
+  var P_return_g = parseFloat(document.getElementById('cr-preturn').value);
+  var length = parseFloat(document.getElementById('cr-length').value);
+  var hours = parseFloat(document.getElementById('cr-hours').value);
+
+  if (isNaN(P_steam_g) || isNaN(flow_kgh) || isNaN(P_return_g) || isNaN(hours)) return;
+
+  var P_steam_abs = P_steam_g + 1.01325;
+  var P_return_abs = P_return_g + 1.01325;
+
+  if (P_steam_abs <= P_return_abs) return;
+
+  var high = lookupByPressure(P_steam_abs);
+  var low = lookupByPressure(P_return_abs);
+
+  // Flash steam percentage
+  var flashPct = ((high.hf - low.hf) / low.hfg) * 100;
+  flashPct = Math.max(0, Math.min(100, flashPct));
+
+  // Flash steam mass flow
+  var flashFlow_kgh = flow_kgh * flashPct / 100;
+  var liquidFlow_kgh = flow_kgh - flashFlow_kgh;
+
+  // Heat recovery potential (kW)
+  var Q_flash = flashFlow_kgh * low.hfg / 3600; // kW
+  var Q_sensible = liquidFlow_kgh * 4.18 * (low.T - 80) / 3600; // kW cooling condensate to 80°C (approx)
+  Q_sensible = Math.max(0, Q_sensible);
+  var Q_total = Q_flash + Q_sensible;
+
+  // Annual energy
+  var annualEnergy_kWh = Q_total * hours;
+  var annualEnergy_MWh = annualEnergy_kWh / 1000;
+
+  // Pipe sizing (volumetric flow of flash steam at return pressure)
+  var steamVolFlow = (flashFlow_kgh / 3600) / low.rhoV; // m3/s
+  var liquidVolFlow = (liquidFlow_kgh / 3600) / 950; // approx liquid density
+  var totalVolFlow = steamVolFlow + liquidVolFlow;
+  var recPipe = recommendPipeDN(totalVolFlow);
+
+  // Render metrics
+  var metricsDiv = document.getElementById('cr-metrics');
+  metricsDiv.innerHTML = '';
+  function addMetric(label, value, unit, cls) {
+    metricsDiv.innerHTML +=
+      '<div class="cr-metric ' + cls + '">' +
+        '<div class="cr-metric-label">' + label + '</div>' +
+        '<div class="cr-metric-value">' + value + '</div>' +
+        '<div class="cr-metric-unit">' + unit + '</div>' +
+      '</div>';
+  }
+
+  addMetric('Flash Steam', flashPct.toFixed(1) + '%', flashFlow_kgh.toFixed(0) + ' kg/h', 'teal');
+  addMetric('Heat Recovery', Q_total.toFixed(0), 'kW', 'orange');
+  addMetric('Annual Energy', annualEnergy_MWh.toFixed(0), 'MWh/year', 'green');
+  addMetric('Pipe Size', recPipe.dn, 'ID ' + recPipe.id + ' mm', 'blue');
+
+  // iHEAT panel text
+  document.getElementById('cr-iheat-text').innerHTML =
+    'This ' + Q_total.toFixed(0) + ' kW of flash steam energy (' + annualEnergy_MWh.toFixed(0) +
+    ' MWh/year) could be recovered by a Karnot iHEAT heat pump, upgrading waste heat to useful process temperatures with a COP of 3-5, potentially saving ' +
+    (annualEnergy_MWh * 0.75).toFixed(0) + ' MWh/year of primary fuel energy.';
+
+  // Detail table
+  var tbody = document.getElementById('cr-detail-body');
+  tbody.innerHTML = '';
+  function addRow(p, v, u) {
+    tbody.innerHTML += '<tr><td>' + p + '</td><td><strong>' + v + '</strong></td><td>' + u + '</td></tr>';
+  }
+
+  addRow('Steam Pressure', P_steam_g + ' bar g (' + P_steam_abs.toFixed(2) + ' bar a)', '');
+  addRow('Saturation Temperature (high)', high.T.toFixed(1), '&deg;C');
+  addRow('h<sub>f</sub> at steam pressure', high.hf.toFixed(1), 'kJ/kg');
+  addRow('Return Line Pressure', P_return_g + ' bar g (' + P_return_abs.toFixed(2) + ' bar a)', '');
+  addRow('Saturation Temperature (low)', low.T.toFixed(1), '&deg;C');
+  addRow('h<sub>f</sub> at return pressure', low.hf.toFixed(1), 'kJ/kg');
+  addRow('h<sub>fg</sub> at return pressure', low.hfg.toFixed(1), 'kJ/kg');
+  addRow('Flash Steam Percentage', flashPct.toFixed(2), '%');
+  addRow('Flash Steam Flow', flashFlow_kgh.toFixed(1), 'kg/h');
+  addRow('Liquid Condensate Flow', liquidFlow_kgh.toFixed(1), 'kg/h');
+  addRow('Heat from Flash Steam', Q_flash.toFixed(1), 'kW');
+  addRow('Total Heat Recovery Potential', Q_total.toFixed(1), 'kW');
+  addRow('Annual Energy Value', annualEnergy_kWh.toFixed(0), 'kWh/year');
+  addRow('Recommended Return Pipe', recPipe.dn, 'ID ' + recPipe.id + ' mm');
+
+  document.getElementById('cr-results').classList.add('show');
+}
+
+/* =====================================================
+   EVENTS
+   ===================================================== */
+var inputs = document.querySelectorAll('#cr-psteam, #cr-flow, #cr-preturn, #cr-length, #cr-hours');
+inputs.forEach(function(el) {
+  el.addEventListener('input', calculate);
+  el.addEventListener('change', calculate);
+});
+
+/* =====================================================
+   KATEX
+   ===================================================== */
+function renderKatex() {
+  if (typeof katex === 'undefined') return;
+  katex.render('\\text{Flash \\%} = \\frac{h_{f,\\text{high}} - h_{f,\\text{low}}}{h_{fg,\\text{low}}} \\times 100', document.getElementById('cr-katex-flash'), {displayMode:true});
+  katex.render('\\dot{m}_{\\text{flash}} = \\dot{m}_{\\text{condensate}} \\times \\frac{\\text{Flash \\%}}{100} \\quad \\text{(kg/h)}', document.getElementById('cr-katex-mflash'), {displayMode:true});
+  katex.render('Q = \\frac{\\dot{m}_{\\text{flash}} \\times h_{fg,\\text{low}}}{3600} \\quad \\text{(kW)}', document.getElementById('cr-katex-q'), {displayMode:true});
+}
+if (document.readyState === 'complete') renderKatex();
+else window.addEventListener('load', renderKatex);
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.1});
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+calculate();
+
+})();
+</script>
+</body>
+</html>

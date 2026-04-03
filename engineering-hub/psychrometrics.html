@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Humidity &amp; Psychrometrics Calculator — Wet Bulb, Dew Point, Enthalpy | Karnot Engineering Hub</title>
+<meta name="description" content="Free psychrometric calculator. Calculate wet bulb temperature, dew point, enthalpy, specific humidity, and vapour pressure from dry bulb and relative humidity. Interactive psychrometric chart included.">
+<meta name="keywords" content="psychrometric calculator, wet bulb temperature, dew point calculator, enthalpy calculator, specific humidity, vapour pressure, psychrometric chart, HVAC calculator, humidity calculator, air properties">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/psychrometrics">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/psychrometrics">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/psychrometrics">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/psychrometrics">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/psychrometrics">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Humidity &amp; Psychrometrics Calculator">
+<meta property="og:description" content="Free psychrometric calculator with interactive chart. Wet bulb, dew point, enthalpy, specific humidity, and vapour pressure from dry bulb temperature and humidity inputs.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/psychrometrics">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Humidity &amp; Psychrometrics Calculator | Karnot Engineering Hub">
+<meta name="twitter:description" content="Calculate wet bulb, dew point, enthalpy, specific humidity, and vapour pressure. Interactive psychrometric chart with state point plotting.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Psychrometrics Calculator","item":"https://karnot.com/engineering-hub/psychrometrics"}]},
+    {"@type":"WebApplication","name":"Humidity & Psychrometrics Calculator","url":"https://karnot.com/engineering-hub/psychrometrics","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate wet bulb temperature, dew point, enthalpy, specific humidity, specific volume, and vapour pressure from dry bulb temperature and humidity inputs. Interactive psychrometric chart with state point plotting.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is a psychrometric chart and why is it useful?","acceptedAnswer":{"@type":"Answer","text":"A psychrometric chart is a graphical representation of the thermodynamic properties of moist air at a constant pressure. It plots dry bulb temperature against specific humidity and overlays lines for relative humidity, wet bulb temperature, enthalpy, and specific volume. HVAC engineers use it to design air conditioning, dehumidification, and ventilation systems — any process that changes the temperature or moisture content of air."}},
+      {"@type":"Question","name":"What is the difference between wet bulb and dry bulb temperature?","acceptedAnswer":{"@type":"Answer","text":"Dry bulb temperature is the ordinary air temperature measured by a standard thermometer. Wet bulb temperature is the temperature read from a thermometer wrapped in a wet wick and exposed to airflow — evaporative cooling lowers it below the dry bulb. The difference between the two (the wet bulb depression) indicates how dry the air is. When relative humidity is 100%, wet bulb and dry bulb are equal."}},
+      {"@type":"Question","name":"Why is dew point important for industrial processes?","acceptedAnswer":{"@type":"Answer","text":"Dew point is the temperature at which air becomes saturated and water vapour begins to condense. In industrial settings, condensation on cold surfaces causes corrosion, product spoilage, and microbial growth. Knowing the dew point helps engineers set insulation thickness, select dehumidification equipment, and control cold room or cleanroom environments. Heat pump systems that operate below the dew point must account for condensate drainage."}},
+      {"@type":"Question","name":"What are typical comfort conditions for occupied buildings?","acceptedAnswer":{"@type":"Answer","text":"ASHRAE Standard 55 recommends indoor comfort conditions of 20 to 26 degrees C dry bulb temperature with 30 to 60 percent relative humidity. This corresponds roughly to a dew point range of 2 to 17 degrees C and an enthalpy of 40 to 55 kJ per kg of dry air. Outside this range, occupants perceive the air as too dry, too humid, too warm, or too cold."}}
+    ]}
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+<style>
+/* ===========================
+   PSYCHROMETRICS — ps- prefix
+   =========================== */
+
+/* HERO */
+.ps-hero{
+  background:linear-gradient(135deg,rgba(0,60,140,.92),rgba(0,122,255,.78),rgba(30,58,138,.9));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.ps-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.ps-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.ps-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.ps-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+
+/* BREADCRUMB */
+.breadcrumb{font-size:13px;margin-bottom:12px;opacity:.8}
+.breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+
+/* CALCULATOR SECTION */
+.ps-section{max-width:1000px;margin:0 auto;padding:60px 20px 40px}
+.ps-card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);padding:36px;margin-bottom:32px}
+.ps-card h2{font-size:24px;font-weight:700;margin-bottom:24px;color:#1d1d1f}
+
+/* FORM GRID */
+.ps-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px}
+@media(max-width:640px){.ps-form-grid{grid-template-columns:1fr}}
+.ps-form-group{display:flex;flex-direction:column}
+.ps-form-group label{font-size:14px;font-weight:600;color:#444;margin-bottom:6px}
+.ps-form-group input,.ps-form-group select{
+  padding:12px 14px;border:1.5px solid #ddd;border-radius:10px;font-size:15px;
+  background:#fafafa;transition:border-color .2s,box-shadow .2s;color:#1d1d1f
+}
+.ps-form-group input:focus,.ps-form-group select:focus{
+  outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.15)
+}
+.ps-form-group .hint{font-size:12px;color:#888;margin-top:4px}
+
+/* RADIO MODE SELECTOR */
+.ps-mode-selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.ps-mode-selector label{
+  padding:10px 18px;border:1.5px solid #007aff;border-radius:20px;background:#fff;
+  color:#007aff;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:6px
+}
+.ps-mode-selector input[type="radio"]{display:none}
+.ps-mode-selector input[type="radio"]:checked + span{background:#007aff;color:#fff;border-radius:20px}
+.ps-mode-selector label:has(input:checked){background:#007aff;color:#fff}
+
+/* CALCULATE BUTTON */
+.ps-calc-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#007aff;color:#fff;border:none;border-radius:12px;
+  padding:14px 36px;font-size:16px;font-weight:700;cursor:pointer;
+  margin-top:24px;transition:background .2s,transform .15s
+}
+.ps-calc-btn:hover{background:#0062cc;transform:translateY(-1px)}
+.ps-calc-btn i{font-size:18px}
+
+/* RESULTS */
+.ps-results{
+  display:none;background:linear-gradient(135deg,#f0f5ff,#f8fcff);
+  border:2px solid #007aff;border-radius:16px;padding:32px;margin-top:32px
+}
+.ps-results.show{display:block;animation:psSlideIn .4s ease}
+@keyframes psSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.ps-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:24px}
+.ps-result-item{text-align:center;padding:16px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.ps-result-item .ps-result-label{font-size:12px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ps-result-item .ps-result-value{font-size:28px;font-weight:800;color:#007aff}
+.ps-result-item .ps-result-unit{font-size:14px;color:#888;font-weight:500}
+.ps-result-item.orange .ps-result-value{color:#EA580C}
+
+/* CHART */
+.ps-chart-wrap{margin-top:32px;background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.ps-chart-wrap h3{font-size:18px;font-weight:700;margin-bottom:16px;color:#1d1d1f}
+.ps-chart-canvas{width:100%;max-width:700px;margin:0 auto;display:block}
+
+/* COLLAPSIBLE FORMULAS */
+.ps-collapsible-header{
+  display:flex;justify-content:space-between;align-items:center;cursor:pointer;
+  padding:16px 0;border-bottom:1px solid #e5e5ea;user-select:none
+}
+.ps-collapsible-header h2{margin-bottom:0;font-size:20px}
+.ps-collapsible-toggle{color:#007aff;font-size:18px;transition:transform .25s;flex-shrink:0}
+.ps-collapsible-body{overflow:hidden;max-height:0;transition:max-height .35s ease}
+.ps-collapsible-body.open{max-height:2000px}
+.ps-collapsible-body-inner{padding:20px 0 8px}
+
+.ps-formula-block{margin-bottom:20px;padding:16px 20px;background:#f5f5f7;border-radius:10px;border-left:4px solid #007aff}
+.ps-formula-block h4{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:8px}
+.ps-formula-block .katex-display{margin:8px 0;overflow-x:auto}
+
+/* FAQ */
+.ps-faq-section{padding:60px 20px;max-width:1000px;margin:0 auto}
+.ps-faq-section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.ps-faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.ps-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.ps-faq-item summary::-webkit-details-marker{display:none}
+.ps-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.ps-faq-item[open] summary::after{content:'\2212'}
+.ps-faq-item .faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+/* CTA */
+.eh-cta{background:linear-gradient(135deg,#0d1b3e,#1a2d5a);padding:60px 20px;text-align:center}
+.eh-cta h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px}
+.eh-cta p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:600px;margin-left:auto;margin-right:auto}
+
+@media(max-width:768px){
+  .ps-hero{padding:100px 16px 60px}
+  .ps-hero h1{font-size:28px}
+  .ps-mode-selector{gap:6px}
+  .ps-mode-selector label{padding:8px 14px;font-size:12px}
+  .ps-results-grid{grid-template-columns:1fr 1fr}
+  .eh-cta h2{font-size:26px}
+}
+@media(max-width:480px){
+  .ps-results-grid{grid-template-columns:1fr}
+  .ps-result-item .ps-result-value{font-size:24px}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="ps-hero">
+  <nav class="breadcrumb rv" aria-label="Breadcrumb">
+    <a href="../">Home</a> &rsaquo; <a href="./">Engineering Hub</a> &rsaquo; Psychrometrics
+  </nav>
+  <h1 class="rv">Humidity &amp; Psychrometrics Calculator</h1>
+  <p class="rv">Calculate wet bulb temperature, dew point, enthalpy, specific humidity, specific volume, and vapour pressure from dry bulb temperature and humidity inputs. Interactive psychrometric chart included.</p>
+  <p class="answer-first rv">At 25&deg;C and 50% RH, air has a dew point of 13.9&deg;C, wet bulb of 17.8&deg;C, and enthalpy of 50.3 kJ/kg &mdash; use the calculator below for your exact conditions.</p>
+</section>
+
+<!-- CALCULATOR -->
+<section class="ps-section">
+  <div class="ps-card">
+    <h2><i class="fa-solid fa-droplet" style="color:#007aff"></i> Psychrometric Calculator</h2>
+
+    <!-- Input Mode Selector -->
+    <p style="font-size:13px;font-weight:600;color:#666;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px"><i class="fa-solid fa-sliders"></i> Input Mode</p>
+    <div class="ps-mode-selector" id="ps-mode-selector">
+      <label><input type="radio" name="ps-mode" value="rh" checked> Relative Humidity</label>
+      <label><input type="radio" name="ps-mode" value="wb"> Wet Bulb</label>
+      <label><input type="radio" name="ps-mode" value="dp"> Dew Point</label>
+      <label><input type="radio" name="ps-mode" value="sh"> Specific Humidity</label>
+    </div>
+
+    <div class="ps-form-grid">
+      <div class="ps-form-group">
+        <label for="ps-tdb">Dry Bulb Temperature (&deg;C)</label>
+        <input type="number" id="ps-tdb" value="25" min="-20" max="60" step="0.1">
+        <span class="hint">Range: &minus;20 to 60&deg;C</span>
+      </div>
+
+      <div class="ps-form-group" id="ps-input-group">
+        <label for="ps-input-val" id="ps-input-label">Relative Humidity (%)</label>
+        <input type="number" id="ps-input-val" value="50" step="0.1">
+        <span class="hint" id="ps-input-hint">Range: 0 to 100%</span>
+      </div>
+
+      <div class="ps-form-group">
+        <label for="ps-patm">Barometric Pressure (kPa)</label>
+        <input type="number" id="ps-patm" value="101.325" min="80" max="110" step="0.001">
+        <span class="hint">Standard atmosphere: 101.325 kPa</span>
+      </div>
+    </div>
+
+    <button class="ps-calc-btn" id="ps-calculate" type="button">
+      <i class="fa-solid fa-calculator"></i> Calculate
+    </button>
+
+    <!-- RESULTS -->
+    <div class="ps-results" id="ps-results">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;color:#1d1d1f"><i class="fa-solid fa-chart-line" style="color:#007aff"></i> Results</h3>
+      <div class="ps-results-grid" id="ps-results-grid"></div>
+
+      <!-- PSYCHROMETRIC CHART -->
+      <div class="ps-chart-wrap">
+        <h3><i class="fa-solid fa-chart-area" style="color:#007aff"></i> Psychrometric Chart</h3>
+        <canvas id="ps-chart" class="ps-chart-canvas" width="700" height="450"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULAS (Collapsible) -->
+  <div class="ps-card">
+    <div class="ps-collapsible-header" id="ps-formulas-header" aria-expanded="false" aria-controls="ps-formulas-body">
+      <h2><i class="fa-solid fa-square-root-variable" style="color:#007aff"></i> Psychrometric Equations</h2>
+      <i class="fa-solid fa-chevron-down ps-collapsible-toggle" id="ps-formulas-icon"></i>
+    </div>
+    <div class="ps-collapsible-body" id="ps-formulas-body" role="region">
+      <div class="ps-collapsible-body-inner">
+        <div class="ps-formula-block">
+          <h4>Saturation Vapour Pressure (Magnus Formula)</h4>
+          <div id="katex-pws"></div>
+        </div>
+        <div class="ps-formula-block">
+          <h4>Vapour Pressure from Relative Humidity</h4>
+          <div id="katex-pw"></div>
+        </div>
+        <div class="ps-formula-block">
+          <h4>Specific Humidity (Humidity Ratio)</h4>
+          <div id="katex-w"></div>
+        </div>
+        <div class="ps-formula-block">
+          <h4>Dew Point from Vapour Pressure</h4>
+          <div id="katex-tdp"></div>
+        </div>
+        <div class="ps-formula-block">
+          <h4>Enthalpy of Moist Air</h4>
+          <div id="katex-h"></div>
+        </div>
+        <div class="ps-formula-block">
+          <h4>Specific Volume</h4>
+          <div id="katex-v"></div>
+        </div>
+        <div class="ps-formula-block">
+          <h4>Wet Bulb Temperature (Iterative)</h4>
+          <div id="katex-wb"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="ps-faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="ps-faq-item">
+      <summary>What is a psychrometric chart and why is it useful?</summary>
+      <div class="faq-answer">
+        <p>A psychrometric chart is a graphical representation of the thermodynamic properties of moist air at a constant pressure. It plots dry bulb temperature on the x-axis against specific humidity on the y-axis and overlays lines for relative humidity, wet bulb temperature, enthalpy, and specific volume. HVAC engineers use it to design air conditioning, dehumidification, and ventilation systems &mdash; any process that changes the temperature or moisture content of air.</p>
+      </div>
+    </details>
+
+    <details class="ps-faq-item">
+      <summary>What is the difference between wet bulb and dry bulb temperature?</summary>
+      <div class="faq-answer">
+        <p>Dry bulb temperature is the ordinary air temperature measured by a standard thermometer. Wet bulb temperature is the temperature read from a thermometer wrapped in a wet wick and exposed to airflow &mdash; evaporative cooling lowers it below the dry bulb reading. The difference between the two (the wet bulb depression) indicates how dry the air is. When relative humidity reaches 100%, the wet bulb and dry bulb temperatures are equal.</p>
+      </div>
+    </details>
+
+    <details class="ps-faq-item">
+      <summary>Why is dew point important for industrial processes?</summary>
+      <div class="faq-answer">
+        <p>Dew point is the temperature at which air becomes saturated and water vapour begins to condense on surfaces. In industrial settings, unwanted condensation on cold pipes, ductwork, and product surfaces causes corrosion, spoilage, and microbial growth. Knowing the dew point helps engineers set insulation thickness, select dehumidification equipment, and control cold room or cleanroom environments. Heat pump evaporators operating below the dew point must account for condensate drainage and defrost cycles.</p>
+      </div>
+    </details>
+
+    <details class="ps-faq-item">
+      <summary>What are typical comfort conditions for occupied buildings?</summary>
+      <div class="faq-answer">
+        <p>ASHRAE Standard 55 recommends indoor comfort conditions of 20 to 26&deg;C dry bulb temperature with 30 to 60% relative humidity. This corresponds roughly to a dew point range of 2 to 17&deg;C and an enthalpy of 40 to 55 kJ/kg of dry air. Outside this range, occupants perceive the air as too dry, too humid, too warm, or too cold. A Karnot heat pump system with reheat and dehumidification can maintain these conditions with significantly less energy than conventional systems.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="eh-cta rv">
+  <h2>Need HVAC System Design Support?</h2>
+  <p>Our engineering team can help with psychrometric analysis, dehumidification design, and heat pump system integration for your project.</p>
+  <div class="cta-row">
+    <a href="../contact.html?intent=general_quote&product=Engineering_Hub" class="btn-orange">Talk to an Engineer</a>
+    <a href="./" class="btn-outline">Back to Engineering Hub</a>
+  </div>
+</section>
+
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+
+<!-- KaTeX JS -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   PSYCHROMETRIC EQUATIONS
+   ===================================================== */
+
+/** Saturation vapour pressure (Magnus formula) [kPa] */
+function Pws(T) {
+  return 0.61078 * Math.exp((17.27 * T) / (T + 237.3));
+}
+
+/** Vapour pressure from RH [kPa] */
+function PwFromRH(Tdb, rh) {
+  return (rh / 100) * Pws(Tdb);
+}
+
+/** Specific humidity (humidity ratio) [kg/kg dry air] */
+function W_from_Pw(Pw, Patm) {
+  if (Pw >= Patm) return 0;
+  return 0.622 * Pw / (Patm - Pw);
+}
+
+/** Dew point from vapour pressure [deg C] */
+function Tdp_from_Pw(Pw) {
+  if (Pw <= 0) return -273.15;
+  var alpha = Math.log(Pw / 0.61078);
+  return (237.3 * alpha) / (17.27 - alpha);
+}
+
+/** Enthalpy [kJ/kg dry air] */
+function enthalpy(Tdb, W) {
+  return 1.006 * Tdb + W * (2501 + 1.86 * Tdb);
+}
+
+/** Specific volume [m3/kg dry air] */
+function specVol(Tdb, Pw, Patm) {
+  return (287.05 * (Tdb + 273.15)) / ((Patm - Pw) * 1000);
+}
+
+/** Saturation humidity ratio at temperature T */
+function Ws(T, Patm) {
+  var ps = Pws(T);
+  if (ps >= Patm) return 999;
+  return 0.622 * ps / (Patm - ps);
+}
+
+/**
+ * Wet bulb by bisection.
+ * Given Tdb, W (humidity ratio), and Patm,
+ * find Twb such that:
+ *   W = ((2501 - 2.326*Twb)*Ws(Twb) - 1.006*(Tdb-Twb)) / (2501 + 1.86*Tdb - 4.186*Twb)
+ */
+function wetBulb(Tdb, W, Patm) {
+  var lo = -20, hi = Tdb;
+  for (var i = 0; i < 60; i++) {
+    var mid = (lo + hi) / 2;
+    var ws = Ws(mid, Patm);
+    var Wcalc = ((2501 - 2.326 * mid) * ws - 1.006 * (Tdb - mid)) / (2501 + 1.86 * Tdb - 4.186 * mid);
+    if (Wcalc > W) {
+      hi = mid;
+    } else {
+      lo = mid;
+    }
+  }
+  return (lo + hi) / 2;
+}
+
+/** RH from vapour pressure */
+function RH_from_Pw(Pw, Tdb) {
+  var psat = Pws(Tdb);
+  return psat > 0 ? (Pw / psat) * 100 : 0;
+}
+
+/** Vapour pressure from specific humidity */
+function Pw_from_W(W, Patm) {
+  return (W * Patm) / (0.622 + W);
+}
+
+/**
+ * Given wet bulb and dry bulb, solve for W.
+ * W = ((2501 - 2.326*Twb)*Ws(Twb) - 1.006*(Tdb-Twb)) / (2501 + 1.86*Tdb - 4.186*Twb)
+ */
+function W_from_WetBulb(Tdb, Twb, Patm) {
+  var ws = Ws(Twb, Patm);
+  return ((2501 - 2.326 * Twb) * ws - 1.006 * (Tdb - Twb)) / (2501 + 1.86 * Tdb - 4.186 * Twb);
+}
+
+
+/* =====================================================
+   UI REFERENCES
+   ===================================================== */
+var modeRadios = document.querySelectorAll('input[name="ps-mode"]');
+var inputLabel = document.getElementById('ps-input-label');
+var inputVal   = document.getElementById('ps-input-val');
+var inputHint  = document.getElementById('ps-input-hint');
+var tdbInput   = document.getElementById('ps-tdb');
+var patmInput  = document.getElementById('ps-patm');
+var resultsDiv = document.getElementById('ps-results');
+var resultsGrid = document.getElementById('ps-results-grid');
+
+/* Mode config */
+var modeConfig = {
+  rh: { label: 'Relative Humidity (%)', hint: 'Range: 0 to 100%', defaultVal: '50', min: 0, max: 100 },
+  wb: { label: 'Wet Bulb Temperature (\u00b0C)', hint: 'Must be \u2264 dry bulb', defaultVal: '18', min: -20, max: 60 },
+  dp: { label: 'Dew Point Temperature (\u00b0C)', hint: 'Must be \u2264 dry bulb', defaultVal: '14', min: -40, max: 60 },
+  sh: { label: 'Specific Humidity (g/kg)', hint: 'Grams of moisture per kg dry air', defaultVal: '10', min: 0, max: 60 }
+};
+
+function getMode() {
+  for (var i = 0; i < modeRadios.length; i++) {
+    if (modeRadios[i].checked) return modeRadios[i].value;
+  }
+  return 'rh';
+}
+
+/* Switch input label/hint when mode changes */
+for (var i = 0; i < modeRadios.length; i++) {
+  modeRadios[i].addEventListener('change', function() {
+    var cfg = modeConfig[this.value];
+    inputLabel.textContent = cfg.label;
+    inputHint.textContent  = cfg.hint;
+    inputVal.value = cfg.defaultVal;
+    inputVal.min = cfg.min;
+    inputVal.max = cfg.max;
+  });
+}
+
+
+/* =====================================================
+   CALCULATE
+   ===================================================== */
+document.getElementById('ps-calculate').addEventListener('click', calculate);
+
+/* Also calculate on Enter key */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && (e.target === tdbInput || e.target === inputVal || e.target === patmInput)) {
+    calculate();
+  }
+});
+
+function calculate() {
+  var Tdb  = parseFloat(tdbInput.value);
+  var val  = parseFloat(inputVal.value);
+  var Patm = parseFloat(patmInput.value);
+  var mode = getMode();
+
+  if (isNaN(Tdb) || isNaN(val) || isNaN(Patm)) {
+    alert('Please enter valid numeric values.'); return;
+  }
+  if (Patm <= 0) { alert('Barometric pressure must be positive.'); return; }
+
+  var Pw, W, RH, Twb, Tdp, h, v;
+
+  switch (mode) {
+    case 'rh':
+      RH = val;
+      if (RH < 0 || RH > 100) { alert('Relative humidity must be 0\u2013100%.'); return; }
+      Pw  = PwFromRH(Tdb, RH);
+      W   = W_from_Pw(Pw, Patm);
+      Tdp = Tdp_from_Pw(Pw);
+      Twb = wetBulb(Tdb, W, Patm);
+      break;
+
+    case 'wb':
+      Twb = val;
+      if (Twb > Tdb) { alert('Wet bulb cannot exceed dry bulb temperature.'); return; }
+      W   = W_from_WetBulb(Tdb, Twb, Patm);
+      if (W < 0) W = 0;
+      Pw  = Pw_from_W(W, Patm);
+      Tdp = Tdp_from_Pw(Pw);
+      RH  = RH_from_Pw(Pw, Tdb);
+      break;
+
+    case 'dp':
+      Tdp = val;
+      if (Tdp > Tdb) { alert('Dew point cannot exceed dry bulb temperature.'); return; }
+      Pw  = Pws(Tdp);
+      W   = W_from_Pw(Pw, Patm);
+      RH  = RH_from_Pw(Pw, Tdb);
+      Twb = wetBulb(Tdb, W, Patm);
+      break;
+
+    case 'sh':
+      W   = val / 1000; /* g/kg to kg/kg */
+      if (W < 0) { alert('Specific humidity must be positive.'); return; }
+      Pw  = Pw_from_W(W, Patm);
+      Tdp = Tdp_from_Pw(Pw);
+      RH  = RH_from_Pw(Pw, Tdb);
+      Twb = wetBulb(Tdb, W, Patm);
+      break;
+  }
+
+  h = enthalpy(Tdb, W);
+  v = specVol(Tdb, Pw, Patm);
+
+  /* Clamp RH display */
+  if (RH > 100) RH = 100;
+  if (RH < 0) RH = 0;
+
+  /* Render results */
+  resultsGrid.innerHTML = '';
+  addResult('Relative Humidity', RH.toFixed(1), '%');
+  addResult('Wet Bulb Temp', Twb.toFixed(1), '\u00b0C');
+  addResult('Dew Point', Tdp.toFixed(1), '\u00b0C');
+  addResult('Specific Humidity', (W * 1000).toFixed(2), 'g/kg');
+  addResult('Enthalpy', h.toFixed(1), 'kJ/kg', 'orange');
+  addResult('Specific Volume', v.toFixed(4), 'm\u00b3/kg');
+  addResult('Vapour Pressure', Pw.toFixed(3), 'kPa');
+
+  resultsDiv.classList.add('show');
+
+  /* Draw psychrometric chart */
+  drawChart(Tdb, W * 1000, Patm);
+}
+
+function addResult(label, value, unit, cls) {
+  var div = document.createElement('div');
+  div.className = 'ps-result-item' + (cls ? ' ' + cls : '');
+  div.innerHTML =
+    '<div class="ps-result-label">' + label + '</div>' +
+    '<div class="ps-result-value">' + value + '</div>' +
+    '<div class="ps-result-unit">' + unit + '</div>';
+  resultsGrid.appendChild(div);
+}
+
+
+/* =====================================================
+   PSYCHROMETRIC CHART (Canvas)
+   ===================================================== */
+function drawChart(Tdb_point, W_point_gkg, Patm) {
+  var canvas = document.getElementById('ps-chart');
+  var ctx = canvas.getContext('2d');
+
+  /* High-DPI support */
+  var dpr = window.devicePixelRatio || 1;
+  var rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  var cw = rect.width;
+  var ch = rect.height;
+
+  ctx.clearRect(0, 0, cw, ch);
+
+  /* Chart area with margins */
+  var ml = 60, mr = 20, mt = 20, mb = 50;
+  var pw = cw - ml - mr;
+  var ph = ch - mt - mb;
+
+  /* Axis ranges */
+  var Tmin = 0, Tmax = 50;
+  var Wmin = 0, Wmax = 30; /* g/kg */
+
+  function xPos(T) { return ml + ((T - Tmin) / (Tmax - Tmin)) * pw; }
+  function yPos(W) { return mt + ph - ((W - Wmin) / (Wmax - Wmin)) * ph; }
+
+  /* Grid lines */
+  ctx.strokeStyle = '#e5e5ea';
+  ctx.lineWidth = 0.5;
+  for (var t = 0; t <= 50; t += 5) {
+    ctx.beginPath();
+    ctx.moveTo(xPos(t), mt);
+    ctx.lineTo(xPos(t), mt + ph);
+    ctx.stroke();
+  }
+  for (var w = 0; w <= 30; w += 5) {
+    ctx.beginPath();
+    ctx.moveTo(ml, yPos(w));
+    ctx.lineTo(ml + pw, yPos(w));
+    ctx.stroke();
+  }
+
+  /* Axes */
+  ctx.strokeStyle = '#1d1d1f';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(ml, mt);
+  ctx.lineTo(ml, mt + ph);
+  ctx.lineTo(ml + pw, mt + ph);
+  ctx.stroke();
+
+  /* Axis labels */
+  ctx.fillStyle = '#444';
+  ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'center';
+  for (var t = 0; t <= 50; t += 10) {
+    ctx.fillText(t + '\u00b0C', xPos(t), mt + ph + 20);
+  }
+  ctx.textAlign = 'right';
+  for (var w = 0; w <= 30; w += 5) {
+    ctx.fillText(w, ml - 8, yPos(w) + 4);
+  }
+
+  /* X-axis title */
+  ctx.textAlign = 'center';
+  ctx.font = '13px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillStyle = '#1d1d1f';
+  ctx.fillText('Dry Bulb Temperature (\u00b0C)', ml + pw / 2, mt + ph + 42);
+
+  /* Y-axis title */
+  ctx.save();
+  ctx.translate(14, mt + ph / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.textAlign = 'center';
+  ctx.fillText('Specific Humidity (g/kg)', 0, 0);
+  ctx.restore();
+
+  /* RH curves */
+  var rhValues = [20, 40, 60, 80, 100];
+  var rhColors = ['#c7d2fe', '#93a3f8', '#6478f0', '#3b5de7', '#007aff'];
+
+  for (var ri = 0; ri < rhValues.length; ri++) {
+    var rh = rhValues[ri];
+    ctx.strokeStyle = rhColors[ri];
+    ctx.lineWidth = rh === 100 ? 2.5 : 1.2;
+    ctx.beginPath();
+    var started = false;
+    for (var t = Tmin; t <= Tmax; t += 0.5) {
+      var pw_t = (rh / 100) * Pws(t);
+      var w_t = W_from_Pw(pw_t, Patm) * 1000; /* g/kg */
+      if (w_t > Wmax) continue;
+      var x = xPos(t);
+      var y = yPos(w_t);
+      if (!started) { ctx.moveTo(x, y); started = true; }
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    /* Label RH curves */
+    if (rh < 100) {
+      /* Place label near T=40 or end of curve */
+      var labelT = 42;
+      var pw_label = (rh / 100) * Pws(labelT);
+      var w_label = W_from_Pw(pw_label, Patm) * 1000;
+      if (w_label <= Wmax && w_label >= Wmin) {
+        ctx.fillStyle = rhColors[ri];
+        ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText(rh + '%', xPos(labelT) + 3, yPos(w_label) - 4);
+      }
+    } else {
+      /* Label 100% saturation curve */
+      ctx.fillStyle = '#007aff';
+      ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.textAlign = 'left';
+      var pw100 = Pws(30);
+      var w100 = W_from_Pw(pw100, Patm) * 1000;
+      ctx.fillText('100% RH', xPos(30) + 4, yPos(w100) - 6);
+    }
+  }
+
+  /* State point */
+  if (Tdb_point >= Tmin && Tdb_point <= Tmax && W_point_gkg >= Wmin && W_point_gkg <= Wmax) {
+    var sx = xPos(Tdb_point);
+    var sy = yPos(W_point_gkg);
+
+    /* Crosshair */
+    ctx.setLineDash([4, 3]);
+    ctx.strokeStyle = '#EA580C';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(sx, mt + ph);
+    ctx.lineTo(sx, sy);
+    ctx.lineTo(ml, sy);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    /* Dot */
+    ctx.beginPath();
+    ctx.arc(sx, sy, 7, 0, 2 * Math.PI);
+    ctx.fillStyle = '#EA580C';
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    /* Label */
+    ctx.fillStyle = '#EA580C';
+    ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(Tdb_point.toFixed(1) + '\u00b0C, ' + W_point_gkg.toFixed(1) + ' g/kg', sx + 12, sy - 8);
+  }
+}
+
+
+/* =====================================================
+   COLLAPSIBLE FORMULAS
+   ===================================================== */
+var formulasHeader = document.getElementById('ps-formulas-header');
+var formulasBody   = document.getElementById('ps-formulas-body');
+var formulasIcon   = document.getElementById('ps-formulas-icon');
+
+formulasHeader.addEventListener('click', function() {
+  var isOpen = formulasBody.classList.contains('open');
+  formulasBody.classList.toggle('open');
+  formulasIcon.className = isOpen
+    ? 'fa-solid fa-chevron-down ps-collapsible-toggle'
+    : 'fa-solid fa-chevron-up ps-collapsible-toggle';
+  formulasHeader.setAttribute('aria-expanded', !isOpen);
+});
+
+
+/* =====================================================
+   RENDER KaTeX FORMULAS
+   ===================================================== */
+function renderFormulas() {
+  if (typeof katex === 'undefined') {
+    setTimeout(renderFormulas, 100);
+    return;
+  }
+  var formulas = {
+    'katex-pws': 'P_{ws} = 0.61078 \\times e^{\\dfrac{17.27 \\, T}{T + 237.3}} \\quad [\\text{kPa}]',
+    'katex-pw':  'P_w = \\dfrac{\\text{RH}}{100} \\times P_{ws}(T_{db}) \\quad [\\text{kPa}]',
+    'katex-w':   'W = \\dfrac{0.622 \\, P_w}{P_{atm} - P_w} \\quad [\\text{kg/kg dry air}]',
+    'katex-tdp': 'T_{dp} = \\dfrac{237.3 \\, \\ln\\!\\left(\\dfrac{P_w}{0.61078}\\right)}{17.27 - \\ln\\!\\left(\\dfrac{P_w}{0.61078}\\right)} \\quad [°\\text{C}]',
+    'katex-h':   'h = 1.006 \\, T_{db} + W \\left(2501 + 1.86 \\, T_{db}\\right) \\quad [\\text{kJ/kg}]',
+    'katex-v':   'v = \\dfrac{287.05 \\left(T_{db} + 273.15\\right)}{\\left(P_{atm} - P_w\\right) \\times 1000} \\quad [\\text{m}^3\\text{/kg}]',
+    'katex-wb':  'W = \\dfrac{(2501 - 2.326\\,T_{wb})\\,W_s(T_{wb}) \\;-\\; 1.006\\,(T_{db} - T_{wb})}{2501 + 1.86\\,T_{db} - 4.186\\,T_{wb}}'
+  };
+
+  for (var id in formulas) {
+    var el = document.getElementById(id);
+    if (el) {
+      katex.render(formulas[id], el, { displayMode: true, throwOnError: false });
+    }
+  }
+}
+
+/* Wait for KaTeX to load, then render */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderFormulas);
+} else {
+  renderFormulas();
+}
+
+
+/* =====================================================
+   AUTO-CALCULATE ON LOAD
+   ===================================================== */
+window.addEventListener('load', function() {
+  calculate();
+  renderFormulas();
+});
+
+})();
+</script>
+
+</body>
+</html>

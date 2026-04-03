@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Insulation Thickness Calculator — Heat Loss &amp; Condensation Prevention | Karnot Engineering Hub</title>
+<meta name="description" content="Free insulation thickness calculator. Calculate minimum insulation for anti-condensation and heat conservation on pipes. Supports Armaflex, Rockwool, foam glass, PIR and custom materials. Shows heat loss, surface temperature and dew point.">
+<meta name="keywords" content="insulation thickness calculator, pipe insulation, heat loss, anti-condensation, dew point, Armaflex, Rockwool, PIR, foam glass, thermal conductivity, cylindrical heat loss, surface temperature">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/insulation-calculator">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/insulation-calculator">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/insulation-calculator">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/insulation-calculator">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/insulation-calculator">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Insulation Thickness Calculator — Heat Loss &amp; Condensation Prevention">
+<meta property="og:description" content="Free pipe insulation calculator. Calculate thickness for anti-condensation or heat conservation. Armaflex, Rockwool, foam glass, PIR. Heat loss, surface temp, dew point.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/insulation-calculator">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Insulation Thickness Calculator | Karnot Engineering Hub">
+<meta name="twitter:description" content="Calculate insulation thickness for pipes. Anti-condensation and heat conservation. Armaflex, Rockwool, PIR, foam glass.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Insulation Calculator","item":"https://karnot.com/engineering-hub/insulation-calculator"}]},
+    {"@type":"WebApplication","name":"Insulation Thickness Calculator","url":"https://karnot.com/engineering-hub/insulation-calculator","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate minimum insulation thickness for anti-condensation or heat conservation on pipes. Supports Armaflex, Rockwool, foam glass, PIR. Shows heat loss per metre, surface temperature, dew point and annual energy loss.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I calculate insulation thickness for anti-condensation?","acceptedAnswer":{"@type":"Answer","text":"For anti-condensation, the insulation must keep the outer surface temperature above the dew point of the ambient air. Calculate the dew point from ambient temperature and relative humidity using the Magnus formula, then solve the cylindrical heat transfer equation iteratively to find the minimum insulation thickness that keeps the surface temperature at least 1 to 2 degrees C above dew point."}},
+      {"@type":"Question","name":"What is the thermal conductivity of common insulation materials?","acceptedAnswer":{"@type":"Answer","text":"Common thermal conductivities at mean temperature: Armaflex (elastomeric) 0.034 W/mK, Rockwool (mineral wool) 0.040 W/mK, foam glass (cellular glass) 0.042 W/mK, PIR (polyisocyanurate) 0.023 W/mK. Lower values mean better insulation performance, so PIR requires the thinnest layer for the same heat loss reduction."}},
+      {"@type":"Question","name":"What are the standard commercial insulation thicknesses?","acceptedAnswer":{"@type":"Answer","text":"Standard commercial insulation thicknesses for pipe insulation are 13 mm, 19 mm, 25 mm, 32 mm, 38 mm, and 50 mm. When the calculated minimum thickness falls between standard sizes, always round up to the next available commercial thickness to ensure adequate performance."}},
+      {"@type":"Question","name":"How do I calculate heat loss from an insulated pipe?","acceptedAnswer":{"@type":"Answer","text":"Heat loss from a cylindrical insulated pipe is Q = 2 pi lambda (Tf minus Ta) divided by ln(ro/ri) in watts per metre, where lambda is the insulation thermal conductivity, Tf is the fluid temperature, Ta is the ambient temperature, ro is the outer radius including insulation, and ri is the bare pipe outer radius. This assumes negligible pipe wall resistance and a combined surface heat transfer coefficient on the outer surface."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   INSULATION CALC — ic- prefix
+   =========================== */
+
+.ic-hero{
+  background:linear-gradient(135deg,rgba(120,53,15,.92),rgba(234,88,12,.75),rgba(251,191,36,.35));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.ic-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.ic-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.ic-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.ic-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+.ic-breadcrumb{font-size:13px;margin-bottom:12px;opacity:.78;position:relative}
+.ic-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.ic-breadcrumb a:hover{text-decoration:underline}
+.ic-breadcrumb span{margin:0 6px;opacity:.6}
+
+.ic-wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+.ic-card{background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(0,0,0,.07);padding:36px;margin-top:32px}
+.ic-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.ic-card h2 i{color:#EA580C;font-size:20px}
+
+.ic-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px 22px;margin-bottom:24px}
+.ic-field{display:flex;flex-direction:column}
+.ic-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.ic-field input,.ic-field select{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.ic-field input:focus,.ic-field select:focus{outline:none;border-color:#EA580C;box-shadow:0 0 0 3px rgba(234,88,12,.12)}
+.ic-field .ic-hint{font-size:11px;color:#999;margin-top:3px}
+
+.ic-results{display:none}
+.ic-results.show{display:block}
+.ic-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px}
+.ic-metric{border-radius:14px;padding:22px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.ic-metric-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.ic-metric-value{font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
+.ic-metric-unit{font-size:13px;font-weight:500;opacity:.75}
+.ic-metric.orange{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(245,102,0,.35)}
+.ic-metric.orange .ic-metric-label{color:#EA580C}
+.ic-metric.orange .ic-metric-value{color:#ea580c}
+.ic-metric.blue{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid rgba(59,130,246,.3)}
+.ic-metric.blue .ic-metric-label{color:#3b82f6}
+.ic-metric.blue .ic-metric-value{color:#2563eb}
+.ic-metric.green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid rgba(34,197,94,.3)}
+.ic-metric.green .ic-metric-label{color:#16a34a}
+.ic-metric.green .ic-metric-value{color:#15803d}
+.ic-metric.red{background:linear-gradient(135deg,#fef2f2,#fecaca);border:1.5px solid rgba(239,68,68,.3)}
+.ic-metric.red .ic-metric-label{color:#ef4444}
+.ic-metric.red .ic-metric-value{color:#dc2626}
+.ic-metric.teal{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1.5px solid rgba(20,184,166,.3)}
+.ic-metric.teal .ic-metric-label{color:#14b8a6}
+.ic-metric.teal .ic-metric-value{color:#0d9488}
+
+.ic-alert{border-radius:12px;padding:16px 20px;margin:16px 0;font-size:14px;line-height:1.6;display:flex;align-items:center;gap:12px}
+.ic-alert i{font-size:20px;flex-shrink:0}
+.ic-alert.warning{background:#fef3c7;border:1.5px solid #f59e0b;color:#92400e}
+.ic-alert.success{background:#dcfce7;border:1.5px solid #22c55e;color:#166534}
+.ic-alert.danger{background:#fee2e2;border:1.5px solid #ef4444;color:#991b1b}
+
+.ic-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:20px}
+.ic-table th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.ic-table td{padding:10px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+
+.ic-formula-box{background:#f8f9fa;border:1.5px solid #e5e5e7;border-radius:12px;padding:20px;margin-top:12px}
+.ic-formula-box p{font-size:14px;color:#6e6e73;line-height:1.7;margin:0 0 12px}
+
+.ic-faq-section{padding:60px 0;max-width:1000px;margin:0 auto}
+.ic-faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.ic-faq-item{border-bottom:1px solid #d2d2d7}
+.ic-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#1d1d1f}
+.ic-faq-item summary::-webkit-details-marker{display:none}
+.ic-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#EA580C;transition:transform .3s}
+.ic-faq-item[open] summary::after{content:'\2212'}
+.ic-faq-item .ic-faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+.ic-cta{
+  background:linear-gradient(135deg,#78350f,#EA580C);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.ic-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.ic-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.ic-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#fff;color:#EA580C;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.ic-cta-btn:hover{background:#fff7ed;transform:translateY(-2px);color:#EA580C}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .ic-card{padding:22px 16px}
+  .ic-fields{grid-template-columns:1fr 1fr}
+  .ic-results-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:400px){
+  .ic-fields{grid-template-columns:1fr}
+  .ic-results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<section class="ic-hero">
+  <div class="ic-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Insulation Calculator
+  </div>
+  <h1>Insulation Thickness Calculator</h1>
+  <p>A DN50 hot water pipe at 80 &deg;C in 30 &deg;C ambient air with 25 mm Armaflex insulation loses 18.2 W/m. Enter your pipe size, temperatures and insulation material below to calculate the minimum thickness for anti-condensation or heat conservation.</p>
+  <p class="answer-first">This tool solves the cylindrical heat transfer equation to calculate insulation thickness, heat loss per metre, surface temperature, dew point, condensation risk, and annual energy loss for any pipe and insulation combination.</p>
+</section>
+
+<div class="ic-wrap">
+
+  <div class="ic-card rv">
+    <h2><i class="fas fa-shield-halved"></i> Insulation Inputs</h2>
+
+    <div class="ic-fields">
+      <div class="ic-field">
+        <label for="ic-app">Application</label>
+        <select id="ic-app">
+          <option value="heat">Heat Conservation</option>
+          <option value="cond">Anti-Condensation</option>
+        </select>
+      </div>
+      <div class="ic-field">
+        <label for="ic-dn">Pipe DN</label>
+        <select id="ic-dn">
+          <option value="15">DN15 (21.3 mm OD)</option>
+          <option value="20">DN20 (26.9 mm OD)</option>
+          <option value="25">DN25 (33.7 mm OD)</option>
+          <option value="32">DN32 (42.4 mm OD)</option>
+          <option value="40">DN40 (48.3 mm OD)</option>
+          <option value="50" selected>DN50 (60.3 mm OD)</option>
+          <option value="65">DN65 (76.1 mm OD)</option>
+          <option value="80">DN80 (88.9 mm OD)</option>
+          <option value="100">DN100 (114.3 mm OD)</option>
+          <option value="150">DN150 (168.3 mm OD)</option>
+        </select>
+      </div>
+      <div class="ic-field">
+        <label for="ic-tfluid">Fluid Temperature (&deg;C)</label>
+        <input type="number" id="ic-tfluid" value="80" step="1">
+      </div>
+      <div class="ic-field">
+        <label for="ic-tamb">Ambient Temperature (&deg;C)</label>
+        <input type="number" id="ic-tamb" value="30" step="1">
+      </div>
+      <div class="ic-field" id="ic-rh-group">
+        <label for="ic-rh">Ambient Relative Humidity (%)</label>
+        <input type="number" id="ic-rh" value="70" min="10" max="100" step="1">
+        <span class="ic-hint">For condensation calculation</span>
+      </div>
+      <div class="ic-field">
+        <label for="ic-material">Insulation Material</label>
+        <select id="ic-material">
+          <option value="0.034">Armaflex (elastomeric) &lambda;=0.034</option>
+          <option value="0.040">Rockwool (mineral wool) &lambda;=0.040</option>
+          <option value="0.042">Foam Glass (cellular glass) &lambda;=0.042</option>
+          <option value="0.023">PIR (polyisocyanurate) &lambda;=0.023</option>
+          <option value="custom">Custom &lambda; value</option>
+        </select>
+      </div>
+      <div class="ic-field" id="ic-custom-group" style="display:none">
+        <label for="ic-custom-lambda">Custom &lambda; (W/m&middot;K)</label>
+        <input type="number" id="ic-custom-lambda" value="0.035" min="0.01" max="0.2" step="0.001">
+      </div>
+      <div class="ic-field">
+        <label for="ic-hours">Operating Hours/Year</label>
+        <input type="number" id="ic-hours" value="8760" min="100" max="8760" step="100">
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="ic-results" id="ic-results">
+      <h3 style="font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:16px"><i class="fas fa-calculator" style="color:#EA580C;margin-right:8px"></i>Insulation Results</h3>
+
+      <div class="ic-results-grid" id="ic-metrics"></div>
+      <div id="ic-alert-area"></div>
+
+      <div style="overflow-x:auto">
+        <table class="ic-table" id="ic-detail-table">
+          <thead>
+            <tr><th>Property</th><th>Value</th><th>Unit</th></tr>
+          </thead>
+          <tbody id="ic-detail-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="ic-card rv">
+    <h2><i class="fas fa-square-root-variable"></i> Insulation Formulas</h2>
+    <div class="ic-formula-box">
+      <p><strong>Cylindrical heat loss per metre:</strong></p>
+      <div id="ic-katex-q"></div>
+      <p><strong>Surface temperature (from thermal resistance chain):</strong></p>
+      <div id="ic-katex-ts"></div>
+      <p><strong>Dew point temperature (Magnus formula):</strong></p>
+      <div id="ic-katex-dp"></div>
+      <p><strong>Annual heat loss:</strong></p>
+      <div id="ic-katex-annual"></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="ic-faq-section rv" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <details class="ic-faq-item">
+      <summary>How do I calculate insulation thickness for anti-condensation?</summary>
+      <div class="ic-faq-answer"><p>For anti-condensation the insulation must keep the outer surface temperature above the dew point. This calculator uses the Magnus formula for dew point and solves the cylindrical heat transfer equation iteratively, adding 1 mm at a time until the surface temperature is at least 1 &deg;C above dew point.</p></div>
+    </details>
+    <details class="ic-faq-item">
+      <summary>What is the thermal conductivity of common insulation materials?</summary>
+      <div class="ic-faq-answer"><p>Armaflex: 0.034 W/mK, Rockwool: 0.040 W/mK, Foam Glass: 0.042 W/mK, PIR: 0.023 W/mK. Lower values mean better insulating performance. PIR requires the thinnest layer for equivalent heat loss reduction.</p></div>
+    </details>
+    <details class="ic-faq-item">
+      <summary>What are the standard commercial insulation thicknesses?</summary>
+      <div class="ic-faq-answer"><p>Standard pipe insulation thicknesses are 13 mm, 19 mm, 25 mm, 32 mm, 38 mm, and 50 mm. This calculator rounds up from the calculated minimum to the next standard commercial size to ensure adequate performance.</p></div>
+    </details>
+    <details class="ic-faq-item">
+      <summary>How do I calculate heat loss from an insulated pipe?</summary>
+      <div class="ic-faq-answer"><p>Use the cylindrical heat loss formula: Q = 2 pi lambda (Tf - Ta) / ln(ro/ri) in W/m. This assumes the insulation thermal resistance dominates and surface film resistance is small. For more accuracy, add the outer surface convection resistance.</p></div>
+    </details>
+  </section>
+
+  <div class="ic-cta rv">
+    <h2>Need Insulation Engineering Support?</h2>
+    <p>Our engineers can specify complete insulation systems for heat pump, chiller and process heating installations.</p>
+    <a href="../contact.html?intent=insulation&product=iHEAT" class="ic-cta-btn">Talk to an Engineer <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+</div>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   PIPE OD DATA (mm)
+   ===================================================== */
+var PIPE_OD = {15:21.3, 20:26.9, 25:33.7, 32:42.4, 40:48.3, 50:60.3, 65:76.1, 80:88.9, 100:114.3, 150:168.3};
+var COMMERCIAL = [13, 19, 25, 32, 38, 50];
+var h_outer = 10; // W/m2K combined convection + radiation
+
+/* =====================================================
+   DEW POINT (Magnus formula)
+   ===================================================== */
+function dewPoint(T, RH) {
+  var a = 17.27, b = 237.7;
+  var gamma = (a * T) / (b + T) + Math.log(RH / 100);
+  return (b * gamma) / (a - gamma);
+}
+
+/* =====================================================
+   CYLINDRICAL HEAT LOSS
+   ===================================================== */
+function calcHeatLoss(ri_m, thickness_m, lambda, Tf, Ta) {
+  var ro = ri_m + thickness_m;
+  if (ro <= ri_m) return {Q: Infinity, Ts: Tf};
+  // Insulation resistance
+  var R_ins = Math.log(ro / ri_m) / (2 * Math.PI * lambda);
+  // Outer surface resistance
+  var R_surf = 1 / (2 * Math.PI * ro * h_outer);
+  var R_total = R_ins + R_surf;
+  var Q = (Tf - Ta) / R_total; // W/m
+  // Surface temperature
+  var Ts = Ta + Q * R_surf;
+  return {Q: Q, Ts: Ts, R_ins: R_ins, R_surf: R_surf, R_total: R_total, ro: ro};
+}
+
+/* =====================================================
+   FIND MINIMUM THICKNESS (anti-condensation)
+   ===================================================== */
+function findMinThicknessCond(ri_m, lambda, Tf, Ta, dp) {
+  // Surface temp must be above dew point
+  // For cold pipes (Tf < Ta), insulation keeps surface warm enough
+  // For chilled water: Tf is cold, surface must stay above dp
+  for (var t = 1; t <= 200; t++) {
+    var res = calcHeatLoss(ri_m, t / 1000, lambda, Tf, Ta);
+    if (res.Ts > dp + 1) return t; // 1°C safety margin
+  }
+  return 200;
+}
+
+/* =====================================================
+   NEXT COMMERCIAL SIZE
+   ===================================================== */
+function nextCommercial(mm) {
+  for (var i = 0; i < COMMERCIAL.length; i++) {
+    if (COMMERCIAL[i] >= mm) return COMMERCIAL[i];
+  }
+  return COMMERCIAL[COMMERCIAL.length - 1];
+}
+
+/* =====================================================
+   CUSTOM LAMBDA TOGGLE
+   ===================================================== */
+document.getElementById('ic-material').addEventListener('change', function() {
+  document.getElementById('ic-custom-group').style.display = this.value === 'custom' ? '' : 'none';
+  calculate();
+});
+
+/* =====================================================
+   CALCULATE
+   ===================================================== */
+function calculate() {
+  var app = document.getElementById('ic-app').value;
+  var dn = parseInt(document.getElementById('ic-dn').value);
+  var Tf = parseFloat(document.getElementById('ic-tfluid').value);
+  var Ta = parseFloat(document.getElementById('ic-tamb').value);
+  var RH = parseFloat(document.getElementById('ic-rh').value);
+  var matVal = document.getElementById('ic-material').value;
+  var lambda = matVal === 'custom' ? parseFloat(document.getElementById('ic-custom-lambda').value) : parseFloat(matVal);
+  var hours = parseFloat(document.getElementById('ic-hours').value);
+
+  if (isNaN(Tf) || isNaN(Ta) || isNaN(lambda) || isNaN(hours)) return;
+
+  var od_mm = PIPE_OD[dn] || 60.3;
+  var ri_m = (od_mm / 2) / 1000;
+  var dp = dewPoint(Ta, RH || 70);
+
+  var minThick_mm;
+  if (app === 'cond') {
+    // Anti-condensation: cold pipe, keep surface above dew point
+    minThick_mm = findMinThicknessCond(ri_m, lambda, Tf, Ta, dp);
+  } else {
+    // Heat conservation: recommend based on heat loss target
+    // Use a reasonable default: enough to reduce heat loss significantly
+    // Start at 13mm and find where heat loss is "acceptable"
+    minThick_mm = 13; // minimum starting point
+    // For hot pipes, thicker insulation always reduces loss
+    // Recommend based on economic thickness (simplified)
+    if (Math.abs(Tf - Ta) > 40) minThick_mm = 25;
+    if (Math.abs(Tf - Ta) > 80) minThick_mm = 38;
+    if (Math.abs(Tf - Ta) > 120) minThick_mm = 50;
+  }
+
+  var commercialThick = nextCommercial(minThick_mm);
+  var res = calcHeatLoss(ri_m, commercialThick / 1000, lambda, Tf, Ta);
+  var annualLoss_kWh = res.Q * hours / 1000;
+
+  // Also calculate bare pipe loss
+  var bareLoss = (Tf - Ta) * Math.PI * od_mm / 1000 * h_outer; // rough estimate
+
+  // Render
+  var metricsDiv = document.getElementById('ic-metrics');
+  metricsDiv.innerHTML = '';
+  function addMetric(label, value, unit, cls) {
+    metricsDiv.innerHTML +=
+      '<div class="ic-metric ' + cls + '">' +
+        '<div class="ic-metric-label">' + label + '</div>' +
+        '<div class="ic-metric-value">' + value + '</div>' +
+        '<div class="ic-metric-unit">' + unit + '</div>' +
+      '</div>';
+  }
+
+  addMetric('Recommended Thickness', commercialThick, 'mm', 'orange');
+  addMetric('Heat Loss', res.Q.toFixed(1), 'W/m', 'blue');
+  addMetric('Surface Temperature', res.Ts.toFixed(1), '&deg;C', app === 'cond' ? (res.Ts > dp + 1 ? 'green' : 'red') : 'teal');
+  addMetric('Annual Heat Loss', annualLoss_kWh.toFixed(0), 'kWh/m/yr', 'teal');
+
+  // Alert
+  var alertArea = document.getElementById('ic-alert-area');
+  alertArea.innerHTML = '';
+  if (app === 'cond') {
+    if (res.Ts > dp + 1) {
+      alertArea.innerHTML = '<div class="ic-alert success"><i class="fas fa-check-circle"></i> Surface temperature (' + res.Ts.toFixed(1) + ' &deg;C) is above dew point (' + dp.toFixed(1) + ' &deg;C). No condensation risk.</div>';
+    } else {
+      alertArea.innerHTML = '<div class="ic-alert danger"><i class="fas fa-triangle-exclamation"></i> Condensation risk! Surface temperature (' + res.Ts.toFixed(1) + ' &deg;C) is at or below dew point (' + dp.toFixed(1) + ' &deg;C). Increase insulation thickness.</div>';
+    }
+  }
+
+  // Detail table
+  var tbody = document.getElementById('ic-detail-body');
+  tbody.innerHTML = '';
+  function addRow(p, v, u) {
+    tbody.innerHTML += '<tr><td>' + p + '</td><td><strong>' + v + '</strong></td><td>' + u + '</td></tr>';
+  }
+
+  addRow('Pipe DN', 'DN' + dn, 'OD ' + od_mm + ' mm');
+  addRow('Insulation &lambda;', lambda.toFixed(3), 'W/m&middot;K');
+  addRow('Minimum Calculated Thickness', minThick_mm, 'mm');
+  addRow('Recommended Commercial Thickness', commercialThick, 'mm');
+  addRow('Fluid Temperature', Tf, '&deg;C');
+  addRow('Ambient Temperature', Ta, '&deg;C');
+  if (app === 'cond') {
+    addRow('Ambient RH', RH || 70, '%');
+    addRow('Dew Point', dp.toFixed(1), '&deg;C');
+  }
+  addRow('Outer Surface Temperature', res.Ts.toFixed(1), '&deg;C');
+  addRow('Heat Loss (insulated)', res.Q.toFixed(2), 'W/m');
+  addRow('Heat Loss (bare pipe, approx)', bareLoss.toFixed(1), 'W/m');
+  addRow('Heat Loss Reduction', ((1 - res.Q / bareLoss) * 100).toFixed(0), '%');
+  addRow('Annual Heat Loss', annualLoss_kWh.toFixed(0), 'kWh/m/year');
+  addRow('Operating Hours', hours, 'hours/year');
+
+  document.getElementById('ic-results').classList.add('show');
+}
+
+/* =====================================================
+   EVENTS
+   ===================================================== */
+var inputs = document.querySelectorAll('#ic-app, #ic-dn, #ic-tfluid, #ic-tamb, #ic-rh, #ic-material, #ic-custom-lambda, #ic-hours');
+inputs.forEach(function(el) {
+  el.addEventListener('input', calculate);
+  el.addEventListener('change', calculate);
+});
+
+// Show/hide RH based on app
+document.getElementById('ic-app').addEventListener('change', function() {
+  document.getElementById('ic-rh-group').style.display = this.value === 'cond' ? '' : '';
+  calculate();
+});
+
+/* =====================================================
+   KATEX
+   ===================================================== */
+function renderKatex() {
+  if (typeof katex === 'undefined') return;
+  katex.render('Q = \\frac{2\\pi\\lambda(T_f - T_a)}{\\ln(r_o / r_i)} \\quad \\text{(W/m)}', document.getElementById('ic-katex-q'), {displayMode:true});
+  katex.render('T_s = T_a + Q \\cdot R_{\\text{surface}} = T_a + \\frac{Q}{2\\pi r_o h_o}', document.getElementById('ic-katex-ts'), {displayMode:true});
+  katex.render('T_{dp} = \\frac{b \\cdot \\gamma}{a - \\gamma}, \\quad \\gamma = \\frac{a \\cdot T}{b + T} + \\ln\\left(\\frac{RH}{100}\\right)', document.getElementById('ic-katex-dp'), {displayMode:true});
+  katex.render('E_{\\text{annual}} = Q \\times \\frac{\\text{hours}}{1000} \\quad \\text{(kWh/m/year)}', document.getElementById('ic-katex-annual'), {displayMode:true});
+}
+if (document.readyState === 'complete') renderKatex();
+else window.addEventListener('load', renderKatex);
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.1});
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+calculate();
+
+})();
+</script>
+</body>
+</html>

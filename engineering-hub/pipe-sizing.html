@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pipe Sizing Calculator — Velocity, Pressure Drop &amp; Reynolds Number | Karnot Engineering Hub</title>
+<meta name="description" content="Free pipe sizing calculator. Select pipe material and fluid, calculate velocity, pressure drop per metre, Reynolds number and flow regime. Recommends optimal DN pipe size for water, glycol and steam systems.">
+<meta name="keywords" content="pipe sizing calculator, pressure drop, Reynolds number, Darcy-Weisbach, pipe velocity, DN pipe size, copper pipe, steel pipe, CPVC, stainless steel, glycol, steam pipe, HVAC pipe sizing">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/pipe-sizing">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/pipe-sizing">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/pipe-sizing">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/pipe-sizing">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/pipe-sizing">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Pipe Sizing Calculator — Velocity, Pressure Drop &amp; Reynolds Number">
+<meta property="og:description" content="Free pipe sizing tool. Calculate velocity, pressure drop, Reynolds number and get a recommended DN size for copper, steel, CPVC and stainless steel pipes.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/pipe-sizing">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pipe Sizing Calculator | Karnot Engineering Hub">
+<meta name="twitter:description" content="Calculate pipe velocity, pressure drop, Reynolds number and get a recommended DN pipe size for water, glycol and steam systems.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Pipe Sizing Calculator","item":"https://karnot.com/engineering-hub/pipe-sizing"}]},
+    {"@type":"WebApplication","name":"Pipe Sizing Calculator","url":"https://karnot.com/engineering-hub/pipe-sizing","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate recommended pipe DN, velocity, pressure drop per metre, Reynolds number and flow regime for water, glycol and steam in copper, steel, CPVC and stainless steel pipes.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is the recommended pipe velocity for water systems?","acceptedAnswer":{"@type":"Answer","text":"For closed-loop hydronic systems, the recommended pipe velocity is 1.0 to 1.5 m/s. Below 0.5 m/s air entrainment becomes a problem; above 3 m/s noise and erosion risk increases. For open systems and domestic hot water, 1.0 to 2.0 m/s is typical. Steam pipes run faster at 15 to 25 m/s for dry steam."}},
+      {"@type":"Question","name":"How do I calculate pressure drop in a pipe?","acceptedAnswer":{"@type":"Answer","text":"Pressure drop is calculated using the Darcy-Weisbach equation: delta-P = f times (L/D) times (rho/2) times v-squared, where f is the Darcy friction factor, L is pipe length, D is internal diameter, rho is fluid density, and v is velocity. For turbulent flow (Re > 4000), the Blasius approximation f = 0.316 / Re^0.25 is commonly used for smooth pipes."}},
+      {"@type":"Question","name":"What is Reynolds number and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"Reynolds number (Re) is a dimensionless number that predicts whether flow will be laminar or turbulent. Re = velocity times diameter divided by kinematic viscosity. Below Re 2300 flow is laminar, above 4000 it is fully turbulent, and between 2300 and 4000 is the transition zone. Turbulent flow has higher pressure drop but better heat transfer."}},
+      {"@type":"Question","name":"How does fluid temperature affect pipe sizing?","acceptedAnswer":{"@type":"Answer","text":"Temperature changes fluid density and viscosity. Hot water at 80 degrees C has roughly one-third the viscosity of water at 20 degrees C, which means higher Reynolds numbers and different friction factors at the same flow rate. Always use the actual operating temperature when sizing pipes, not ambient temperature."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   PIPE SIZING — ps- prefix
+   =========================== */
+
+.ps-hero{
+  background:linear-gradient(135deg,rgba(30,58,95,.92),rgba(0,122,255,.75),rgba(234,88,12,.25));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.ps-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.ps-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.ps-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.ps-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+.ps-breadcrumb{font-size:13px;margin-bottom:12px;opacity:.78;position:relative}
+.ps-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.ps-breadcrumb a:hover{text-decoration:underline}
+.ps-breadcrumb span{margin:0 6px;opacity:.6}
+
+.ps-wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+.ps-card{background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(0,0,0,.07);padding:36px;margin-top:32px}
+.ps-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.ps-card h2 i{color:#007aff;font-size:20px}
+
+.ps-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px 22px;margin-bottom:24px}
+.ps-field{display:flex;flex-direction:column}
+.ps-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.ps-field input,.ps-field select{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.ps-field input:focus,.ps-field select:focus{outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.12)}
+.ps-field .ps-hint{font-size:11px;color:#999;margin-top:3px}
+
+.ps-results{display:none}
+.ps-results.show{display:block}
+.ps-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px}
+.ps-metric{border-radius:14px;padding:22px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.ps-metric-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.ps-metric-value{font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
+.ps-metric-unit{font-size:13px;font-weight:500;opacity:.75}
+.ps-metric.blue{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid rgba(59,130,246,.3)}
+.ps-metric.blue .ps-metric-label{color:#3b82f6}
+.ps-metric.blue .ps-metric-value{color:#2563eb}
+.ps-metric.green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid rgba(34,197,94,.3)}
+.ps-metric.green .ps-metric-label{color:#16a34a}
+.ps-metric.green .ps-metric-value{color:#15803d}
+.ps-metric.orange{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(245,102,0,.35)}
+.ps-metric.orange .ps-metric-label{color:#EA580C}
+.ps-metric.orange .ps-metric-value{color:#ea580c}
+.ps-metric.teal{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1.5px solid rgba(20,184,166,.3)}
+.ps-metric.teal .ps-metric-label{color:#14b8a6}
+.ps-metric.teal .ps-metric-value{color:#0d9488}
+
+.ps-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:20px}
+.ps-table th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.ps-table td{padding:10px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+.ps-table tr.recommended{background:rgba(0,122,255,.06);font-weight:600}
+.ps-table .ps-ok{color:#16a34a;font-weight:700}
+.ps-table .ps-warn{color:#EA580C;font-weight:700}
+.ps-table .ps-bad{color:#dc2626;font-weight:700}
+
+.ps-formula-box{background:#f8f9fa;border:1.5px solid #e5e5e7;border-radius:12px;padding:20px;margin-top:12px}
+.ps-formula-box p{font-size:14px;color:#6e6e73;line-height:1.7;margin:0 0 12px}
+
+.ps-faq-section{padding:60px 0;max-width:1000px;margin:0 auto}
+.ps-faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.ps-faq-item{border-bottom:1px solid #d2d2d7}
+.ps-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#1d1d1f}
+.ps-faq-item summary::-webkit-details-marker{display:none}
+.ps-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#007aff;transition:transform .3s}
+.ps-faq-item[open] summary::after{content:'\2212'}
+.ps-faq-item .ps-faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+.ps-cta{
+  background:linear-gradient(135deg,#1a2d5a,#007aff);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.ps-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.ps-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.ps-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#EA580C;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.ps-cta-btn:hover{background:#c2410c;transform:translateY(-2px);color:#fff}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .ps-card{padding:22px 16px}
+  .ps-fields{grid-template-columns:1fr 1fr}
+  .ps-results-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:400px){
+  .ps-fields{grid-template-columns:1fr}
+  .ps-results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<section class="ps-hero">
+  <div class="ps-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Pipe Sizing
+  </div>
+  <h1>Pipe Sizing Calculator</h1>
+  <p>For a 1.5 L/s water flow at 60 &deg;C in copper pipe, DN32 gives 1.85 m/s velocity and 245 Pa/m pressure drop. Enter your flow rate, fluid and pipe material below to get a full pipe size comparison with velocity, pressure drop and Reynolds number.</p>
+  <p class="answer-first">This tool evaluates every standard DN size from DN15 to DN100, calculates Darcy-Weisbach pressure drop and Reynolds number for each, and recommends the optimal size based on your velocity and pressure drop limits.</p>
+</section>
+
+<div class="ps-wrap">
+
+  <div class="ps-card rv">
+    <h2><i class="fas fa-pipe-section"></i> Pipe Sizing Inputs</h2>
+
+    <div class="ps-fields">
+      <div class="ps-field">
+        <label for="ps-fluid">Fluid Type</label>
+        <select id="ps-fluid">
+          <option value="water">Water</option>
+          <option value="glycol30">Glycol 30% (Propylene)</option>
+          <option value="steam">Steam (saturated)</option>
+        </select>
+      </div>
+      <div class="ps-field">
+        <label for="ps-flow">Flow Rate (L/s)</label>
+        <input type="number" id="ps-flow" value="1.5" min="0.01" step="0.01">
+        <span class="ps-hint">Volumetric flow rate</span>
+      </div>
+      <div class="ps-field">
+        <label for="ps-temp">Temperature (&deg;C)</label>
+        <input type="number" id="ps-temp" value="60" min="0" max="300" step="1">
+      </div>
+      <div class="ps-field">
+        <label for="ps-material">Pipe Material</label>
+        <select id="ps-material">
+          <option value="copper">Copper (Type L)</option>
+          <option value="steel">Steel (Schedule 40)</option>
+          <option value="cpvc">CPVC</option>
+          <option value="stainless">Stainless Steel</option>
+        </select>
+      </div>
+      <div class="ps-field">
+        <label for="ps-maxvel">Max Velocity (m/s)</label>
+        <input type="number" id="ps-maxvel" value="1.5" min="0.1" step="0.1">
+      </div>
+      <div class="ps-field">
+        <label for="ps-maxdp">Max Pressure Drop (Pa/m)</label>
+        <input type="number" id="ps-maxdp" value="250" min="10" step="10">
+      </div>
+      <div class="ps-field">
+        <label for="ps-length">Pipe Length (m)</label>
+        <input type="number" id="ps-length" value="50" min="1" step="1">
+        <span class="ps-hint">For total pressure drop calculation</span>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="ps-results" id="ps-results">
+      <h3 style="font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:16px"><i class="fas fa-check-circle" style="color:#007aff;margin-right:8px"></i>Recommended Pipe Size</h3>
+      <div class="ps-results-grid" id="ps-metrics"></div>
+
+      <h3 style="font-size:16px;font-weight:700;color:#1d1d1f;margin:24px 0 12px"><i class="fas fa-table" style="color:#007aff;margin-right:8px"></i>Pipe Size Comparison</h3>
+      <div style="overflow-x:auto">
+        <table class="ps-table" id="ps-compare-table">
+          <thead>
+            <tr>
+              <th>DN</th>
+              <th>ID (mm)</th>
+              <th>Velocity (m/s)</th>
+              <th>Re</th>
+              <th>Flow Regime</th>
+              <th>&Delta;P (Pa/m)</th>
+              <th>Total &Delta;P (kPa)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ps-compare-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULA SECTION -->
+  <div class="ps-card rv">
+    <h2><i class="fas fa-square-root-variable"></i> Pipe Sizing Formulas</h2>
+    <div class="ps-formula-box">
+      <p><strong>Velocity from flow rate:</strong></p>
+      <div id="ps-katex-vel"></div>
+      <p><strong>Reynolds number:</strong></p>
+      <div id="ps-katex-re"></div>
+      <p><strong>Darcy friction factor (Blasius, turbulent):</strong></p>
+      <div id="ps-katex-blasius"></div>
+      <p><strong>Darcy friction factor (laminar):</strong></p>
+      <div id="ps-katex-laminar"></div>
+      <p><strong>Darcy-Weisbach pressure drop:</strong></p>
+      <div id="ps-katex-dw"></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="ps-faq-section rv" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <details class="ps-faq-item">
+      <summary>What is the recommended pipe velocity for water systems?</summary>
+      <div class="ps-faq-answer"><p>For closed-loop hydronic systems the recommended velocity is 1.0 to 1.5 m/s. Below 0.5 m/s air entrainment is a risk; above 3 m/s noise and erosion become concerns. Steam systems typically run at 15 to 25 m/s for dry steam.</p></div>
+    </details>
+    <details class="ps-faq-item">
+      <summary>How do I calculate pressure drop in a pipe?</summary>
+      <div class="ps-faq-answer"><p>Use the Darcy-Weisbach equation. For turbulent flow in smooth pipes, the Blasius approximation gives friction factor f = 0.316 / Re^0.25. Pressure drop per metre = f / D * (rho / 2) * v squared. This calculator automates the full computation.</p></div>
+    </details>
+    <details class="ps-faq-item">
+      <summary>What is Reynolds number and why does it matter?</summary>
+      <div class="ps-faq-answer"><p>Reynolds number predicts flow regime. Below 2,300 flow is laminar (smooth, low pressure drop). Above 4,000 it is turbulent (mixed, higher pressure drop but better heat transfer). The transition zone between 2,300 and 4,000 is unpredictable.</p></div>
+    </details>
+    <details class="ps-faq-item">
+      <summary>How does fluid temperature affect pipe sizing?</summary>
+      <div class="ps-faq-answer"><p>Temperature changes density and viscosity. Hot water at 80 &deg;C has about one third the viscosity of 20 &deg;C water, giving higher Reynolds numbers and different friction factors at the same flow rate. Always use operating temperature for accurate sizing.</p></div>
+    </details>
+  </section>
+
+  <div class="ps-cta rv">
+    <h2>Need Help Sizing Your System?</h2>
+    <p>Our engineers can design complete hydronic systems for heat pump installations, including pipe sizing, pump selection and balancing.</p>
+    <a href="../contact.html?intent=pipe_sizing&product=iHEAT" class="ps-cta-btn">Talk to an Engineer <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+</div>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   PIPE DATA
+   ===================================================== */
+var PIPES = {
+  copper: [
+    {dn:'DN15', id:13.8}, {dn:'DN20', id:19.9}, {dn:'DN25', id:26.0},
+    {dn:'DN32', id:32.1}, {dn:'DN40', id:38.1}, {dn:'DN50', id:50.8},
+    {dn:'DN65', id:63.5}, {dn:'DN80', id:76.2}, {dn:'DN100', id:101.6}
+  ],
+  steel: [
+    {dn:'DN15', id:15.8}, {dn:'DN20', id:20.9}, {dn:'DN25', id:26.6},
+    {dn:'DN32', id:35.1}, {dn:'DN40', id:40.9}, {dn:'DN50', id:52.5},
+    {dn:'DN65', id:62.7}, {dn:'DN80', id:77.9}, {dn:'DN100', id:102.3}
+  ],
+  cpvc: [
+    {dn:'DN15', id:14.4}, {dn:'DN20', id:19.2}, {dn:'DN25', id:25.4},
+    {dn:'DN32', id:31.8}, {dn:'DN40', id:38.0}, {dn:'DN50', id:50.6},
+    {dn:'DN65', id:63.0}, {dn:'DN80', id:75.8}, {dn:'DN100', id:101.0}
+  ],
+  stainless: [
+    {dn:'DN15', id:16.1}, {dn:'DN20', id:21.7}, {dn:'DN25', id:27.9},
+    {dn:'DN32', id:36.6}, {dn:'DN40', id:42.7}, {dn:'DN50', id:54.8},
+    {dn:'DN65', id:66.9}, {dn:'DN80', id:80.1}, {dn:'DN100', id:105.3}
+  ]
+};
+
+/* =====================================================
+   FLUID PROPERTIES
+   ===================================================== */
+var WATER_PROPS = [
+  {T:0,   nu:1.787e-6, rho:999.8},
+  {T:10,  nu:1.307e-6, rho:999.7},
+  {T:20,  nu:1.004e-6, rho:998.2},
+  {T:30,  nu:0.801e-6, rho:995.7},
+  {T:40,  nu:0.658e-6, rho:992.2},
+  {T:50,  nu:0.553e-6, rho:988.1},
+  {T:60,  nu:0.474e-6, rho:983.2},
+  {T:70,  nu:0.413e-6, rho:977.8},
+  {T:80,  nu:0.365e-6, rho:971.8},
+  {T:90,  nu:0.326e-6, rho:965.3},
+  {T:100, nu:0.294e-6, rho:958.4}
+];
+
+function lerp(x, x0, x1, y0, y1) {
+  if (x1 === x0) return y0;
+  return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+}
+
+function getFluidProps(fluid, T) {
+  if (fluid === 'water') {
+    T = Math.max(0, Math.min(100, T));
+    for (var i = 0; i < WATER_PROPS.length - 1; i++) {
+      if (T >= WATER_PROPS[i].T && T <= WATER_PROPS[i+1].T) {
+        return {
+          nu: lerp(T, WATER_PROPS[i].T, WATER_PROPS[i+1].T, WATER_PROPS[i].nu, WATER_PROPS[i+1].nu),
+          rho: lerp(T, WATER_PROPS[i].T, WATER_PROPS[i+1].T, WATER_PROPS[i].rho, WATER_PROPS[i+1].rho)
+        };
+      }
+    }
+    return {nu: 0.294e-6, rho: 958.4};
+  }
+  if (fluid === 'glycol30') {
+    // 30% propylene glycol — approximate
+    var w = getFluidProps('water', T);
+    return {nu: w.nu * 2.5, rho: w.rho * 1.025};
+  }
+  if (fluid === 'steam') {
+    // Saturated steam — approximate kinematic viscosity
+    return {nu: 15e-6, rho: 0.6};
+  }
+  return {nu: 1e-6, rho: 998};
+}
+
+/* =====================================================
+   CALCULATE
+   ===================================================== */
+function calculate() {
+  var fluid = document.getElementById('ps-fluid').value;
+  var Q_Ls = parseFloat(document.getElementById('ps-flow').value);
+  var T = parseFloat(document.getElementById('ps-temp').value);
+  var material = document.getElementById('ps-material').value;
+  var maxVel = parseFloat(document.getElementById('ps-maxvel').value);
+  var maxDP = parseFloat(document.getElementById('ps-maxdp').value);
+  var pipeLen = parseFloat(document.getElementById('ps-length').value);
+
+  if (isNaN(Q_Ls) || Q_Ls <= 0 || isNaN(T) || isNaN(maxVel) || isNaN(maxDP) || isNaN(pipeLen)) return;
+
+  var Q = Q_Ls / 1000; // m3/s
+  var props = getFluidProps(fluid, T);
+  var pipes = PIPES[material] || PIPES.copper;
+
+  var rows = [];
+  var recommended = null;
+
+  for (var i = 0; i < pipes.length; i++) {
+    var p = pipes[i];
+    var D = p.id / 1000; // m
+    var A = Math.PI * Math.pow(D / 2, 2);
+    var v = Q / A;
+    var Re = v * D / props.nu;
+    var regime = Re < 2300 ? 'Laminar' : (Re < 4000 ? 'Transition' : 'Turbulent');
+
+    // Friction factor
+    var f;
+    if (Re < 2300) {
+      f = 64 / Re;
+    } else {
+      f = 0.316 / Math.pow(Re, 0.25);
+    }
+
+    // Pressure drop per metre
+    var dP_per_m = f * (1 / D) * (props.rho / 2) * v * v; // Pa/m
+    var totalDP = dP_per_m * pipeLen / 1000; // kPa
+
+    var ok = v <= maxVel && dP_per_m <= maxDP;
+    var status = ok ? 'OK' : (v > maxVel ? 'Velocity high' : 'dP high');
+
+    rows.push({
+      dn: p.dn, id: p.id, v: v, Re: Re, regime: regime,
+      f: f, dP: dP_per_m, totalDP: totalDP, ok: ok, status: status
+    });
+
+    if (ok && !recommended) {
+      recommended = rows[rows.length - 1];
+    }
+  }
+
+  // If no pipe meets both criteria, recommend the largest
+  if (!recommended) recommended = rows[rows.length - 1];
+
+  // Render metrics
+  var metricsDiv = document.getElementById('ps-metrics');
+  metricsDiv.innerHTML = '';
+
+  function addMetric(label, value, unit, cls) {
+    metricsDiv.innerHTML +=
+      '<div class="ps-metric ' + cls + '">' +
+        '<div class="ps-metric-label">' + label + '</div>' +
+        '<div class="ps-metric-value">' + value + '</div>' +
+        '<div class="ps-metric-unit">' + unit + '</div>' +
+      '</div>';
+  }
+
+  addMetric('Recommended Size', recommended.dn, 'ID ' + recommended.id + ' mm', 'blue');
+  addMetric('Velocity', recommended.v.toFixed(2), 'm/s', 'green');
+  addMetric('Pressure Drop', recommended.dP.toFixed(1), 'Pa/m', 'orange');
+  addMetric('Reynolds Number', Math.round(recommended.Re).toLocaleString(), recommended.regime, 'teal');
+
+  // Comparison table
+  var tbody = document.getElementById('ps-compare-body');
+  tbody.innerHTML = '';
+  for (var j = 0; j < rows.length; j++) {
+    var r = rows[j];
+    var isRec = r === recommended;
+    var statusCls = r.ok ? 'ps-ok' : (r.v > maxVel * 1.5 || r.dP > maxDP * 2 ? 'ps-bad' : 'ps-warn');
+    tbody.innerHTML +=
+      '<tr' + (isRec ? ' class="recommended"' : '') + '>' +
+        '<td>' + r.dn + (isRec ? ' <i class="fas fa-check" style="color:#007aff;font-size:12px"></i>' : '') + '</td>' +
+        '<td>' + r.id + '</td>' +
+        '<td>' + r.v.toFixed(2) + '</td>' +
+        '<td>' + Math.round(r.Re).toLocaleString() + '</td>' +
+        '<td>' + r.regime + '</td>' +
+        '<td>' + r.dP.toFixed(1) + '</td>' +
+        '<td>' + r.totalDP.toFixed(2) + '</td>' +
+        '<td class="' + statusCls + '">' + r.status + '</td>' +
+      '</tr>';
+  }
+
+  document.getElementById('ps-results').classList.add('show');
+}
+
+/* =====================================================
+   EVENT LISTENERS
+   ===================================================== */
+var inputs = document.querySelectorAll('#ps-fluid, #ps-flow, #ps-temp, #ps-material, #ps-maxvel, #ps-maxdp, #ps-length');
+inputs.forEach(function(el) {
+  el.addEventListener('input', calculate);
+  el.addEventListener('change', calculate);
+});
+
+/* =====================================================
+   KATEX
+   ===================================================== */
+function renderKatex() {
+  if (typeof katex === 'undefined') return;
+  katex.render('v = \\frac{Q}{A} = \\frac{Q}{\\pi (D/2)^2} \\quad \\text{(m/s)}', document.getElementById('ps-katex-vel'), {displayMode:true});
+  katex.render('Re = \\frac{v \\cdot D}{\\nu}', document.getElementById('ps-katex-re'), {displayMode:true});
+  katex.render('f = \\frac{0.316}{Re^{0.25}} \\quad (Re > 4000)', document.getElementById('ps-katex-blasius'), {displayMode:true});
+  katex.render('f = \\frac{64}{Re} \\quad (Re < 2300)', document.getElementById('ps-katex-laminar'), {displayMode:true});
+  katex.render('\\Delta P = f \\cdot \\frac{L}{D} \\cdot \\frac{\\rho \\, v^2}{2} \\quad \\text{(Pa)}', document.getElementById('ps-katex-dw'), {displayMode:true});
+}
+if (document.readyState === 'complete') renderKatex();
+else window.addEventListener('load', renderKatex);
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.1});
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+calculate();
+
+})();
+</script>
+</body>
+</html>

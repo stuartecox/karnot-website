@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Refrigerant Properties Calculator &mdash; Saturation Tables for R290, CO&#8322;, R32, R410A, R134a | Karnot Engineering Hub</title>
+<meta name="description" content="Free refrigerant properties calculator with saturation tables for R290 (Propane), R744 (CO2), R32, R410A, and R134a. Look up pressure, density, enthalpy, latent heat, and specific heat at any saturation temperature. ASHRAE reference data.">
+<meta name="keywords" content="refrigerant properties calculator, saturation table, R290 propane, R744 CO2, R32, R410A, R134a, saturation pressure, enthalpy, latent heat, GWP, natural refrigerant, phase-down, ASHRAE data, Karnot Engineering Hub">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/refrigerant-properties">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/refrigerant-properties">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/refrigerant-properties">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/refrigerant-properties">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/refrigerant-properties">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Refrigerant Properties Calculator &mdash; Saturation Tables for R290, CO&#8322;, R32, R410A, R134a">
+<meta property="og:description" content="Look up saturation pressure, density, enthalpy, latent heat, and specific heat for R290, R744, R32, R410A, and R134a at any temperature. Free ASHRAE-referenced tool.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/refrigerant-properties">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Refrigerant Properties Calculator | Karnot Engineering Hub">
+<meta name="twitter:description" content="Saturation tables for R290, CO2, R32, R410A, R134a. Pressure, density, enthalpy, latent heat at any temperature. Free ASHRAE-referenced tool.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]},"sameAs":["https://www.facebook.com/karnotenergy","https://www.linkedin.com/company/karnot-energy","https://www.instagram.com/karnotenergy"]},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Refrigerant Properties Calculator","item":"https://karnot.com/engineering-hub/refrigerant-properties"}]},
+    {"@type":"WebApplication","name":"Refrigerant Properties Calculator","url":"https://karnot.com/engineering-hub/refrigerant-properties","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Saturation property lookup for R290, R744, R32, R410A, and R134a refrigerants. Interpolated ASHRAE reference data for pressure, density, enthalpy, latent heat, and specific heat at any saturation temperature.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What are natural refrigerants and why do they matter?","acceptedAnswer":{"@type":"Answer","text":"Natural refrigerants are substances that occur in nature and have negligible environmental impact. R290 (propane, GWP 3) and R744 (CO2, GWP 1) are the two most common natural refrigerants used in heat pumps and refrigeration. They are not subject to the Kigali Amendment phase-down schedule that applies to high-GWP HFC refrigerants like R410A (GWP 2088) and R134a (GWP 1430). Karnot Heat Pumps use R290 and R744 exclusively."}},
+      {"@type":"Question","name":"What is the Kigali Amendment HFC phase-down?","acceptedAnswer":{"@type":"Answer","text":"The Kigali Amendment to the Montreal Protocol is an international agreement to phase down the production and consumption of hydrofluorocarbons (HFCs). Developed countries must reduce HFC consumption by 85% by 2036, while developing countries follow staggered schedules. High-GWP refrigerants like R410A and R134a are being replaced by lower-GWP alternatives including R32, R290, and R744."}},
+      {"@type":"Question","name":"How do I read a refrigerant saturation table?","acceptedAnswer":{"@type":"Answer","text":"A saturation table lists thermodynamic properties at the point where liquid and vapour coexist in equilibrium. For a given saturation temperature, you can read the corresponding saturation pressure, liquid density, vapour density, liquid enthalpy (hf), vapour enthalpy (hg), and latent heat (hfg = hg - hf). The latent heat is the energy absorbed or released during phase change and is critical for sizing evaporators and condensers."}},
+      {"@type":"Question","name":"Why does latent heat decrease as temperature increases?","acceptedAnswer":{"@type":"Answer","text":"As temperature rises toward the critical point, the difference between liquid and vapour phases diminishes. Liquid density decreases while vapour density increases, and their enthalpies converge. At the critical point, the distinction between liquid and vapour disappears entirely, and latent heat drops to zero. This is why refrigeration systems become less effective as condensing temperatures rise — there is less latent heat available per kilogram of refrigerant."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   REFRIGERANT PROPERTIES — rp- prefix
+   =========================== */
+
+/* HERO */
+.rp-hero{
+  background:linear-gradient(135deg,rgba(0,128,128,.92),rgba(0,77,77,.85),rgba(0,180,180,.6));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.rp-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.rp-hero h1{font-size:clamp(28px,5vw,46px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:860px;margin-left:auto;margin-right:auto;position:relative}
+.rp-hero p{font-size:18px;max-width:760px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.rp-hero .rp-subtitle{font-size:16px;max-width:720px;margin:18px auto 0;line-height:1.7;opacity:.88;position:relative}
+.rp-breadcrumb{font-size:13px;margin-bottom:14px;opacity:.78;position:relative}
+.rp-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.rp-breadcrumb a:hover{text-decoration:underline}
+.rp-breadcrumb span{margin:0 6px;opacity:.6}
+
+/* MAIN WRAPPER */
+.rp-wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+
+/* SECTION CARDS */
+.rp-card{
+  background:#fff;border-radius:18px;
+  box-shadow:0 4px 28px rgba(0,0,0,.07);
+  padding:36px;margin-top:32px
+}
+.rp-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.rp-card h2 i{color:#F56600;font-size:20px}
+.rp-card h3{font-size:17px;font-weight:600;color:#1d1d1f;margin-bottom:12px}
+
+/* INPUT FIELDS */
+.rp-field{display:flex;flex-direction:column;margin-bottom:18px}
+.rp-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.rp-field select,.rp-field input{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.rp-field select:focus,.rp-field input:focus{outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.12)}
+.rp-field .rp-hint{font-size:11px;color:#999;margin-top:3px}
+
+.rp-fields-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px 22px;align-items:end}
+
+/* SLIDER ROW */
+.rp-slider-row{display:flex;align-items:center;gap:14px}
+.rp-slider{flex:1;-webkit-appearance:none;appearance:none;height:8px;border-radius:4px;background:#e5e5ea;outline:none;cursor:pointer}
+.rp-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#008080;cursor:pointer;box-shadow:0 2px 6px rgba(0,128,128,.3)}
+.rp-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#008080;cursor:pointer;border:none}
+.rp-temp-input{width:80px;text-align:center;font-size:16px;font-weight:700;padding:8px;border:1.5px solid #ddd;border-radius:9px;background:#fafafa;color:#1d1d1f}
+.rp-temp-input:focus{outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.12)}
+.rp-temp-unit{font-size:15px;color:#6e6e73;font-weight:600}
+
+/* GWP BADGE */
+.rp-gwp-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:20px;font-size:14px;font-weight:700;
+  margin-top:12px
+}
+.rp-gwp-green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);color:#16a34a;border:1.5px solid rgba(34,197,94,.35)}
+.rp-gwp-amber{background:linear-gradient(135deg,#fffbeb,#fef3c7);color:#d97706;border:1.5px solid rgba(217,119,6,.35)}
+.rp-gwp-red{background:linear-gradient(135deg,#fef2f2,#fee2e2);color:#dc2626;border:1.5px solid rgba(239,68,68,.35)}
+
+/* PHASE SELECTOR */
+.rp-phase-toggle{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1.5px solid #ddd;max-width:240px}
+.rp-phase-btn{
+  flex:1;padding:10px 16px;font-size:14px;font-weight:600;
+  text-align:center;cursor:pointer;background:#fafafa;color:#6e6e73;
+  border:none;border-right:1px solid #e5e5e7;transition:all .2s;user-select:none
+}
+.rp-phase-btn:last-child{border-right:none}
+.rp-phase-btn.active{background:#008080;color:#fff}
+.rp-phase-btn:hover:not(.active){background:#f0f0f3}
+
+/* RESULTS GRID */
+.rp-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:24px}
+.rp-metric{
+  border-radius:14px;padding:22px 20px;text-align:center;
+  box-shadow:0 2px 12px rgba(0,0,0,.07)
+}
+.rp-metric-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.rp-metric-value{font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
+.rp-metric-unit{font-size:13px;font-weight:500;opacity:.75}
+
+.rp-metric.pressure{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid rgba(59,130,246,.3)}
+.rp-metric.pressure .rp-metric-label{color:#3b82f6}
+.rp-metric.pressure .rp-metric-value{color:#2563eb}
+
+.rp-metric.liquid{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1.5px solid rgba(20,184,166,.3)}
+.rp-metric.liquid .rp-metric-label{color:#14b8a6}
+.rp-metric.liquid .rp-metric-value{color:#0d9488}
+
+.rp-metric.vapour{background:linear-gradient(135deg,#faf5ff,#ede9fe);border:1.5px solid rgba(139,92,246,.3)}
+.rp-metric.vapour .rp-metric-label{color:#8b5cf6}
+.rp-metric.vapour .rp-metric-value{color:#7c3aed}
+
+.rp-metric.enthalpy-l{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(245,102,0,.35)}
+.rp-metric.enthalpy-l .rp-metric-label{color:#F56600}
+.rp-metric.enthalpy-l .rp-metric-value{color:#ea580c}
+
+.rp-metric.enthalpy-v{background:linear-gradient(135deg,#fff1f2,#fecdd3);border:1.5px solid rgba(244,63,94,.3)}
+.rp-metric.enthalpy-v .rp-metric-label{color:#f43f5e}
+.rp-metric.enthalpy-v .rp-metric-value{color:#e11d48}
+
+.rp-metric.latent{background:linear-gradient(135deg,#fefce8,#fef9c3);border:1.5px solid rgba(202,138,4,.3)}
+.rp-metric.latent .rp-metric-label{color:#ca8a04}
+.rp-metric.latent .rp-metric-value{color:#a16207}
+
+.rp-metric.cp{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid rgba(34,197,94,.3)}
+.rp-metric.cp .rp-metric-label{color:#16a34a}
+.rp-metric.cp .rp-metric-value{color:#15803d}
+
+/* SATURATION TABLE */
+.rp-sat-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:20px;overflow-x:auto;display:block}
+.rp-sat-table th{padding:10px 12px;text-align:right;font-size:11px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid #e5e5e7;background:#f5f5f7;white-space:nowrap;position:sticky;top:0}
+.rp-sat-table th:first-child{text-align:left}
+.rp-sat-table td{padding:9px 12px;border-bottom:1px solid #f0f0f3;color:#1d1d1f;text-align:right;white-space:nowrap}
+.rp-sat-table td:first-child{text-align:left;font-weight:600}
+.rp-sat-table tr.rp-active-row{background:rgba(0,128,128,.08);font-weight:700}
+.rp-sat-table tr:hover{background:#f9fafb}
+
+/* FORMULA SECTION */
+.rp-formula-card{
+  background:#f5f5f7;border-radius:14px;padding:24px;margin-top:20px;
+  border:1.5px solid #e5e5e7
+}
+.rp-formula-card h3{font-size:16px;font-weight:700;color:#1d1d1f;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.rp-formula-card h3 i{color:#008080}
+.rp-formula-row{margin-bottom:16px}
+.rp-formula-row:last-child{margin-bottom:0}
+.rp-formula-label{font-size:12px;font-weight:600;color:#6e6e73;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+.rp-formula-block{background:#fff;border-radius:10px;padding:16px;text-align:center;border:1px solid #e5e5ea;overflow-x:auto}
+.rp-formula-note{font-size:12px;color:#999;margin-top:6px;line-height:1.5}
+
+/* CTA */
+.rp-cta{
+  background:linear-gradient(135deg,#006060,#008080);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.rp-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.rp-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.rp-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#F56600;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.rp-cta-btn:hover{background:#e05500;transform:translateY(-2px);color:#fff}
+
+/* FAQ */
+.rp-faq{margin-top:16px}
+.rp-faq-item{border-bottom:1.5px solid #f0f0f3}
+.rp-faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;cursor:pointer;user-select:none;gap:12px
+}
+.rp-faq-q span{font-size:16px;font-weight:600;color:#1d1d1f;flex:1}
+.rp-faq-q i{color:#F56600;font-size:14px;transition:transform .25s;flex-shrink:0}
+.rp-faq-q.open i{transform:rotate(180deg)}
+.rp-faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.rp-faq-a.open{max-height:400px}
+.rp-faq-a p{font-size:15px;color:#6e6e73;line-height:1.75;padding-bottom:18px;margin:0}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .rp-fields-row{grid-template-columns:1fr}
+  .rp-results-grid{grid-template-columns:1fr 1fr}
+  .rp-metric-value{font-size:24px}
+}
+@media(max-width:640px){
+  .rp-card{padding:22px 16px}
+  .rp-results-grid{grid-template-columns:1fr 1fr}
+  .rp-slider-row{flex-wrap:wrap}
+}
+@media(max-width:400px){
+  .rp-results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SKIP LINK -->
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<div id="karnot-nav" data-page="engineering"></div>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- HERO -->
+<section class="rp-hero">
+  <div class="rp-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Refrigerant Properties
+  </div>
+  <h1>Refrigerant Properties Calculator</h1>
+  <p>Saturation tables for R290 (Propane), R744 (CO<sub>2</sub>), R32, R410A, and R134a. Look up pressure, density, enthalpy, latent heat, and specific heat at any temperature.</p>
+  <p class="rp-subtitle">Select a refrigerant and temperature below. Properties are interpolated from ASHRAE reference data. Natural refrigerants R290 and CO<sub>2</sub> are highlighted &mdash; the future of sustainable heating and cooling.</p>
+</section>
+
+<div class="rp-wrap">
+
+  <!-- CALCULATOR CARD -->
+  <div class="rp-card rv">
+    <h2><i class="fa-solid fa-temperature-half"></i> Saturation Property Lookup</h2>
+
+    <div class="rp-fields-row">
+      <!-- Refrigerant Select -->
+      <div class="rp-field">
+        <label for="rp-refrigerant">Refrigerant</label>
+        <select id="rp-refrigerant">
+          <option value="R290" selected>R290 &mdash; Propane</option>
+          <option value="R744">R744 &mdash; CO&#8322; (Carbon Dioxide)</option>
+          <option value="R32">R32</option>
+          <option value="R410A">R410A</option>
+          <option value="R134a">R134a</option>
+        </select>
+      </div>
+
+      <!-- Phase Selector -->
+      <div class="rp-field">
+        <label>Phase</label>
+        <div class="rp-phase-toggle">
+          <button class="rp-phase-btn active" data-phase="saturated">Saturated</button>
+        </div>
+        <span class="rp-hint">Saturated liquid-vapour equilibrium</span>
+      </div>
+
+      <!-- Temperature Input -->
+      <div class="rp-field">
+        <label for="rp-temp-num">Temperature (&deg;C)</label>
+        <input type="number" id="rp-temp-num" class="rp-temp-input" value="0" style="width:100%">
+        <span class="rp-hint" id="rp-range-hint">Range: -40&deg;C to +80&deg;C</span>
+      </div>
+    </div>
+
+    <!-- Temperature Slider -->
+    <div style="margin-top:8px;margin-bottom:8px">
+      <div class="rp-slider-row">
+        <span class="rp-temp-unit" id="rp-min-label">-40&deg;C</span>
+        <input type="range" class="rp-slider" id="rp-temp-slider" min="-40" max="80" value="0" step="1">
+        <span class="rp-temp-unit" id="rp-max-label">80&deg;C</span>
+      </div>
+    </div>
+
+    <!-- GWP Badge -->
+    <div id="rp-gwp-container" style="text-align:center;margin-top:16px">
+      <span class="rp-gwp-badge rp-gwp-green" id="rp-gwp-badge">GWP 3 &#10003; Natural Refrigerant</span>
+    </div>
+
+    <!-- Results -->
+    <div class="rp-results-grid" id="rp-results">
+      <div class="rp-metric pressure">
+        <div class="rp-metric-label">Saturation Pressure</div>
+        <div class="rp-metric-value" id="rp-val-pressure">--</div>
+        <div class="rp-metric-unit">bar</div>
+      </div>
+      <div class="rp-metric liquid">
+        <div class="rp-metric-label">Liquid Density</div>
+        <div class="rp-metric-value" id="rp-val-rhoL">--</div>
+        <div class="rp-metric-unit">kg/m&sup3;</div>
+      </div>
+      <div class="rp-metric vapour">
+        <div class="rp-metric-label">Vapour Density</div>
+        <div class="rp-metric-value" id="rp-val-rhoV">--</div>
+        <div class="rp-metric-unit">kg/m&sup3;</div>
+      </div>
+      <div class="rp-metric enthalpy-l">
+        <div class="rp-metric-label">Liquid Enthalpy h<sub>f</sub></div>
+        <div class="rp-metric-value" id="rp-val-hf">--</div>
+        <div class="rp-metric-unit">kJ/kg</div>
+      </div>
+      <div class="rp-metric enthalpy-v">
+        <div class="rp-metric-label">Vapour Enthalpy h<sub>g</sub></div>
+        <div class="rp-metric-value" id="rp-val-hg">--</div>
+        <div class="rp-metric-unit">kJ/kg</div>
+      </div>
+      <div class="rp-metric latent">
+        <div class="rp-metric-label">Latent Heat h<sub>fg</sub></div>
+        <div class="rp-metric-value" id="rp-val-hfg">--</div>
+        <div class="rp-metric-unit">kJ/kg</div>
+      </div>
+      <div class="rp-metric cp">
+        <div class="rp-metric-label">Cp Liquid</div>
+        <div class="rp-metric-value" id="rp-val-cp">--</div>
+        <div class="rp-metric-unit">kJ/kg&middot;K</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL SATURATION TABLE -->
+  <div class="rp-card rv">
+    <h2><i class="fa-solid fa-table"></i> Full Saturation Table &mdash; <span id="rp-table-title">R290 (Propane)</span></h2>
+    <div style="overflow-x:auto">
+      <table class="rp-sat-table" id="rp-sat-table">
+        <thead>
+          <tr>
+            <th>T (&deg;C)</th>
+            <th>P (bar)</th>
+            <th>&rho;<sub>L</sub> (kg/m&sup3;)</th>
+            <th>&rho;<sub>V</sub> (kg/m&sup3;)</th>
+            <th>h<sub>f</sub> (kJ/kg)</th>
+            <th>h<sub>g</sub> (kJ/kg)</th>
+            <th>h<sub>fg</sub> (kJ/kg)</th>
+            <th>C<sub>p,L</sub> (kJ/kg&middot;K)</th>
+          </tr>
+        </thead>
+        <tbody id="rp-sat-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FORMULA SECTION -->
+  <div class="rp-card rv">
+    <h2><i class="fa-solid fa-square-root-variable"></i> Key Thermodynamic Relationships</h2>
+
+    <div class="rp-formula-card">
+      <h3><i class="fa-solid fa-superscript"></i> Clausius-Clapeyron Equation</h3>
+      <div class="rp-formula-row">
+        <div class="rp-formula-label">Pressure-Temperature Slope Along Saturation Curve</div>
+        <div class="rp-formula-block" id="rp-katex-cc"></div>
+        <div class="rp-formula-note">Relates the slope of the saturation pressure curve to latent heat and the specific volume change between phases. Fundamental to understanding how saturation pressure varies with temperature for every refrigerant.</div>
+      </div>
+    </div>
+
+    <div class="rp-formula-card" style="margin-top:16px">
+      <h3><i class="fa-solid fa-superscript"></i> Antoine Equation (P-T Approximation)</h3>
+      <div class="rp-formula-row">
+        <div class="rp-formula-label">Log-Linear Pressure-Temperature Relationship</div>
+        <div class="rp-formula-block" id="rp-katex-antoine"></div>
+        <div class="rp-formula-note">An empirical correlation widely used to approximate saturation pressure as a function of temperature. Constants A, B, C are specific to each refrigerant and are fitted to ASHRAE or NIST reference data.</div>
+      </div>
+    </div>
+
+    <div class="rp-formula-card" style="margin-top:16px">
+      <h3><i class="fa-solid fa-superscript"></i> Latent Heat of Vaporisation</h3>
+      <div class="rp-formula-row">
+        <div class="rp-formula-label">Energy Required for Phase Change</div>
+        <div class="rp-formula-block" id="rp-katex-latent"></div>
+        <div class="rp-formula-note">The latent heat is the difference between vapour and liquid enthalpies at saturation. It determines how much energy a refrigerant can absorb in the evaporator per unit mass &mdash; critical for heat pump and refrigeration cycle design.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="rp-cta rv">
+    <h2>Need help selecting the right refrigerant?</h2>
+    <p>Karnot builds high-efficiency heat pumps using R290 and CO<sub>2</sub> &mdash; natural refrigerants with near-zero GWP. Talk to our engineering team about the best solution for your application.</p>
+    <a href="/contact.html?intent=refrigerant_selection&product=Engineering_Hub" class="rp-cta-btn">
+      <i class="fa-solid fa-envelope"></i> Contact Karnot Engineering
+    </a>
+  </div>
+
+  <!-- FAQ -->
+  <div class="rp-card rv">
+    <h2><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h2>
+    <div class="rp-faq" id="rp-faq">
+      <div class="rp-faq-item">
+        <div class="rp-faq-q" tabindex="0" role="button">
+          <span>What are natural refrigerants and why do they matter?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="rp-faq-a">
+          <p>Natural refrigerants are substances that occur in nature and have negligible environmental impact. R290 (propane, GWP 3) and R744 (CO<sub>2</sub>, GWP 1) are the two most common natural refrigerants used in heat pumps and refrigeration. They are not subject to the Kigali Amendment phase-down schedule that applies to high-GWP HFC refrigerants like R410A (GWP 2,088) and R134a (GWP 1,430). Karnot Heat Pumps use R290 and R744 exclusively.</p>
+        </div>
+      </div>
+      <div class="rp-faq-item">
+        <div class="rp-faq-q" tabindex="0" role="button">
+          <span>What is the Kigali Amendment HFC phase-down?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="rp-faq-a">
+          <p>The Kigali Amendment to the Montreal Protocol is an international agreement to phase down the production and consumption of hydrofluorocarbons (HFCs). Developed countries must reduce HFC consumption by 85% by 2036, while developing countries follow staggered schedules. High-GWP refrigerants like R410A and R134a are being replaced by lower-GWP alternatives including R32, R290, and R744 (CO<sub>2</sub>).</p>
+        </div>
+      </div>
+      <div class="rp-faq-item">
+        <div class="rp-faq-q" tabindex="0" role="button">
+          <span>How do I read a refrigerant saturation table?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="rp-faq-a">
+          <p>A saturation table lists thermodynamic properties at the point where liquid and vapour coexist in equilibrium. For a given saturation temperature, you can read the corresponding saturation pressure, liquid density, vapour density, liquid enthalpy (h<sub>f</sub>), vapour enthalpy (h<sub>g</sub>), and latent heat (h<sub>fg</sub> = h<sub>g</sub> &minus; h<sub>f</sub>). The latent heat is the energy absorbed or released during phase change and is critical for sizing evaporators and condensers.</p>
+        </div>
+      </div>
+      <div class="rp-faq-item">
+        <div class="rp-faq-q" tabindex="0" role="button">
+          <span>Why does latent heat decrease as temperature increases?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="rp-faq-a">
+          <p>As temperature rises toward the critical point, the difference between liquid and vapour phases diminishes. Liquid density decreases while vapour density increases, and their enthalpies converge. At the critical point, the distinction between liquid and vapour disappears entirely, and latent heat drops to zero. This is why refrigeration systems become less effective as condensing temperatures rise &mdash; there is less latent heat available per kilogram of refrigerant.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /rp-wrap -->
+
+</main>
+
+<!-- FOOTER -->
+<div id="karnot-footer"></div>
+
+<!-- SHARED JS -->
+<script src="../js/karnot.js"></script>
+
+<!-- KaTeX JS -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+
+<!-- REFRIGERANT PROPERTIES IIFE -->
+<script>
+(function(){
+'use strict';
+
+/* ================================================================
+   REFRIGERANT SATURATION DATA (ASHRAE Reference)
+   Each entry: [T(C), P(bar), rhoL(kg/m3), rhoV(kg/m3), hf(kJ/kg), hg(kJ/kg), hfg(kJ/kg), CpL(kJ/kgK)]
+   ================================================================ */
+var DATA = {
+  R290: {
+    name: 'R290 (Propane)',
+    gwp: 3,
+    gwpClass: 'green',
+    gwpLabel: 'GWP 3 \u2705 Natural Refrigerant',
+    tMin: -40, tMax: 80,
+    points: [
+      [-40, 1.00,  578, 2.42,  100, 512, 412, 2.24],
+      [-20, 2.00,  554, 4.55,  150, 533, 383, 2.35],
+      [  0, 4.74,  529, 10.3,  200, 555, 355, 2.49],
+      [ 20, 8.37,  501, 18.1,  254, 574, 320, 2.68],
+      [ 40, 13.7,  468, 30.7,  311, 589, 278, 2.95],
+      [ 60, 21.1,  427, 50.6,  375, 597, 222, 3.40],
+      [ 80, 31.2,  370, 86.5,  450, 592, 142, 4.30]
+    ]
+  },
+  R744: {
+    name: 'R744 (CO\u2082)',
+    gwp: 1,
+    gwpClass: 'green',
+    gwpLabel: 'GWP 1 \u2705 Natural Refrigerant',
+    tMin: -40, tMax: 30,
+    points: [
+      [-40, 10.0, 1117, 26.8,   82, 323, 241, 2.05],
+      [-20, 19.7, 1053, 51.5,  117, 333, 216, 2.25],
+      [  0, 34.8,  973, 97.6,  157, 335, 178, 2.75],
+      [ 10, 44.9,  926, 132,   180, 330, 150, 3.20],
+      [ 20, 57.3,  866, 181,   208, 318, 110, 4.50],
+      [ 30, 72.1,  774, 268,   245, 291,  46, 12.0]
+    ]
+  },
+  R32: {
+    name: 'R32',
+    gwp: 675,
+    gwpClass: 'amber',
+    gwpLabel: 'GWP 675 \u26A0\uFE0F Lower-GWP HFC',
+    tMin: -40, tMax: 70,
+    points: [
+      [-40, 1.52, 1178,  5.2,  120, 468, 348, 1.54],
+      [-20, 3.40, 1128, 11.1,  165, 488, 323, 1.62],
+      [  0, 6.81, 1072, 21.7,  212, 506, 294, 1.74],
+      [ 20, 12.4, 1008, 40.3,  263, 519, 256, 1.92],
+      [ 40, 20.7,  932, 71.2,  320, 524, 204, 2.25],
+      [ 60, 32.3,  833, 124,   386, 515, 129, 3.10]
+    ]
+  },
+  R410A: {
+    name: 'R410A',
+    gwp: 2088,
+    gwpClass: 'red',
+    gwpLabel: 'GWP 2,088 \u274C Phase-down',
+    tMin: -40, tMax: 70,
+    points: [
+      [-40, 1.75, 1286,  7.5,  116, 386, 270, 1.42],
+      [-20, 4.00, 1224, 16.2,  153, 402, 249, 1.52],
+      [  0, 7.99, 1157, 31.6,  193, 415, 222, 1.66],
+      [ 20, 14.4, 1081, 57.4,  237, 423, 186, 1.87],
+      [ 40, 24.0,  988, 101,   287, 423, 136, 2.35],
+      [ 60, 37.6,  862, 177,   348, 407,  59, 4.20]
+    ]
+  },
+  R134a: {
+    name: 'R134a',
+    gwp: 1430,
+    gwpClass: 'red',
+    gwpLabel: 'GWP 1,430 \u274C Phase-down',
+    tMin: -40, tMax: 80,
+    points: [
+      [-40, 0.51, 1418,  2.8,  120, 368, 248, 1.25],
+      [-20, 1.33, 1369,  6.8,  148, 382, 234, 1.30],
+      [  0, 2.93, 1317, 14.4,  177, 396, 219, 1.36],
+      [ 20, 5.72, 1261, 27.8,  209, 408, 199, 1.43],
+      [ 40, 10.2, 1199, 50.0,  244, 417, 173, 1.54],
+      [ 60, 16.8, 1125, 84.4,  284, 422, 138, 1.72],
+      [ 80, 26.3, 1031, 144,   332, 418,  86, 2.20]
+    ]
+  }
+};
+
+/* ================================================================
+   LINEAR INTERPOLATION
+   ================================================================ */
+function lerp(x, x0, x1, y0, y1) {
+  if (x1 === x0) return y0;
+  return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+}
+
+function getProps(refKey, T) {
+  var d = DATA[refKey];
+  var pts = d.points;
+  // Clamp
+  if (T <= pts[0][0]) return pts[0].slice(1);
+  if (T >= pts[pts.length - 1][0]) return pts[pts.length - 1].slice(1);
+  // Find bracket
+  for (var i = 0; i < pts.length - 1; i++) {
+    if (T >= pts[i][0] && T <= pts[i + 1][0]) {
+      var result = [];
+      for (var j = 1; j < pts[i].length; j++) {
+        result.push(lerp(T, pts[i][0], pts[i + 1][0], pts[i][j], pts[i + 1][j]));
+      }
+      return result;
+    }
+  }
+  return pts[pts.length - 1].slice(1);
+}
+
+/* ================================================================
+   DOM REFERENCES
+   ================================================================ */
+var selRef = document.getElementById('rp-refrigerant');
+var slider = document.getElementById('rp-temp-slider');
+var tempInput = document.getElementById('rp-temp-num');
+var minLabel = document.getElementById('rp-min-label');
+var maxLabel = document.getElementById('rp-max-label');
+var rangeHint = document.getElementById('rp-range-hint');
+var gwpBadge = document.getElementById('rp-gwp-badge');
+var tableTitle = document.getElementById('rp-table-title');
+var tbody = document.getElementById('rp-sat-tbody');
+
+var valPressure = document.getElementById('rp-val-pressure');
+var valRhoL = document.getElementById('rp-val-rhoL');
+var valRhoV = document.getElementById('rp-val-rhoV');
+var valHf = document.getElementById('rp-val-hf');
+var valHg = document.getElementById('rp-val-hg');
+var valHfg = document.getElementById('rp-val-hfg');
+var valCp = document.getElementById('rp-val-cp');
+
+/* ================================================================
+   UPDATE DISPLAY
+   ================================================================ */
+function update() {
+  var refKey = selRef.value;
+  var d = DATA[refKey];
+  var T = parseFloat(tempInput.value);
+  if (isNaN(T)) T = 0;
+  // Clamp to range
+  T = Math.max(d.tMin, Math.min(d.tMax, T));
+  tempInput.value = T;
+  slider.value = T;
+
+  // Interpolate
+  var props = getProps(refKey, T);
+  // props = [P, rhoL, rhoV, hf, hg, hfg, CpL]
+  valPressure.textContent = props[0].toFixed(2);
+  valRhoL.textContent = props[1].toFixed(0);
+  valRhoV.textContent = props[2].toFixed(1);
+  valHf.textContent = props[3].toFixed(1);
+  valHg.textContent = props[4].toFixed(1);
+  valHfg.textContent = props[5].toFixed(1);
+  valCp.textContent = props[6].toFixed(2);
+
+  // Highlight active row in table
+  highlightTableRow(T, d);
+}
+
+function updateRefrigerant() {
+  var refKey = selRef.value;
+  var d = DATA[refKey];
+
+  // Update slider range
+  slider.min = d.tMin;
+  slider.max = d.tMax;
+  minLabel.textContent = d.tMin + '\u00B0C';
+  maxLabel.textContent = d.tMax + '\u00B0C';
+  rangeHint.textContent = 'Range: ' + d.tMin + '\u00B0C to +' + d.tMax + '\u00B0C';
+
+  // Clamp current temp
+  var T = parseFloat(tempInput.value);
+  if (isNaN(T) || T < d.tMin) T = d.tMin;
+  if (T > d.tMax) T = d.tMax;
+  tempInput.value = T;
+  slider.value = T;
+
+  // GWP badge
+  gwpBadge.className = 'rp-gwp-badge rp-gwp-' + d.gwpClass;
+  gwpBadge.textContent = d.gwpLabel;
+
+  // Table title
+  tableTitle.textContent = d.name;
+
+  // Rebuild saturation table
+  buildTable(refKey);
+
+  // Update results
+  update();
+}
+
+function buildTable(refKey) {
+  var d = DATA[refKey];
+  var pts = d.points;
+  var html = '';
+  for (var i = 0; i < pts.length; i++) {
+    var row = pts[i];
+    html += '<tr data-temp="' + row[0] + '">';
+    html += '<td>' + row[0] + '\u00B0C</td>';
+    html += '<td>' + row[1].toFixed(2) + '</td>';
+    html += '<td>' + row[2].toFixed(0) + '</td>';
+    html += '<td>' + row[3].toFixed(1) + '</td>';
+    html += '<td>' + row[4].toFixed(1) + '</td>';
+    html += '<td>' + row[5].toFixed(1) + '</td>';
+    html += '<td>' + row[6].toFixed(1) + '</td>';
+    html += '<td>' + row[7].toFixed(2) + '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function highlightTableRow(T, d) {
+  var rows = tbody.querySelectorAll('tr');
+  // Find nearest data point
+  var nearest = d.points[0][0];
+  var minDist = Math.abs(T - nearest);
+  for (var i = 1; i < d.points.length; i++) {
+    var dist = Math.abs(T - d.points[i][0]);
+    if (dist < minDist) {
+      minDist = dist;
+      nearest = d.points[i][0];
+    }
+  }
+  for (var j = 0; j < rows.length; j++) {
+    if (parseInt(rows[j].getAttribute('data-temp'), 10) === nearest) {
+      rows[j].classList.add('rp-active-row');
+    } else {
+      rows[j].classList.remove('rp-active-row');
+    }
+  }
+}
+
+/* ================================================================
+   EVENT LISTENERS
+   ================================================================ */
+selRef.addEventListener('change', updateRefrigerant);
+
+slider.addEventListener('input', function() {
+  tempInput.value = slider.value;
+  update();
+});
+
+tempInput.addEventListener('input', function() {
+  var d = DATA[selRef.value];
+  var T = parseFloat(tempInput.value);
+  if (!isNaN(T)) {
+    T = Math.max(d.tMin, Math.min(d.tMax, T));
+    slider.value = T;
+  }
+  update();
+});
+
+tempInput.addEventListener('change', function() {
+  var d = DATA[selRef.value];
+  var T = parseFloat(tempInput.value);
+  if (isNaN(T)) T = 0;
+  T = Math.max(d.tMin, Math.min(d.tMax, T));
+  tempInput.value = T;
+  slider.value = T;
+  update();
+});
+
+/* ================================================================
+   FAQ TOGGLE
+   ================================================================ */
+document.querySelectorAll('.rp-faq-q').forEach(function(q) {
+  q.addEventListener('click', function() {
+    var a = this.nextElementSibling;
+    var isOpen = a.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.rp-faq-a').forEach(function(el) { el.classList.remove('open'); });
+    document.querySelectorAll('.rp-faq-q').forEach(function(el) { el.classList.remove('open'); });
+    if (!isOpen) {
+      a.classList.add('open');
+      this.classList.add('open');
+    }
+  });
+});
+
+/* ================================================================
+   SCROLL REVEAL
+   ================================================================ */
+var rvEls = document.querySelectorAll('.rv');
+var rvObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      rvObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+rvEls.forEach(function(el) { rvObs.observe(el); });
+
+/* ================================================================
+   KaTeX FORMULAS (render after KaTeX loads)
+   ================================================================ */
+function renderFormulas() {
+  if (typeof katex === 'undefined') {
+    setTimeout(renderFormulas, 100);
+    return;
+  }
+  katex.render(
+    '\\frac{dP}{dT} = \\frac{h_{fg}}{T \\cdot (v_g - v_f)}',
+    document.getElementById('rp-katex-cc'),
+    { displayMode: true, throwOnError: false }
+  );
+  katex.render(
+    '\\log_{10}(P) = A - \\frac{B}{T + C}',
+    document.getElementById('rp-katex-antoine'),
+    { displayMode: true, throwOnError: false }
+  );
+  katex.render(
+    'h_{fg} = h_g - h_f',
+    document.getElementById('rp-katex-latent'),
+    { displayMode: true, throwOnError: false }
+  );
+}
+renderFormulas();
+
+/* ================================================================
+   INIT
+   ================================================================ */
+updateRefrigerant();
+
+})();
+</script>
+
+</body>
+</html>

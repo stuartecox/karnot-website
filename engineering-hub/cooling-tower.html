@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cooling Tower Evaluator — NTU, Merkel Analysis &amp; Water Balance | Karnot Engineering Hub</title>
+<meta name="description" content="Free cooling tower evaluator. Calculate cooling capacity, approach, range, evaporation rate, drift loss, blowdown, make-up water, NTU and tower characteristic KaV/L using Merkel analysis.">
+<meta name="keywords" content="cooling tower calculator, NTU, Merkel analysis, KaV/L, evaporation rate, blowdown, make-up water, concentration ratio, cooling tower sizing, approach temperature, wet bulb">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/cooling-tower">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/cooling-tower">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/cooling-tower">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/cooling-tower">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/cooling-tower">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Cooling Tower Evaluator — NTU, Merkel Analysis &amp; Water Balance">
+<meta property="og:description" content="Free cooling tower calculator. Cooling capacity, evaporation, blowdown, make-up water, NTU and Merkel tower characteristic KaV/L.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/cooling-tower">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cooling Tower Evaluator | Karnot Engineering Hub">
+<meta name="twitter:description" content="Calculate cooling tower capacity, NTU, evaporation, blowdown and make-up water requirements.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Cooling Tower Evaluator","item":"https://karnot.com/engineering-hub/cooling-tower"}]},
+    {"@type":"WebApplication","name":"Cooling Tower Evaluator","url":"https://karnot.com/engineering-hub/cooling-tower","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Calculate cooling tower capacity, approach, range, evaporation rate, drift loss, blowdown, make-up water, concentration ratio, NTU and tower characteristic KaV/L using Merkel analysis.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is the Merkel equation for cooling towers?","acceptedAnswer":{"@type":"Answer","text":"The Merkel equation relates the tower characteristic KaV/L to the integral of dT divided by (h_s minus h_a) over the cooling range, where h_s is the enthalpy of saturated air at the water temperature and h_a is the enthalpy of the air stream. This integral is typically evaluated numerically using the Chebyshev or Simpson method and represents the Number of Transfer Units (NTU) required for the specified cooling duty."}},
+      {"@type":"Question","name":"What is cooling tower approach temperature?","acceptedAnswer":{"@type":"Answer","text":"Approach is the difference between the cold water temperature leaving the tower and the ambient wet bulb temperature. A smaller approach means the tower is working harder to cool the water closer to the theoretical minimum. Typical approaches are 3 to 8 degrees C. An approach below 3 degrees C requires a very large tower; above 8 degrees C indicates poor tower performance or an undersized unit."}},
+      {"@type":"Question","name":"How do I calculate cooling tower make-up water?","acceptedAnswer":{"@type":"Answer","text":"Make-up water equals evaporation plus drift loss plus blowdown. Evaporation is approximately 0.00085 times flow rate times range (rule of thumb) or more precisely 1.8 litres per hour per kW of cooling. Drift loss is typically 0.002 to 0.005 percent of the circulating flow. Blowdown depends on the desired concentration ratio and equals evaporation divided by (concentration ratio minus 1)."}},
+      {"@type":"Question","name":"What is the concentration ratio and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"Concentration ratio (also called cycles of concentration) is the ratio of dissolved solids in the circulating water to the dissolved solids in the make-up water. As water evaporates, minerals concentrate. A typical ratio of 3 to 5 balances water saving against scaling risk. Higher ratios save water but require better water treatment. The ratio is controlled by adjusting blowdown flow rate."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   COOLING TOWER — ct- prefix
+   =========================== */
+
+.ct-hero{
+  background:linear-gradient(135deg,rgba(3,105,161,.92),rgba(14,165,233,.75),rgba(52,199,89,.30));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.ct-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.ct-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.ct-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.ct-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+.ct-breadcrumb{font-size:13px;margin-bottom:12px;opacity:.78;position:relative}
+.ct-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.ct-breadcrumb a:hover{text-decoration:underline}
+.ct-breadcrumb span{margin:0 6px;opacity:.6}
+
+.ct-wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+.ct-card{background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(0,0,0,.07);padding:36px;margin-top:32px}
+.ct-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.ct-card h2 i{color:#0ea5e9;font-size:20px}
+
+.ct-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px 22px;margin-bottom:24px}
+.ct-field{display:flex;flex-direction:column}
+.ct-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.ct-field input,.ct-field select{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.ct-field input:focus,.ct-field select:focus{outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+.ct-field .ct-hint{font-size:11px;color:#999;margin-top:3px}
+
+.ct-results{display:none}
+.ct-results.show{display:block}
+.ct-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+.ct-metric{border-radius:14px;padding:22px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.ct-metric-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.ct-metric-value{font-size:28px;font-weight:800;line-height:1;margin-bottom:4px}
+.ct-metric-unit{font-size:13px;font-weight:500;opacity:.75}
+.ct-metric.sky{background:linear-gradient(135deg,#f0f9ff,#bae6fd);border:1.5px solid rgba(14,165,233,.3)}
+.ct-metric.sky .ct-metric-label{color:#0ea5e9}
+.ct-metric.sky .ct-metric-value{color:#0284c7}
+.ct-metric.blue{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid rgba(59,130,246,.3)}
+.ct-metric.blue .ct-metric-label{color:#3b82f6}
+.ct-metric.blue .ct-metric-value{color:#2563eb}
+.ct-metric.orange{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(245,102,0,.35)}
+.ct-metric.orange .ct-metric-label{color:#EA580C}
+.ct-metric.orange .ct-metric-value{color:#ea580c}
+.ct-metric.green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid rgba(34,197,94,.3)}
+.ct-metric.green .ct-metric-label{color:#16a34a}
+.ct-metric.green .ct-metric-value{color:#15803d}
+.ct-metric.teal{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1.5px solid rgba(20,184,166,.3)}
+.ct-metric.teal .ct-metric-label{color:#14b8a6}
+.ct-metric.teal .ct-metric-value{color:#0d9488}
+
+.ct-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:20px}
+.ct-table th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.ct-table td{padding:10px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+
+.ct-formula-box{background:#f8f9fa;border:1.5px solid #e5e5e7;border-radius:12px;padding:20px;margin-top:12px}
+.ct-formula-box p{font-size:14px;color:#6e6e73;line-height:1.7;margin:0 0 12px}
+
+.ct-faq-section{padding:60px 0;max-width:1000px;margin:0 auto}
+.ct-faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.ct-faq-item{border-bottom:1px solid #d2d2d7}
+.ct-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#1d1d1f}
+.ct-faq-item summary::-webkit-details-marker{display:none}
+.ct-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#0ea5e9;transition:transform .3s}
+.ct-faq-item[open] summary::after{content:'\2212'}
+.ct-faq-item .ct-faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+.ct-cta{
+  background:linear-gradient(135deg,#0c4a6e,#0ea5e9);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.ct-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.ct-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.ct-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#EA580C;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.ct-cta-btn:hover{background:#c2410c;transform:translateY(-2px);color:#fff}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .ct-card{padding:22px 16px}
+  .ct-fields{grid-template-columns:1fr 1fr}
+  .ct-results-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:400px){
+  .ct-fields{grid-template-columns:1fr}
+  .ct-results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<section class="ct-hero">
+  <div class="ct-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Cooling Tower Evaluator
+  </div>
+  <h1>Cooling Tower Evaluator</h1>
+  <p>A cooling tower with 10 L/s flow, 35 &deg;C hot water, 29 &deg;C cold water, and 27 &deg;C wet bulb delivers 251 kW of cooling at 2 &deg;C approach with evaporation of 155 L/h. Enter your operating conditions below to calculate cooling capacity, water balance and tower characteristic.</p>
+  <p class="answer-first">This tool calculates cooling capacity, approach, range, evaporation rate, drift loss, blowdown, total make-up water, concentration ratio, NTU and tower characteristic KaV/L using Merkel analysis with numerical integration.</p>
+</section>
+
+<div class="ct-wrap">
+
+  <div class="ct-card rv">
+    <h2><i class="fas fa-fan"></i> Cooling Tower Inputs</h2>
+
+    <div class="ct-fields">
+      <div class="ct-field">
+        <label for="ct-twb">Wet Bulb Temperature (&deg;C)</label>
+        <input type="number" id="ct-twb" value="27" min="5" max="40" step="0.5">
+        <span class="ct-hint">Ambient wet bulb</span>
+      </div>
+      <div class="ct-field">
+        <label for="ct-thot">Hot Water In (&deg;C)</label>
+        <input type="number" id="ct-thot" value="35" min="20" max="60" step="0.5">
+      </div>
+      <div class="ct-field">
+        <label for="ct-tcold">Cold Water Out (&deg;C)</label>
+        <input type="number" id="ct-tcold" value="29" min="15" max="45" step="0.5">
+      </div>
+      <div class="ct-field">
+        <label for="ct-flow">Flow Rate (L/s)</label>
+        <input type="number" id="ct-flow" value="10" min="0.1" step="0.1">
+      </div>
+      <div class="ct-field">
+        <label for="ct-alt">Altitude (m)</label>
+        <input type="number" id="ct-alt" value="0" min="0" max="5000" step="50">
+        <span class="ct-hint">Affects air density</span>
+      </div>
+      <div class="ct-field">
+        <label for="ct-cycles">Concentration Ratio</label>
+        <input type="number" id="ct-cycles" value="4" min="2" max="10" step="0.5">
+        <span class="ct-hint">Cycles of concentration (typical 3-5)</span>
+      </div>
+      <div class="ct-field">
+        <label for="ct-drift">Drift Loss (%)</label>
+        <input type="number" id="ct-drift" value="0.005" min="0.001" max="0.1" step="0.001">
+        <span class="ct-hint">% of circ. flow (modern: 0.002-0.005)</span>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="ct-results" id="ct-results">
+      <h3 style="font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:16px"><i class="fas fa-tachometer-alt" style="color:#0ea5e9;margin-right:8px"></i>Cooling Tower Performance</h3>
+
+      <div class="ct-results-grid" id="ct-metrics"></div>
+
+      <div style="overflow-x:auto">
+        <table class="ct-table" id="ct-detail-table">
+          <thead>
+            <tr><th>Property</th><th>Value</th><th>Unit</th></tr>
+          </thead>
+          <tbody id="ct-detail-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="ct-card rv">
+    <h2><i class="fas fa-square-root-variable"></i> Cooling Tower Formulas</h2>
+    <div class="ct-formula-box">
+      <p><strong>Cooling capacity:</strong></p>
+      <div id="ct-katex-q"></div>
+      <p><strong>Merkel equation (NTU):</strong></p>
+      <div id="ct-katex-ntu"></div>
+      <p><strong>Evaporation rate (rule of thumb):</strong></p>
+      <div id="ct-katex-evap"></div>
+      <p><strong>Make-up water:</strong></p>
+      <div id="ct-katex-makeup"></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="ct-faq-section rv" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <details class="ct-faq-item">
+      <summary>What is the Merkel equation for cooling towers?</summary>
+      <div class="ct-faq-answer"><p>The Merkel equation relates the tower characteristic KaV/L to the integral of dT / (h_s - h_a) over the cooling range. This integral represents the NTU (Number of Transfer Units) required. It is evaluated numerically using the Chebyshev four-point method in this calculator.</p></div>
+    </details>
+    <details class="ct-faq-item">
+      <summary>What is cooling tower approach temperature?</summary>
+      <div class="ct-faq-answer"><p>Approach is the difference between the cold water leaving the tower and the ambient wet bulb temperature. Typical values are 3 to 8 &deg;C. Smaller approach means the tower works harder. Below 3 &deg;C requires a very large tower; above 8 &deg;C may indicate an undersized unit.</p></div>
+    </details>
+    <details class="ct-faq-item">
+      <summary>How do I calculate cooling tower make-up water?</summary>
+      <div class="ct-faq-answer"><p>Make-up = Evaporation + Drift + Blowdown. Evaporation is approximately 1.8 L/h per kW of cooling. Drift is 0.002-0.005% of circulation flow. Blowdown = Evaporation / (Cycles - 1). This calculator computes all three components.</p></div>
+    </details>
+    <details class="ct-faq-item">
+      <summary>What is the concentration ratio and why does it matter?</summary>
+      <div class="ct-faq-answer"><p>Concentration ratio (cycles of concentration) is the ratio of dissolved solids in circulating water to make-up water. Higher ratios save water but increase scaling risk. Typical values are 3 to 5. It is controlled by adjusting blowdown rate.</p></div>
+    </details>
+  </section>
+
+  <div class="ct-cta rv">
+    <h2>Need Cooling System Engineering Support?</h2>
+    <p>Our engineers can design complete cooling and chilled water systems, optimising tower selection, pump sizing and water treatment.</p>
+    <a href="../contact.html?intent=cooling_system&product=iCOOL" class="ct-cta-btn">Talk to an Engineer <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+</div>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   PSYCHROMETRIC: Saturation enthalpy of moist air at T (kJ/kg dry air)
+   Approximation using polynomial fit
+   ===================================================== */
+function satEnthalpy(T) {
+  // h_s = Cp_a * T + w_s * (2501 + 1.86*T)
+  // w_s = 0.622 * Ps / (P_atm - Ps)
+  // Ps from Antoine / Magnus
+  var Ps = 0.61078 * Math.exp((17.27 * T) / (T + 237.3)); // kPa
+  var P_atm = 101.325; // kPa (adjusted for altitude later)
+  var ws = 0.622 * Ps / (P_atm - Ps);
+  return 1.006 * T + ws * (2501 + 1.86 * T);
+}
+
+function satEnthalpyAtAlt(T, alt) {
+  var P_atm = 101.325 * Math.pow(1 - 2.25577e-5 * alt, 5.2559);
+  var Ps = 0.61078 * Math.exp((17.27 * T) / (T + 237.3));
+  if (Ps >= P_atm) Ps = P_atm * 0.99;
+  var ws = 0.622 * Ps / (P_atm - Ps);
+  return 1.006 * T + ws * (2501 + 1.86 * T);
+}
+
+function airEnthalpy(T, Twb, alt) {
+  // Air enthalpy at wet bulb (approximation: assume saturated at WB)
+  return satEnthalpyAtAlt(Twb, alt);
+}
+
+/* =====================================================
+   MERKEL NTU — Chebyshev 4-point numerical integration
+   ===================================================== */
+function merkelNTU(Twb, Thot, Tcold, alt) {
+  var range = Thot - Tcold;
+  if (range <= 0) return 0;
+
+  // Chebyshev 4-point: evaluate at 0.1, 0.4, 0.6, 0.9 of range
+  var fracs = [0.1, 0.4, 0.6, 0.9];
+  var ha_wb = satEnthalpyAtAlt(Twb, alt);
+  var sum = 0;
+
+  for (var i = 0; i < fracs.length; i++) {
+    var Tw = Tcold + fracs[i] * range;
+    var hs = satEnthalpyAtAlt(Tw, alt);
+    // Air enthalpy at this point (linear from inlet to outlet)
+    var ha = ha_wb + (satEnthalpyAtAlt(Thot, alt) - ha_wb) * fracs[i] * 0.5;
+    // More accurate: air enthalpy rises linearly through tower
+    // ha at point = ha_inlet + (ha_outlet - ha_inlet) * fraction
+    // ha_inlet ≈ h_s(Twb), ha_outlet ≈ ha_inlet + Cp_w * range * L/G_ratio
+    // Simplified: use h_a = h_s(Twb) + Cp * (Tw - Tcold) (approximate)
+    ha = ha_wb + 4.18 * (Tw - Tcold); // L/G ≈ 1 approximation
+
+    var diff = hs - ha;
+    if (diff <= 0) diff = 0.1; // prevent division by zero
+    sum += 1 / diff;
+  }
+
+  var NTU = (range / 4) * sum;
+  return NTU;
+}
+
+/* =====================================================
+   CALCULATE
+   ===================================================== */
+function calculate() {
+  var Twb = parseFloat(document.getElementById('ct-twb').value);
+  var Thot = parseFloat(document.getElementById('ct-thot').value);
+  var Tcold = parseFloat(document.getElementById('ct-tcold').value);
+  var flow_Ls = parseFloat(document.getElementById('ct-flow').value);
+  var alt = parseFloat(document.getElementById('ct-alt').value);
+  var cycles = parseFloat(document.getElementById('ct-cycles').value);
+  var driftPct = parseFloat(document.getElementById('ct-drift').value);
+
+  if (isNaN(Twb) || isNaN(Thot) || isNaN(Tcold) || isNaN(flow_Ls) || isNaN(alt) || isNaN(cycles)) return;
+  if (Thot <= Tcold || Tcold <= Twb) return;
+
+  var range = Thot - Tcold; // °C
+  var approach = Tcold - Twb; // °C
+  var flow_kgs = flow_Ls; // approx 1 kg/L
+  var flow_m3h = flow_Ls * 3.6;
+  var flow_Lh = flow_Ls * 3600;
+
+  // Cooling capacity
+  var Q_kW = flow_kgs * 4.18 * range; // kW
+
+  // Evaporation rate (rule of thumb)
+  var evap_Lh = 0.00085 * flow_Lh * range;
+  // More accurate: ~1.8 L/h per kW
+  var evap_precise = Q_kW * 1.8;
+  evap_Lh = evap_precise; // use the more precise estimate
+
+  // Drift loss
+  var drift_Lh = (driftPct / 100) * flow_Lh;
+
+  // Blowdown
+  var blowdown_Lh = evap_Lh / (cycles - 1);
+
+  // Total make-up
+  var makeup_Lh = evap_Lh + drift_Lh + blowdown_Lh;
+  var makeup_m3day = makeup_Lh * 24 / 1000;
+
+  // NTU (Merkel)
+  var NTU = merkelNTU(Twb, Thot, Tcold, alt);
+  var KaVL = NTU; // Tower characteristic = NTU
+
+  // Render metrics
+  var metricsDiv = document.getElementById('ct-metrics');
+  metricsDiv.innerHTML = '';
+  function addMetric(label, value, unit, cls) {
+    metricsDiv.innerHTML +=
+      '<div class="ct-metric ' + cls + '">' +
+        '<div class="ct-metric-label">' + label + '</div>' +
+        '<div class="ct-metric-value">' + value + '</div>' +
+        '<div class="ct-metric-unit">' + unit + '</div>' +
+      '</div>';
+  }
+
+  addMetric('Cooling Capacity', Q_kW.toFixed(0), 'kW', 'sky');
+  addMetric('Approach', approach.toFixed(1), '&deg;C', 'blue');
+  addMetric('Range', range.toFixed(1), '&deg;C', 'orange');
+  addMetric('Make-up Water', makeup_Lh.toFixed(0), 'L/h', 'green');
+  addMetric('NTU (KaV/L)', NTU.toFixed(2), '', 'teal');
+  addMetric('Evaporation', evap_Lh.toFixed(0), 'L/h', 'sky');
+
+  // Detail table
+  var tbody = document.getElementById('ct-detail-body');
+  tbody.innerHTML = '';
+  function addRow(p, v, u) {
+    tbody.innerHTML += '<tr><td>' + p + '</td><td><strong>' + v + '</strong></td><td>' + u + '</td></tr>';
+  }
+
+  addRow('Wet Bulb Temperature', Twb, '&deg;C');
+  addRow('Hot Water In', Thot, '&deg;C');
+  addRow('Cold Water Out', Tcold, '&deg;C');
+  addRow('Range (Thot - Tcold)', range.toFixed(1), '&deg;C');
+  addRow('Approach (Tcold - Twb)', approach.toFixed(1), '&deg;C');
+  addRow('Flow Rate', flow_Ls + ' L/s = ' + flow_m3h.toFixed(1) + ' m&sup3;/h', '');
+  addRow('Cooling Capacity', Q_kW.toFixed(1), 'kW');
+  addRow('Cooling Capacity', (Q_kW * 0.2843).toFixed(1), 'TR (tons refrigeration)');
+  addRow('', '', '');
+  addRow('Evaporation Rate', evap_Lh.toFixed(1), 'L/h');
+  addRow('Drift Loss', drift_Lh.toFixed(2), 'L/h');
+  addRow('Blowdown Rate', blowdown_Lh.toFixed(1), 'L/h');
+  addRow('Total Make-up Water', makeup_Lh.toFixed(0), 'L/h');
+  addRow('Total Make-up Water', makeup_m3day.toFixed(1), 'm&sup3;/day');
+  addRow('Concentration Ratio', cycles, 'cycles');
+  addRow('', '', '');
+  addRow('NTU (Merkel)', NTU.toFixed(3), '');
+  addRow('Tower Characteristic (KaV/L)', KaVL.toFixed(3), '');
+  addRow('Altitude', alt, 'm');
+
+  document.getElementById('ct-results').classList.add('show');
+}
+
+/* =====================================================
+   EVENTS
+   ===================================================== */
+var inputs = document.querySelectorAll('#ct-twb, #ct-thot, #ct-tcold, #ct-flow, #ct-alt, #ct-cycles, #ct-drift');
+inputs.forEach(function(el) {
+  el.addEventListener('input', calculate);
+  el.addEventListener('change', calculate);
+});
+
+/* =====================================================
+   KATEX
+   ===================================================== */
+function renderKatex() {
+  if (typeof katex === 'undefined') return;
+  katex.render('Q = \\dot{m} \\cdot C_p \\cdot \\Delta T = \\dot{m} \\cdot 4.18 \\cdot (T_{\\text{hot}} - T_{\\text{cold}}) \\quad \\text{(kW)}', document.getElementById('ct-katex-q'), {displayMode:true});
+  katex.render('\\text{NTU} = \\frac{KaV}{L} = \\int_{T_{\\text{cold}}}^{T_{\\text{hot}}} \\frac{dT}{h_s(T) - h_a(T)}', document.getElementById('ct-katex-ntu'), {displayMode:true});
+  katex.render('\\dot{m}_{\\text{evap}} \\approx 1.8 \\times Q \\quad \\text{(L/h per kW)}', document.getElementById('ct-katex-evap'), {displayMode:true});
+  katex.render('\\dot{m}_{\\text{makeup}} = \\dot{m}_{\\text{evap}} + \\dot{m}_{\\text{drift}} + \\dot{m}_{\\text{blowdown}}', document.getElementById('ct-katex-makeup'), {displayMode:true});
+}
+if (document.readyState === 'complete') renderKatex();
+else window.addEventListener('load', renderKatex);
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.1});
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+calculate();
+
+})();
+</script>
+</body>
+</html>

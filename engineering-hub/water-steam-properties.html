@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Water &amp; Steam Properties Calculator — IAPWS-IF97 Tables | Karnot Engineering Hub</title>
+<meta name="description" content="Free water and steam properties calculator based on IAPWS-IF97 saturation tables. Look up saturation pressure, temperature, enthalpy, density, Cp, viscosity and thermal conductivity for water and steam.">
+<meta name="keywords" content="steam table calculator, IAPWS-IF97, saturation properties, water properties, enthalpy hf hg hfg, steam density, Cp water, viscosity, thermal conductivity, boiler engineering">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/water-steam-properties">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/water-steam-properties">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/water-steam-properties">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/water-steam-properties">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/water-steam-properties">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Water &amp; Steam Properties Calculator — IAPWS-IF97 Tables">
+<meta property="og:description" content="Free steam table calculator. Look up saturation pressure, enthalpy, density, Cp and more for water and steam at any temperature or pressure.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/water-steam-properties">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Water &amp; Steam Properties Calculator — IAPWS-IF97 Tables">
+<meta name="twitter:description" content="Free IAPWS-IF97 steam table calculator. Saturation pressure, enthalpy hf/hg/hfg, density, Cp, viscosity and thermal conductivity.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Water & Steam Properties","item":"https://karnot.com/engineering-hub/water-steam-properties"}]},
+    {"@type":"WebApplication","name":"Water & Steam Properties Calculator","url":"https://karnot.com/engineering-hub/water-steam-properties","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"IAPWS-IF97 saturation steam table calculator. Look up saturation pressure, temperature, enthalpy (hf, hg, hfg), density, specific heat capacity, viscosity and thermal conductivity.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is the IAPWS-IF97 standard?","acceptedAnswer":{"@type":"Answer","text":"IAPWS-IF97 (International Association for the Properties of Water and Steam, Industrial Formulation 1997) is the international standard for calculating thermodynamic properties of water and steam. It divides the pressure-temperature domain into five regions and provides equations for enthalpy, entropy, density, and other properties used in power plant and process engineering calculations."}},
+      {"@type":"Question","name":"What is the difference between hf, hg, and hfg?","acceptedAnswer":{"@type":"Answer","text":"hf is the specific enthalpy of saturated liquid (water at boiling point), hg is the specific enthalpy of saturated vapour (dry steam at the same pressure), and hfg is the latent heat of vaporisation — the energy required to convert 1 kg of saturated liquid to saturated vapour. hfg = hg minus hf. At the critical point (374.15 degrees C, 220.64 bar), hfg equals zero because liquid and vapour become indistinguishable."}},
+      {"@type":"Question","name":"How does saturation pressure change with temperature?","acceptedAnswer":{"@type":"Answer","text":"Saturation pressure increases exponentially with temperature. At 100 degrees C, saturation pressure is 1.014 bar (atmospheric). At 200 degrees C it reaches 15.55 bar, and at 300 degrees C it is 85.93 bar. This relationship is described by the Clausius-Clapeyron equation. Industrial boilers typically operate between 5 and 30 bar, corresponding to saturation temperatures of approximately 152 to 234 degrees C."}},
+      {"@type":"Question","name":"Why does the latent heat of vaporisation decrease at higher pressures?","acceptedAnswer":{"@type":"Answer","text":"As pressure and temperature increase, the liquid density decreases and the vapour density increases, so the two phases become more similar. At the critical point (374.15 degrees C, 220.64 bar), liquid and vapour densities are equal (317 kg per cubic metre) and the latent heat drops to zero. This means more energy is stored as sensible heat rather than latent heat at higher pressures, which affects boiler design and flash steam recovery calculations."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   WATER STEAM PROPERTIES — ws- prefix
+   =========================== */
+
+/* HERO */
+.ws-hero{
+  background:linear-gradient(135deg,rgba(0,60,120,.92),rgba(0,151,167,.78),rgba(234,88,12,.25));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.ws-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.ws-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.ws-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.ws-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+.ws-breadcrumb{font-size:13px;margin-bottom:12px;opacity:.78;position:relative}
+.ws-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.ws-breadcrumb a:hover{text-decoration:underline}
+.ws-breadcrumb span{margin:0 6px;opacity:.6}
+
+/* WRAPPER */
+.ws-wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+
+/* CARDS */
+.ws-card{background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(0,0,0,.07);padding:36px;margin-top:32px}
+.ws-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.ws-card h2 i{color:#0097a7;font-size:20px}
+
+/* FORM */
+.ws-mode-toggle{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1.5px solid #ddd;margin-bottom:24px;max-width:400px}
+.ws-mode-btn{
+  flex:1;padding:12px 16px;font-size:14px;font-weight:600;
+  text-align:center;cursor:pointer;background:#fafafa;color:#6e6e73;
+  border:none;border-right:1px solid #e5e5e7;transition:all .2s;user-select:none
+}
+.ws-mode-btn:last-child{border-right:none}
+.ws-mode-btn.active{background:#1d1d1f;color:#fff}
+.ws-mode-btn:hover:not(.active){background:#f0f0f3}
+
+.ws-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px;margin-bottom:24px}
+.ws-field{display:flex;flex-direction:column}
+.ws-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.ws-field input,.ws-field select{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.ws-field input:focus,.ws-field select:focus{outline:none;border-color:#0097a7;box-shadow:0 0 0 3px rgba(0,151,167,.12)}
+.ws-field .ws-hint{font-size:11px;color:#999;margin-top:3px}
+
+/* RESULTS */
+.ws-results{display:none}
+.ws-results.show{display:block}
+.ws-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px}
+.ws-metric{border-radius:14px;padding:22px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.ws-metric-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.ws-metric-value{font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
+.ws-metric-unit{font-size:13px;font-weight:500;opacity:.75}
+.ws-metric.temp{background:linear-gradient(135deg,#fff5f5,#fee2e2);border:1.5px solid rgba(239,68,68,.3)}
+.ws-metric.temp .ws-metric-label{color:#ef4444}
+.ws-metric.temp .ws-metric-value{color:#dc2626}
+.ws-metric.press{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid rgba(59,130,246,.3)}
+.ws-metric.press .ws-metric-label{color:#3b82f6}
+.ws-metric.press .ws-metric-value{color:#2563eb}
+.ws-metric.teal{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1.5px solid rgba(20,184,166,.3)}
+.ws-metric.teal .ws-metric-label{color:#14b8a6}
+.ws-metric.teal .ws-metric-value{color:#0d9488}
+.ws-metric.orange{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(245,102,0,.35)}
+.ws-metric.orange .ws-metric-label{color:#EA580C}
+.ws-metric.orange .ws-metric-value{color:#ea580c}
+
+/* TABLE */
+.ws-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:20px}
+.ws-table th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;color:#6e6e73;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e5e5e7;background:#f5f5f7}
+.ws-table td{padding:10px 14px;border-bottom:1px solid #f0f0f3;color:#1d1d1f}
+.ws-table tr.highlight{background:rgba(0,151,167,.06);font-weight:600}
+
+/* FORMULA */
+.ws-formula-section{margin-top:16px}
+.ws-formula-box{background:#f8f9fa;border:1.5px solid #e5e5e7;border-radius:12px;padding:20px;margin-top:12px}
+.ws-formula-box p{font-size:14px;color:#6e6e73;line-height:1.7;margin:0 0 12px}
+.ws-formula-box .katex-display{margin:12px 0}
+
+/* FAQ */
+.ws-faq-section{padding:60px 0;max-width:1000px;margin:0 auto}
+.ws-faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.ws-faq-item{border-bottom:1px solid #d2d2d7;padding:0}
+.ws-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#1d1d1f}
+.ws-faq-item summary::-webkit-details-marker{display:none}
+.ws-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#0097a7;transition:transform .3s}
+.ws-faq-item[open] summary::after{content:'\2212'}
+.ws-faq-item .ws-faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+/* CTA */
+.ws-cta{
+  background:linear-gradient(135deg,#003c5c,#0097a7);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.ws-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.ws-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.ws-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#EA580C;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.ws-cta-btn:hover{background:#c2410c;transform:translateY(-2px);color:#fff}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .ws-card{padding:22px 16px}
+  .ws-fields{grid-template-columns:1fr}
+  .ws-results-grid{grid-template-columns:1fr 1fr}
+  .ws-mode-toggle{max-width:100%}
+}
+@media(max-width:400px){
+  .ws-results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="ws-hero">
+  <div class="ws-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Water &amp; Steam Properties
+  </div>
+  <h1>Water &amp; Steam Properties Calculator</h1>
+  <p>At 100 &deg;C water boils at 1.014 bar with a latent heat of 2,257 kJ/kg. Enter any temperature between 0 and 374 &deg;C or any pressure between 0.006 and 221 bar to look up the full saturation properties from IAPWS-IF97 tables.</p>
+  <p class="answer-first">This tool interpolates between 16 key data points from the IAPWS-IF97 saturation curve to give you liquid density, vapour density, enthalpy (hf, hg, hfg), specific heat capacity (Cp), viscosity, and thermal conductivity instantly.</p>
+</section>
+
+<div class="ws-wrap">
+
+  <!-- CALCULATOR CARD -->
+  <div class="ws-card rv">
+    <h2><i class="fas fa-temperature-half"></i> Steam Table Lookup</h2>
+
+    <div class="ws-mode-toggle">
+      <button class="ws-mode-btn active" data-mode="temp" type="button">By Temperature</button>
+      <button class="ws-mode-btn" data-mode="press" type="button">By Pressure</button>
+    </div>
+
+    <div class="ws-fields">
+      <div class="ws-field" id="ws-temp-group">
+        <label for="ws-temp">Temperature (&deg;C)</label>
+        <input type="number" id="ws-temp" value="100" min="0" max="374.15" step="0.1">
+        <span class="ws-hint">Range: 0 to 374.15 &deg;C (critical point)</span>
+      </div>
+      <div class="ws-field" id="ws-press-group" style="display:none">
+        <label for="ws-press">Pressure (bar a)</label>
+        <input type="number" id="ws-press" value="1.014" min="0.006" max="220.64" step="0.001">
+        <span class="ws-hint">Range: 0.006 to 220.64 bar (critical point)</span>
+      </div>
+      <div class="ws-field">
+        <label for="ws-phase">Phase of Interest</label>
+        <select id="ws-phase">
+          <option value="both">Both (Liquid + Steam)</option>
+          <option value="liquid">Saturated Liquid Only</option>
+          <option value="steam">Saturated Steam Only</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="ws-results" id="ws-results">
+      <h3 style="font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:16px"><i class="fas fa-chart-bar" style="color:#0097a7;margin-right:8px"></i>Saturation Properties</h3>
+
+      <div class="ws-results-grid" id="ws-metrics"></div>
+
+      <div style="overflow-x:auto">
+        <table class="ws-table" id="ws-detail-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+              <th>Unit</th>
+            </tr>
+          </thead>
+          <tbody id="ws-detail-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL STEAM TABLE -->
+  <div class="ws-card rv">
+    <h2><i class="fas fa-table"></i> IAPWS-IF97 Saturation Table</h2>
+    <div style="overflow-x:auto">
+      <table class="ws-table" id="ws-full-table">
+        <thead>
+          <tr>
+            <th>T (&deg;C)</th>
+            <th>P (bar)</th>
+            <th>&rho;<sub>L</sub> (kg/m&sup3;)</th>
+            <th>&rho;<sub>V</sub> (kg/m&sup3;)</th>
+            <th>h<sub>f</sub> (kJ/kg)</th>
+            <th>h<sub>g</sub> (kJ/kg)</th>
+            <th>h<sub>fg</sub> (kJ/kg)</th>
+            <th>C<sub>p</sub> (kJ/kgK)</th>
+          </tr>
+        </thead>
+        <tbody id="ws-full-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FORMULA SECTION -->
+  <div class="ws-card rv">
+    <h2><i class="fas fa-square-root-variable"></i> Key Formulas</h2>
+    <div class="ws-formula-box">
+      <p><strong>Latent heat of vaporisation:</strong></p>
+      <div id="ws-katex-hfg"></div>
+      <p><strong>Clausius-Clapeyron equation (saturation curve slope):</strong></p>
+      <div id="ws-katex-cc"></div>
+      <p><strong>Specific volume from density:</strong></p>
+      <div id="ws-katex-vol"></div>
+      <p><strong>Linear interpolation between table points:</strong></p>
+      <div id="ws-katex-interp"></div>
+    </div>
+  </div>
+
+  <!-- FAQ SECTION -->
+  <section class="ws-faq-section rv" id="faq" aria-label="Frequently Asked Questions">
+    <h2>Frequently Asked Questions</h2>
+    <details class="ws-faq-item">
+      <summary>What is the IAPWS-IF97 standard?</summary>
+      <div class="ws-faq-answer"><p>IAPWS-IF97 is the international standard published by the International Association for the Properties of Water and Steam. It provides equations for calculating thermodynamic properties of water and steam across five regions of the pressure-temperature domain and is used throughout the power generation, process heating, and HVAC industries.</p></div>
+    </details>
+    <details class="ws-faq-item">
+      <summary>What is the difference between hf, hg, and hfg?</summary>
+      <div class="ws-faq-answer"><p>hf is the specific enthalpy of saturated liquid at the boiling point, hg is the specific enthalpy of dry saturated steam at the same pressure, and hfg is the latent heat of vaporisation (hg minus hf). At the critical point of 374.15 &deg;C the liquid and vapour phases become identical and hfg drops to zero.</p></div>
+    </details>
+    <details class="ws-faq-item">
+      <summary>Why does latent heat decrease at higher pressures?</summary>
+      <div class="ws-faq-answer"><p>As pressure rises, liquid density falls and vapour density rises, making the two phases more similar. At the critical point (220.64 bar, 374.15 &deg;C) both densities equal 317 kg/m&sup3; and latent heat is zero. This is why flash steam recovery is less effective at very high pressures.</p></div>
+    </details>
+    <details class="ws-faq-item">
+      <summary>How accurate is linear interpolation between steam table points?</summary>
+      <div class="ws-faq-answer"><p>Linear interpolation between closely spaced data points introduces errors typically less than 0.5% for enthalpy and density. For engineering estimates this is more than adequate. For high-precision work (turbine design, custody transfer metering), the full IAPWS-IF97 polynomial equations should be used.</p></div>
+    </details>
+  </section>
+
+  <!-- CTA -->
+  <div class="ws-cta rv">
+    <h2>Need Process Heating Engineering Support?</h2>
+    <p>Our team can help you design steam systems, heat recovery networks, and industrial heat pump solutions.</p>
+    <a href="../contact.html?intent=process_heating&product=iHEAT" class="ws-cta-btn">Talk to an Engineer <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+</div>
+</main>
+
+<div id="karnot-footer"></div>
+<script src="../js/karnot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   STEAM TABLE DATA — IAPWS-IF97 saturation curve
+   ===================================================== */
+var TABLE = [
+  {T:0,     P:0.00611,  rhoL:999.8, rhoV:0.00485, hf:0,     hg:2501, hfg:2501, Cp:4.217, mu_L:1.792e-3, mu_V:8.9e-6,  k_L:0.561, k_V:0.0171},
+  {T:20,    P:0.0234,   rhoL:998.2, rhoV:0.0173,  hf:83.9,  hg:2538, hfg:2454, Cp:4.182, mu_L:1.002e-3, mu_V:9.7e-6,  k_L:0.598, k_V:0.0183},
+  {T:40,    P:0.0738,   rhoL:992.2, rhoV:0.0512,  hf:167.5, hg:2574, hfg:2406, Cp:4.179, mu_L:0.653e-3, mu_V:10.5e-6, k_L:0.631, k_V:0.0196},
+  {T:60,    P:0.1994,   rhoL:983.2, rhoV:0.130,   hf:251.1, hg:2609, hfg:2358, Cp:4.185, mu_L:0.467e-3, mu_V:11.2e-6, k_L:0.654, k_V:0.0209},
+  {T:80,    P:0.4739,   rhoL:971.8, rhoV:0.294,   hf:334.9, hg:2644, hfg:2309, Cp:4.197, mu_L:0.355e-3, mu_V:11.9e-6, k_L:0.670, k_V:0.0223},
+  {T:100,   P:1.014,    rhoL:958.4, rhoV:0.598,   hf:419.0, hg:2676, hfg:2257, Cp:4.216, mu_L:0.282e-3, mu_V:12.6e-6, k_L:0.679, k_V:0.0237},
+  {T:120,   P:1.985,    rhoL:943.1, rhoV:1.121,   hf:503.7, hg:2706, hfg:2203, Cp:4.245, mu_L:0.232e-3, mu_V:13.3e-6, k_L:0.683, k_V:0.0252},
+  {T:140,   P:3.614,    rhoL:926.1, rhoV:1.966,   hf:589.1, hg:2734, hfg:2145, Cp:4.285, mu_L:0.197e-3, mu_V:14.1e-6, k_L:0.683, k_V:0.0268},
+  {T:160,   P:6.181,    rhoL:907.4, rhoV:3.259,   hf:675.5, hg:2758, hfg:2083, Cp:4.339, mu_L:0.170e-3, mu_V:14.8e-6, k_L:0.680, k_V:0.0286},
+  {T:180,   P:10.03,    rhoL:886.9, rhoV:5.157,   hf:763.2, hg:2778, hfg:2015, Cp:4.410, mu_L:0.150e-3, mu_V:15.6e-6, k_L:0.673, k_V:0.0305},
+  {T:200,   P:15.55,    rhoL:864.7, rhoV:7.861,   hf:852.5, hg:2793, hfg:1941, Cp:4.505, mu_L:0.134e-3, mu_V:16.4e-6, k_L:0.663, k_V:0.0327},
+  {T:220,   P:23.20,    rhoL:840.3, rhoV:11.62,   hf:943.6, hg:2802, hfg:1858, Cp:4.635, mu_L:0.122e-3, mu_V:17.3e-6, k_L:0.650, k_V:0.0351},
+  {T:250,   P:39.76,    rhoL:799.2, rhoV:19.97,   hf:1085,  hg:2801, hfg:1716, Cp:4.869, mu_L:0.107e-3, mu_V:18.6e-6, k_L:0.626, k_V:0.0393},
+  {T:300,   P:85.93,    rhoL:712.1, rhoV:46.21,   hf:1344,  hg:2749, hfg:1405, Cp:5.75,  mu_L:0.086e-3, mu_V:21.0e-6, k_L:0.564, k_V:0.0482},
+  {T:350,   P:165.4,    rhoL:574.4, rhoV:113.6,   hf:1671,  hg:2564, hfg:893,  Cp:null,  mu_L:0.065e-3, mu_V:25.0e-6, k_L:0.447, k_V:0.0650},
+  {T:374.15,P:220.64,   rhoL:317,   rhoV:317,     hf:2084,  hg:2084, hfg:0,    Cp:null,  mu_L:0.045e-3, mu_V:0.045e-3,k_L:0.350, k_V:0.350}
+];
+
+/* =====================================================
+   INTERPOLATION
+   ===================================================== */
+function lerp(x, x0, x1, y0, y1) {
+  if (x1 === x0) return y0;
+  return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+}
+
+function lookupByTemp(T) {
+  T = Math.max(0, Math.min(374.15, T));
+  // Find bracketing points
+  for (var i = 0; i < TABLE.length - 1; i++) {
+    if (T >= TABLE[i].T && T <= TABLE[i+1].T) {
+      var a = TABLE[i], b = TABLE[i+1];
+      var result = {};
+      var keys = ['T','P','rhoL','rhoV','hf','hg','hfg','Cp','mu_L','mu_V','k_L','k_V'];
+      for (var k = 0; k < keys.length; k++) {
+        var key = keys[k];
+        if (key === 'T') { result.T = T; continue; }
+        if (a[key] === null || b[key] === null) { result[key] = null; continue; }
+        result[key] = lerp(T, a.T, b.T, a[key], b[key]);
+      }
+      return result;
+    }
+  }
+  return TABLE[TABLE.length - 1];
+}
+
+function lookupByPressure(P) {
+  P = Math.max(0.00611, Math.min(220.64, P));
+  for (var i = 0; i < TABLE.length - 1; i++) {
+    if (P >= TABLE[i].P && P <= TABLE[i+1].P) {
+      var a = TABLE[i], b = TABLE[i+1];
+      var result = {};
+      var keys = ['T','P','rhoL','rhoV','hf','hg','hfg','Cp','mu_L','mu_V','k_L','k_V'];
+      for (var k = 0; k < keys.length; k++) {
+        var key = keys[k];
+        if (key === 'P') { result.P = P; continue; }
+        if (a[key] === null || b[key] === null) { result[key] = null; continue; }
+        result[key] = lerp(P, a.P, b.P, a[key], b[key]);
+      }
+      return result;
+    }
+  }
+  return TABLE[TABLE.length - 1];
+}
+
+/* =====================================================
+   UI HELPERS
+   ===================================================== */
+function fmt(v, d) {
+  if (v === null || v === undefined) return '\u2014';
+  if (Math.abs(v) < 0.01 && v !== 0) return v.toExponential(3);
+  return v.toFixed(d !== undefined ? d : 2);
+}
+
+/* =====================================================
+   POPULATE FULL TABLE
+   ===================================================== */
+var fullBody = document.getElementById('ws-full-body');
+TABLE.forEach(function(r) {
+  var tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td>' + r.T + '</td>' +
+    '<td>' + fmt(r.P, 4) + '</td>' +
+    '<td>' + fmt(r.rhoL, 1) + '</td>' +
+    '<td>' + fmt(r.rhoV, 3) + '</td>' +
+    '<td>' + fmt(r.hf, 1) + '</td>' +
+    '<td>' + fmt(r.hg, 0) + '</td>' +
+    '<td>' + fmt(r.hfg, 0) + '</td>' +
+    '<td>' + (r.Cp !== null ? fmt(r.Cp, 3) : '\u2014') + '</td>';
+  fullBody.appendChild(tr);
+});
+
+/* =====================================================
+   MODE TOGGLE
+   ===================================================== */
+var mode = 'temp';
+var modeBtns = document.querySelectorAll('.ws-mode-btn');
+modeBtns.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    modeBtns.forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    mode = btn.getAttribute('data-mode');
+    document.getElementById('ws-temp-group').style.display = mode === 'temp' ? '' : 'none';
+    document.getElementById('ws-press-group').style.display = mode === 'press' ? '' : 'none';
+    calculate();
+  });
+});
+
+/* =====================================================
+   CALCULATE
+   ===================================================== */
+function calculate() {
+  var props;
+  if (mode === 'temp') {
+    var T = parseFloat(document.getElementById('ws-temp').value);
+    if (isNaN(T)) return;
+    props = lookupByTemp(T);
+  } else {
+    var P = parseFloat(document.getElementById('ws-press').value);
+    if (isNaN(P)) return;
+    props = lookupByPressure(P);
+  }
+
+  var phase = document.getElementById('ws-phase').value;
+
+  // Render metric cards
+  var metricsDiv = document.getElementById('ws-metrics');
+  metricsDiv.innerHTML = '';
+
+  function addMetric(label, value, unit, cls) {
+    metricsDiv.innerHTML +=
+      '<div class="ws-metric ' + cls + '">' +
+        '<div class="ws-metric-label">' + label + '</div>' +
+        '<div class="ws-metric-value">' + value + '</div>' +
+        '<div class="ws-metric-unit">' + unit + '</div>' +
+      '</div>';
+  }
+
+  addMetric('Sat. Temperature', fmt(props.T, 2), '&deg;C', 'temp');
+  addMetric('Sat. Pressure', fmt(props.P, 4), 'bar a', 'press');
+  addMetric('Latent Heat (h<sub>fg</sub>)', fmt(props.hfg, 1), 'kJ/kg', 'teal');
+  addMetric('C<sub>p</sub> (Liquid)', props.Cp !== null ? fmt(props.Cp, 3) : '\u2014', 'kJ/kg\u00B7K', 'orange');
+
+  // Detail table
+  var tbody = document.getElementById('ws-detail-body');
+  tbody.innerHTML = '';
+
+  function addRow(prop, val, unit) {
+    tbody.innerHTML += '<tr><td>' + prop + '</td><td><strong>' + val + '</strong></td><td>' + unit + '</td></tr>';
+  }
+
+  addRow('Saturation Temperature', fmt(props.T, 2), '&deg;C');
+  addRow('Saturation Pressure', fmt(props.P, 4), 'bar a');
+  addRow('Saturation Pressure', fmt(props.P * 100, 1), 'kPa');
+
+  if (phase === 'both' || phase === 'liquid') {
+    addRow('Liquid Density (&rho;<sub>L</sub>)', fmt(props.rhoL, 1), 'kg/m&sup3;');
+    addRow('Liquid Enthalpy (h<sub>f</sub>)', fmt(props.hf, 1), 'kJ/kg');
+    addRow('Liquid Viscosity (&mu;<sub>L</sub>)', props.mu_L !== null ? (props.mu_L * 1000).toFixed(4) : '\u2014', 'mPa&middot;s');
+    addRow('Liquid Thermal Conductivity (k<sub>L</sub>)', props.k_L !== null ? fmt(props.k_L, 3) : '\u2014', 'W/m&middot;K');
+  }
+
+  if (phase === 'both' || phase === 'steam') {
+    addRow('Vapour Density (&rho;<sub>V</sub>)', fmt(props.rhoV, 4), 'kg/m&sup3;');
+    addRow('Steam Enthalpy (h<sub>g</sub>)', fmt(props.hg, 1), 'kJ/kg');
+    addRow('Vapour Viscosity (&mu;<sub>V</sub>)', props.mu_V !== null ? (props.mu_V * 1e6).toFixed(2) : '\u2014', '&mu;Pa&middot;s');
+    addRow('Vapour Thermal Conductivity (k<sub>V</sub>)', props.k_V !== null ? fmt(props.k_V, 4) : '\u2014', 'W/m&middot;K');
+  }
+
+  addRow('Latent Heat (h<sub>fg</sub>)', fmt(props.hfg, 1), 'kJ/kg');
+  addRow('Specific Heat Capacity (C<sub>p</sub>)', props.Cp !== null ? fmt(props.Cp, 3) : '\u2014', 'kJ/kg&middot;K');
+  addRow('Specific Volume (liquid)', fmt(1 / props.rhoL * 1000, 4), 'L/kg');
+  addRow('Specific Volume (vapour)', fmt(1 / props.rhoV, 3), 'm&sup3;/kg');
+
+  // Highlight matching row in full table
+  var fullRows = document.querySelectorAll('#ws-full-body tr');
+  fullRows.forEach(function(r) { r.classList.remove('highlight'); });
+
+  document.getElementById('ws-results').classList.add('show');
+}
+
+/* =====================================================
+   REAL-TIME CALCULATION
+   ===================================================== */
+document.getElementById('ws-temp').addEventListener('input', calculate);
+document.getElementById('ws-press').addEventListener('input', calculate);
+document.getElementById('ws-phase').addEventListener('change', calculate);
+
+/* =====================================================
+   KATEX FORMULAS
+   ===================================================== */
+function renderKatex() {
+  if (typeof katex === 'undefined') return;
+  katex.render('h_{fg} = h_g - h_f \\quad \\text{(kJ/kg)}', document.getElementById('ws-katex-hfg'), {displayMode:true});
+  katex.render('\\frac{dP}{dT} = \\frac{h_{fg}}{T \\cdot (v_g - v_f)}', document.getElementById('ws-katex-cc'), {displayMode:true});
+  katex.render('v = \\frac{1}{\\rho} \\quad \\text{(m}^3\\text{/kg)}', document.getElementById('ws-katex-vol'), {displayMode:true});
+  katex.render('y = y_0 + (y_1 - y_0) \\cdot \\frac{x - x_0}{x_1 - x_0}', document.getElementById('ws-katex-interp'), {displayMode:true});
+}
+
+if (document.readyState === 'complete') renderKatex();
+else window.addEventListener('load', renderKatex);
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.1});
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+/* Initial calculation */
+calculate();
+
+})();
+</script>
+</body>
+</html>
