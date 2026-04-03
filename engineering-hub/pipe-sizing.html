@@ -181,9 +181,14 @@
         </select>
       </div>
       <div class="ps-field">
-        <label for="ps-flow">Flow Rate (L/s)</label>
-        <input type="number" id="ps-flow" value="1.5" min="0.01" step="0.01">
-        <span class="ps-hint">Volumetric flow rate</span>
+        <label for="ps-flow">Flow Rate</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="number" id="ps-flow" value="1.5" min="0.01" step="0.01" style="flex:1">
+          <select id="ps-flow-unit" style="width:auto;min-width:80px;padding:14px 8px">
+            <option value="Ls">L/s</option>
+            <option value="m3h">m³/h</option>
+          </select>
+        </div>
       </div>
       <div class="ps-field">
         <label for="ps-temp">Temperature (&deg;C)</label>
@@ -203,8 +208,14 @@
         <input type="number" id="ps-maxvel" value="1.5" min="0.1" step="0.1">
       </div>
       <div class="ps-field">
-        <label for="ps-maxdp">Max Pressure Drop (Pa/m)</label>
-        <input type="number" id="ps-maxdp" value="250" min="10" step="10">
+        <label for="ps-maxdp">Max Pressure Drop</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="number" id="ps-maxdp" value="250" min="1" step="1" style="flex:1">
+          <select id="ps-dp-unit" style="width:auto;min-width:90px;padding:14px 8px">
+            <option value="Pam">Pa/m</option>
+            <option value="barm">bar/m</option>
+          </select>
+        </div>
       </div>
       <div class="ps-field">
         <label for="ps-length">Pipe Length (m)</label>
@@ -372,11 +383,15 @@ function getFluidProps(fluid, T) {
    ===================================================== */
 function calculate() {
   var fluid = document.getElementById('ps-fluid').value;
-  var Q_Ls = parseFloat(document.getElementById('ps-flow').value);
+  var flowVal = parseFloat(document.getElementById('ps-flow').value);
+  var flowUnit = document.getElementById('ps-flow-unit').value;
+  var Q_Ls = flowUnit === 'm3h' ? flowVal / 3.6 : flowVal;
   var T = parseFloat(document.getElementById('ps-temp').value);
   var material = document.getElementById('ps-material').value;
   var maxVel = parseFloat(document.getElementById('ps-maxvel').value);
-  var maxDP = parseFloat(document.getElementById('ps-maxdp').value);
+  var dpVal = parseFloat(document.getElementById('ps-maxdp').value);
+  var dpUnit = document.getElementById('ps-dp-unit').value;
+  var maxDP = dpUnit === 'barm' ? dpVal * 100000 : dpVal; // convert bar/m to Pa/m
   var pipeLen = parseFloat(document.getElementById('ps-length').value);
 
   if (isNaN(Q_Ls) || Q_Ls <= 0 || isNaN(T) || isNaN(maxVel) || isNaN(maxDP) || isNaN(pipeLen)) return;
@@ -443,7 +458,7 @@ function calculate() {
   if (bestVelOnly && !bestVelOnly.ok) {
     bindingNote = '<div style="margin:12px 0;padding:12px 16px;background:#fff3e0;border-left:4px solid #EA580C;border-radius:8px;font-size:14px;color:#555">' +
       '<strong style="color:#EA580C">Note:</strong> ' + recommended.dn + ' meets your velocity limit (' + recommended.v.toFixed(2) + ' m/s &le; ' + maxVel + ' m/s) ' +
-      'but exceeds the pressure drop limit (' + recommended.dP.toFixed(0) + ' Pa/m vs ' + maxDP + ' Pa/m max). ' +
+      'but exceeds the pressure drop limit (' + (dpUnit==='barm' ? (recommended.dP/100000).toFixed(5)+' bar/m vs '+(maxDP/100000).toFixed(5)+' bar/m' : recommended.dP.toFixed(0)+' Pa/m vs '+maxDP+' Pa/m') + ' max). ' +
       'Increase your max dP limit or accept higher pump head to use a smaller pipe.</div>';
   }
 
@@ -463,7 +478,8 @@ function calculate() {
   addMetric('Recommended Size', recommended.dn, 'ID ' + recommended.id + ' mm', 'blue');
   if (bindingNote) metricsDiv.insertAdjacentHTML('beforeend', '<div style="grid-column:1/-1">' + bindingNote + '</div>');
   addMetric('Velocity', recommended.v.toFixed(2), 'm/s', 'green');
-  addMetric('Pressure Drop', recommended.dP.toFixed(1), 'Pa/m', 'orange');
+  var dpDisplay = dpUnit === 'barm' ? (recommended.dP / 100000).toFixed(5) + ' bar/m' : recommended.dP.toFixed(1) + ' Pa/m';
+  addMetric('Pressure Drop', dpUnit === 'barm' ? (recommended.dP / 100000).toFixed(5) : recommended.dP.toFixed(1), dpUnit === 'barm' ? 'bar/m' : 'Pa/m', 'orange');
   addMetric('Reynolds Number', Math.round(recommended.Re).toLocaleString(), recommended.regime, 'teal');
 
   // Comparison table
@@ -492,7 +508,21 @@ function calculate() {
 /* =====================================================
    EVENT LISTENERS
    ===================================================== */
-var inputs = document.querySelectorAll('#ps-fluid, #ps-flow, #ps-temp, #ps-material, #ps-maxvel, #ps-maxdp, #ps-length');
+var inputs = document.querySelectorAll('#ps-fluid, #ps-flow, #ps-flow-unit, #ps-temp, #ps-material, #ps-maxvel, #ps-maxdp, #ps-dp-unit, #ps-length');
+
+// Smart default swap when unit changes
+document.getElementById('ps-flow-unit').addEventListener('change', function() {
+  var inp = document.getElementById('ps-flow');
+  var v = parseFloat(inp.value);
+  if (this.value === 'm3h') { inp.value = (v * 3.6).toFixed(1); inp.step = '0.1'; }
+  else { inp.value = (v / 3.6).toFixed(2); inp.step = '0.01'; }
+});
+document.getElementById('ps-dp-unit').addEventListener('change', function() {
+  var inp = document.getElementById('ps-maxdp');
+  var v = parseFloat(inp.value);
+  if (this.value === 'barm') { inp.value = (v / 100000).toFixed(4); inp.step = '0.0001'; inp.min = '0.0001'; }
+  else { inp.value = (v * 100000).toFixed(0); inp.step = '10'; inp.min = '10'; }
+});
 inputs.forEach(function(el) {
   el.addEventListener('input', calculate);
   el.addEventListener('change', calculate);
