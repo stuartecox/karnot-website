@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cooling Tower Evaluator — NTU, Merkel Analysis &amp; Water Balance | Karnot Engineering Hub</title>
-<meta name="description" content="Free cooling tower evaluator. Calculate cooling capacity, approach, range, evaporation rate, drift loss, blowdown, make-up water, NTU and tower characteristic KaV/L using Merkel analysis.">
+<meta name="description" content="Free cooling tower evaluator. Calculate cooling capacity, water and chemical costs, fan energy, evaporation loss, NTU and Merkel analysis. See how much waste heat you could recover with a Karnot iHEAT heat pump.">
 <meta name="keywords" content="cooling tower calculator, NTU, Merkel analysis, KaV/L, evaporation rate, blowdown, make-up water, concentration ratio, cooling tower sizing, approach temperature, wet bulb">
 <meta name="author" content="Karnot Energy Solutions Inc.">
 <meta name="robots" content="index, follow">
@@ -133,6 +133,15 @@
 }
 .ct-cta-btn:hover{background:#c2410c;transform:translateY(-2px);color:#fff}
 
+.ct-recovery-panel{margin-top:28px;padding:28px;background:linear-gradient(135deg,#fff8f0,#fff);border:2px solid #EA580C;border-radius:16px}
+.ct-recovery-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.ct-recovery-header h3{font-size:20px;font-weight:700;color:#1d1d1f;margin:0}
+.ct-recovery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ct-recovery-stat{text-align:center;padding:16px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.ct-recovery-num{font-size:28px;font-weight:800;margin-bottom:4px}
+.ct-recovery-label{font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.5px}
+@media(max-width:640px){.ct-recovery-grid{grid-template-columns:1fr}}
+
 .rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
 .rv.visible{opacity:1;transform:translateY(0)}
 
@@ -202,6 +211,33 @@
         <label for="ct-drift">Drift Loss (%)</label>
         <input type="number" id="ct-drift" value="0.005" min="0.001" max="0.1" step="0.001">
         <span class="ct-hint">% of circ. flow (modern: 0.002-0.005)</span>
+      </div>
+    </div>
+
+    <h2 style="margin-top:32px"><i class="fas fa-coins"></i> Operating Costs</h2>
+    <div class="ct-fields">
+      <div class="ct-field">
+        <label for="ct-water-cost">Water Cost ($/m³)</label>
+        <input type="number" id="ct-water-cost" value="1.50" min="0.1" max="20" step="0.1">
+        <span class="ct-hint">Local utility rate</span>
+      </div>
+      <div class="ct-field">
+        <label for="ct-chem-cost">Chemical Treatment ($/m³ make-up)</label>
+        <input type="number" id="ct-chem-cost" value="0.80" min="0" max="10" step="0.1">
+        <span class="ct-hint">Biocide, scale inhibitor, corrosion</span>
+      </div>
+      <div class="ct-field">
+        <label for="ct-fan-kw">Fan Motor Power (kW)</label>
+        <input type="number" id="ct-fan-kw" value="5.5" min="0.5" max="200" step="0.5">
+        <span class="ct-hint">Total fan power consumption</span>
+      </div>
+      <div class="ct-field">
+        <label for="ct-elec-cost">Electricity Cost ($/kWh)</label>
+        <input type="number" id="ct-elec-cost" value="0.12" min="0.01" max="1" step="0.01">
+      </div>
+      <div class="ct-field">
+        <label for="ct-hours">Operating Hours (h/year)</label>
+        <input type="number" id="ct-hours" value="6000" min="100" max="8760" step="100">
       </div>
     </div>
 
@@ -424,13 +460,94 @@ function calculate() {
   addRow('Tower Characteristic (KaV/L)', KaVL.toFixed(3), '');
   addRow('Altitude', alt, 'm');
 
+  // --- OPERATING COSTS ---
+  var waterCost = parseFloat(document.getElementById('ct-water-cost').value) || 1.50;
+  var chemCost = parseFloat(document.getElementById('ct-chem-cost').value) || 0.80;
+  var fanKW = parseFloat(document.getElementById('ct-fan-kw').value) || 5.5;
+  var elecCost = parseFloat(document.getElementById('ct-elec-cost').value) || 0.12;
+  var hours = parseFloat(document.getElementById('ct-hours').value) || 6000;
+
+  var annualMakeup_m3 = makeup_Lh * hours / 1000;
+  var annualEvap_m3 = evap_Lh * hours / 1000;
+  var annualWaterCost = annualMakeup_m3 * waterCost;
+  var annualChemCost = annualMakeup_m3 * chemCost;
+  var annualFanEnergy = fanKW * hours;
+  var annualFanCost = annualFanEnergy * elecCost;
+  var annualTotalCost = annualWaterCost + annualChemCost + annualFanCost;
+  var wasteHeatAnnual = Q_kW * hours; // kWh thrown away
+
+  addRow('', '', '');
+  addRow('<strong>ANNUAL OPERATING COSTS</strong>', '', '');
+  addRow('Operating Hours', hours.toLocaleString(), 'h/year');
+  addRow('Annual Make-up Water', annualMakeup_m3.toFixed(0), 'm&sup3;/year');
+  addRow('Annual Evaporation Loss', annualEvap_m3.toFixed(0), 'm&sup3;/year');
+  addRow('Water Cost', '$' + annualWaterCost.toLocaleString(undefined,{maximumFractionDigits:0}), '/year');
+  addRow('Chemical Treatment Cost', '$' + annualChemCost.toLocaleString(undefined,{maximumFractionDigits:0}), '/year');
+  addRow('Fan Energy', annualFanEnergy.toLocaleString() + ' kWh', '/year');
+  addRow('Fan Electricity Cost', '$' + annualFanCost.toLocaleString(undefined,{maximumFractionDigits:0}), '/year');
+  addRow('<strong>Total Annual Cost</strong>', '<strong style="color:#ff3b30">$' + annualTotalCost.toLocaleString(undefined,{maximumFractionDigits:0}) + '</strong>', '/year');
+  addRow('', '', '');
+  addRow('<strong>WASTE HEAT</strong>', '', '');
+  addRow('Heat Rejected to Atmosphere', wasteHeatAnnual.toLocaleString() + ' kWh', '/year');
+  addRow('Heat Rejected to Atmosphere', (wasteHeatAnnual/1000).toFixed(0) + ' MWh', '/year');
+
+  // --- KARNOT HEAT RECOVERY PANEL ---
+  var recoveryPanel = document.getElementById('ct-recovery');
+  if (!recoveryPanel) {
+    recoveryPanel = document.createElement('div');
+    recoveryPanel.id = 'ct-recovery';
+    recoveryPanel.className = 'ct-recovery-panel';
+    document.getElementById('ct-results').appendChild(recoveryPanel);
+  }
+
+  var hpCOP = 4.5;
+  var heatRecoverable = wasteHeatAnnual * 0.70; // 70% practical recovery
+  var hpElecNeeded = heatRecoverable / hpCOP;
+  var hpElecCost = hpElecNeeded * elecCost;
+  var waterSaved = annualEvap_m3 * 0.70;
+  var waterSavings = waterSaved * waterCost;
+  var chemSavings = waterSaved * chemCost;
+  var totalSavings = annualWaterCost * 0.70 + annualChemCost * 0.70 + annualFanCost * 0.50 - hpElecCost;
+  if (totalSavings < 0) totalSavings = 0;
+
+  recoveryPanel.innerHTML =
+    '<div class="ct-recovery-header">' +
+      '<i class="fas fa-fire-flame-curved" style="color:#EA580C;font-size:24px"></i>' +
+      '<h3>Stop Throwing Heat Away &mdash; Recover It with Karnot iHEAT</h3>' +
+    '</div>' +
+    '<p style="color:#555;margin-bottom:20px">Your cooling tower rejects <strong>' + (wasteHeatAnnual/1000).toFixed(0) + ' MWh/year</strong> of heat into the atmosphere. ' +
+    'A Karnot iHEAT heat pump can recover up to 70% of this waste heat for hot water, process heating, or building heating &mdash; ' +
+    'while simultaneously reducing your cooling tower water and chemical costs.</p>' +
+    '<div class="ct-recovery-grid">' +
+      '<div class="ct-recovery-stat">' +
+        '<div class="ct-recovery-num" style="color:#34c759">' + (heatRecoverable/1000).toFixed(0) + ' MWh</div>' +
+        '<div class="ct-recovery-label">Recoverable Heat / Year</div>' +
+      '</div>' +
+      '<div class="ct-recovery-stat">' +
+        '<div class="ct-recovery-num" style="color:#0097a7">' + waterSaved.toFixed(0) + ' m&sup3;</div>' +
+        '<div class="ct-recovery-label">Water Saved / Year</div>' +
+      '</div>' +
+      '<div class="ct-recovery-stat">' +
+        '<div class="ct-recovery-num" style="color:#EA580C">$' + totalSavings.toLocaleString(undefined,{maximumFractionDigits:0}) + '</div>' +
+        '<div class="ct-recovery-label">Net Annual Savings</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="margin-top:16px;padding:16px;background:rgba(234,88,12,.05);border-radius:12px;border-left:4px solid #EA580C">' +
+      '<p style="margin:0;font-size:14px;color:#555"><strong>How it works:</strong> Instead of rejecting ' + Q_kW.toFixed(0) + ' kW through evaporative cooling, ' +
+      'a Karnot iHEAT R290 heat pump (COP ' + hpCOP + ') absorbs the condenser heat and upgrades it to useful temperatures (up to 80&deg;C). ' +
+      'You get free hot water while reducing tower load, water consumption, chemical use, and fan energy.</p>' +
+    '</div>' +
+    '<a href="../contact.html?intent=heat_recovery&product=iHEAT&source=cooling-tower-calc" class="ct-cta-btn" style="display:inline-block;margin-top:20px">' +
+      'Get a Heat Recovery Assessment <i class="fas fa-arrow-right"></i>' +
+    '</a>';
+
   document.getElementById('ct-results').classList.add('show');
 }
 
 /* =====================================================
    EVENTS
    ===================================================== */
-var inputs = document.querySelectorAll('#ct-twb, #ct-thot, #ct-tcold, #ct-flow, #ct-alt, #ct-cycles, #ct-drift');
+var inputs = document.querySelectorAll('#ct-twb, #ct-thot, #ct-tcold, #ct-flow, #ct-alt, #ct-cycles, #ct-drift, #ct-water-cost, #ct-chem-cost, #ct-fan-kw, #ct-elec-cost, #ct-hours');
 inputs.forEach(function(el) {
   el.addEventListener('input', calculate);
   el.addEventListener('change', calculate);
