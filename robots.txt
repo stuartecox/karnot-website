@@ -5,6 +5,9 @@ User-agent: *
 Allow: /
 Disallow: /video/
 Disallow: /.claude/
+Disallow: /m/
+Disallow: /products-1
+Disallow: /f/
 
 # AI Answer Engine Crawlers — explicitly allowed
 User-agent: ClaudeBot
