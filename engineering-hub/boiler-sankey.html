@@ -230,8 +230,10 @@
     <h2><i class="fas fa-chart-bar"></i> Energy Flow Diagram</h2>
 
     <div class="sk-tabs" id="sk-tabs">
-      <div class="sk-tab active" data-tab="coil"><i class="fas fa-fire"></i> Steam Boiler + Coil</div>
-      <div class="sk-tab" data-tab="sparging"><i class="fas fa-fire"></i> Steam Boiler + Sparging</div>
+      <div class="sk-tab active" data-tab="coil"><i class="fas fa-fire"></i> Diesel + Coil</div>
+      <div class="sk-tab" data-tab="sparging"><i class="fas fa-fire"></i> Diesel + Sparging</div>
+      <div class="sk-tab" data-tab="electric"><i class="fas fa-bolt"></i> Electric Boiler</div>
+      <div class="sk-tab" data-tab="propane"><i class="fas fa-gas-pump"></i> LPG / Propane</div>
       <div class="sk-tab" data-tab="iheat"><i class="fas fa-leaf"></i> Karnot iHEAT R290</div>
     </div>
 
@@ -252,7 +254,7 @@
 
     <div class="sk-cost-fields">
       <div class="sk-field">
-        <label for="sk-fuel-cost">Diesel Fuel Cost (PHP/litre)</label>
+        <label for="sk-fuel-cost" id="sk-fuel-label">Diesel Fuel Cost (₱/litre)</label>
         <input type="number" id="sk-fuel-cost" value="72" min="1" step="1">
       </div>
       <div class="sk-field">
@@ -382,6 +384,12 @@ var defaults = {
   sparging: {
     flueGas: 11, radiation: 3, distribution: 5, steamTrap: 4, sparging: 17
   },
+  electric: {
+    standby: 5, distribution: 3, elementScale: 2
+  },
+  propane: {
+    flueGas: 10, radiation: 3, distribution: 5, coilHX: 8, condensate: 8
+  },
   iheat: {
     pipeLoss: 5
   }
@@ -391,6 +399,8 @@ var defaults = {
 var sliders = {
   coil: Object.assign({}, defaults.coil),
   sparging: Object.assign({}, defaults.sparging),
+  electric: Object.assign({}, defaults.electric),
+  propane: Object.assign({}, defaults.propane),
   iheat: Object.assign({}, defaults.iheat)
 };
 
@@ -409,6 +419,18 @@ var sliderDefs = {
     {key:'distribution', label:'Distribution Loss', min:0, max:10, unit:'%'},
     {key:'steamTrap', label:'Steam Trap Loss', min:0, max:9, unit:'%'},
     {key:'sparging', label:'Sparging Loss', min:12, max:22, unit:'%'}
+  ],
+  electric: [
+    {key:'standby', label:'Standby / Cycling Loss', min:0, max:10, unit:'%'},
+    {key:'distribution', label:'Distribution Loss', min:0, max:8, unit:'%'},
+    {key:'elementScale', label:'Element Scaling Loss', min:0, max:7, unit:'%'}
+  ],
+  propane: [
+    {key:'flueGas', label:'Flue Gas Loss', min:5, max:15, unit:'%'},
+    {key:'radiation', label:'Radiation Loss', min:0, max:8, unit:'%'},
+    {key:'distribution', label:'Distribution Loss', min:0, max:10, unit:'%'},
+    {key:'coilHX', label:'Coil HX Loss', min:3, max:13, unit:'%'},
+    {key:'condensate', label:'Condensate Loss', min:3, max:13, unit:'%'}
   ],
   iheat: [
     {key:'pipeLoss', label:'Pipe Distribution Loss', min:0, max:10, unit:'%'}
@@ -496,6 +518,74 @@ function buildSpargingData(s) {
   };
 }
 
+function buildElectricData(s) {
+  var elecIn = 100;
+  var standby = s.standby;
+  var dist = s.distribution;
+  var scale = s.elementScale;
+  var useful = elecIn - standby - dist - scale;
+  if (useful < 0) useful = 0;
+
+  return {
+    efficiency: useful,
+    nodes: [
+      {name: 'Electricity Input', fixedValue: elecIn},
+      {name: 'Standby / Cycling Loss', fixedValue: standby},
+      {name: 'Element Heating', fixedValue: elecIn - standby},
+      {name: 'Distribution Loss', fixedValue: dist},
+      {name: 'Element Scaling Loss', fixedValue: scale},
+      {name: 'Useful Heat', fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 1, value: Math.max(standby,0.5)},
+      {source: 0, target: 2, value: Math.max(elecIn - standby,0.5)},
+      {source: 2, target: 3, value: Math.max(dist,0.5)},
+      {source: 2, target: 4, value: Math.max(scale,0.5)},
+      {source: 2, target: 5, value: Math.max(useful,0.5)}
+    ],
+    colors: [C.blue, C.red, C.blue, C.red, C.red, C.green]
+  };
+}
+
+function buildPropaneData(s) {
+  var fuel = 100;
+  var flue = s.flueGas;
+  var rad = s.radiation;
+  var steamGen = fuel - flue - rad;
+  var dist = s.distribution;
+  var steamToCoil = steamGen - dist;
+  var coilLoss = s.coilHX;
+  var condLoss = s.condensate;
+  var useful = steamToCoil - coilLoss - condLoss;
+  if (useful < 0) useful = 0;
+
+  return {
+    efficiency: useful,
+    nodes: [
+      {name: 'LPG/Propane Input', fixedValue: fuel},
+      {name: 'Flue Gas Loss', fixedValue: flue},
+      {name: 'Radiation Loss', fixedValue: rad},
+      {name: 'Steam Generated', fixedValue: steamGen},
+      {name: 'Distribution Loss', fixedValue: dist},
+      {name: 'Steam to Coil HX', fixedValue: steamToCoil},
+      {name: 'Coil HX Loss', fixedValue: coilLoss},
+      {name: 'Condensate Loss', fixedValue: condLoss},
+      {name: 'Useful Heat', fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 1, value: Math.max(flue,0.5)},
+      {source: 0, target: 2, value: Math.max(rad,0.5)},
+      {source: 0, target: 3, value: Math.max(steamGen,0.5)},
+      {source: 3, target: 4, value: Math.max(dist,0.5)},
+      {source: 3, target: 5, value: Math.max(steamToCoil,0.5)},
+      {source: 5, target: 6, value: Math.max(coilLoss,0.5)},
+      {source: 5, target: 7, value: Math.max(condLoss,0.5)},
+      {source: 5, target: 8, value: Math.max(useful,0.5)}
+    ],
+    colors: ['#e67e22', C.red, C.red, '#e67e22', C.red, '#e67e22', C.red, C.red, C.green]
+  };
+}
+
 function buildIheatData(s) {
   var elec = 100;
   var ambient = 300;
@@ -526,6 +616,8 @@ function buildIheatData(s) {
 function getData() {
   if (activeTab === 'coil') return buildCoilData(sliders.coil);
   if (activeTab === 'sparging') return buildSpargingData(sliders.sparging);
+  if (activeTab === 'electric') return buildElectricData(sliders.electric);
+  if (activeTab === 'propane') return buildPropaneData(sliders.propane);
   return buildIheatData(sliders.iheat);
 }
 
@@ -708,17 +800,33 @@ function updateCostResults() {
     eff = data.efficiency / 100;
   }
 
-  var DIESEL_KWH_PER_LITRE = 10.8;
-  var DIESEL_CO2_KG_PER_LITRE = 2.68;
   var GRID_CO2_KG_PER_KWH = 0.5;
   var COP = 4.0;
 
+  // Fuel-specific conversion factors
+  var fuelType = activeTab;
+  if (fuelType === 'iheat') fuelType = 'coil'; // compare against diesel coil
+  var kwhPerUnit, co2PerUnit, fuelLabel;
+  if (fuelType === 'electric') {
+    kwhPerUnit = 1.0;       // 1 kWh per kWh
+    co2PerUnit = 0.5;       // grid emission factor kg CO2/kWh
+    fuelLabel = 'kWh';
+  } else if (fuelType === 'propane') {
+    kwhPerUnit = 7.1;       // kWh per litre of LPG
+    co2PerUnit = 1.51;      // kg CO2 per litre LPG
+    fuelLabel = 'litres LPG';
+  } else {
+    kwhPerUnit = 10.8;      // kWh per litre diesel
+    co2PerUnit = 2.68;      // kg CO2 per litre diesel
+    fuelLabel = 'litres diesel';
+  }
+
   // Current system
   var monthlyFuelCost = litres * fuelCost;
-  var fuelEnergy = litres * DIESEL_KWH_PER_LITRE;
+  var fuelEnergy = litres * kwhPerUnit;
   var usefulHeat = fuelEnergy * eff;
   var costPerKwh = usefulHeat > 0 ? monthlyFuelCost / usefulHeat : 0;
-  var co2Month = litres * DIESEL_CO2_KG_PER_LITRE / 1000;
+  var co2Month = litres * co2PerUnit / 1000;
 
   // iHEAT
   var ihElecNeeded = usefulHeat / COP;
@@ -750,6 +858,16 @@ function updateCostResults() {
   document.getElementById('sk-save-month').textContent = '\u20B1' + fmt(monthlySaving);
   document.getElementById('sk-save-year').textContent = '\u20B1' + fmt(annualSaving);
   document.getElementById('sk-save-co2').textContent = fmt1(co2Reduction);
+
+  // Update fuel cost label based on active scenario
+  var labelEl = document.getElementById('sk-fuel-label');
+  if (activeTab === 'electric') {
+    labelEl.textContent = 'Electricity Cost (\u20B1/kWh)';
+  } else if (activeTab === 'propane') {
+    labelEl.textContent = 'LPG/Propane Cost (\u20B1/litre)';
+  } else {
+    labelEl.textContent = 'Diesel Fuel Cost (\u20B1/litre)';
+  }
 }
 
 /* =====================================================
