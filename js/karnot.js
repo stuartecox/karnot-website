@@ -43,6 +43,7 @@ function kLink(page){ return KARNOT_BASE + page; }
       <a href="' + kLink('compliance.html') + '"' + active('compliance') + ' class="nav-hide-tablet">Compliance</a>\
       <a href="' + kLink('blog/') + '"' + active('blog') + ' class="nav-hide-tablet">Blog</a>\
       <a href="' + kLink('about.html') + '"' + active('about') + ' class="nav-hide-tablet">About</a>\
+      <a href="' + kLink('hiring.html') + '"' + active('hiring') + ' class="nav-hide-tablet">Hiring</a>\
       <a href="' + kLink('contact.html') + '"' + active('contact') + '>Contact</a>\
       <a href="' + kLink('savings.html') + '" class="nav-cta">Calculate Savings</a>\
     </div>\
@@ -61,6 +62,7 @@ function kLink(page){ return KARNOT_BASE + page; }
     <a href="' + kLink('imesh.html') + '">iMESH</a>\
     <a href="' + kLink('nearfarm.html') + '">NearFarm</a>\
     <a href="' + kLink('about.html') + '">About</a>\
+    <a href="' + kLink('hiring.html') + '">Hiring</a>\
     <a href="' + kLink('contact.html') + '">Contact</a>\
     <a href="' + kLink('savings.html') + '" class="btn-orange" style="margin-top:12px">Calculate Savings</a>\
   </div>';
