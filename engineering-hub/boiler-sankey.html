@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Boiler Energy Flow Sankey Diagram — Free Interactive Tool | Karnot Engineering Hub</title>
+<meta name="description" content="Visualise your steam boiler efficiency losses interactively. Compare diesel boiler vs iHEAT R290 heat pump. Free tool, no login required.">
+<meta name="keywords" content="boiler sankey diagram, boiler efficiency, steam boiler losses, heat pump COP, boiler energy flow, Karnot iHEAT, R290 heat pump, sparging losses, coil heat exchanger, process heating efficiency">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/boiler-sankey">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/boiler-sankey">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/boiler-sankey">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/boiler-sankey">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/boiler-sankey">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Boiler Energy Flow Sankey Diagram — Free Interactive Tool">
+<meta property="og:description" content="Visualise your steam boiler efficiency losses interactively. Compare diesel boiler vs iHEAT R290 heat pump. Free tool, no login required.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/boiler-sankey">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Boiler Energy Flow Sankey Diagram — Free Interactive Tool | Karnot Engineering Hub">
+<meta name="twitter:description" content="Visualise your steam boiler efficiency losses interactively. Compare diesel boiler vs iHEAT R290 heat pump. Free tool, no login required.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Boiler Sankey Diagram","item":"https://karnot.com/engineering-hub/boiler-sankey"}]},
+    {"@type":"WebApplication","name":"Boiler Energy Flow Sankey Diagram","url":"https://karnot.com/engineering-hub/boiler-sankey","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Interactive Sankey diagram showing energy flows and losses in steam boiler systems versus Karnot iHEAT R290 heat pump. Adjust loss percentages with sliders and compare monthly costs.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is a boiler Sankey diagram?","acceptedAnswer":{"@type":"Answer","text":"A Sankey diagram is a flow diagram where the width of each arrow is proportional to the energy it represents. For a boiler system, it visually shows how input fuel energy splits into useful heat and various losses such as flue gas, radiation, distribution, and heat exchanger losses. This makes it easy to identify the biggest efficiency opportunities."}},
+      {"@type":"Question","name":"What is a typical steam boiler efficiency?","acceptedAnswer":{"@type":"Answer","text":"A well-maintained fire-tube diesel boiler typically achieves 82 to 88 percent combustion efficiency. However, the useful heat delivered to the process is much lower once you account for distribution losses, condensate losses, and heat exchanger inefficiencies. Coil-based systems typically deliver 50 to 60 percent of the input fuel energy as useful heat. Direct steam injection (sparging) systems can be even lower at 40 to 50 percent."}},
+      {"@type":"Question","name":"Why is steam sparging so inefficient?","acceptedAnswer":{"@type":"Answer","text":"Steam sparging injects live steam directly into a liquid bath. While this sounds efficient, it causes significant losses: steam traps leak and fail (typically 4 to 10 percent loss), direct injection creates violent turbulence that drives moisture and heat out of open tanks, and the total system efficiency including generation and distribution losses is typically only 40 to 50 percent. The evaporative and splash losses from sparging are the largest single loss in many food and beverage plants."}},
+      {"@type":"Question","name":"How does a heat pump COP of 4.0 mean 390% efficiency?","acceptedAnswer":{"@type":"Answer","text":"A heat pump does not create energy from nothing. It uses a small amount of electricity to move a much larger amount of heat from a low-temperature source (ambient air or waste heat) to a higher temperature. With a COP of 4.0, for every 1 kWh of electricity consumed, the heat pump delivers 4 kWh of heat: 1 kWh from electricity plus 3 kWh absorbed from the ambient environment. After a small distribution loss, this gives approximately 390 percent net useful heat relative to the electrical input."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   BOILER SANKEY — sk- prefix
+   =========================== */
+
+.sk-hero{
+  background:linear-gradient(135deg,rgba(28,28,30,.94),rgba(50,30,10,.88),rgba(234,88,12,.25));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.sk-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.sk-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.sk-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.sk-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+.sk-breadcrumb{font-size:13px;margin-bottom:12px;opacity:.78;position:relative}
+.sk-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.sk-breadcrumb a:hover{text-decoration:underline}
+.sk-breadcrumb span{margin:0 6px;opacity:.6}
+
+.sk-wrap{max-width:1140px;margin:0 auto;padding:0 20px 80px}
+.sk-card{background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(0,0,0,.07);padding:36px;margin-top:32px}
+.sk-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.sk-card h2 i{color:#EA580C;font-size:20px}
+
+/* Tabs */
+.sk-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
+.sk-tab{
+  padding:12px 20px;border-radius:10px;border:2px solid #e5e5e7;
+  font-size:14px;font-weight:700;cursor:pointer;background:#fafafa;
+  color:#6e6e73;transition:all .2s;white-space:nowrap
+}
+.sk-tab:hover{border-color:#EA580C;color:#EA580C}
+.sk-tab.active{background:#EA580C;color:#fff;border-color:#EA580C}
+.sk-tab.active-green{background:#16a34a;color:#fff;border-color:#16a34a}
+
+/* Sankey container */
+.sk-sankey-wrap{
+  position:relative;min-height:320px;border:1.5px solid #e5e5e7;
+  border-radius:14px;background:#fafafa;overflow:hidden;margin-bottom:24px
+}
+.sk-sankey-wrap svg{width:100%;display:block}
+.sk-sankey-wrap .sk-eff-badge{
+  position:absolute;top:16px;right:16px;
+  background:rgba(0,0,0,.75);color:#fff;
+  padding:8px 16px;border-radius:8px;
+  font-size:15px;font-weight:700
+}
+
+/* Sliders */
+.sk-sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;margin-bottom:28px}
+.sk-slider-group{display:flex;flex-direction:column}
+.sk-slider-group label{font-size:13px;font-weight:600;color:#444;margin-bottom:4px;display:flex;justify-content:space-between}
+.sk-slider-group label .sk-val{color:#EA580C;font-weight:700}
+.sk-slider-group input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:6px;
+  border-radius:3px;background:#e5e5e7;outline:none;cursor:pointer
+}
+.sk-slider-group input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:18px;height:18px;
+  border-radius:50%;background:#EA580C;cursor:pointer;border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.2)
+}
+
+/* Cost inputs */
+.sk-cost-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px 22px;margin-bottom:24px}
+.sk-field{display:flex;flex-direction:column}
+.sk-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.sk-field input{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.sk-field input:focus{outline:none;border-color:#EA580C;box-shadow:0 0 0 3px rgba(234,88,12,.12)}
+.sk-field .sk-hint{font-size:11px;color:#999;margin-top:3px}
+
+/* Results panels */
+.sk-results-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.sk-result-panel{border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.sk-result-panel h3{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sk-result-panel h3 i{font-size:18px}
+
+.sk-result-panel.current{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1.5px solid rgba(234,88,12,.35)}
+.sk-result-panel.current h3{color:#9a3412}
+.sk-result-panel.iheat{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid rgba(34,197,94,.4)}
+.sk-result-panel.iheat h3{color:#166534}
+
+.sk-line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:14px;color:#444}
+.sk-line:last-child{border-bottom:none}
+.sk-line-val{font-weight:700;color:#1d1d1f}
+
+/* Savings row */
+.sk-savings-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.sk-saving-box{
+  border-radius:14px;padding:22px 16px;text-align:center;
+  background:linear-gradient(135deg,#fff7ed,#fed7aa);border:2px solid #EA580C
+}
+.sk-saving-box .sk-saving-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#9a3412;margin-bottom:6px}
+.sk-saving-box .sk-saving-value{font-size:28px;font-weight:800;color:#EA580C;line-height:1}
+.sk-saving-box .sk-saving-unit{font-size:12px;color:#9a3412;margin-top:4px}
+
+/* Warning badge */
+.sk-warning{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#fef2f2;color:#dc2626;border:1px solid #fecaca;
+  border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;margin-top:8px
+}
+
+/* FAQ */
+.sk-faq-section{padding:60px 0;max-width:1000px;margin:0 auto}
+.sk-faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.sk-faq-item{border-bottom:1px solid #d2d2d7}
+.sk-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#1d1d1f}
+.sk-faq-item summary::-webkit-details-marker{display:none}
+.sk-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#EA580C;transition:transform .3s}
+.sk-faq-item[open] summary::after{content:'\2212'}
+.sk-faq-item .sk-faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+/* CTA */
+.sk-cta{
+  background:linear-gradient(135deg,#003c5c,#0097a7);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.sk-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.sk-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.sk-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#EA580C;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.sk-cta-btn:hover{background:#c2410c;transform:translateY(-2px);color:#fff}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+/* Sankey node labels */
+.sk-node-label{font-size:12px;font-weight:700;fill:#1d1d1f;pointer-events:none}
+.sk-node-value{font-size:11px;font-weight:600;fill:#6e6e73;pointer-events:none}
+
+/* Tooltip */
+.sk-tooltip{
+  position:absolute;background:rgba(0,0,0,.85);color:#fff;
+  padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;
+  pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;
+  white-space:nowrap
+}
+
+@media(max-width:768px){
+  .sk-results-grid{grid-template-columns:1fr}
+  .sk-savings-row{grid-template-columns:1fr}
+  .sk-tabs{gap:4px}
+  .sk-tab{padding:10px 14px;font-size:13px}
+}
+@media(max-width:640px){
+  .sk-card{padding:22px 16px}
+  .sk-sliders{grid-template-columns:1fr}
+  .sk-cost-fields{grid-template-columns:1fr}
+  .sk-saving-box .sk-saving-value{font-size:22px}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<section class="sk-hero">
+  <div class="sk-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Boiler Sankey Diagram
+  </div>
+  <h1>Boiler Energy Flow Sankey Diagram</h1>
+  <p>A typical diesel-fired steam boiler converts only 45-55% of fuel energy into useful process heat. The rest is lost to flue gas, radiation, distribution, and heat exchanger inefficiencies. This interactive Sankey diagram lets you visualise exactly where every percentage point goes.</p>
+  <p class="answer-first">Compare three scenarios side by side: steam boiler with coil heat exchanger, steam boiler with direct sparging, and the Karnot iHEAT R290 heat pump delivering up to 390% net efficiency.</p>
+</section>
+
+<div class="sk-wrap">
+
+  <!-- SANKEY DIAGRAM CARD -->
+  <div class="sk-card rv">
+    <h2><i class="fas fa-chart-bar"></i> Energy Flow Diagram</h2>
+
+    <div class="sk-tabs" id="sk-tabs">
+      <div class="sk-tab active" data-tab="coil"><i class="fas fa-fire"></i> Steam Boiler + Coil</div>
+      <div class="sk-tab" data-tab="sparging"><i class="fas fa-fire"></i> Steam Boiler + Sparging</div>
+      <div class="sk-tab" data-tab="iheat"><i class="fas fa-leaf"></i> Karnot iHEAT R290</div>
+    </div>
+
+    <div class="sk-sankey-wrap" id="sk-sankey-wrap">
+      <div class="sk-tooltip" id="sk-tooltip"></div>
+      <div class="sk-eff-badge" id="sk-eff-badge">Useful Heat: 55%</div>
+      <svg id="sk-sankey-svg"></svg>
+    </div>
+
+    <!-- Sliders -->
+    <h3 style="font-size:16px;font-weight:700;color:#1d1d1f;margin-bottom:12px"><i class="fas fa-sliders" style="color:#EA580C;margin-right:6px"></i> Adjust Loss Parameters</h3>
+    <div class="sk-sliders" id="sk-sliders"></div>
+  </div>
+
+  <!-- COST & COMPARISON CARD -->
+  <div class="sk-card rv">
+    <h2><i class="fas fa-calculator"></i> Cost Comparison</h2>
+
+    <div class="sk-cost-fields">
+      <div class="sk-field">
+        <label for="sk-fuel-cost">Diesel Fuel Cost (PHP/litre)</label>
+        <input type="number" id="sk-fuel-cost" value="72" min="1" step="1">
+      </div>
+      <div class="sk-field">
+        <label for="sk-elec-cost">Electricity Cost (PHP/kWh)</label>
+        <input type="number" id="sk-elec-cost" value="10" min="1" step="0.5">
+      </div>
+      <div class="sk-field">
+        <label for="sk-fuel-litres">Monthly Fuel Consumption (litres/month)</label>
+        <input type="number" id="sk-fuel-litres" value="5000" min="100" step="100">
+      </div>
+    </div>
+
+    <div class="sk-results-grid">
+      <!-- Current system -->
+      <div class="sk-result-panel current">
+        <h3><i class="fas fa-fire" style="color:#EA580C"></i> Your Current System</h3>
+        <div class="sk-line"><span>Monthly fuel cost</span><span class="sk-line-val" id="sk-r-fuel-cost">--</span></div>
+        <div class="sk-line"><span>Fuel energy content</span><span class="sk-line-val" id="sk-r-fuel-energy">--</span></div>
+        <div class="sk-line"><span>Useful heat delivered</span><span class="sk-line-val" id="sk-r-useful-heat">--</span></div>
+        <div class="sk-line"><span>Cost per kWh heat</span><span class="sk-line-val" id="sk-r-cost-kwh">--</span></div>
+        <div class="sk-line"><span>CO2e per month</span><span class="sk-line-val" id="sk-r-co2">--</span></div>
+      </div>
+      <!-- iHEAT -->
+      <div class="sk-result-panel iheat">
+        <h3><i class="fas fa-leaf" style="color:#16a34a"></i> With Karnot iHEAT R290</h3>
+        <div class="sk-line"><span>Same useful heat</span><span class="sk-line-val" id="sk-r-ih-heat">--</span></div>
+        <div class="sk-line"><span>Electricity needed</span><span class="sk-line-val" id="sk-r-ih-elec">--</span></div>
+        <div class="sk-line"><span>Electricity cost</span><span class="sk-line-val" id="sk-r-ih-cost">--</span></div>
+        <div class="sk-line"><span>Cost per kWh heat</span><span class="sk-line-val" id="sk-r-ih-cpkwh">--</span></div>
+        <div class="sk-line"><span>CO2e per month</span><span class="sk-line-val" id="sk-r-ih-co2">--</span></div>
+      </div>
+    </div>
+
+    <!-- Savings -->
+    <div class="sk-savings-row">
+      <div class="sk-saving-box">
+        <div class="sk-saving-label">Monthly Saving</div>
+        <div class="sk-saving-value" id="sk-save-month">--</div>
+        <div class="sk-saving-unit">PHP</div>
+      </div>
+      <div class="sk-saving-box">
+        <div class="sk-saving-label">Annual Saving</div>
+        <div class="sk-saving-value" id="sk-save-year">--</div>
+        <div class="sk-saving-unit">PHP</div>
+      </div>
+      <div class="sk-saving-box">
+        <div class="sk-saving-label">CO2e Reduction</div>
+        <div class="sk-saving-value" id="sk-save-co2">--</div>
+        <div class="sk-saving-unit">tonnes/year</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:28px">
+      <a href="../contact.html?intent=boiler_replacement&product=iHEAT" class="sk-cta-btn"><i class="fas fa-arrow-right"></i> Get a Detailed Engineering Report</a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sk-faq-section rv">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="sk-faq-item">
+      <summary>What is a boiler Sankey diagram and how do I read it?</summary>
+      <div class="sk-faq-answer">A Sankey diagram is an energy flow visualisation where the width of each band is proportional to the energy it carries. Fuel energy enters on the left and splits into multiple streams as it moves right. Green bands show useful heat reaching your process; red bands show losses. The wider a red band, the larger that loss. Use the sliders to adjust each loss and see how overall efficiency changes in real time.</div>
+    </details>
+    <details class="sk-faq-item">
+      <summary>What is typical steam boiler delivered efficiency?</summary>
+      <div class="sk-faq-answer">While boiler combustion efficiency is often quoted at 85-88%, the delivered efficiency to the process is much lower. A coil heat exchanger system typically delivers 50-60% of input fuel energy as useful heat. Direct steam injection (sparging) systems are worse at 40-50%, primarily due to evaporative and splash losses from open tanks, plus steam trap failures.</div>
+    </details>
+    <details class="sk-faq-item">
+      <summary>Why does sparging have such high losses?</summary>
+      <div class="sk-faq-answer">Steam sparging injects live steam directly into a liquid bath. This creates violent turbulence that drives moisture and heat out of open tanks through evaporation and splashing. Steam traps in the distribution system leak and fail at rates of 4-10%. Combined with generation and distribution losses, sparging systems typically waste 50-60% of the fuel energy input. The evaporative losses alone can account for 15-20% of total input energy.</div>
+    </details>
+    <details class="sk-faq-item">
+      <summary>How does a heat pump achieve COP 4.0 (390% net efficiency)?</summary>
+      <div class="sk-faq-answer">A heat pump uses electricity to move heat from a low-temperature source to a higher temperature, rather than generating heat by burning fuel. With a COP of 4.0, every 1 kWh of electricity moves 3 kWh of ambient heat plus the 1 kWh of electrical energy, delivering 4 kWh total. After a small 2-3% distribution loss, the net useful heat is approximately 390% of the electrical input. The Karnot iHEAT uses R290 (propane) refrigerant, which has a GWP of just 3, making it both energy-efficient and climate-friendly.</div>
+    </details>
+  </div>
+
+  <!-- CTA -->
+  <div class="sk-cta rv">
+    <h2>Ready to Eliminate Boiler Losses?</h2>
+    <p>The Karnot iHEAT R290 heat pump replaces your entire steam system with a single efficient unit. No flue gas, no steam traps, no condensate losses.</p>
+    <a href="../contact.html?intent=boiler_replacement&product=iHEAT" class="sk-cta-btn"><i class="fas fa-arrow-right"></i> Get a Detailed Engineering Report</a>
+  </div>
+
+</div>
+
+</main>
+
+<div id="karnot-footer"></div>
+
+<script src="../js/karnot.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   COLOR PALETTE
+   ===================================================== */
+var C = {
+  red:     '#ff3b30',
+  darkRed: '#c0392b',
+  orange:  '#EA580C',
+  green:   '#34c759',
+  brightGreen: '#22c55e',
+  blue:    '#007aff',
+  teal:    '#0097a7',
+  grey:    '#86868b'
+};
+
+/* =====================================================
+   SCENARIO DATA DEFINITIONS
+   Each scenario returns { nodes, links } with default %
+   Loss sliders defined per scenario
+   ===================================================== */
+var activeTab = 'coil';
+
+/* Default loss values (percentage of relevant parent) */
+var defaults = {
+  coil: {
+    flueGas: 11, radiation: 3, distribution: 5, coilHX: 8, condensate: 8
+  },
+  sparging: {
+    flueGas: 11, radiation: 3, distribution: 5, steamTrap: 4, sparging: 17
+  },
+  iheat: {
+    pipeLoss: 5
+  }
+};
+
+/* Current slider values (cloned from defaults) */
+var sliders = {
+  coil: Object.assign({}, defaults.coil),
+  sparging: Object.assign({}, defaults.sparging),
+  iheat: Object.assign({}, defaults.iheat)
+};
+
+/* Slider definitions per tab */
+var sliderDefs = {
+  coil: [
+    {key:'flueGas', label:'Flue Gas Loss', min:6, max:16, unit:'%'},
+    {key:'radiation', label:'Radiation Loss', min:0, max:8, unit:'%'},
+    {key:'distribution', label:'Distribution Loss', min:0, max:10, unit:'%'},
+    {key:'coilHX', label:'Coil HX Loss', min:3, max:13, unit:'%'},
+    {key:'condensate', label:'Condensate Loss', min:3, max:13, unit:'%'}
+  ],
+  sparging: [
+    {key:'flueGas', label:'Flue Gas Loss', min:6, max:16, unit:'%'},
+    {key:'radiation', label:'Radiation Loss', min:0, max:8, unit:'%'},
+    {key:'distribution', label:'Distribution Loss', min:0, max:10, unit:'%'},
+    {key:'steamTrap', label:'Steam Trap Loss', min:0, max:9, unit:'%'},
+    {key:'sparging', label:'Sparging Loss', min:12, max:22, unit:'%'}
+  ],
+  iheat: [
+    {key:'pipeLoss', label:'Pipe Distribution Loss', min:0, max:10, unit:'%'}
+  ]
+};
+
+/* =====================================================
+   BUILD SANKEY DATA
+   ===================================================== */
+function buildCoilData(s) {
+  var fuel = 100;
+  var flue = s.flueGas;
+  var rad = s.radiation;
+  var steamGen = fuel - flue - rad;
+  var dist = s.distribution;
+  var steamToCoil = steamGen - dist;
+  var coilLoss = s.coilHX;
+  var condLoss = s.condensate;
+  var useful = steamToCoil - coilLoss - condLoss;
+  if (useful < 0) useful = 0;
+
+  return {
+    efficiency: useful,
+    nodes: [
+      {name: 'Fuel Input', fixedValue: fuel},
+      {name: 'Flue Gas Loss', fixedValue: flue},
+      {name: 'Radiation Loss', fixedValue: rad},
+      {name: 'Steam Generated', fixedValue: steamGen},
+      {name: 'Distribution Loss', fixedValue: dist},
+      {name: 'Steam to Coil HX', fixedValue: steamToCoil},
+      {name: 'Coil HX Loss', fixedValue: coilLoss},
+      {name: 'Condensate Loss', fixedValue: condLoss},
+      {name: 'Useful Heat', fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 1, value: Math.max(flue,0.5)},
+      {source: 0, target: 2, value: Math.max(rad,0.5)},
+      {source: 0, target: 3, value: Math.max(steamGen,0.5)},
+      {source: 3, target: 4, value: Math.max(dist,0.5)},
+      {source: 3, target: 5, value: Math.max(steamToCoil,0.5)},
+      {source: 5, target: 6, value: Math.max(coilLoss,0.5)},
+      {source: 5, target: 7, value: Math.max(condLoss,0.5)},
+      {source: 5, target: 8, value: Math.max(useful,0.5)}
+    ],
+    colors: [C.orange, C.red, C.red, C.orange, C.red, C.orange, C.red, C.red, C.green]
+  };
+}
+
+function buildSpargingData(s) {
+  var fuel = 100;
+  var flue = s.flueGas;
+  var rad = s.radiation;
+  var steamGen = fuel - flue - rad;
+  var dist = s.distribution;
+  var trap = s.steamTrap;
+  var steamToProcess = steamGen - dist - trap;
+  var spargLoss = s.sparging;
+  var useful = steamToProcess - spargLoss;
+  if (useful < 0) useful = 0;
+
+  return {
+    efficiency: useful,
+    nodes: [
+      {name: 'Fuel Input', fixedValue: fuel},
+      {name: 'Flue Gas Loss', fixedValue: flue},
+      {name: 'Radiation Loss', fixedValue: rad},
+      {name: 'Steam Generated', fixedValue: steamGen},
+      {name: 'Distribution Loss', fixedValue: dist},
+      {name: 'Steam Trap Loss', fixedValue: trap},
+      {name: 'Steam to Process', fixedValue: steamToProcess},
+      {name: 'Sparging Loss', fixedValue: spargLoss},
+      {name: 'Useful Heat', fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 1, value: Math.max(flue,0.5)},
+      {source: 0, target: 2, value: Math.max(rad,0.5)},
+      {source: 0, target: 3, value: Math.max(steamGen,0.5)},
+      {source: 3, target: 4, value: Math.max(dist,0.5)},
+      {source: 3, target: 5, value: Math.max(trap,0.5)},
+      {source: 3, target: 6, value: Math.max(steamToProcess,0.5)},
+      {source: 6, target: 7, value: Math.max(spargLoss,0.5)},
+      {source: 6, target: 8, value: Math.max(useful,0.5)}
+    ],
+    colors: [C.orange, C.red, C.red, C.orange, C.red, C.red, C.orange, C.darkRed, (useful >= 50 ? C.green : '#e67e22')]
+  };
+}
+
+function buildIheatData(s) {
+  var elec = 100;
+  var ambient = 300;
+  var total = elec + ambient;
+  var pipeLoss = Math.round(total * s.pipeLoss / 100);
+  var useful = total - pipeLoss;
+
+  return {
+    efficiency: useful,
+    isHeatPump: true,
+    nodes: [
+      {name: 'Electricity Input', fixedValue: elec},
+      {name: 'Ambient Heat Absorbed', fixedValue: ambient},
+      {name: 'Heat Pump Output', fixedValue: total},
+      {name: 'Pipe Distribution Loss', fixedValue: pipeLoss},
+      {name: 'Useful Heat', fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 2, value: elec},
+      {source: 1, target: 2, value: ambient},
+      {source: 2, target: 3, value: Math.max(pipeLoss,0.5)},
+      {source: 2, target: 4, value: Math.max(useful,0.5)}
+    ],
+    colors: [C.blue, C.teal, C.brightGreen, C.red, C.brightGreen]
+  };
+}
+
+function getData() {
+  if (activeTab === 'coil') return buildCoilData(sliders.coil);
+  if (activeTab === 'sparging') return buildSpargingData(sliders.sparging);
+  return buildIheatData(sliders.iheat);
+}
+
+/* =====================================================
+   RENDER SANKEY
+   ===================================================== */
+var svgEl = document.getElementById('sk-sankey-svg');
+var wrapEl = document.getElementById('sk-sankey-wrap');
+var tooltipEl = document.getElementById('sk-tooltip');
+var badgeEl = document.getElementById('sk-eff-badge');
+
+function renderSankey() {
+  var data = getData();
+  var rect = wrapEl.getBoundingClientRect();
+  var W = Math.max(rect.width - 2, 400);
+  var H = data.isHeatPump ? 360 : 400;
+  var margin = {top: 20, right: 140, bottom: 20, left: 140};
+
+  // Update efficiency badge
+  if (data.isHeatPump) {
+    badgeEl.textContent = 'Net Efficiency: ' + data.efficiency + '% of electricity';
+    badgeEl.style.background = 'rgba(22,163,74,.85)';
+  } else {
+    badgeEl.textContent = 'Useful Heat: ' + data.efficiency + '%';
+    badgeEl.style.background = data.efficiency >= 50 ? 'rgba(0,0,0,.75)' : 'rgba(192,57,43,.85)';
+  }
+
+  // Clear SVG
+  d3.select(svgEl).selectAll('*').remove();
+
+  var svg = d3.select(svgEl)
+    .attr('width', W)
+    .attr('height', H)
+    .attr('viewBox', '0 0 ' + W + ' ' + H);
+
+  // Deep copy data for d3-sankey (it mutates the objects)
+  var nodes = data.nodes.map(function(n, i) { return {name: n.name, fixedValue: n.fixedValue, nodeColor: data.colors[i]}; });
+  var links = data.links.map(function(l) { return {source: l.source, target: l.target, value: l.value}; });
+
+  // Create sankey layout
+  var sankey = d3.sankey()
+    .nodeId(function(d, i) { return i; })
+    .nodeWidth(22)
+    .nodePadding(18)
+    .nodeAlign(d3.sankeyLeft)
+    .extent([[margin.left, margin.top], [W - margin.right, H - margin.bottom]]);
+
+  var graph = sankey({nodes: nodes, links: links});
+
+  // Draw links
+  var link = svg.append('g')
+    .selectAll('.sk-link')
+    .data(graph.links)
+    .enter()
+    .append('path')
+    .attr('class', 'sk-link')
+    .attr('d', d3.sankeyLinkHorizontal())
+    .attr('fill', 'none')
+    .attr('stroke', function(d) { return d.target.nodeColor || C.grey; })
+    .attr('stroke-opacity', 0.45)
+    .attr('stroke-width', function(d) { return Math.max(1, d.width); })
+    .on('mouseover', function(event, d) {
+      d3.select(this).attr('stroke-opacity', 0.7);
+      tooltipEl.textContent = d.source.name + ' \u2192 ' + d.target.name + ': ' + Math.round(d.value) + '%';
+      tooltipEl.style.opacity = '1';
+    })
+    .on('mousemove', function(event) {
+      var r = wrapEl.getBoundingClientRect();
+      tooltipEl.style.left = (event.clientX - r.left + 12) + 'px';
+      tooltipEl.style.top = (event.clientY - r.top - 30) + 'px';
+    })
+    .on('mouseout', function() {
+      d3.select(this).attr('stroke-opacity', 0.45);
+      tooltipEl.style.opacity = '0';
+    });
+
+  // Animate links in
+  link.attr('stroke-dasharray', function() {
+    var len = this.getTotalLength();
+    return len + ' ' + len;
+  })
+  .attr('stroke-dashoffset', function() { return this.getTotalLength(); })
+  .transition()
+  .duration(800)
+  .ease(d3.easeCubicOut)
+  .attr('stroke-dashoffset', 0);
+
+  // Draw nodes
+  var node = svg.append('g')
+    .selectAll('.sk-node')
+    .data(graph.nodes)
+    .enter()
+    .append('g')
+    .attr('class', 'sk-node');
+
+  node.append('rect')
+    .attr('x', function(d) { return d.x0; })
+    .attr('y', function(d) { return d.y0; })
+    .attr('width', function(d) { return d.x1 - d.x0; })
+    .attr('height', function(d) { return Math.max(1, d.y1 - d.y0); })
+    .attr('fill', function(d) { return d.nodeColor; })
+    .attr('rx', 3)
+    .attr('opacity', 0)
+    .transition()
+    .duration(600)
+    .delay(200)
+    .attr('opacity', 0.9);
+
+  // Node labels
+  node.append('text')
+    .attr('class', 'sk-node-label')
+    .attr('x', function(d) { return d.x0 < W / 2 ? d.x0 - 8 : d.x1 + 8; })
+    .attr('y', function(d) { return (d.y0 + d.y1) / 2 - 7; })
+    .attr('text-anchor', function(d) { return d.x0 < W / 2 ? 'end' : 'start'; })
+    .text(function(d) { return d.name; });
+
+  node.append('text')
+    .attr('class', 'sk-node-value')
+    .attr('x', function(d) { return d.x0 < W / 2 ? d.x0 - 8 : d.x1 + 8; })
+    .attr('y', function(d) { return (d.y0 + d.y1) / 2 + 8; })
+    .attr('text-anchor', function(d) { return d.x0 < W / 2 ? 'end' : 'start'; })
+    .text(function(d) { return Math.round(d.fixedValue) + '%'; });
+
+  // Update cost results
+  updateCostResults();
+}
+
+/* =====================================================
+   SLIDER CONTROLS
+   ===================================================== */
+function buildSliders() {
+  var container = document.getElementById('sk-sliders');
+  container.innerHTML = '';
+  var defs = sliderDefs[activeTab];
+  var vals = sliders[activeTab];
+
+  defs.forEach(function(def) {
+    var group = document.createElement('div');
+    group.className = 'sk-slider-group';
+
+    var label = document.createElement('label');
+    label.innerHTML = def.label + ' <span class="sk-val" id="sk-sv-' + def.key + '">' + vals[def.key] + def.unit + '</span>';
+
+    var input = document.createElement('input');
+    input.type = 'range';
+    input.min = def.min;
+    input.max = def.max;
+    input.step = 1;
+    input.value = vals[def.key];
+    input.id = 'sk-sl-' + def.key;
+
+    input.addEventListener('input', function() {
+      var v = parseInt(this.value);
+      sliders[activeTab][def.key] = v;
+      document.getElementById('sk-sv-' + def.key).textContent = v + def.unit;
+      renderSankey();
+    });
+
+    group.appendChild(label);
+    group.appendChild(input);
+    container.appendChild(group);
+  });
+}
+
+/* =====================================================
+   COST CALCULATIONS
+   ===================================================== */
+function updateCostResults() {
+  var fuelCost = parseFloat(document.getElementById('sk-fuel-cost').value) || 72;
+  var elecCost = parseFloat(document.getElementById('sk-elec-cost').value) || 10;
+  var litres = parseFloat(document.getElementById('sk-fuel-litres').value) || 5000;
+
+  // Get current system efficiency
+  var data = getData();
+  var eff;
+  if (activeTab === 'iheat') {
+    // If viewing iHEAT, use coil scenario for "current system"
+    eff = buildCoilData(sliders.coil).efficiency / 100;
+  } else {
+    eff = data.efficiency / 100;
+  }
+
+  var DIESEL_KWH_PER_LITRE = 10.8;
+  var DIESEL_CO2_KG_PER_LITRE = 2.68;
+  var GRID_CO2_KG_PER_KWH = 0.5;
+  var COP = 4.0;
+
+  // Current system
+  var monthlyFuelCost = litres * fuelCost;
+  var fuelEnergy = litres * DIESEL_KWH_PER_LITRE;
+  var usefulHeat = fuelEnergy * eff;
+  var costPerKwh = usefulHeat > 0 ? monthlyFuelCost / usefulHeat : 0;
+  var co2Month = litres * DIESEL_CO2_KG_PER_LITRE / 1000;
+
+  // iHEAT
+  var ihElecNeeded = usefulHeat / COP;
+  var ihElecCost = ihElecNeeded * elecCost;
+  var ihCostPerKwh = usefulHeat > 0 ? ihElecCost / usefulHeat : 0;
+  var ihCo2Month = ihElecNeeded * GRID_CO2_KG_PER_KWH / 1000;
+
+  // Savings
+  var monthlySaving = monthlyFuelCost - ihElecCost;
+  var annualSaving = monthlySaving * 12;
+  var co2Reduction = (co2Month - ihCo2Month) * 12;
+
+  // Format numbers
+  function fmt(n) { return n.toLocaleString('en-PH', {maximumFractionDigits:0}); }
+  function fmt1(n) { return n.toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+  document.getElementById('sk-r-fuel-cost').textContent = '\u20B1' + fmt(monthlyFuelCost);
+  document.getElementById('sk-r-fuel-energy').textContent = fmt(fuelEnergy) + ' kWh';
+  document.getElementById('sk-r-useful-heat').textContent = fmt(usefulHeat) + ' kWh';
+  document.getElementById('sk-r-cost-kwh').textContent = '\u20B1' + fmt1(costPerKwh);
+  document.getElementById('sk-r-co2').textContent = fmt1(co2Month) + ' tonnes';
+
+  document.getElementById('sk-r-ih-heat').textContent = fmt(usefulHeat) + ' kWh';
+  document.getElementById('sk-r-ih-elec').textContent = fmt(ihElecNeeded) + ' kWh';
+  document.getElementById('sk-r-ih-cost').textContent = '\u20B1' + fmt(ihElecCost);
+  document.getElementById('sk-r-ih-cpkwh').textContent = '\u20B1' + fmt1(ihCostPerKwh);
+  document.getElementById('sk-r-ih-co2').textContent = fmt1(ihCo2Month) + ' tonnes';
+
+  document.getElementById('sk-save-month').textContent = '\u20B1' + fmt(monthlySaving);
+  document.getElementById('sk-save-year').textContent = '\u20B1' + fmt(annualSaving);
+  document.getElementById('sk-save-co2').textContent = fmt1(co2Reduction);
+}
+
+/* =====================================================
+   TAB SWITCHING
+   ===================================================== */
+document.getElementById('sk-tabs').addEventListener('click', function(e) {
+  var tab = e.target.closest('.sk-tab');
+  if (!tab) return;
+  var tabId = tab.dataset.tab;
+  if (tabId === activeTab) return;
+
+  activeTab = tabId;
+
+  // Update tab styling
+  document.querySelectorAll('.sk-tab').forEach(function(t) {
+    t.classList.remove('active', 'active-green');
+  });
+  if (tabId === 'iheat') {
+    tab.classList.add('active-green');
+  } else {
+    tab.classList.add('active');
+  }
+
+  buildSliders();
+  renderSankey();
+});
+
+/* =====================================================
+   COST INPUT EVENTS
+   ===================================================== */
+['sk-fuel-cost','sk-elec-cost','sk-fuel-litres'].forEach(function(id) {
+  var el = document.getElementById(id);
+  el.addEventListener('input', updateCostResults);
+  el.addEventListener('change', updateCostResults);
+});
+
+/* =====================================================
+   RESPONSIVE RESIZE
+   ===================================================== */
+var resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(renderSankey, 200);
+});
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.1});
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+/* =====================================================
+   INIT
+   ===================================================== */
+function init() {
+  buildSliders();
+  renderSankey();
+}
+
+// Wait for D3 to be ready
+if (typeof d3 !== 'undefined' && typeof d3.sankey !== 'undefined') {
+  init();
+} else {
+  window.addEventListener('load', init);
+}
+
+})();
+</script>
+</body>
+</html>
