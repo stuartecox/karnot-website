@@ -230,10 +230,10 @@
     <h2><i class="fas fa-chart-bar"></i> Energy Flow Diagram</h2>
 
     <div class="sk-tabs" id="sk-tabs">
-      <div class="sk-tab active" data-tab="coil"><i class="fas fa-fire"></i> Diesel + Coil</div>
-      <div class="sk-tab" data-tab="sparging"><i class="fas fa-fire"></i> Diesel + Sparging</div>
-      <div class="sk-tab" data-tab="electric"><i class="fas fa-bolt"></i> Electric Boiler</div>
-      <div class="sk-tab" data-tab="propane"><i class="fas fa-gas-pump"></i> LPG / Propane</div>
+      <div class="sk-tab active" data-tab="coil"><i class="fas fa-fire"></i> Diesel Steam + Coil</div>
+      <div class="sk-tab" data-tab="sparging"><i class="fas fa-fire"></i> Diesel Steam + Sparging</div>
+      <div class="sk-tab" data-tab="electric"><i class="fas fa-bolt"></i> Electric Steam Boiler</div>
+      <div class="sk-tab" data-tab="propane"><i class="fas fa-gas-pump"></i> LPG/Propane Steam Boiler</div>
       <div class="sk-tab" data-tab="iheat"><i class="fas fa-leaf"></i> Karnot iHEAT R290</div>
     </div>
 
@@ -533,9 +533,10 @@ function buildSpargingData(s) {
 function buildElectricData(s) {
   var elecIn = 100;
   var standby = s.standby;
+  var steamGen = elecIn - standby;
   var dist = s.distribution;
   var scale = s.elementScale;
-  var useful = elecIn - standby - dist - scale;
+  var useful = steamGen - dist - scale;
   if (useful < 0) useful = 0;
 
   return {
@@ -543,14 +544,14 @@ function buildElectricData(s) {
     nodes: [
       {name: 'Electricity Input', fixedValue: elecIn},
       {name: 'Standby / Cycling Loss', fixedValue: standby},
-      {name: 'Element Heating', fixedValue: elecIn - standby},
+      {name: 'Steam Generated', fixedValue: steamGen},
       {name: 'Distribution Loss', fixedValue: dist},
       {name: 'Element Scaling Loss', fixedValue: scale},
       {name: 'Useful Heat', fixedValue: useful}
     ],
     links: [
       {source: 0, target: 1, value: Math.max(standby,0.5)},
-      {source: 0, target: 2, value: Math.max(elecIn - standby,0.5)},
+      {source: 0, target: 2, value: Math.max(steamGen,0.5)},
       {source: 2, target: 3, value: Math.max(dist,0.5)},
       {source: 2, target: 4, value: Math.max(scale,0.5)},
       {source: 2, target: 5, value: Math.max(useful,0.5)}
@@ -816,9 +817,9 @@ function updateCostResults() {
     if (activeTab === 'electric' || activeTab === 'iheat') {
       litres = steamKwhMonth; // kWh directly for electric
     } else if (activeTab === 'propane') {
-      litres = steamKwhMonth / (7.1 * combEff);
+      litres = steamKwhMonth / (12.78 * combEff); // kg LPG
     } else {
-      litres = steamKwhMonth / (10.8 * combEff);
+      litres = steamKwhMonth / (10.8 * combEff); // litres diesel
     }
     document.getElementById('sk-fuel-litres').value = Math.round(litres);
   }
@@ -852,9 +853,9 @@ function updateCostResults() {
     co2PerUnit = 0.5;       // grid emission factor kg CO2/kWh
     fuelLabel = 'kWh';
   } else if (fuelType === 'propane') {
-    kwhPerUnit = 7.1;       // kWh per litre of LPG
-    co2PerUnit = 1.51;      // kg CO2 per litre LPG
-    fuelLabel = 'litres LPG';
+    kwhPerUnit = 12.78;     // kWh per kg of LPG (46 MJ/kg)
+    co2PerUnit = 2.94;      // kg CO2 per kg LPG combustion
+    fuelLabel = 'kg LPG';
   } else {
     kwhPerUnit = 10.8;      // kWh per litre diesel
     co2PerUnit = 2.68;      // kg CO2 per litre diesel
@@ -899,14 +900,18 @@ function updateCostResults() {
   document.getElementById('sk-save-year').textContent = '\u20B1' + fmt(annualSaving);
   document.getElementById('sk-save-co2').textContent = fmt1(co2Reduction);
 
-  // Update fuel cost label based on active scenario
+  // Update fuel cost label and consumption label based on active scenario
   var labelEl = document.getElementById('sk-fuel-label');
+  var consLabel = document.getElementById('sk-consumption-label');
   if (activeTab === 'electric') {
     labelEl.textContent = 'Electricity Cost (\u20B1/kWh)';
+    consLabel.textContent = 'Monthly Consumption (kWh/month)';
   } else if (activeTab === 'propane') {
-    labelEl.textContent = 'LPG/Propane Cost (\u20B1/litre)';
+    labelEl.textContent = 'LPG/Propane Cost (\u20B1/kg)';
+    consLabel.textContent = 'Monthly Consumption (kg/month)';
   } else {
     labelEl.textContent = 'Diesel Fuel Cost (\u20B1/litre)';
+    consLabel.textContent = 'Monthly Fuel (litres/month)';
   }
 }
 
@@ -929,6 +934,27 @@ document.getElementById('sk-tabs').addEventListener('click', function(e) {
     tab.classList.add('active-green');
   } else {
     tab.classList.add('active');
+  }
+
+  // Set sensible default fuel cost & consumption for each tab
+  var fuelInput = document.getElementById('sk-fuel-cost');
+  var consInput = document.getElementById('sk-fuel-litres');
+  var steamInput = document.getElementById('sk-steam-rate');
+  if (!steamInput.value || parseFloat(steamInput.value) === 0) {
+    // Only reset defaults if user hasn't entered steam rate
+    if (tabId === 'electric') {
+      fuelInput.value = '12.25';
+      consInput.value = '50000';
+    } else if (tabId === 'propane') {
+      fuelInput.value = '55';
+      consInput.value = '3000';
+    } else if (tabId === 'iheat') {
+      fuelInput.value = '72';
+      consInput.value = '5000';
+    } else {
+      fuelInput.value = '72';
+      consInput.value = '5000';
+    }
   }
 
   buildSliders();
