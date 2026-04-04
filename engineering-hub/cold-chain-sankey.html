@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cold Store Energy Flow Analyser — HFC vs CO₂ vs Ammonia | Free Tool | Karnot Engineering Hub</title>
+<meta name="description" content="Compare cold store refrigeration efficiency interactively: HFC electric defrost vs ammonia vs Karnot iCOOL CO₂ + FLX Flex Defrost. Free tool — no login required.">
+<meta name="keywords" content="cold store sankey diagram, refrigeration efficiency, HFC R404A, CO2 refrigeration, ammonia refrigeration, cold chain energy, Karnot iCOOL, FLX defrost, PFAS, Kigali amendment, cold room energy audit">
+<meta name="author" content="Karnot Energy Solutions Inc.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://karnot.com/engineering-hub/cold-chain-sankey">
+<link rel="alternate" hreflang="en-ph" href="https://karnot.com/engineering-hub/cold-chain-sankey">
+<link rel="alternate" hreflang="en-gb" href="https://karnot.com/engineering-hub/cold-chain-sankey">
+<link rel="alternate" hreflang="en-us" href="https://karnot.com/engineering-hub/cold-chain-sankey">
+<link rel="alternate" hreflang="x-default" href="https://karnot.com/engineering-hub/cold-chain-sankey">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Karnot Energy Solutions">
+<meta property="og:title" content="Cold Store Energy Flow Analyser — HFC vs CO₂ vs Ammonia | Free Tool">
+<meta property="og:description" content="Compare cold store refrigeration efficiency interactively: HFC electric defrost vs ammonia vs Karnot iCOOL CO₂ + FLX Flex Defrost. Free tool — no login required.">
+<meta property="og:url" content="https://karnot.com/engineering-hub/cold-chain-sankey">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cold Store Energy Flow Analyser — HFC vs CO₂ vs Ammonia | Free Tool | Karnot Engineering Hub">
+<meta name="twitter:description" content="Compare cold store refrigeration efficiency interactively: HFC electric defrost vs ammonia vs Karnot iCOOL CO₂ + FLX Flex Defrost. Free tool — no login required.">
+<link rel="stylesheet" href="../css/karnot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="all">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://karnot.com/#organization","name":"Karnot Energy Solutions Inc.","url":"https://karnot.com","logo":"/img/logo.webp","description":"Karnot Energy Solutions builds high-efficiency heat pumps and CO2 refrigeration systems that cut commercial and industrial energy costs by up to 75%.","foundingDate":"2025","contactPoint":{"@type":"ContactPoint","telephone":"+63-960-289-2001","contactType":"sales","areaServed":["PH","GB","US","CA"],"availableLanguage":["English","Filipino"]}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://karnot.com/"},{"@type":"ListItem","position":2,"name":"Engineering Hub","item":"https://karnot.com/engineering-hub/"},{"@type":"ListItem","position":3,"name":"Cold Chain Sankey Diagram","item":"https://karnot.com/engineering-hub/cold-chain-sankey"}]},
+    {"@type":"WebApplication","name":"Cold Store Energy Flow Analyser","url":"https://karnot.com/engineering-hub/cold-chain-sankey","applicationCategory":"UtilityApplication","operatingSystem":"Any","description":"Interactive Sankey diagram comparing cold store refrigeration energy flows: HFC R404A electric defrost, HFC hot gas defrost, ammonia R717, and Karnot iCOOL CO2 + FLX Flex Defrost.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@id":"https://karnot.com/#organization"}},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Why is electric defrost so wasteful in cold stores?","acceptedAnswer":{"@type":"Answer","text":"Electric defrost uses resistance heaters on evaporator coils, typically consuming 8 kW per coil across 10 coils for 20-30 minutes per cycle, 4-6 times daily. This directly heats the cold room, forcing the compressor to work harder to remove the added heat. The effective EER drops from around 2.6 to as low as 0.9 when defrost energy is included."}},
+      {"@type":"Question","name":"What are the risks of R404A refrigerant under the Kigali Amendment?","acceptedAnswer":{"@type":"Answer","text":"R404A has a Global Warming Potential (GWP) of 3,922. The Kigali Amendment to the Montreal Protocol mandates an 80% phase-down of HFC production by 2047 in developing countries and 85% in developed countries. R404A is a PFAS-containing forever chemical that is increasingly being banned. Operators face rising refrigerant costs, potential equipment obsolescence, and regulatory risk."}},
+      {"@type":"Question","name":"Is ammonia refrigeration safe for food cold stores?","acceptedAnswer":{"@type":"Answer","text":"Ammonia (R717) is highly efficient with zero GWP, but it is toxic at concentrations above 25 ppm and flammable at 15-28% in air. It requires specialist maintenance, gas detection systems, emergency ventilation, and trained operators. Non-Condensable Gas (NCG) buildup is a persistent maintenance challenge that degrades efficiency by 5-15% if not managed."}},
+      {"@type":"Question","name":"How does CO2 transcritical refrigeration with FLX defrost work?","acceptedAnswer":{"@type":"Answer","text":"CO2 (R744) operates in a transcritical cycle at high pressure, achieving excellent efficiency. The Karnot FLX Flex Defrost uses Phase Change Material (PCM) charged passively by CO2 subcooling to store thermal energy, then releases it for defrost with zero electrical draw. This eliminates the 21% defrost energy penalty seen in electric defrost systems while simultaneously recovering hot water at 65-75C for CIP and sanitisation."}}
+    ]}
+  ]
+}
+</script>
+
+<style>
+/* ===========================
+   COLD CHAIN SANKEY — cc- prefix
+   =========================== */
+
+.cc-hero{
+  background:linear-gradient(135deg,rgba(10,20,40,.95),rgba(15,40,60,.90),rgba(0,120,160,.30));
+  color:#fff;padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden
+}
+.cc-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none
+}
+.cc-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.2;margin-bottom:16px;max-width:900px;margin-left:auto;margin-right:auto;position:relative}
+.cc-hero p{font-size:18px;max-width:780px;margin:0 auto;opacity:.95;line-height:1.7;position:relative}
+.cc-hero .answer-first{font-size:17px;max-width:740px;margin:20px auto 0;line-height:1.7;opacity:.9;position:relative}
+.cc-breadcrumb{font-size:13px;margin-bottom:12px;opacity:.78;position:relative}
+.cc-breadcrumb a{color:rgba(255,255,255,.85);text-decoration:none}
+.cc-breadcrumb a:hover{text-decoration:underline}
+.cc-breadcrumb span{margin:0 6px;opacity:.6}
+
+.cc-wrap{max-width:1140px;margin:0 auto;padding:0 20px 80px}
+.cc-card{background:#fff;border-radius:18px;box-shadow:0 4px 28px rgba(0,0,0,.07);padding:36px;margin-top:32px}
+.cc-card h2{font-size:22px;font-weight:700;color:#1d1d1f;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.cc-card h2 i{color:#0097a7;font-size:20px}
+
+/* Tabs */
+.cc-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
+.cc-tab{
+  padding:12px 20px;border-radius:10px;border:2px solid #e5e5e7;
+  font-size:14px;font-weight:700;cursor:pointer;background:#fafafa;
+  color:#6e6e73;transition:all .2s;white-space:nowrap
+}
+.cc-tab:hover{border-color:#0097a7;color:#0097a7}
+.cc-tab.active-red{background:#dc2626;color:#fff;border-color:#dc2626}
+.cc-tab.active-orange{background:#ea580c;color:#fff;border-color:#ea580c}
+.cc-tab.active-blue{background:#2563eb;color:#fff;border-color:#2563eb}
+.cc-tab.active-green{background:#16a34a;color:#fff;border-color:#16a34a}
+
+/* Sankey container */
+.cc-sankey-wrap{
+  position:relative;min-height:320px;border:1.5px solid #e5e5e7;
+  border-radius:14px;background:#fafafa;overflow:hidden;margin-bottom:24px
+}
+.cc-sankey-wrap svg{width:100%;display:block}
+.cc-sankey-wrap .cc-eff-badge{
+  position:absolute;top:16px;right:16px;
+  background:rgba(0,0,0,.75);color:#fff;
+  padding:8px 16px;border-radius:8px;
+  font-size:15px;font-weight:700
+}
+
+/* Badges row */
+.cc-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.cc-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700
+}
+.cc-badge-red{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.cc-badge-amber{background:#fffbeb;color:#d97706;border:1px solid #fde68a}
+.cc-badge-green{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+.cc-badge-blue{background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe}
+
+/* Refrigerant panel */
+.cc-refrig-panel{
+  background:#fef2f2;border:1.5px solid #fecaca;border-radius:12px;
+  padding:18px 22px;margin-bottom:20px
+}
+.cc-refrig-panel.green{background:#f0fdf4;border-color:#bbf7d0}
+.cc-refrig-panel h4{font-size:14px;font-weight:700;color:#991b1b;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cc-refrig-panel.green h4{color:#166534}
+.cc-refrig-panel .cc-refrig-row{display:flex;flex-wrap:wrap;gap:20px;font-size:13px;color:#444}
+.cc-refrig-panel .cc-refrig-item{display:flex;flex-direction:column}
+.cc-refrig-panel .cc-refrig-val{font-weight:700;font-size:15px;color:#1d1d1f}
+
+/* Sliders */
+.cc-sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;margin-bottom:28px}
+.cc-slider-group{display:flex;flex-direction:column}
+.cc-slider-group label{font-size:13px;font-weight:600;color:#444;margin-bottom:4px;display:flex;justify-content:space-between}
+.cc-slider-group label .cc-val{color:#0097a7;font-weight:700}
+.cc-slider-group input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:6px;
+  border-radius:3px;background:#e5e5e7;outline:none;cursor:pointer
+}
+.cc-slider-group input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:18px;height:18px;
+  border-radius:50%;background:#0097a7;cursor:pointer;border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.2)
+}
+
+/* Cost inputs */
+.cc-cost-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px 22px;margin-bottom:24px}
+.cc-field{display:flex;flex-direction:column}
+.cc-field label{font-size:13px;font-weight:600;color:#444;margin-bottom:5px}
+.cc-field input{
+  padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;
+  background:#fafafa;color:#1d1d1f;transition:border-color .2s,box-shadow .2s
+}
+.cc-field input:focus{outline:none;border-color:#0097a7;box-shadow:0 0 0 3px rgba(0,151,167,.12)}
+.cc-field .cc-hint{font-size:11px;color:#999;margin-top:3px}
+
+/* Results panels */
+.cc-results-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.cc-result-panel{border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.cc-result-panel h3{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.cc-result-panel h3 i{font-size:18px}
+
+.cc-result-panel.current{background:linear-gradient(135deg,#fef2f2,#fecaca);border:1.5px solid rgba(220,38,38,.35)}
+.cc-result-panel.current h3{color:#991b1b}
+.cc-result-panel.icool{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid rgba(34,197,94,.4)}
+.cc-result-panel.icool h3{color:#166534}
+
+.cc-line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:14px;color:#444}
+.cc-line:last-child{border-bottom:none}
+.cc-line-val{font-weight:700;color:#1d1d1f}
+
+/* Savings row */
+.cc-savings-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.cc-saving-box{
+  border-radius:14px;padding:22px 16px;text-align:center;
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #16a34a
+}
+.cc-saving-box .cc-saving-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#166534;margin-bottom:6px}
+.cc-saving-box .cc-saving-value{font-size:28px;font-weight:800;color:#16a34a;line-height:1}
+.cc-saving-box .cc-saving-unit{font-size:12px;color:#166534;margin-top:4px}
+
+/* FLX Technical Detail */
+.cc-flx-detail{
+  display:none;background:linear-gradient(135deg,#f0fdf4,#ecfdf5);
+  border:2px solid #16a34a;border-radius:14px;padding:28px;margin-bottom:24px
+}
+.cc-flx-detail.visible{display:block}
+.cc-flx-detail h3{font-size:18px;font-weight:800;color:#166534;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.cc-flx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cc-flx-col{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.cc-flx-col h4{font-size:14px;font-weight:700;color:#166534;margin-bottom:10px}
+.cc-flx-col ul{list-style:none;padding:0;margin:0}
+.cc-flx-col li{font-size:13px;color:#444;padding:4px 0;line-height:1.5}
+.cc-flx-col li::before{content:'\2713 ';color:#16a34a;font-weight:700}
+.cc-flx-footer{margin-top:16px;text-align:center;font-size:12px;color:#6e6e73;font-style:italic}
+
+/* Comparison table */
+.cc-comparison{width:100%;border-collapse:collapse;margin-top:24px;font-size:13px}
+.cc-comparison th{background:#f1f5f9;padding:12px 10px;text-align:left;font-weight:700;color:#1d1d1f;border-bottom:2px solid #e2e8f0;position:sticky;top:0}
+.cc-comparison td{padding:10px;border-bottom:1px solid #f1f5f9;color:#444}
+.cc-comparison tr:hover td{background:#fafafa}
+.cc-comparison .cc-metric{font-weight:600;color:#1d1d1f}
+.cc-comparison .cc-best{color:#16a34a;font-weight:700}
+.cc-comparison .cc-worst{color:#dc2626}
+.cc-comparison .cc-ok{color:#d97706}
+
+/* Animated pulse for FLX */
+@keyframes cc-pulse{
+  0%,100%{opacity:.45}
+  50%{opacity:.75}
+}
+.cc-link-pulse{animation:cc-pulse 2s ease-in-out infinite}
+
+/* FAQ */
+.cc-faq-section{padding:60px 0;max-width:1000px;margin:0 auto}
+.cc-faq-section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:32px;color:#1d1d1f}
+.cc-faq-item{border-bottom:1px solid #d2d2d7}
+.cc-faq-item summary{padding:20px 0;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#1d1d1f}
+.cc-faq-item summary::-webkit-details-marker{display:none}
+.cc-faq-item summary::after{content:'+';font-size:24px;font-weight:300;color:#0097a7;transition:transform .3s}
+.cc-faq-item[open] summary::after{content:'\2212'}
+.cc-faq-item .cc-faq-answer{padding:0 0 20px;font-size:15px;line-height:1.7;color:#6e6e73}
+
+/* CTA */
+.cc-cta{
+  background:linear-gradient(135deg,#003c5c,#0097a7);
+  border-radius:18px;padding:48px 36px;text-align:center;color:#fff;margin-top:32px
+}
+.cc-cta h2{font-size:28px;font-weight:800;margin-bottom:12px}
+.cc-cta p{font-size:17px;opacity:.9;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.cc-cta-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#16a34a;color:#fff;border-radius:12px;
+  padding:15px 36px;font-size:16px;font-weight:700;
+  text-decoration:none;transition:background .2s,transform .15s
+}
+.cc-cta-btn:hover{background:#15803d;transform:translateY(-2px);color:#fff}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+
+/* Sankey node labels */
+.cc-node-label{font-size:12px;font-weight:700;fill:#1d1d1f;pointer-events:none}
+.cc-node-value{font-size:11px;font-weight:600;fill:#6e6e73;pointer-events:none}
+
+/* Tooltip */
+.cc-tooltip{
+  position:absolute;background:rgba(0,0,0,.85);color:#fff;
+  padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;
+  pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;
+  white-space:nowrap
+}
+
+/* Footnotes */
+.cc-footnotes{margin-top:24px;font-size:11px;color:#999;line-height:1.6}
+.cc-footnotes sup{color:#0097a7;font-weight:700}
+
+@media(max-width:768px){
+  .cc-results-grid{grid-template-columns:1fr}
+  .cc-savings-row{grid-template-columns:1fr}
+  .cc-tabs{gap:4px}
+  .cc-tab{padding:10px 14px;font-size:13px}
+  .cc-flx-grid{grid-template-columns:1fr}
+  .cc-comparison{font-size:11px}
+  .cc-comparison th,.cc-comparison td{padding:8px 6px}
+}
+@media(max-width:640px){
+  .cc-card{padding:22px 16px}
+  .cc-sliders{grid-template-columns:1fr}
+  .cc-cost-fields{grid-template-columns:1fr}
+  .cc-saving-box .cc-saving-value{font-size:22px}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="karnot-nav" data-page="engineering"></div>
+
+<main id="main">
+
+<section class="cc-hero">
+  <div class="cc-breadcrumb">
+    <a href="/">Home</a><span>/</span>
+    <a href="/engineering-hub/">Engineering Hub</a><span>/</span>
+    Cold Chain Sankey Diagram
+  </div>
+  <h1>Cold Store Energy Flow Analyser</h1>
+  <p>A typical HFC cold store with electric defrost wastes over 90% of input electricity on compressor losses, condenser rejection, and defrost heating. This interactive Sankey diagram shows exactly where every kilowatt goes across four refrigeration scenarios.</p>
+  <p class="answer-first">Compare HFC R404A (electric and hot gas defrost), ammonia R717, and the Karnot iCOOL CO&#8322; transcritical system with FLX Flex Defrost delivering 4.2 EER with free hot water recovery.</p>
+</section>
+
+<div class="cc-wrap">
+
+  <!-- SANKEY DIAGRAM CARD -->
+  <div class="cc-card rv">
+    <h2><i class="fas fa-chart-bar"></i> Energy Flow Diagram</h2>
+
+    <div class="cc-tabs" id="cc-tabs">
+      <div class="cc-tab active-red" data-tab="hfc_electric"><i class="fas fa-snowflake"></i> HFC R404A + Electric Defrost</div>
+      <div class="cc-tab" data-tab="hfc_hotgas"><i class="fas fa-snowflake"></i> HFC R404A + Hot Gas Defrost</div>
+      <div class="cc-tab" data-tab="ammonia"><i class="fas fa-flask"></i> Ammonia R717</div>
+      <div class="cc-tab" data-tab="icool"><i class="fas fa-leaf"></i> Karnot iCOOL CO&#8322; + FLX</div>
+    </div>
+
+    <!-- Badges -->
+    <div class="cc-badges" id="cc-badges"></div>
+
+    <div class="cc-sankey-wrap" id="cc-sankey-wrap">
+      <div class="cc-tooltip" id="cc-tooltip"></div>
+      <div class="cc-eff-badge" id="cc-eff-badge">EER: 0.9</div>
+      <svg id="cc-sankey-svg"></svg>
+    </div>
+
+    <!-- Refrigerant panel -->
+    <div id="cc-refrig-panel"></div>
+
+    <!-- FLX Technical Detail (Tab D only) -->
+    <div class="cc-flx-detail" id="cc-flx-detail">
+      <h3><i class="fas fa-bolt"></i> FLX Flex Defrost &mdash; Technical Detail</h3>
+      <div class="cc-flx-grid">
+        <div class="cc-flx-col">
+          <h4><i class="fas fa-battery-full" style="color:#16a34a"></i> Charge Mode</h4>
+          <ul>
+            <li>CO&#8322; subcooling charges PCM at 4.5 kWh/hr</li>
+            <li>Coconut oil + graphene composite PCM</li>
+            <li>Passively charged &mdash; no extra electricity</li>
+            <li>Continuous charge during normal cooling cycle</li>
+          </ul>
+        </div>
+        <div class="cc-flx-col">
+          <h4><i class="fas fa-icicles" style="color:#0097a7"></i> Discharge Mode (iSAVE)</h4>
+          <ul>
+            <li>iSAVE opens valve to release stored thermal energy</li>
+            <li>8.1 kg ice formed in 8 minutes</li>
+            <li>Zero electrical draw during defrost</li>
+            <li>Product temperature deviation &lt; 0.5&#176;C</li>
+          </ul>
+        </div>
+        <div class="cc-flx-col">
+          <h4><i class="fas fa-fire" style="color:#ea580c"></i> Super-Boost Mode</h4>
+          <ul>
+            <li>Hot discharge gas at 80&ndash;90&#176;C routed direct to FLX</li>
+            <li>4.5 kW thermal boost capacity</li>
+            <li>For heavy frost build-up conditions</li>
+            <li>Ambient &gt;40&#176;C tropical environments</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cc-flx-footer">Patent Pending PCT/WO2022069581A1 &mdash; Licensed to Karnot Energy Solutions Inc.</div>
+    </div>
+
+    <!-- Sliders -->
+    <h3 style="font-size:16px;font-weight:700;color:#1d1d1f;margin-bottom:12px"><i class="fas fa-sliders" style="color:#0097a7;margin-right:6px"></i> Adjust Parameters</h3>
+    <div class="cc-sliders" id="cc-sliders"></div>
+  </div>
+
+  <!-- COST & COMPARISON CARD -->
+  <div class="cc-card rv">
+    <h2><i class="fas fa-calculator"></i> Cost Comparison</h2>
+
+    <h3 style="font-size:16px;font-weight:700;color:#1d1d1f;margin-bottom:12px"><i class="fas fa-snowflake" style="color:#0097a7;margin-right:6px"></i> Cold Room Specification</h3>
+    <div class="cc-cost-fields">
+      <div class="cc-field">
+        <label for="cc-cooling-load">Cooling Load (kW)</label>
+        <input type="number" id="cc-cooling-load" value="100" min="10" max="1000" step="10">
+      </div>
+      <div class="cc-field">
+        <label for="cc-room-temp">Cold Room Temp (&#176;C)</label>
+        <input type="number" id="cc-room-temp" value="-18" min="-30" max="-5" step="1">
+      </div>
+      <div class="cc-field">
+        <label for="cc-ambient-temp">Ambient Temp (&#176;C)</label>
+        <input type="number" id="cc-ambient-temp" value="35" min="25" max="45" step="1">
+      </div>
+      <div class="cc-field">
+        <label for="cc-defrost-cycles">Defrost Cycles / Day</label>
+        <input type="number" id="cc-defrost-cycles" value="5" min="2" max="8" step="1">
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;color:#1d1d1f;margin:20px 0 12px"><i class="fas fa-coins" style="color:#0097a7;margin-right:6px"></i> Energy &amp; Refrigerant Costs</h3>
+    <div class="cc-cost-fields">
+      <div class="cc-field">
+        <label for="cc-elec-cost">Electricity Tariff (&#8369;/kWh)</label>
+        <input type="number" id="cc-elec-cost" value="12" min="1" max="30" step="0.5">
+      </div>
+      <div class="cc-field">
+        <label for="cc-refrig-charge">Refrigerant Charge (kg)</label>
+        <input type="number" id="cc-refrig-charge" value="200" min="50" max="500" step="10">
+      </div>
+      <div class="cc-field">
+        <label for="cc-leak-rate">Annual Leak Rate (%)</label>
+        <input type="number" id="cc-leak-rate" value="10" min="5" max="20" step="1">
+      </div>
+    </div>
+
+    <div class="cc-results-grid">
+      <!-- Current system -->
+      <div class="cc-result-panel current">
+        <h3><i class="fas fa-snowflake" style="color:#dc2626"></i> <span id="cc-r-title">Your Current System</span></h3>
+        <div class="cc-line"><span>Monthly electricity</span><span class="cc-line-val" id="cc-r-elec-cost">--</span></div>
+        <div class="cc-line"><span>Annual defrost cost</span><span class="cc-line-val" id="cc-r-defrost-cost">--</span></div>
+        <div class="cc-line"><span>Annual refrigerant top-up</span><span class="cc-line-val" id="cc-r-refrig-cost">--</span></div>
+        <div class="cc-line"><span>Annual CO&#8322;e (Scope 1)</span><span class="cc-line-val" id="cc-r-co2e">--</span></div>
+        <div class="cc-line"><span>Total annual cost</span><span class="cc-line-val" id="cc-r-total">--</span></div>
+      </div>
+      <!-- iCOOL + FLX -->
+      <div class="cc-result-panel icool">
+        <h3><i class="fas fa-leaf" style="color:#16a34a"></i> With Karnot iCOOL + FLX</h3>
+        <div class="cc-line"><span>Monthly electricity</span><span class="cc-line-val" id="cc-r-ih-elec-cost">--</span></div>
+        <div class="cc-line"><span>Annual defrost cost</span><span class="cc-line-val" id="cc-r-ih-defrost">--</span></div>
+        <div class="cc-line"><span>Hot water savings</span><span class="cc-line-val" id="cc-r-ih-hotwater">--</span></div>
+        <div class="cc-line"><span>Annual refrigerant (CO&#8322;)</span><span class="cc-line-val" id="cc-r-ih-refrig">--</span></div>
+        <div class="cc-line"><span>Annual CO&#8322;e (Scope 1)</span><span class="cc-line-val" id="cc-r-ih-co2e">--</span></div>
+        <div class="cc-line"><span>Total annual cost</span><span class="cc-line-val" id="cc-r-ih-total">--</span></div>
+      </div>
+    </div>
+
+    <!-- Savings -->
+    <div class="cc-savings-row">
+      <div class="cc-saving-box">
+        <div class="cc-saving-label">Annual Saving</div>
+        <div class="cc-saving-value" id="cc-save-annual">--</div>
+        <div class="cc-saving-unit">PHP</div>
+      </div>
+      <div class="cc-saving-box">
+        <div class="cc-saving-label">CO&#8322;e Avoided</div>
+        <div class="cc-saving-value" id="cc-save-co2">--</div>
+        <div class="cc-saving-unit">tonnes/year</div>
+      </div>
+      <div class="cc-saving-box">
+        <div class="cc-saving-label">5-Year Saving</div>
+        <div class="cc-saving-value" id="cc-save-5yr">--</div>
+        <div class="cc-saving-unit">PHP</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:28px">
+      <a href="../contact.html?intent=cold_store_audit&product=iCOOL" class="cc-cta-btn"><i class="fas fa-arrow-right"></i> Get a Detailed Cold Store Energy Audit</a>
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="cc-card rv">
+    <h2><i class="fas fa-table"></i> System Comparison</h2>
+    <div style="overflow-x:auto">
+    <table class="cc-comparison">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>HFC Electric Defrost</th>
+          <th>HFC Hot Gas Defrost</th>
+          <th>Ammonia R717</th>
+          <th>iCOOL + FLX</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="cc-metric">Effective EER</td><td class="cc-worst">0.9</td><td>2.6</td><td>3.7 (clean)<sup>1</sup></td><td class="cc-best">4.2</td></tr>
+        <tr><td class="cc-metric">Defrost Energy Cost</td><td class="cc-worst">Very High</td><td class="cc-ok">Moderate</td><td>Low</td><td class="cc-best">Zero</td></tr>
+        <tr><td class="cc-metric">Free Hot Water</td><td>No</td><td>No</td><td>Possible<sup>2</sup></td><td class="cc-best">Yes (CIP 75&#176;C)</td></tr>
+        <tr><td class="cc-metric">Refrigerant GWP</td><td class="cc-worst">3,922</td><td class="cc-worst">3,922</td><td class="cc-best">0</td><td class="cc-best">1</td></tr>
+        <tr><td class="cc-metric">PFAS / Forever Chemical</td><td class="cc-worst">Yes</td><td class="cc-worst">Yes</td><td class="cc-best">No</td><td class="cc-best">No</td></tr>
+        <tr><td class="cc-metric">Safety Classification</td><td>Standard (A1)</td><td>Standard (A1)</td><td class="cc-ok">Specialist (B2L)<sup>3</sup></td><td>Standard (A1)</td></tr>
+        <tr><td class="cc-metric">NCG Buildup Risk</td><td class="cc-ok">Yes</td><td class="cc-ok">Yes</td><td class="cc-worst">High<sup>4</sup></td><td class="cc-best">None</td></tr>
+        <tr><td class="cc-metric">Kigali Phase-Down Risk</td><td class="cc-worst">High</td><td class="cc-worst">High</td><td class="cc-best">None</td><td class="cc-best">None</td></tr>
+        <tr><td class="cc-metric">Scope 1 Emissions</td><td class="cc-worst" id="cc-cmp-s1-hfce">--</td><td class="cc-worst" id="cc-cmp-s1-hfchg">--</td><td class="cc-best">0 t</td><td class="cc-best" id="cc-cmp-s1-icool">--</td></tr>
+        <tr><td class="cc-metric">Refrigerant Cost / kg</td><td class="cc-worst">&#8369;1,400</td><td class="cc-worst">&#8369;1,400</td><td>&#8369;180</td><td class="cc-best">&#8369;50</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="cc-footnotes">
+      <p><sup>1</sup> Ammonia EER of 3.7 assumes clean system with zero NCG. With typical 8% NCG buildup, effective EER drops to ~3.0. <sup>2</sup> Ammonia desuperheating heat recovery requires additional equipment and specialist pipework. <sup>3</sup> Ammonia is toxic above 25 ppm and flammable at 15&ndash;28% concentration in air; requires gas detection, emergency ventilation, and trained operators. <sup>4</sup> NCG (Non-Condensable Gas) from air ingress or oil breakdown accumulates in ammonia condensers, reducing heat transfer and increasing head pressure.</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="cc-faq-section rv">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="cc-faq-item">
+      <summary>Why does electric defrost waste so much energy in cold stores?</summary>
+      <div class="cc-faq-answer">Electric defrost uses resistance heaters mounted on evaporator coils, typically drawing 8 kW per coil across 10 coils for 20-30 minutes per cycle. With 4-6 defrost cycles per day, this adds significant heat directly into the cold room that the compressor must then remove. The effective EER (Energy Efficiency Ratio) drops from the compressor's nominal 2.6 to as low as 0.9 when defrost energy is accounted for. This is the single largest hidden cost in many cold store operations.</div>
+    </details>
+    <details class="cc-faq-item">
+      <summary>What does the Kigali Amendment mean for R404A cold stores?</summary>
+      <div class="cc-faq-answer">The Kigali Amendment to the Montreal Protocol mandates an 80-85% phase-down of HFC production globally by 2047. R404A, with a GWP of 3,922, is a primary target. Operators face rising refrigerant costs as supply tightens, potential equipment obsolescence, increasing insurance premiums, and regulatory compliance costs. R404A is also a PFAS (per- and polyfluoroalkyl substance) - a "forever chemical" facing additional regulatory pressure under EU and US PFAS restrictions.</div>
+    </details>
+    <details class="cc-faq-item">
+      <summary>Is CO&#8322; refrigeration suitable for tropical climates like the Philippines?</summary>
+      <div class="cc-faq-answer">Yes. Transcritical CO&#8322; systems are specifically designed for high ambient temperatures. While traditional subcritical CO&#8322; systems lose efficiency above 25&#176;C, transcritical operation maintains high performance even at 45&#176;C ambient. The Karnot iCOOL system achieves an EER of 4.2 in tropical conditions by recovering the high-grade waste heat (80-90&#176;C) for hot water, effectively turning a thermodynamic challenge into a free energy benefit.</div>
+    </details>
+    <details class="cc-faq-item">
+      <summary>How does FLX Flex Defrost achieve zero electrical draw?</summary>
+      <div class="cc-faq-answer">The FLX system uses Phase Change Material (PCM) made from coconut oil and graphene composite that is passively charged by CO&#8322; subcooling during normal cooling operation. When defrost is needed, the iSAVE controller opens a valve to release stored thermal energy directly to the evaporator coils. This produces 8.1 kg of ice in 8 minutes with zero additional electrical draw, keeping product temperature deviation below 0.5&#176;C throughout the defrost cycle.</div>
+    </details>
+  </div>
+
+  <!-- CTA -->
+  <div class="cc-cta rv">
+    <h2>Get a Free Cold Store Energy Audit</h2>
+    <p>See exactly how much your cold store could save by switching to Karnot iCOOL CO&#8322; + FLX. We provide a detailed engineering report with payback analysis, emissions reduction, and implementation timeline.</p>
+    <a href="../contact.html?intent=cold_store_audit&product=iCOOL" class="cc-cta-btn"><i class="fas fa-arrow-right"></i> Get a Free Cold Store Energy Audit</a>
+  </div>
+
+</div>
+
+</main>
+
+<div id="karnot-footer"></div>
+
+<script src="../js/karnot.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================
+   COLOR PALETTE
+   ===================================================== */
+var C = {
+  red:        '#ff3b30',
+  darkRed:    '#991b1b',
+  orange:     '#ea580c',
+  amber:      '#d97706',
+  green:      '#16a34a',
+  brightGreen:'#22c55e',
+  blue:       '#2563eb',
+  lightBlue:  '#60a5fa',
+  teal:       '#0097a7',
+  grey:       '#86868b'
+};
+
+/* =====================================================
+   SCENARIO DATA DEFINITIONS
+   ===================================================== */
+var activeTab = 'hfc_electric';
+
+var defaults = {
+  hfc_electric: {
+    compLoss: 8, condenserReject: 62, electricDefrost: 21
+  },
+  hfc_hotgas: {
+    compLoss: 8, condenserReject: 58, hotGasDefrost: 8
+  },
+  ammonia: {
+    compLoss: 7, condenserReject: 53, defrost: 3, ncgPenalty: 8
+  },
+  icool: {
+    compLoss: 8, gasCoolerLoss: 30, flxCharge: 15, hotWater: 20
+  }
+};
+
+var sliders = {
+  hfc_electric: Object.assign({}, defaults.hfc_electric),
+  hfc_hotgas:   Object.assign({}, defaults.hfc_hotgas),
+  ammonia:      Object.assign({}, defaults.ammonia),
+  icool:        Object.assign({}, defaults.icool)
+};
+
+var sliderDefs = {
+  hfc_electric: [
+    {key:'compLoss',        label:'Compressor Loss',        min:4,  max:14, unit:'%'},
+    {key:'condenserReject', label:'Condenser Rejected Heat', min:50, max:75, unit:'%'},
+    {key:'electricDefrost', label:'Electric Defrost Loss',   min:10, max:30, unit:'%'}
+  ],
+  hfc_hotgas: [
+    {key:'compLoss',        label:'Compressor Loss',        min:4,  max:14, unit:'%'},
+    {key:'condenserReject', label:'Condenser Rejected Heat', min:45, max:70, unit:'%'},
+    {key:'hotGasDefrost',   label:'Hot Gas Defrost Loss',    min:3,  max:15, unit:'%'}
+  ],
+  ammonia: [
+    {key:'compLoss',        label:'Compressor Loss',        min:4,  max:12, unit:'%'},
+    {key:'condenserReject', label:'Condenser Rejected Heat', min:40, max:65, unit:'%'},
+    {key:'defrost',         label:'Defrost Loss',            min:1,  max:8,  unit:'%'},
+    {key:'ncgPenalty',      label:'NCG Penalty',             min:0,  max:16, unit:'%'}
+  ],
+  icool: [
+    {key:'compLoss',     label:'Compressor Loss',      min:4,  max:14, unit:'%'},
+    {key:'gasCoolerLoss',label:'Gas Cooler Loss',       min:20, max:40, unit:'%'},
+    {key:'flxCharge',    label:'FLX PCM Charge',        min:10, max:25, unit:'%'},
+    {key:'hotWater',     label:'Hot Water Recovery',     min:10, max:30, unit:'%'}
+  ]
+};
+
+/* =====================================================
+   BUILD SANKEY DATA
+   ===================================================== */
+function buildHfcElectricData(s) {
+  var elec = 100;
+  var comp = s.compLoss;
+  var cond = s.condenserReject;
+  var defr = s.electricDefrost;
+  var useful = elec - comp - cond - defr;
+  if (useful < 0) useful = 0;
+
+  return {
+    eer: 0.9, tabLabel: 'HFC R404A + Electric Defrost',
+    efficiency: useful,
+    nodes: [
+      {name: 'Electricity Input',    fixedValue: elec},
+      {name: 'Compressor Loss',      fixedValue: comp},
+      {name: 'Condenser Rejected',   fixedValue: cond},
+      {name: 'Electric Defrost',     fixedValue: defr},
+      {name: 'Net Useful Cooling',   fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 1, value: Math.max(comp,0.5)},
+      {source: 0, target: 2, value: Math.max(cond,0.5)},
+      {source: 0, target: 3, value: Math.max(defr,0.5)},
+      {source: 0, target: 4, value: Math.max(useful,0.5)}
+    ],
+    colors: [C.blue, C.red, C.red, C.darkRed, C.orange],
+    pulseLinks: []
+  };
+}
+
+function buildHfcHotgasData(s) {
+  var elec = 100;
+  var comp = s.compLoss;
+  var cond = s.condenserReject;
+  var defr = s.hotGasDefrost;
+  var useful = elec - comp - cond - defr;
+  if (useful < 0) useful = 0;
+
+  return {
+    eer: 2.6, tabLabel: 'HFC R404A + Hot Gas Defrost',
+    efficiency: useful,
+    nodes: [
+      {name: 'Electricity Input',    fixedValue: elec},
+      {name: 'Compressor Loss',      fixedValue: comp},
+      {name: 'Condenser Rejected',   fixedValue: cond},
+      {name: 'Hot Gas Defrost',      fixedValue: defr},
+      {name: 'Net Useful Cooling',   fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 1, value: Math.max(comp,0.5)},
+      {source: 0, target: 2, value: Math.max(cond,0.5)},
+      {source: 0, target: 3, value: Math.max(defr,0.5)},
+      {source: 0, target: 4, value: Math.max(useful,0.5)}
+    ],
+    colors: [C.blue, C.red, C.red, C.amber, C.orange],
+    pulseLinks: []
+  };
+}
+
+function buildAmmoniaData(s) {
+  var elec = 100;
+  var comp = s.compLoss;
+  var cond = s.condenserReject;
+  var defr = s.defrost;
+  var ncg  = s.ncgPenalty;
+  var useful = elec - comp - cond - defr - ncg;
+  if (useful < 0) useful = 0;
+
+  // Adjust EER based on NCG
+  var baseEer = 3.7;
+  var eer = baseEer * (1 - ncg / 100);
+  eer = Math.round(eer * 10) / 10;
+
+  return {
+    eer: eer, tabLabel: 'Ammonia R717',
+    efficiency: useful,
+    nodes: [
+      {name: 'Electricity Input',    fixedValue: elec},
+      {name: 'Compressor Loss',      fixedValue: comp},
+      {name: 'Condenser Rejected',   fixedValue: cond},
+      {name: 'Defrost Loss',         fixedValue: defr},
+      {name: 'NCG Penalty',          fixedValue: ncg},
+      {name: 'Net Useful Cooling',   fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 1, value: Math.max(comp,0.5)},
+      {source: 0, target: 2, value: Math.max(cond,0.5)},
+      {source: 0, target: 3, value: Math.max(defr,0.5)},
+      {source: 0, target: 4, value: Math.max(ncg,0.5)},
+      {source: 0, target: 5, value: Math.max(useful,0.5)}
+    ],
+    colors: [C.blue, C.red, C.red, C.lightBlue, C.amber, C.lightBlue],
+    pulseLinks: []
+  };
+}
+
+function buildIcoolData(s) {
+  var elec = 100;
+  var comp = s.compLoss;
+  var afterComp = elec - comp;
+  var gasCooler = s.gasCoolerLoss;
+  var flx = s.flxCharge;
+  var hotWater = s.hotWater;
+  var useful = afterComp - gasCooler - flx + hotWater;
+  // FLX energy returns as cooling so net useful = afterComp - gasCooler
+  // But FLX is "free defrost" and hotWater is "free heat" - both are benefits
+  // Model: afterComp splits into gasCooler, useful cooling (rest)
+  // Plus FLX (charged passively) and hot water recovery as bonus outputs
+  var netCooling = elec - comp - gasCooler;
+  if (netCooling < 0) netCooling = 0;
+  // Total useful output = net cooling + free defrost + hot water
+  useful = netCooling;
+
+  return {
+    eer: 4.2, tabLabel: 'Karnot iCOOL CO\u2082 + FLX',
+    efficiency: useful,
+    isIcool: true,
+    nodes: [
+      {name: 'Electricity Input',       fixedValue: elec},
+      {name: 'Compressor Loss',         fixedValue: comp},
+      {name: 'Transcritical CO\u2082',  fixedValue: afterComp},
+      {name: 'FLX PCM Charge',          fixedValue: flx},
+      {name: 'Gas Cooler Loss',         fixedValue: gasCooler},
+      {name: 'Hot Water Recovery',       fixedValue: hotWater},
+      {name: 'Net Useful Cooling',       fixedValue: useful}
+    ],
+    links: [
+      {source: 0, target: 1, value: Math.max(comp,0.5)},
+      {source: 0, target: 2, value: Math.max(afterComp,0.5)},
+      {source: 2, target: 3, value: Math.max(flx,0.5)},
+      {source: 2, target: 4, value: Math.max(gasCooler,0.5)},
+      {source: 2, target: 5, value: Math.max(hotWater,0.5)},
+      {source: 2, target: 6, value: Math.max(netCooling,0.5)}
+    ],
+    colors: [C.blue, C.red, C.teal, C.brightGreen, C.amber, C.brightGreen, C.green],
+    pulseLinks: [2] // FLX PCM Charge link index
+  };
+}
+
+function getData() {
+  if (activeTab === 'hfc_electric') return buildHfcElectricData(sliders.hfc_electric);
+  if (activeTab === 'hfc_hotgas')   return buildHfcHotgasData(sliders.hfc_hotgas);
+  if (activeTab === 'ammonia')      return buildAmmoniaData(sliders.ammonia);
+  return buildIcoolData(sliders.icool);
+}
+
+/* =====================================================
+   RENDER BADGES
+   ===================================================== */
+function renderBadges() {
+  var el = document.getElementById('cc-badges');
+  var html = '';
+  if (activeTab === 'hfc_electric' || activeTab === 'hfc_hotgas') {
+    html += '<span class="cc-badge cc-badge-red"><i class="fas fa-exclamation-triangle"></i> R404A GWP 3,922 &mdash; PFAS &#10060;</span>';
+    html += '<span class="cc-badge cc-badge-red"><i class="fas fa-ban"></i> Kigali Phase-Down Target</span>';
+  } else if (activeTab === 'ammonia') {
+    html += '<span class="cc-badge cc-badge-green"><i class="fas fa-check"></i> GWP 0 &#9989;</span>';
+    html += '<span class="cc-badge cc-badge-amber"><i class="fas fa-skull-crossbones"></i> Toxic &#9888;&#65039;</span>';
+    html += '<span class="cc-badge cc-badge-amber"><i class="fas fa-wrench"></i> Specialist maintenance &#9888;&#65039;</span>';
+  } else {
+    html += '<span class="cc-badge cc-badge-green"><i class="fas fa-check"></i> CO\u2082 R744 GWP 1 &#9989;</span>';
+    html += '<span class="cc-badge cc-badge-green"><i class="fas fa-check"></i> Not PFAS &#9989;</span>';
+    html += '<span class="cc-badge cc-badge-green"><i class="fas fa-tag"></i> &#8369;50/kg &#9989;</span>';
+  }
+  el.innerHTML = html;
+}
+
+/* =====================================================
+   RENDER REFRIGERANT PANEL
+   ===================================================== */
+function renderRefrigPanel() {
+  var el = document.getElementById('cc-refrig-panel');
+  var charge = parseFloat(document.getElementById('cc-refrig-charge').value) || 200;
+  var leak   = parseFloat(document.getElementById('cc-leak-rate').value) || 10;
+  var leakKg = charge * leak / 100;
+
+  if (activeTab === 'hfc_electric' || activeTab === 'hfc_hotgas') {
+    var gwp = 3922;
+    var co2e = (leakKg * gwp / 1000).toFixed(1);
+    var topup = Math.round(leakKg * 1400);
+    el.innerHTML = '<div class="cc-refrig-panel">' +
+      '<h4><i class="fas fa-biohazard"></i> Refrigerant Emissions &mdash; R404A</h4>' +
+      '<div class="cc-refrig-row">' +
+        '<div class="cc-refrig-item"><span>Charge</span><span class="cc-refrig-val">' + charge + ' kg R404A</span></div>' +
+        '<div class="cc-refrig-item"><span>Annual leak</span><span class="cc-refrig-val">' + leak + '% = ' + leakKg.toFixed(0) + ' kg/yr</span></div>' +
+        '<div class="cc-refrig-item"><span>GWP</span><span class="cc-refrig-val">3,922</span></div>' +
+        '<div class="cc-refrig-item"><span>Scope 1 CO\u2082e</span><span class="cc-refrig-val">' + co2e + ' tonnes/yr</span></div>' +
+        '<div class="cc-refrig-item"><span>Top-up cost</span><span class="cc-refrig-val">\u20B1' + topup.toLocaleString() + '/yr @ \u20B11,400/kg</span></div>' +
+      '</div></div>';
+  } else if (activeTab === 'ammonia') {
+    el.innerHTML = '<div class="cc-refrig-panel" style="background:#eff6ff;border-color:#bfdbfe">' +
+      '<h4 style="color:#1e40af"><i class="fas fa-flask"></i> Refrigerant &mdash; Ammonia R717</h4>' +
+      '<div class="cc-refrig-row">' +
+        '<div class="cc-refrig-item"><span>Charge</span><span class="cc-refrig-val">' + charge + ' kg NH\u2083</span></div>' +
+        '<div class="cc-refrig-item"><span>Annual leak</span><span class="cc-refrig-val">' + leak + '% = ' + leakKg.toFixed(0) + ' kg/yr</span></div>' +
+        '<div class="cc-refrig-item"><span>GWP</span><span class="cc-refrig-val">0</span></div>' +
+        '<div class="cc-refrig-item"><span>Scope 1 CO\u2082e</span><span class="cc-refrig-val">0 tonnes</span></div>' +
+        '<div class="cc-refrig-item"><span>Top-up cost</span><span class="cc-refrig-val">\u20B1' + Math.round(leakKg * 180).toLocaleString() + '/yr @ \u20B1180/kg</span></div>' +
+      '</div></div>';
+  } else {
+    var co2eIcool = (leakKg * 1 / 1000).toFixed(3);
+    el.innerHTML = '<div class="cc-refrig-panel green">' +
+      '<h4><i class="fas fa-leaf"></i> Refrigerant &mdash; CO\u2082 R744</h4>' +
+      '<div class="cc-refrig-row">' +
+        '<div class="cc-refrig-item"><span>Charge</span><span class="cc-refrig-val">' + charge + ' kg CO\u2082</span></div>' +
+        '<div class="cc-refrig-item"><span>Annual leak</span><span class="cc-refrig-val">' + leak + '% = ' + leakKg.toFixed(0) + ' kg/yr</span></div>' +
+        '<div class="cc-refrig-item"><span>GWP</span><span class="cc-refrig-val">1</span></div>' +
+        '<div class="cc-refrig-item"><span>Scope 1 CO\u2082e</span><span class="cc-refrig-val">' + co2eIcool + ' tonnes/yr</span></div>' +
+        '<div class="cc-refrig-item"><span>Top-up cost</span><span class="cc-refrig-val">\u20B1' + Math.round(leakKg * 50).toLocaleString() + '/yr @ \u20B150/kg</span></div>' +
+      '</div></div>';
+  }
+}
+
+/* =====================================================
+   RENDER SANKEY
+   ===================================================== */
+var svgEl = document.getElementById('cc-sankey-svg');
+var wrapEl = document.getElementById('cc-sankey-wrap');
+var tooltipEl = document.getElementById('cc-tooltip');
+var badgeEl = document.getElementById('cc-eff-badge');
+
+function renderSankey() {
+  var data = getData();
+  var rect = wrapEl.getBoundingClientRect();
+  var W = Math.max(rect.width - 2, 400);
+  var H = data.isIcool ? 420 : 380;
+  var margin = {top: 20, right: 160, bottom: 20, left: 140};
+
+  // Update efficiency badge
+  badgeEl.textContent = 'EER: ' + data.eer;
+  if (data.eer >= 4.0) {
+    badgeEl.style.background = 'rgba(22,163,74,.85)';
+  } else if (data.eer >= 2.5) {
+    badgeEl.style.background = 'rgba(0,0,0,.75)';
+  } else {
+    badgeEl.style.background = 'rgba(220,38,38,.85)';
+  }
+
+  // Clear SVG
+  d3.select(svgEl).selectAll('*').remove();
+
+  var svg = d3.select(svgEl)
+    .attr('width', W)
+    .attr('height', H)
+    .attr('viewBox', '0 0 ' + W + ' ' + H);
+
+  // Deep copy data for d3-sankey
+  var nodes = data.nodes.map(function(n, i) { return {name: n.name, fixedValue: n.fixedValue, nodeColor: data.colors[i]}; });
+  var links = data.links.map(function(l) { return {source: l.source, target: l.target, value: l.value}; });
+
+  var sankey = d3.sankey()
+    .nodeId(function(d, i) { return i; })
+    .nodeWidth(22)
+    .nodePadding(18)
+    .nodeAlign(d3.sankeyLeft)
+    .extent([[margin.left, margin.top], [W - margin.right, H - margin.bottom]]);
+
+  var graph = sankey({nodes: nodes, links: links});
+
+  // Draw links
+  var link = svg.append('g')
+    .selectAll('.cc-link')
+    .data(graph.links)
+    .enter()
+    .append('path')
+    .attr('class', function(d, i) {
+      return 'cc-link' + (data.pulseLinks.indexOf(i) >= 0 ? ' cc-link-pulse' : '');
+    })
+    .attr('d', d3.sankeyLinkHorizontal())
+    .attr('fill', 'none')
+    .attr('stroke', function(d) { return d.target.nodeColor || C.grey; })
+    .attr('stroke-opacity', function(d, i) {
+      return data.pulseLinks.indexOf(i) >= 0 ? 0.65 : 0.45;
+    })
+    .attr('stroke-width', function(d) { return Math.max(1, d.width); })
+    .on('mouseover', function(event, d) {
+      d3.select(this).attr('stroke-opacity', 0.7);
+      tooltipEl.textContent = d.source.name + ' \u2192 ' + d.target.name + ': ' + Math.round(d.value) + '%';
+      tooltipEl.style.opacity = '1';
+    })
+    .on('mousemove', function(event) {
+      var r = wrapEl.getBoundingClientRect();
+      tooltipEl.style.left = (event.clientX - r.left + 12) + 'px';
+      tooltipEl.style.top = (event.clientY - r.top - 30) + 'px';
+    })
+    .on('mouseout', function(d, i) {
+      var idx = graph.links.indexOf(d);
+      d3.select(this).attr('stroke-opacity', data.pulseLinks.indexOf(idx) >= 0 ? 0.65 : 0.45);
+      tooltipEl.style.opacity = '0';
+    });
+
+  // Animate links in
+  link.attr('stroke-dasharray', function() {
+    var len = this.getTotalLength();
+    return len + ' ' + len;
+  })
+  .attr('stroke-dashoffset', function() { return this.getTotalLength(); })
+  .transition()
+  .duration(800)
+  .ease(d3.easeCubicOut)
+  .attr('stroke-dashoffset', 0);
+
+  // Draw nodes
+  var node = svg.append('g')
+    .selectAll('.cc-node')
+    .data(graph.nodes)
+    .enter()
+    .append('g')
+    .attr('class', 'cc-node');
+
+  node.append('rect')
+    .attr('x', function(d) { return d.x0; })
+    .attr('y', function(d) { return d.y0; })
+    .attr('width', function(d) { return d.x1 - d.x0; })
+    .attr('height', function(d) { return Math.max(1, d.y1 - d.y0); })
+    .attr('fill', function(d) { return d.nodeColor; })
+    .attr('rx', 3)
+    .attr('opacity', 0)
+    .transition()
+    .duration(600)
+    .delay(200)
+    .attr('opacity', 0.9);
+
+  // Node labels
+  node.append('text')
+    .attr('class', 'cc-node-label')
+    .attr('x', function(d) { return d.x0 < W / 2 ? d.x0 - 8 : d.x1 + 8; })
+    .attr('y', function(d) { return (d.y0 + d.y1) / 2 - 7; })
+    .attr('text-anchor', function(d) { return d.x0 < W / 2 ? 'end' : 'start'; })
+    .text(function(d) { return d.name; });
+
+  node.append('text')
+    .attr('class', 'cc-node-value')
+    .attr('x', function(d) { return d.x0 < W / 2 ? d.x0 - 8 : d.x1 + 8; })
+    .attr('y', function(d) { return (d.y0 + d.y1) / 2 + 8; })
+    .attr('text-anchor', function(d) { return d.x0 < W / 2 ? 'end' : 'start'; })
+    .text(function(d) { return Math.round(d.fixedValue) + '%'; });
+
+  // Add special labels for iCOOL tab
+  if (data.isIcool) {
+    var flxNode = graph.nodes[3]; // FLX PCM Charge
+    if (flxNode) {
+      svg.append('text')
+        .attr('class', 'cc-node-value')
+        .attr('x', flxNode.x1 + 8)
+        .attr('y', (flxNode.y0 + flxNode.y1) / 2 + 22)
+        .attr('text-anchor', 'start')
+        .attr('fill', '#166534')
+        .attr('font-size', '10px')
+        .text('Zero electrical draw');
+    }
+    var hwNode = graph.nodes[5]; // Hot Water Recovery
+    if (hwNode) {
+      svg.append('text')
+        .attr('class', 'cc-node-value')
+        .attr('x', hwNode.x1 + 8)
+        .attr('y', (hwNode.y0 + hwNode.y1) / 2 + 22)
+        .attr('text-anchor', 'start')
+        .attr('fill', '#166534')
+        .attr('font-size', '10px')
+        .text('CIP 75\u00B0C / Sanit. 65\u00B0C');
+    }
+  }
+
+  // Update panels
+  renderBadges();
+  renderRefrigPanel();
+  updateCostResults();
+
+  // FLX detail visibility
+  var flxEl = document.getElementById('cc-flx-detail');
+  if (activeTab === 'icool') {
+    flxEl.classList.add('visible');
+  } else {
+    flxEl.classList.remove('visible');
+  }
+}
+
+/* =====================================================
+   SLIDER CONTROLS
+   ===================================================== */
+function buildSliders() {
+  var container = document.getElementById('cc-sliders');
+  container.innerHTML = '';
+  var defs = sliderDefs[activeTab];
+  var vals = sliders[activeTab];
+
+  defs.forEach(function(def) {
+    var group = document.createElement('div');
+    group.className = 'cc-slider-group';
+
+    var label = document.createElement('label');
+    label.innerHTML = def.label + ' <span class="cc-val" id="cc-sv-' + def.key + '">' + vals[def.key] + def.unit + '</span>';
+
+    var input = document.createElement('input');
+    input.type = 'range';
+    input.min = def.min;
+    input.max = def.max;
+    input.step = 1;
+    input.value = vals[def.key];
+    input.id = 'cc-sl-' + def.key;
+
+    input.addEventListener('input', function() {
+      var v = parseInt(this.value);
+      sliders[activeTab][def.key] = v;
+      document.getElementById('cc-sv-' + def.key).textContent = v + def.unit;
+      renderSankey();
+    });
+
+    group.appendChild(label);
+    group.appendChild(input);
+    container.appendChild(group);
+  });
+}
+
+/* =====================================================
+   COST CALCULATIONS
+   ===================================================== */
+function updateCostResults() {
+  var coolingLoad = parseFloat(document.getElementById('cc-cooling-load').value) || 100;
+  var elecCost    = parseFloat(document.getElementById('cc-elec-cost').value) || 12;
+  var defrostCyc  = parseFloat(document.getElementById('cc-defrost-cycles').value) || 5;
+  var charge      = parseFloat(document.getElementById('cc-refrig-charge').value) || 200;
+  var leakRate    = parseFloat(document.getElementById('cc-leak-rate').value) || 10;
+
+  var monthlyHours = 24 * 30; // cold stores run 24/7
+  var leakKg = charge * leakRate / 100;
+
+  // EER values
+  var eerMap = {
+    hfc_electric: 0.9,
+    hfc_hotgas:   2.6,
+    ammonia:      sliders.ammonia ? 3.7 * (1 - sliders.ammonia.ncgPenalty / 100) : 3.4,
+    icool:        4.2
+  };
+  var currentEer = eerMap[activeTab];
+
+  // Refrigerant costs per kg
+  var refrigCostMap = {
+    hfc_electric: 1400,
+    hfc_hotgas:   1400,
+    ammonia:      180,
+    icool:        50
+  };
+
+  // GWP
+  var gwpMap = {
+    hfc_electric: 3922,
+    hfc_hotgas:   3922,
+    ammonia:      0,
+    icool:        1
+  };
+
+  // --- YOUR CURRENT SYSTEM ---
+  var monthlyElecKwh = (coolingLoad / currentEer) * monthlyHours;
+  var monthlyElecCost = monthlyElecKwh * elecCost;
+
+  // Annual defrost cost (for HFC electric: cycles * 10 coils * 8kW * 25min/60 * tariff * 365)
+  var annualDefrostCost = 0;
+  if (activeTab === 'hfc_electric') {
+    annualDefrostCost = defrostCyc * 10 * 8 * (25/60) * elecCost * 365;
+  } else if (activeTab === 'hfc_hotgas') {
+    // hot gas defrost uses less energy, ~30% of electric
+    annualDefrostCost = defrostCyc * 10 * 2.4 * (15/60) * elecCost * 365;
+  } else if (activeTab === 'ammonia') {
+    annualDefrostCost = defrostCyc * 10 * 1.5 * (10/60) * elecCost * 365;
+  }
+  // icool: defrost is ₱0 by definition
+
+  var annualRefrigCost = leakKg * refrigCostMap[activeTab];
+  var annualCo2e = leakKg * gwpMap[activeTab] / 1000;
+  var annualElecCost = monthlyElecCost * 12;
+  var totalAnnualCurrent = annualElecCost + annualDefrostCost + annualRefrigCost;
+
+  // --- WITH iCOOL + FLX ---
+  var icoolEer = 4.2;
+  var icoolMonthlyElec = (coolingLoad / icoolEer) * monthlyHours;
+  var icoolMonthlyElecCost = icoolMonthlyElec * elecCost;
+  var icoolAnnualElecCost = icoolMonthlyElecCost * 12;
+  var icoolDefrostCost = 0;
+
+  // Hot water savings: 20% of total compressor energy recovered as hot water
+  var compressorEnergy = (coolingLoad / icoolEer) * monthlyHours * 12;
+  var hotWaterSaved = compressorEnergy * 0.20 * elecCost; // value of displaced heating
+
+  var icoolLeakKg = charge * leakRate / 100;
+  var icoolRefrigCost = icoolLeakKg * 50;
+  var icoolCo2e = icoolLeakKg * 1 / 1000;
+  var icoolTotalAnnual = icoolAnnualElecCost + icoolDefrostCost + icoolRefrigCost - hotWaterSaved;
+
+  // Savings
+  var annualSaving = totalAnnualCurrent - icoolTotalAnnual;
+  var co2eSaved = annualCo2e - icoolCo2e;
+  var fiveYearSaving = annualSaving * 5;
+
+  // Format
+  function fmt(n) { return n.toLocaleString('en-PH', {maximumFractionDigits:0}); }
+  function fmt1(n) { return n.toLocaleString('en-PH', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+
+  // Current system title
+  var titles = {
+    hfc_electric: 'HFC R404A + Electric Defrost',
+    hfc_hotgas: 'HFC R404A + Hot Gas Defrost',
+    ammonia: 'Ammonia R717',
+    icool: 'Karnot iCOOL + FLX (Current)'
+  };
+  document.getElementById('cc-r-title').textContent = titles[activeTab];
+
+  document.getElementById('cc-r-elec-cost').textContent = '\u20B1' + fmt(monthlyElecCost) + '/mo';
+  document.getElementById('cc-r-defrost-cost').textContent = '\u20B1' + fmt(annualDefrostCost) + '/yr';
+  document.getElementById('cc-r-refrig-cost').textContent = '\u20B1' + fmt(annualRefrigCost) + '/yr';
+  document.getElementById('cc-r-co2e').textContent = fmt1(annualCo2e) + ' tonnes';
+  document.getElementById('cc-r-total').textContent = '\u20B1' + fmt(totalAnnualCurrent) + '/yr';
+
+  document.getElementById('cc-r-ih-elec-cost').textContent = '\u20B1' + fmt(icoolMonthlyElecCost) + '/mo';
+  document.getElementById('cc-r-ih-defrost').textContent = '\u20B10 (FLX)';
+  document.getElementById('cc-r-ih-hotwater').textContent = '-\u20B1' + fmt(hotWaterSaved) + '/yr';
+  document.getElementById('cc-r-ih-refrig').textContent = '\u20B1' + fmt(icoolRefrigCost) + '/yr';
+  document.getElementById('cc-r-ih-co2e').textContent = fmt1(icoolCo2e) + ' tonnes';
+  document.getElementById('cc-r-ih-total').textContent = '\u20B1' + fmt(Math.max(0, icoolTotalAnnual)) + '/yr';
+
+  document.getElementById('cc-save-annual').textContent = '\u20B1' + fmt(annualSaving);
+  document.getElementById('cc-save-co2').textContent = fmt1(co2eSaved);
+  document.getElementById('cc-save-5yr').textContent = '\u20B1' + fmt(fiveYearSaving);
+
+  // Update comparison table Scope 1 values
+  var hfcChargeLeak = charge * leakRate / 100;
+  document.getElementById('cc-cmp-s1-hfce').textContent = fmt1(hfcChargeLeak * 3922 / 1000) + ' t';
+  document.getElementById('cc-cmp-s1-hfchg').textContent = fmt1(hfcChargeLeak * 3922 / 1000) + ' t';
+  document.getElementById('cc-cmp-s1-icool').textContent = fmt1(hfcChargeLeak * 1 / 1000) + ' t';
+}
+
+/* =====================================================
+   TAB SWITCHING
+   ===================================================== */
+document.getElementById('cc-tabs').addEventListener('click', function(e) {
+  var tab = e.target.closest('.cc-tab');
+  if (!tab) return;
+  var tabId = tab.dataset.tab;
+  if (tabId === activeTab) return;
+
+  activeTab = tabId;
+
+  // Update tab styling
+  document.querySelectorAll('.cc-tab').forEach(function(t) {
+    t.classList.remove('active-red', 'active-orange', 'active-blue', 'active-green');
+  });
+  var classMap = {
+    hfc_electric: 'active-red',
+    hfc_hotgas:   'active-orange',
+    ammonia:      'active-blue',
+    icool:        'active-green'
+  };
+  tab.classList.add(classMap[tabId]);
+
+  buildSliders();
+  renderSankey();
+});
+
+/* =====================================================
+   COST INPUT EVENTS
+   ===================================================== */
+['cc-cooling-load','cc-room-temp','cc-ambient-temp','cc-defrost-cycles','cc-elec-cost','cc-refrig-charge','cc-leak-rate'].forEach(function(id) {
+  var el = document.getElementById(id);
+  el.addEventListener('input', function() { renderSankey(); });
+  el.addEventListener('change', function() { renderSankey(); });
+});
+
+/* =====================================================
+   RESPONSIVE RESIZE
+   ===================================================== */
+var resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(renderSankey, 200);
+});
+
+/* =====================================================
+   SCROLL REVEAL
+   ===================================================== */
+function initScrollReveal() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold: 0.1});
+  document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
+}
+if ('IntersectionObserver' in window) initScrollReveal();
+else document.querySelectorAll('.rv').forEach(function(el) { el.classList.add('visible'); });
+
+/* =====================================================
+   INIT
+   ===================================================== */
+function init() {
+  buildSliders();
+  renderSankey();
+}
+
+if (typeof d3 !== 'undefined' && typeof d3.sankey !== 'undefined') {
+  init();
+} else {
+  window.addEventListener('load', init);
+}
+
+})();
+</script>
+</body>
+</html>
