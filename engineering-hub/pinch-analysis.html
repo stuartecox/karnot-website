@@ -298,6 +298,74 @@ canvas.pa-canvas{display:block;width:100%;max-width:100%}
 @media(max-width:400px){
   .pa-savings-heroes{grid-template-columns:1fr}
 }
+
+/* EMAIL GATE — blur overlay for locked cards */
+.pa-gated{position:relative;pointer-events:none}
+.pa-gated::after{
+  content:'';position:absolute;inset:0;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  background:rgba(255,255,255,0.6);
+  border-radius:inherit;z-index:10
+}
+
+/* GATE MODAL */
+.pa-gate-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,0.45);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;opacity:0;transition:opacity .3s ease;pointer-events:none
+}
+.pa-gate-overlay.pa-gate-visible{opacity:1;pointer-events:auto}
+.pa-gate-box{
+  background:#fff;border-radius:20px;padding:40px;
+  max-width:480px;width:100%;position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,.18);
+  transform:translateY(16px);transition:transform .3s ease
+}
+.pa-gate-overlay.pa-gate-visible .pa-gate-box{transform:translateY(0)}
+.pa-gate-close{
+  position:absolute;top:14px;right:16px;
+  background:none;border:none;font-size:22px;color:#999;cursor:pointer;
+  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s
+}
+.pa-gate-close:hover{background:#f5f5f7;color:#1d1d1f}
+.pa-gate-box h3{font-size:22px;font-weight:800;color:#1d1d1f;margin:0 0 8px}
+.pa-gate-box .pa-gate-sub{font-size:14px;color:#6e6e73;line-height:1.6;margin-bottom:24px}
+.pa-gate-form label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:4px}
+.pa-gate-form input,.pa-gate-form select{
+  width:100%;padding:10px 13px;border:1.5px solid #ddd;border-radius:9px;
+  font-size:15px;background:#fafafa;color:#1d1d1f;margin-bottom:14px;
+  transition:border-color .2s,box-shadow .2s;box-sizing:border-box
+}
+.pa-gate-form input:focus,.pa-gate-form select:focus{outline:none;border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,.12)}
+.pa-gate-row{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.pa-gate-consent{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.pa-gate-consent input[type=checkbox]{margin-top:3px;accent-color:#EA580C;width:16px;height:16px;flex-shrink:0}
+.pa-gate-consent label{font-size:12px;font-weight:400;color:#6e6e73;line-height:1.5;margin-bottom:0}
+.pa-gate-privacy{font-size:11px;color:#999;line-height:1.5;margin-bottom:18px}
+.pa-gate-submit{
+  display:block;width:100%;padding:14px;border:none;border-radius:11px;
+  background:#EA580C;color:#fff;font-size:16px;font-weight:700;
+  cursor:pointer;transition:background .2s,transform .15s;text-align:center
+}
+.pa-gate-submit:hover{background:#d14e0a;transform:translateY(-1px)}
+.pa-gate-submit:active{transform:translateY(0)}
+.pa-gate-secure{text-align:center;font-size:12px;color:#999;margin-top:12px}
+.pa-gate-form .pa-gate-err{color:#dc2626;font-size:12px;margin-bottom:6px;display:none}
+
+/* UNLOCKED BANNER */
+.pa-unlocked-banner{
+  background:#dcfce7;border:1.5px solid rgba(34,197,94,.4);
+  border-radius:12px;padding:14px 20px;margin-bottom:20px;
+  font-size:15px;font-weight:600;color:#166534;
+  display:flex;align-items:center;gap:8px
+}
+
+@media(max-width:480px){
+  .pa-gate-box{padding:28px 22px}
+  .pa-gate-row{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -1782,6 +1850,9 @@ function recalculate(){
   showCard('pa-savings-card');
   showCard('pa-product-card');
 
+  /* -- Email Gate -- */
+  applyEmailGate();
+
   /* -- HP Computed Values (must run before composite curves overlay) -- */
   const tempLift = sinkTemp - sourceTemp;
   $('hp-lift').textContent = tempLift;
@@ -1940,6 +2011,177 @@ window.addEventListener('resize', () => {
   streams = tpl.streams.map(s => Object.assign({}, s));
   renderTable();
   recalculate();
+})();
+
+/* =====================================================
+   EMAIL GATE
+   ===================================================== */
+var paGateCards = ['pa-cc-card','pa-gcc-card','pa-hp-integration-card','pa-hp-card','pa-savings-card','pa-product-card'];
+
+function isPinchUnlocked(){
+  try { return sessionStorage.getItem('karnot_unlocked_pinch') === 'true'; } catch(e){ return false; }
+}
+
+function applyEmailGate(){
+  if(isPinchUnlocked()){
+    paGateCards.forEach(function(id){ var el = $(id); if(el) el.classList.remove('pa-gated'); });
+    return;
+  }
+  if(streams.length < 2) return;
+
+  paGateCards.forEach(function(id){ var el = $(id); if(el) el.classList.add('pa-gated'); });
+  showGateModal();
+}
+
+function showGateModal(){
+  var overlay = document.getElementById('pa-gate-modal');
+  if(!overlay) return;
+  overlay.classList.add('pa-gate-visible');
+  if(typeof gtag === 'function') gtag('event','gate_shown',{'calculator':'pinch-analysis'});
+}
+
+function hideGateModal(){
+  var overlay = document.getElementById('pa-gate-modal');
+  if(overlay) overlay.classList.remove('pa-gate-visible');
+}
+
+function unlockPinchResults(){
+  hideGateModal();
+  paGateCards.forEach(function(id){ var el = $(id); if(el) el.classList.remove('pa-gated'); });
+  try { sessionStorage.setItem('karnot_unlocked_pinch','true'); } catch(e){}
+
+  // Show unlocked banner
+  var existing = document.getElementById('pa-unlocked-banner');
+  if(!existing){
+    var banner = document.createElement('div');
+    banner.id = 'pa-unlocked-banner';
+    banner.className = 'pa-unlocked-banner';
+    banner.innerHTML = '<span>&#9989;</span> Report unlocked! Check your email for a copy.';
+    var resultsCard = $('pa-results-card');
+    if(resultsCard && resultsCard.parentNode){
+      resultsCard.parentNode.insertBefore(banner, resultsCard);
+    }
+  }
+}
+
+function submitGateForm(e){
+  e.preventDefault();
+  var form = e.target;
+  var fname   = form.querySelector('#gate-fname').value.trim();
+  var email   = form.querySelector('#gate-email').value.trim();
+  var company = form.querySelector('#gate-company').value.trim();
+  var phone   = form.querySelector('#gate-phone').value.trim();
+  var role    = form.querySelector('#gate-role').value;
+  var consent = form.querySelector('#gate-consent').checked;
+  var errEl   = form.querySelector('.pa-gate-err');
+
+  if(!fname || !email || !company || !consent){
+    errEl.textContent = 'Please fill in all required fields and accept the consent checkbox.';
+    errEl.style.display = 'block';
+    return;
+  }
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRe.test(email)){
+    errEl.textContent = 'Please enter a valid email address.';
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  if(typeof gtag === 'function') gtag('event','gate_submitted',{'calculator':'pinch-analysis'});
+
+  // Send to Brevo
+  var brevoKey = window.KARNOT_BREVO_KEY || '';
+  if(brevoKey){
+    var payload = {
+      email: email,
+      attributes: {
+        FIRSTNAME: fname,
+        COMPANY: company,
+        PHONE: phone,
+        ROLE: role,
+        CALCULATOR: 'Pinch Analysis',
+        SOURCE: 'Engineering Hub Gate',
+        CONSENT: 'true'
+      },
+      listIds: [2],
+      updateEnabled: true
+    };
+    fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: { 'api-key': brevoKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(){
+      // Store failed submission for retry
+      try {
+        var failed = JSON.parse(localStorage.getItem('karnot_failed_gate_submissions') || '[]');
+        failed.push({ email:email, fname:fname, company:company, phone:phone, role:role, ts:Date.now(), calculator:'pinch-analysis' });
+        localStorage.setItem('karnot_failed_gate_submissions', JSON.stringify(failed));
+      } catch(e){}
+    });
+  }
+
+  unlockPinchResults();
+}
+
+// Build the gate modal DOM
+(function buildGateModal(){
+  var overlay = document.createElement('div');
+  overlay.id = 'pa-gate-modal';
+  overlay.className = 'pa-gate-overlay';
+  overlay.innerHTML =
+    '<div class="pa-gate-box">' +
+      '<button type="button" class="pa-gate-close" id="pa-gate-close-btn" aria-label="Close">&times;</button>' +
+      '<img src="/img/logo.webp" alt="Karnot" style="height:32px;margin-bottom:16px">' +
+      '<h3>Your Full Pinch Analysis Report</h3>' +
+      '<p class="pa-gate-sub">Enter your details to unlock composite curves, grand composite curve, heat pump sizing, and full financial analysis.</p>' +
+      '<form class="pa-gate-form" id="pa-gate-form">' +
+        '<div class="pa-gate-err"></div>' +
+        '<div class="pa-gate-row">' +
+          '<div><label for="gate-fname">First Name *</label><input type="text" id="gate-fname" required placeholder="Stuart"></div>' +
+          '<div><label for="gate-email">Email *</label><input type="email" id="gate-email" required placeholder="you@company.com"></div>' +
+        '</div>' +
+        '<div class="pa-gate-row">' +
+          '<div><label for="gate-company">Company *</label><input type="text" id="gate-company" required placeholder="Acme Dairy"></div>' +
+          '<div><label for="gate-phone">Phone</label><input type="tel" id="gate-phone" placeholder="+63 912 345 6789"></div>' +
+        '</div>' +
+        '<label for="gate-role">Role</label>' +
+        '<select id="gate-role">' +
+          '<option value="">— Select —</option>' +
+          '<option>Energy Manager</option>' +
+          '<option>Facility Manager</option>' +
+          '<option>Engineer</option>' +
+          '<option>Owner</option>' +
+          '<option>Consultant</option>' +
+          '<option>Other</option>' +
+        '</select>' +
+        '<div class="pa-gate-consent">' +
+          '<input type="checkbox" id="gate-consent">' +
+          '<label for="gate-consent">I agree to receive occasional updates from Karnot Energy Solutions Inc. I can unsubscribe at any time.</label>' +
+        '</div>' +
+        '<p class="pa-gate-privacy">Your data is handled per our Privacy Policy. We never share your details with third parties.</p>' +
+        '<button type="submit" class="pa-gate-submit">Unlock My Full Report &rarr;</button>' +
+      '</form>' +
+      '<p class="pa-gate-secure">&#128274; Secure &middot; No spam &middot; Unsubscribe anytime</p>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  // Close button = gate dismissed
+  document.getElementById('pa-gate-close-btn').addEventListener('click', function(){
+    hideGateModal();
+    if(typeof gtag === 'function') gtag('event','gate_dismissed',{'calculator':'pinch-analysis'});
+  });
+
+  // Click outside box = gate dismissed
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay){
+      hideGateModal();
+      if(typeof gtag === 'function') gtag('event','gate_dismissed',{'calculator':'pinch-analysis'});
+    }
+  });
+
+  // Form submission
+  document.getElementById('pa-gate-form').addEventListener('submit', submitGateForm);
 })();
 
 })();
