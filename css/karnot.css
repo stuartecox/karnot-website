@@ -12,6 +12,10 @@ a:hover{opacity:.92}
 .skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);background:#F56600;color:#fff;padding:12px 24px;border-radius:0 0 8px 8px;font-weight:600;z-index:9999;text-decoration:none}
 .skip-link:focus{top:0}
 
+/* --- CLS PREVENTION — reserve space for dynamic nav/footer --- */
+#karnot-nav{min-height:64px}
+#karnot-footer{min-height:200px}
+
 /* --- SCROLL REVEAL --- */
 .rv{opacity:0;transform:translateY(35px);transition:opacity .7s ease,transform .7s ease}
 .rv.v{opacity:1;transform:translateY(0)}
