@@ -695,24 +695,24 @@ function buildIcoolData(s) {
     efficiency: useful,
     isIcool: true,
     nodes: [
-      {name: 'Electricity Input',       fixedValue: elec},
-      {name: 'Compressor Loss',         fixedValue: comp},
-      {name: 'Transcritical CO\u2082',  fixedValue: afterComp},
-      {name: 'FLX PCM Charge',          fixedValue: flx},
-      {name: 'Gas Cooler Loss',         fixedValue: gasCooler},
-      {name: 'Hot Water Recovery',       fixedValue: hotWater},
-      {name: 'Net Useful Cooling',       fixedValue: useful}
+      {name: 'Electricity Input',       fixedValue: elec},         // 0
+      {name: 'Compressor Loss',         fixedValue: comp},         // 1
+      {name: 'Transcritical CO\u2082',  fixedValue: afterComp},    // 2
+      {name: 'Net Useful Cooling',      fixedValue: useful},       // 3 — TOP (biggest green)
+      {name: 'Hot Water Recovery',      fixedValue: hotWater},     // 4 — FREE benefit
+      {name: 'FLX PCM Charge',         fixedValue: flx},          // 5 — FREE defrost
+      {name: 'Gas Cooler Loss',         fixedValue: gasCooler}     // 6 — BOTTOM (only loss)
     ],
     links: [
       {source: 0, target: 1, value: Math.max(comp,0.5)},
       {source: 0, target: 2, value: Math.max(afterComp,0.5)},
-      {source: 2, target: 3, value: Math.max(flx,0.5)},
-      {source: 2, target: 4, value: Math.max(gasCooler,0.5)},
-      {source: 2, target: 5, value: Math.max(hotWater,0.5)},
-      {source: 2, target: 6, value: Math.max(netCooling,0.5)}
+      {source: 2, target: 3, value: Math.max(netCooling,0.5)},
+      {source: 2, target: 4, value: Math.max(hotWater,0.5)},
+      {source: 2, target: 5, value: Math.max(flx,0.5)},
+      {source: 2, target: 6, value: Math.max(gasCooler,0.5)}
     ],
-    colors: [C.blue, C.red, C.teal, C.brightGreen, C.amber, C.brightGreen, C.green],
-    pulseLinks: [2] // FLX PCM Charge link index
+    colors: [C.blue, C.red, C.teal, C.green, C.brightGreen, C.brightGreen, C.amber],
+    pulseLinks: [4] // FLX PCM Charge link index (now link index 4)
   };
 }
 
